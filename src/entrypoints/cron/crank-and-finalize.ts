@@ -10,11 +10,6 @@ anchor.setProvider(provider);
 
 const indexerURL = process.env.INDEXER_URL;
 
-export const MarketsCranker: CronJob = {
-  cronExpression: "",
-  jobFunction: () => run(),
-};
-
 const run = async () => {
   const options = {
     url: indexerURL,
@@ -59,9 +54,7 @@ const run = async () => {
     });
 
     const inProgressProposalPublicKeys = proposals
-      .filter(
-        (p) => p.proposal_acct !== "" && new Date(p.ended_at) < new Date()
-      )
+      .filter((p) => p.proposal_acct !== "")
       .map(
         (proposal: { proposal_acct: string }) =>
           new PublicKey(proposal.proposal_acct)
@@ -76,10 +69,13 @@ const run = async () => {
           new PublicKey(proposal.proposal_acct)
       );
 
-    logger.log("Cranking proposal markets for pending proposals");
+    logger.log(
+      `cranking ${inProgressProposalPublicKeys.length} proposals, and finalizing ${shouldFinalizeProposalPublicKeys.length} proposals.`
+    );
 
     const amms = [];
     for (const proposal of inProgressProposalPublicKeys) {
+      logger.log("fetching proposal to crank:", proposal.toBase58());
       const storedProposal = await autocratClient.getProposal(proposal);
       amms.push(storedProposal.passAmm);
       amms.push(storedProposal.failAmm);
@@ -102,13 +98,19 @@ const run = async () => {
       })
     );
     tx.add(...ixs);
+    logger.log("sending crank txs");
     const res = await autocratClient.provider.sendAndConfirm(tx);
-    console.log("Cranking done:", res);
+    logger.log("Cranking done:", res);
 
     for (const proposal of shouldFinalizeProposalPublicKeys) {
       try {
         const res = await autocratClient.finalizeProposal(proposal);
-        console.log("proposal finalized:", res);
+        console.log(
+          "proposal finalized:",
+          proposal.toBase58(),
+          ". signature:",
+          res
+        );
       } catch (e) {
         logger.errorWithChatBotAlert(
           "failed to finalize proposal:",
@@ -120,4 +122,9 @@ const run = async () => {
   } catch (e) {
     logger.errorWithChatBotAlert("failed to crank proposal markets:", e);
   }
+};
+
+export const ProposalCrankAndFinalize: CronJob = {
+  cronExpression: "45 * * * * *",
+  jobFunction: run,
 };

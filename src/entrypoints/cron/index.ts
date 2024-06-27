@@ -1,5 +1,9 @@
-import { MarketsCranker } from './markets-cranker'
+import Cron from "croner";
+import { ProposalCrankAndFinalize } from "./crank-and-finalize";
 
-function runJobs() {
-    const do = new Cron(MarketsCranker.cronExpression, () => MarketsCranker.jobFunction());
+export function runJobs() {
+  new Cron(
+    ProposalCrankAndFinalize.cronExpression,
+    ProposalCrankAndFinalize.jobFunction
+  );
 }
