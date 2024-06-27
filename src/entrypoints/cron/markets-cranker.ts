@@ -1,12 +1,12 @@
 import { AutocratClient } from "@metadaoproject/futarchy";
-import { PublicKey } from "@solana/web3.js";
+import { ComputeBudgetProgram, PublicKey, Transaction } from "@solana/web3.js";
 import * as anchor from "@coral-xyz/anchor";
 import { createClient } from "../../graphql/__generated__";
 
 export const provider = anchor.AnchorProvider.env();
 anchor.setProvider(provider);
 
-const indexerURL = process.env.INDEXER_URL_;
+const indexerURL = process.env.INDEXER_URL;
 
 const run = async () => {
   const options = {
@@ -23,7 +23,7 @@ const run = async () => {
     "AMM5G2nxuKUwCLRYTW7qqEwuoqCtNSjtbipwEmm2g8bH"
   );
 
-  const newClient = new AutocratClient(
+  const autocratClient = new AutocratClient(
     provider,
     AUTOCRAT_PROGRAM_ID,
     CONDITIONAL_VAULT_PROGRAM_ID,
@@ -39,7 +39,6 @@ const run = async () => {
         __args: {
           where: {
             status: { _eq: "Pending" },
-            ended_at: { _gt: new Date().toISOString() },
           },
           order_by: [
             {
@@ -48,11 +47,23 @@ const run = async () => {
           ],
         },
         proposal_acct: true,
+        ended_at: true,
       },
     });
 
-    const proposalPublicKeys = proposals
-      .filter((p) => p.proposal_acct !== "")
+    const inProgressProposalPublicKeys = proposals
+      .filter(
+        (p) => p.proposal_acct !== "" && new Date(p.ended_at) < new Date()
+      )
+      .map(
+        (proposal: { proposal_acct: string }) =>
+          new PublicKey(proposal.proposal_acct)
+      );
+
+    const shouldFinalizeProposalPublicKeys = proposals
+      .filter(
+        (p) => p.proposal_acct !== "" && new Date(p.ended_at) < new Date()
+      )
       .map(
         (proposal: { proposal_acct: string }) =>
           new PublicKey(proposal.proposal_acct)
@@ -60,12 +71,37 @@ const run = async () => {
 
     console.log("Cranking proposal markets for pending proposals");
 
-    const crankTxn = await newClient.crankProposalMarkets(
-      proposalPublicKeys,
-      1_000
+    const amms = [];
+    for (const proposal of inProgressProposalPublicKeys) {
+      const storedProposal = await autocratClient.getProposal(proposal);
+      amms.push(storedProposal.passAmm);
+      amms.push(storedProposal.failAmm);
+    }
+    let ixs = [];
+    for (const amm of amms) {
+      ixs.push(
+        await autocratClient.ammClient.crankThatTwapIx(amm).instruction()
+      );
+    }
+    let tx = new Transaction();
+    tx.add(
+      ComputeBudgetProgram.setComputeUnitLimit({
+        units: 4_000 * ixs.length,
+      })
     );
-    console.log(crankTxn);
-    console.log("Cranking done");
+    tx.add(
+      ComputeBudgetProgram.setComputeUnitPrice({
+        microLamports: 1,
+      })
+    );
+    tx.add(...ixs);
+    const res = await autocratClient.provider.sendAndConfirm(tx);
+    console.log("Cranking done:", res);
+
+    for (const proposal of shouldFinalizeProposalPublicKeys) {
+      const res = await autocratClient.finalizeProposal(proposal);
+      console.log("proposal finalized:", res);
+    }
   } catch (e) {
     console.error(e);
   }
