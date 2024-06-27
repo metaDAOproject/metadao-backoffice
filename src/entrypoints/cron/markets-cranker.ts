@@ -2,11 +2,18 @@ import { AutocratClient } from "@metadaoproject/futarchy";
 import { ComputeBudgetProgram, PublicKey, Transaction } from "@solana/web3.js";
 import * as anchor from "@coral-xyz/anchor";
 import { createClient } from "../../graphql/__generated__";
+import { logger } from "../../utils/logger";
+import { CronJob } from "./cron";
 
 export const provider = anchor.AnchorProvider.env();
 anchor.setProvider(provider);
 
 const indexerURL = process.env.INDEXER_URL;
+
+export const MarketsCranker: CronJob = {
+  cronExpression: "",
+  jobFunction: () => run(),
+};
 
 const run = async () => {
   const options = {
@@ -32,7 +39,7 @@ const run = async () => {
   );
 
   try {
-    console.log("Querying proposals");
+    logger.log("Querying proposals");
 
     const { proposals } = await gqlClient.query({
       proposals: {
@@ -69,7 +76,7 @@ const run = async () => {
           new PublicKey(proposal.proposal_acct)
       );
 
-    console.log("Cranking proposal markets for pending proposals");
+    logger.log("Cranking proposal markets for pending proposals");
 
     const amms = [];
     for (const proposal of inProgressProposalPublicKeys) {
@@ -99,12 +106,18 @@ const run = async () => {
     console.log("Cranking done:", res);
 
     for (const proposal of shouldFinalizeProposalPublicKeys) {
-      const res = await autocratClient.finalizeProposal(proposal);
-      console.log("proposal finalized:", res);
+      try {
+        const res = await autocratClient.finalizeProposal(proposal);
+        console.log("proposal finalized:", res);
+      } catch (e) {
+        logger.errorWithChatBotAlert(
+          "failed to finalize proposal:",
+          proposal.toBase58(),
+          e
+        );
+      }
     }
   } catch (e) {
-    console.error(e);
+    logger.errorWithChatBotAlert("failed to crank proposal markets:", e);
   }
 };
-
-run();
