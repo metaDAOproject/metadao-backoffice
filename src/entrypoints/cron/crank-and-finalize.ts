@@ -1,11 +1,24 @@
 import { AutocratClient } from "@metadaoproject/futarchy";
-import { ComputeBudgetProgram, PublicKey, Transaction } from "@solana/web3.js";
+import {
+  ComputeBudgetProgram,
+  Connection,
+  Keypair,
+  PublicKey,
+  Transaction,
+} from "@solana/web3.js";
 import * as anchor from "@coral-xyz/anchor";
 import { createClient } from "../../graphql/__generated__";
 import { logger } from "../../utils/logger";
 import { CronJob } from "./cron";
 
-export const provider = anchor.AnchorProvider.env();
+const ANCHOR_PROVIDER_URL = process.env.ANCHOR_PROVIDER_URL ?? "";
+const SIGNER_SECRET = process.env.SIGNER_SECRET ?? "";
+const kp = Keypair.fromSecretKey(Uint8Array.from(JSON.parse(SIGNER_SECRET)));
+const wallet = new anchor.Wallet(kp);
+const connection = new Connection(ANCHOR_PROVIDER_URL);
+export const provider = new anchor.AnchorProvider(connection, wallet, {
+  commitment: "confirmed",
+});
 anchor.setProvider(provider);
 
 const indexerURL = process.env.INDEXER_URL;
