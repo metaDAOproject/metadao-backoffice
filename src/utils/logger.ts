@@ -39,6 +39,14 @@ export class Logger {
     console.info(this.formatData(data));
   }
 
+  infoWithChatBotAlert(...data: any[]): void {
+    const formattedData = this.formatData(data);
+    console.info(formattedData);
+    if (TELEGRAM_ALERT_CHAT_ID) {
+      this.chatBotApi.sendMessage(TELEGRAM_ALERT_CHAT_ID, formattedData);
+    }
+  }
+
   error(...data: any[]): void {
     console.error(this.formatData(data));
   }
