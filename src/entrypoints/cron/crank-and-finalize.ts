@@ -82,6 +82,9 @@ const run = async () => {
           new PublicKey(proposal.proposal_acct)
       );
 
+    // no proposals to crank so returning
+    if (inProgressProposalPublicKeys.length === 0) return;
+
     logger.log(
       `cranking ${inProgressProposalPublicKeys.length} proposals, and finalizing ${shouldFinalizeProposalPublicKeys.length} proposals.`
     );
