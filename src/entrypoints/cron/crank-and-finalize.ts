@@ -124,11 +124,20 @@ const run = async () => {
           ". signature:",
           res
         );
-      } catch (e) {
+      } catch (e: any) {
         logger.errorWithChatBotAlert(
           "failed to finalize proposal:",
           proposal.toBase58(),
-          e
+          e.message
+            ? {
+                message: e.message,
+                stack: e.stack,
+                name: e.name,
+                cause: e.cause,
+                fileName: e.fileName,
+                lineNumber: e.lineNumber,
+              }
+            : e
         );
       }
     }
