@@ -3,6 +3,7 @@ import { logger } from "../../utils/logger";
 
 export async function railwayUpdatesPost(req: Request, res: Response) {
   try {
+    console.log("[RAILWAY WEBHOOK] update:", req.body);
     const {
       environment: { name: environmentName },
       deployment: {
