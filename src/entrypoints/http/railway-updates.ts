@@ -4,15 +4,17 @@ import { logger } from "../../utils/logger";
 export async function railwayUpdatesPost(req: Request, res: Response) {
   try {
     const {
+      environment: { name: environmentName },
       deployment: {
-        creator: { deploymentCreatorName, deploymentCreatorAvatar },
-        environment: { environmentName },
+        creator: { name: creatorName, avatar },
       },
       status,
-      service: { serviceName },
+      service,
     } = req.body;
 
-    const telegramMessageBody = `Environment: ${environmentName.toUpperCase()}\nService: ${serviceName}\nNew Status: ${status}\nDeployment Creator: ${deploymentCreatorName}\nCreated by: ${deploymentCreatorAvatar}`;
+    const serviceName = service.name;
+
+    const telegramMessageBody = `Environment: ${environmentName.toUpperCase()}\nService: ${serviceName}\nNew Status: ${status}\nDeployment Creator: ${creatorName}\nCreated by: ${avatar}`;
 
     logger.infoWithChatBotAlert(telegramMessageBody);
 
