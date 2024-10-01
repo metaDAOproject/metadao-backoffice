@@ -31,7 +31,8 @@ export class TelegramBotAPI implements AlertChatBotInterface {
         response = await this.httpClient.post(endpoint, params);
       }
       return response.data;
-    } catch (error) {
+    } catch (error: any) {
+      console.log(error.response.data.description);
       throw new Error(`Failed to make request: ${error}`);
     }
   }
@@ -42,9 +43,18 @@ export class TelegramBotAPI implements AlertChatBotInterface {
 
   public async sendMessage(
     chatId: number | string,
-    text: string
+    text: string,
   ): Promise<ChatbotApiResponse<any>> {
     const params = { chat_id: chatId, text };
+    return this.request("POST", "sendMessage", params);
+  }
+
+  public async sendRichMessage(
+    chatId: number | string,
+    text: string,
+    parseMode?: string
+  ): Promise<ChatbotApiResponse<any>> {
+    const params = { chat_id: chatId, text, parse_mode: parseMode ?? ParseMode.HTML };
     return this.request("POST", "sendMessage", params);
   }
 
@@ -72,7 +82,12 @@ export interface AlertChatBotInterface {
   getMe(): Promise<ChatbotApiResponse<any>>;
   sendMessage(
     chatId: number | string,
-    text: string
+    text: string,
+  ): Promise<ChatbotApiResponse<any>>;
+  sendRichMessage(
+    chatId: number | string,
+    text: string,
+    parseMode?: string,
   ): Promise<ChatbotApiResponse<any>>;
   getUpdates(
     offset?: number,
@@ -80,4 +95,10 @@ export interface AlertChatBotInterface {
     timeout?: number,
     allowed_updates?: string[]
   ): Promise<ChatbotApiResponse<any>>;
+}
+
+export enum ParseMode {
+  MarkdownV2 = "MarkdownV2",
+  HTML = "HTML",
+  Markdown = "Markdown",
 }
