@@ -1,4 +1,4 @@
-import { AlertChatBotInterface, TelegramBotAPI } from "../adapters/telegram";
+import { AlertChatBotInterface, TelegramBotAPI, ParseMode } from "../adapters/telegram";
 
 const TELEGRAM_ALERT_CHAT_ID = process.env.TELEGRAM_ALERT_CHAT_ID ?? "";
 
@@ -56,6 +56,14 @@ export class Logger {
     console.error(formattedData);
     if (TELEGRAM_ALERT_CHAT_ID) {
       this.chatBotApi.sendMessage(TELEGRAM_ALERT_CHAT_ID, formattedData);
+    }
+  }
+
+  errorWithChatBotAlertRich(...data: any[]): void {
+    const formattedData = this.formatData(data);
+    console.error(formattedData);
+    if (TELEGRAM_ALERT_CHAT_ID) {
+      this.chatBotApi.sendRichMessage(TELEGRAM_ALERT_CHAT_ID, formattedData, ParseMode.MarkdownV2);
     }
   }
 
