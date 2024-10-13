@@ -23,11 +23,44 @@ anchor.setProvider(provider);
 
 const indexerURL = process.env.INDEXER_URL;
 
-const run = async () => {
+const BACKOFFICE_ENVIRONMENT = process.env.BACKOFFICE_ENVIRONMENT;
+
+const VERSION = 0.3; // NOTE: Hardcoded for now
+
+const fetchActiveProposalsByVersion = async (version: number) => {
   const options = {
     url: indexerURL,
   };
   const gqlClient = createClient(options);
+  
+  const { proposals } = await gqlClient.query({
+    proposals: {
+      __args: {
+        where: {
+          autocrat_version: {
+            _eq: version,
+          },
+          status: { _eq: "Pending" },
+        },
+        order_by: [
+          {
+            created_at: "desc",
+          },
+        ],
+      },
+      proposal_acct: true,
+      ended_at: true,
+      end_slot: true,
+      status: true,
+      dao_acct: true,
+    },
+  });
+
+  return proposals;
+}
+
+const run = async () => {
+
   const AUTOCRAT_PROGRAM_ID = new PublicKey(
     "autoQP9RmUNkzzKRXsMkWicDVZ3h29vvyMDcAYjCxxg"
   );
@@ -49,22 +82,7 @@ const run = async () => {
   try {
     logger.log("Querying proposals");
 
-    const { proposals } = await gqlClient.query({
-      proposals: {
-        __args: {
-          where: {
-            status: { _eq: "Pending" },
-          },
-          order_by: [
-            {
-              created_at: "desc",
-            },
-          ],
-        },
-        proposal_acct: true,
-        ended_at: true,
-      },
-    });
+    const proposals = await fetchActiveProposalsByVersion(VERSION);
 
     const inProgressProposalPublicKeys = proposals
       .filter((p) => p.proposal_acct !== "")
@@ -73,6 +91,7 @@ const run = async () => {
           new PublicKey(proposal.proposal_acct)
       );
 
+    // Fetches from our database based on date...
     const shouldFinalizeProposalPublicKeys = proposals
       .filter(
         (p) => p.proposal_acct !== "" && new Date(p.ended_at) < new Date()
@@ -81,10 +100,11 @@ const run = async () => {
         (proposal: { proposal_acct: string }) =>
           new PublicKey(proposal.proposal_acct)
       );
-
+    
     // no proposals to crank so returning
     if (inProgressProposalPublicKeys.length === 0) return;
 
+    // Crank the proposal...
     logger.log(
       `cranking ${inProgressProposalPublicKeys.length} proposals, and finalizing ${shouldFinalizeProposalPublicKeys.length} proposals.`
     );
@@ -118,10 +138,43 @@ const run = async () => {
     const res = await autocratClient.provider.sendAndConfirm(tx);
     logger.log("Cranking done:", res);
 
+    // Spot check for finalization..
+    if (shouldFinalizeProposalPublicKeys.length > 0) {
+      logger.log("We may have proposals to finalize");
+      let currentBlockHeight: number | null = null;
+      try {
+        currentBlockHeight = await provider.connection.getBlockHeight()
+        logger.log(`Current block height: ${currentBlockHeight}`);
+      } catch (e) {
+        logger.error("failed to get current block height:", e);
+        logger.log("still proceeding with finalization, not good, but worth it...");
+      }
+      if (currentBlockHeight) {
+        const couldFinalizeProposalPubKeys = proposals
+          .filter(
+          (p) => p.proposal_acct !== "" && p.end_slot <= currentBlockHeight
+        )
+        .map(
+          (proposal: { proposal_acct: string }) => new PublicKey(proposal.proposal_acct)
+        );
+  
+        if (couldFinalizeProposalPubKeys.length <= 0) {
+          logger.errorWithChatBotAlert(`${BACKOFFICE_ENVIRONMENT}: Our dates in the database are wrong, check logic and update this ASAP!`);
+          logger.log("Proposals we thought we could finalize based on date");
+          for (const proposal of shouldFinalizeProposalPublicKeys) {
+            logger.log("Account:", proposal.toBase58());
+          }
+          return;
+        }
+      }
+    }
+
+    // Finalize the proposal...
     for (const proposal of shouldFinalizeProposalPublicKeys) {
+      logger.log("finalizing proposal:", proposal.toBase58());
       try {
         const res = await autocratClient.finalizeProposal(proposal);
-        console.log(
+        logger.log(
           "proposal finalized:",
           proposal.toBase58(),
           ". signature:",
@@ -129,7 +182,7 @@ const run = async () => {
         );
       } catch (e: any) {
         logger.errorWithChatBotAlert(
-          "failed to finalize proposal:",
+          `${BACKOFFICE_ENVIRONMENT}: failed to finalize proposal:`,
           proposal.toBase58(),
           e.message
             ? {
