@@ -502,8 +502,13 @@ export interface dao_details {
     name: (Scalars['String'] | null)
     pass_token_image_url: (Scalars['String'] | null)
     slug: (Scalars['String'] | null)
+    socials: (Scalars['jsonb'] | null)
     token_image_url: (Scalars['String'] | null)
     url: (Scalars['String'] | null)
+    /** An array relationship */
+    v0_4_metric_decisions: v0_4_metric_decisions[]
+    /** An aggregate relationship */
+    v0_4_metric_decisions_aggregate: v0_4_metric_decisions_aggregate
     x_account: (Scalars['String'] | null)
     __typename: 'dao_details'
 }
@@ -594,7 +599,7 @@ export interface dao_details_mutation_response {
 
 
 /** select columns of table "dao_details" */
-export type dao_details_select_column = 'admin_accts' | 'creator_acct' | 'dao_id' | 'description' | 'fail_token_image_url' | 'github' | 'image_url' | 'is_hide' | 'lp_token_image_url' | 'name' | 'pass_token_image_url' | 'slug' | 'token_image_url' | 'url' | 'x_account'
+export type dao_details_select_column = 'admin_accts' | 'creator_acct' | 'dao_id' | 'description' | 'fail_token_image_url' | 'github' | 'image_url' | 'is_hide' | 'lp_token_image_url' | 'name' | 'pass_token_image_url' | 'slug' | 'socials' | 'token_image_url' | 'url' | 'x_account'
 
 
 /** aggregate stddev on columns */
@@ -626,7 +631,7 @@ export interface dao_details_sum_fields {
 
 
 /** update columns of table "dao_details" */
-export type dao_details_update_column = 'admin_accts' | 'creator_acct' | 'dao_id' | 'description' | 'fail_token_image_url' | 'github' | 'image_url' | 'is_hide' | 'lp_token_image_url' | 'name' | 'pass_token_image_url' | 'slug' | 'token_image_url' | 'url' | 'x_account'
+export type dao_details_update_column = 'admin_accts' | 'creator_acct' | 'dao_id' | 'description' | 'fail_token_image_url' | 'github' | 'image_url' | 'is_hide' | 'lp_token_image_url' | 'name' | 'pass_token_image_url' | 'slug' | 'socials' | 'token_image_url' | 'url' | 'x_account'
 
 
 /** aggregate var_pop on columns */
@@ -649,6 +654,14 @@ export interface dao_details_variance_fields {
     __typename: 'dao_details_variance_fields'
 }
 
+export interface dao_trader {
+    total_volume: (Scalars['bigint'] | null)
+    user_acct: Scalars['String']
+    __typename: 'dao_trader'
+}
+
+export type dao_trader_enum_name = 'total_volume' | 'user_acct'
+
 
 /** columns and relationships of "daos" */
 export interface daos {
@@ -658,6 +671,8 @@ export interface daos {
     /** An object relationship */
     dao_detail: (dao_details | null)
     dao_id: (Scalars['bigint'] | null)
+    min_base_futarchic_liquidity: (Scalars['bigint'] | null)
+    min_quote_futarchic_liquidity: (Scalars['bigint'] | null)
     pass_threshold_bps: (Scalars['bigint'] | null)
     /** An object relationship */
     program: programs
@@ -675,7 +690,13 @@ export interface daos {
     /** An object relationship */
     tokenByQuoteAcct: (tokens | null)
     treasury_acct: (Scalars['String'] | null)
+    twap_initial_observation: (Scalars['bigint'] | null)
+    twap_max_observation_change_per_update: (Scalars['bigint'] | null)
     updated_at: Scalars['timestamptz']
+    /** An array relationship */
+    user_performances: user_performance[]
+    /** An aggregate relationship */
+    user_performances_aggregate: user_performance_aggregate
     __typename: 'daos'
 }
 
@@ -708,8 +729,12 @@ export interface daos_aggregate_fields {
 /** aggregate avg on columns */
 export interface daos_avg_fields {
     dao_id: (Scalars['Float'] | null)
+    min_base_futarchic_liquidity: (Scalars['Float'] | null)
+    min_quote_futarchic_liquidity: (Scalars['Float'] | null)
     pass_threshold_bps: (Scalars['Float'] | null)
     slots_per_proposal: (Scalars['Float'] | null)
+    twap_initial_observation: (Scalars['Float'] | null)
+    twap_max_observation_change_per_update: (Scalars['Float'] | null)
     __typename: 'daos_avg_fields'
 }
 
@@ -724,11 +749,15 @@ export interface daos_max_fields {
     created_at: (Scalars['timestamptz'] | null)
     dao_acct: (Scalars['String'] | null)
     dao_id: (Scalars['bigint'] | null)
+    min_base_futarchic_liquidity: (Scalars['bigint'] | null)
+    min_quote_futarchic_liquidity: (Scalars['bigint'] | null)
     pass_threshold_bps: (Scalars['bigint'] | null)
     program_acct: (Scalars['String'] | null)
     quote_acct: (Scalars['String'] | null)
     slots_per_proposal: (Scalars['bigint'] | null)
     treasury_acct: (Scalars['String'] | null)
+    twap_initial_observation: (Scalars['bigint'] | null)
+    twap_max_observation_change_per_update: (Scalars['bigint'] | null)
     updated_at: (Scalars['timestamptz'] | null)
     __typename: 'daos_max_fields'
 }
@@ -740,11 +769,15 @@ export interface daos_min_fields {
     created_at: (Scalars['timestamptz'] | null)
     dao_acct: (Scalars['String'] | null)
     dao_id: (Scalars['bigint'] | null)
+    min_base_futarchic_liquidity: (Scalars['bigint'] | null)
+    min_quote_futarchic_liquidity: (Scalars['bigint'] | null)
     pass_threshold_bps: (Scalars['bigint'] | null)
     program_acct: (Scalars['String'] | null)
     quote_acct: (Scalars['String'] | null)
     slots_per_proposal: (Scalars['bigint'] | null)
     treasury_acct: (Scalars['String'] | null)
+    twap_initial_observation: (Scalars['bigint'] | null)
+    twap_max_observation_change_per_update: (Scalars['bigint'] | null)
     updated_at: (Scalars['timestamptz'] | null)
     __typename: 'daos_min_fields'
 }
@@ -761,14 +794,18 @@ export interface daos_mutation_response {
 
 
 /** select columns of table "daos" */
-export type daos_select_column = 'base_acct' | 'created_at' | 'dao_acct' | 'dao_id' | 'pass_threshold_bps' | 'program_acct' | 'quote_acct' | 'slots_per_proposal' | 'treasury_acct' | 'updated_at'
+export type daos_select_column = 'base_acct' | 'created_at' | 'dao_acct' | 'dao_id' | 'min_base_futarchic_liquidity' | 'min_quote_futarchic_liquidity' | 'pass_threshold_bps' | 'program_acct' | 'quote_acct' | 'slots_per_proposal' | 'treasury_acct' | 'twap_initial_observation' | 'twap_max_observation_change_per_update' | 'updated_at'
 
 
 /** aggregate stddev on columns */
 export interface daos_stddev_fields {
     dao_id: (Scalars['Float'] | null)
+    min_base_futarchic_liquidity: (Scalars['Float'] | null)
+    min_quote_futarchic_liquidity: (Scalars['Float'] | null)
     pass_threshold_bps: (Scalars['Float'] | null)
     slots_per_proposal: (Scalars['Float'] | null)
+    twap_initial_observation: (Scalars['Float'] | null)
+    twap_max_observation_change_per_update: (Scalars['Float'] | null)
     __typename: 'daos_stddev_fields'
 }
 
@@ -776,8 +813,12 @@ export interface daos_stddev_fields {
 /** aggregate stddev_pop on columns */
 export interface daos_stddev_pop_fields {
     dao_id: (Scalars['Float'] | null)
+    min_base_futarchic_liquidity: (Scalars['Float'] | null)
+    min_quote_futarchic_liquidity: (Scalars['Float'] | null)
     pass_threshold_bps: (Scalars['Float'] | null)
     slots_per_proposal: (Scalars['Float'] | null)
+    twap_initial_observation: (Scalars['Float'] | null)
+    twap_max_observation_change_per_update: (Scalars['Float'] | null)
     __typename: 'daos_stddev_pop_fields'
 }
 
@@ -785,8 +826,12 @@ export interface daos_stddev_pop_fields {
 /** aggregate stddev_samp on columns */
 export interface daos_stddev_samp_fields {
     dao_id: (Scalars['Float'] | null)
+    min_base_futarchic_liquidity: (Scalars['Float'] | null)
+    min_quote_futarchic_liquidity: (Scalars['Float'] | null)
     pass_threshold_bps: (Scalars['Float'] | null)
     slots_per_proposal: (Scalars['Float'] | null)
+    twap_initial_observation: (Scalars['Float'] | null)
+    twap_max_observation_change_per_update: (Scalars['Float'] | null)
     __typename: 'daos_stddev_samp_fields'
 }
 
@@ -794,21 +839,29 @@ export interface daos_stddev_samp_fields {
 /** aggregate sum on columns */
 export interface daos_sum_fields {
     dao_id: (Scalars['bigint'] | null)
+    min_base_futarchic_liquidity: (Scalars['bigint'] | null)
+    min_quote_futarchic_liquidity: (Scalars['bigint'] | null)
     pass_threshold_bps: (Scalars['bigint'] | null)
     slots_per_proposal: (Scalars['bigint'] | null)
+    twap_initial_observation: (Scalars['bigint'] | null)
+    twap_max_observation_change_per_update: (Scalars['bigint'] | null)
     __typename: 'daos_sum_fields'
 }
 
 
 /** update columns of table "daos" */
-export type daos_update_column = 'base_acct' | 'created_at' | 'dao_acct' | 'dao_id' | 'pass_threshold_bps' | 'program_acct' | 'quote_acct' | 'slots_per_proposal' | 'treasury_acct' | 'updated_at'
+export type daos_update_column = 'base_acct' | 'created_at' | 'dao_acct' | 'dao_id' | 'min_base_futarchic_liquidity' | 'min_quote_futarchic_liquidity' | 'pass_threshold_bps' | 'program_acct' | 'quote_acct' | 'slots_per_proposal' | 'treasury_acct' | 'twap_initial_observation' | 'twap_max_observation_change_per_update' | 'updated_at'
 
 
 /** aggregate var_pop on columns */
 export interface daos_var_pop_fields {
     dao_id: (Scalars['Float'] | null)
+    min_base_futarchic_liquidity: (Scalars['Float'] | null)
+    min_quote_futarchic_liquidity: (Scalars['Float'] | null)
     pass_threshold_bps: (Scalars['Float'] | null)
     slots_per_proposal: (Scalars['Float'] | null)
+    twap_initial_observation: (Scalars['Float'] | null)
+    twap_max_observation_change_per_update: (Scalars['Float'] | null)
     __typename: 'daos_var_pop_fields'
 }
 
@@ -816,8 +869,12 @@ export interface daos_var_pop_fields {
 /** aggregate var_samp on columns */
 export interface daos_var_samp_fields {
     dao_id: (Scalars['Float'] | null)
+    min_base_futarchic_liquidity: (Scalars['Float'] | null)
+    min_quote_futarchic_liquidity: (Scalars['Float'] | null)
     pass_threshold_bps: (Scalars['Float'] | null)
     slots_per_proposal: (Scalars['Float'] | null)
+    twap_initial_observation: (Scalars['Float'] | null)
+    twap_max_observation_change_per_update: (Scalars['Float'] | null)
     __typename: 'daos_var_samp_fields'
 }
 
@@ -825,8 +882,12 @@ export interface daos_var_samp_fields {
 /** aggregate variance on columns */
 export interface daos_variance_fields {
     dao_id: (Scalars['Float'] | null)
+    min_base_futarchic_liquidity: (Scalars['Float'] | null)
+    min_quote_futarchic_liquidity: (Scalars['Float'] | null)
     pass_threshold_bps: (Scalars['Float'] | null)
     slots_per_proposal: (Scalars['Float'] | null)
+    twap_initial_observation: (Scalars['Float'] | null)
+    twap_max_observation_change_per_update: (Scalars['Float'] | null)
     __typename: 'daos_variance_fields'
 }
 
@@ -1539,6 +1600,8 @@ export interface mutation_root {
     delete_prices: (prices_mutation_response | null)
     /** delete single row from the table: "prices" */
     delete_prices_by_pk: (prices | null)
+    /** delete data from the table: "prices_chart_data" */
+    delete_prices_chart_data: (prices_chart_data_mutation_response | null)
     /** delete data from the table: "program_system" */
     delete_program_system: (program_system_mutation_response | null)
     /** delete single row from the table: "program_system" */
@@ -1567,6 +1630,14 @@ export interface mutation_root {
     delete_sessions: (sessions_mutation_response | null)
     /** delete single row from the table: "sessions" */
     delete_sessions_by_pk: (sessions | null)
+    /** delete data from the table: "signature_accounts" */
+    delete_signature_accounts: (signature_accounts_mutation_response | null)
+    /** delete single row from the table: "signature_accounts" */
+    delete_signature_accounts_by_pk: (signature_accounts | null)
+    /** delete data from the table: "signatures" */
+    delete_signatures: (signatures_mutation_response | null)
+    /** delete single row from the table: "signatures" */
+    delete_signatures_by_pk: (signatures | null)
     /** delete data from the table: "takes" */
     delete_takes: (takes_mutation_response | null)
     /** delete single row from the table: "takes" */
@@ -1595,14 +1666,50 @@ export interface mutation_root {
     delete_transactions: (transactions_mutation_response | null)
     /** delete single row from the table: "transactions" */
     delete_transactions_by_pk: (transactions | null)
+    /** delete data from the table: "twap_chart_data" */
+    delete_twap_chart_data: (twap_chart_data_mutation_response | null)
     /** delete data from the table: "twaps" */
     delete_twaps: (twaps_mutation_response | null)
     /** delete single row from the table: "twaps" */
     delete_twaps_by_pk: (twaps | null)
+    /** delete data from the table: "user_deposits" */
+    delete_user_deposits: (user_deposits_mutation_response | null)
+    /** delete data from the table: "user_performance" */
+    delete_user_performance: (user_performance_mutation_response | null)
+    /** delete single row from the table: "user_performance" */
+    delete_user_performance_by_pk: (user_performance | null)
     /** delete data from the table: "users" */
     delete_users: (users_mutation_response | null)
     /** delete single row from the table: "users" */
     delete_users_by_pk: (users | null)
+    /** delete data from the table: "v0_4_amms" */
+    delete_v0_4_amms: (v0_4_amms_mutation_response | null)
+    /** delete single row from the table: "v0_4_amms" */
+    delete_v0_4_amms_by_pk: (v0_4_amms | null)
+    /** delete data from the table: "v0_4_conditional_vaults" */
+    delete_v0_4_conditional_vaults: (v0_4_conditional_vaults_mutation_response | null)
+    /** delete single row from the table: "v0_4_conditional_vaults" */
+    delete_v0_4_conditional_vaults_by_pk: (v0_4_conditional_vaults | null)
+    /** delete data from the table: "v0_4_merges" */
+    delete_v0_4_merges: (v0_4_merges_mutation_response | null)
+    /** delete single row from the table: "v0_4_merges" */
+    delete_v0_4_merges_by_pk: (v0_4_merges | null)
+    /** delete data from the table: "v0_4_metric_decisions" */
+    delete_v0_4_metric_decisions: (v0_4_metric_decisions_mutation_response | null)
+    /** delete single row from the table: "v0_4_metric_decisions" */
+    delete_v0_4_metric_decisions_by_pk: (v0_4_metric_decisions | null)
+    /** delete data from the table: "v0_4_questions" */
+    delete_v0_4_questions: (v0_4_questions_mutation_response | null)
+    /** delete single row from the table: "v0_4_questions" */
+    delete_v0_4_questions_by_pk: (v0_4_questions | null)
+    /** delete data from the table: "v0_4_splits" */
+    delete_v0_4_splits: (v0_4_splits_mutation_response | null)
+    /** delete single row from the table: "v0_4_splits" */
+    delete_v0_4_splits_by_pk: (v0_4_splits | null)
+    /** delete data from the table: "v0_4_swaps" */
+    delete_v0_4_swaps: (v0_4_swaps_mutation_response | null)
+    /** delete single row from the table: "v0_4_swaps" */
+    delete_v0_4_swaps_by_pk: (v0_4_swaps | null)
     /** insert data into the table: "candles" */
     insert_candles: (candles_mutation_response | null)
     /** insert a single row into the table: "candles" */
@@ -1645,6 +1752,10 @@ export interface mutation_root {
     insert_orders_one: (orders | null)
     /** insert data into the table: "prices" */
     insert_prices: (prices_mutation_response | null)
+    /** insert data into the table: "prices_chart_data" */
+    insert_prices_chart_data: (prices_chart_data_mutation_response | null)
+    /** insert a single row into the table: "prices_chart_data" */
+    insert_prices_chart_data_one: (prices_chart_data | null)
     /** insert a single row into the table: "prices" */
     insert_prices_one: (prices | null)
     /** insert data into the table: "program_system" */
@@ -1675,6 +1786,14 @@ export interface mutation_root {
     insert_sessions: (sessions_mutation_response | null)
     /** insert a single row into the table: "sessions" */
     insert_sessions_one: (sessions | null)
+    /** insert data into the table: "signature_accounts" */
+    insert_signature_accounts: (signature_accounts_mutation_response | null)
+    /** insert a single row into the table: "signature_accounts" */
+    insert_signature_accounts_one: (signature_accounts | null)
+    /** insert data into the table: "signatures" */
+    insert_signatures: (signatures_mutation_response | null)
+    /** insert a single row into the table: "signatures" */
+    insert_signatures_one: (signatures | null)
     /** insert data into the table: "takes" */
     insert_takes: (takes_mutation_response | null)
     /** insert a single row into the table: "takes" */
@@ -1703,14 +1822,54 @@ export interface mutation_root {
     insert_transactions: (transactions_mutation_response | null)
     /** insert a single row into the table: "transactions" */
     insert_transactions_one: (transactions | null)
+    /** insert data into the table: "twap_chart_data" */
+    insert_twap_chart_data: (twap_chart_data_mutation_response | null)
+    /** insert a single row into the table: "twap_chart_data" */
+    insert_twap_chart_data_one: (twap_chart_data | null)
     /** insert data into the table: "twaps" */
     insert_twaps: (twaps_mutation_response | null)
     /** insert a single row into the table: "twaps" */
     insert_twaps_one: (twaps | null)
+    /** insert data into the table: "user_deposits" */
+    insert_user_deposits: (user_deposits_mutation_response | null)
+    /** insert a single row into the table: "user_deposits" */
+    insert_user_deposits_one: (user_deposits | null)
+    /** insert data into the table: "user_performance" */
+    insert_user_performance: (user_performance_mutation_response | null)
+    /** insert a single row into the table: "user_performance" */
+    insert_user_performance_one: (user_performance | null)
     /** insert data into the table: "users" */
     insert_users: (users_mutation_response | null)
     /** insert a single row into the table: "users" */
     insert_users_one: (users | null)
+    /** insert data into the table: "v0_4_amms" */
+    insert_v0_4_amms: (v0_4_amms_mutation_response | null)
+    /** insert a single row into the table: "v0_4_amms" */
+    insert_v0_4_amms_one: (v0_4_amms | null)
+    /** insert data into the table: "v0_4_conditional_vaults" */
+    insert_v0_4_conditional_vaults: (v0_4_conditional_vaults_mutation_response | null)
+    /** insert a single row into the table: "v0_4_conditional_vaults" */
+    insert_v0_4_conditional_vaults_one: (v0_4_conditional_vaults | null)
+    /** insert data into the table: "v0_4_merges" */
+    insert_v0_4_merges: (v0_4_merges_mutation_response | null)
+    /** insert a single row into the table: "v0_4_merges" */
+    insert_v0_4_merges_one: (v0_4_merges | null)
+    /** insert data into the table: "v0_4_metric_decisions" */
+    insert_v0_4_metric_decisions: (v0_4_metric_decisions_mutation_response | null)
+    /** insert a single row into the table: "v0_4_metric_decisions" */
+    insert_v0_4_metric_decisions_one: (v0_4_metric_decisions | null)
+    /** insert data into the table: "v0_4_questions" */
+    insert_v0_4_questions: (v0_4_questions_mutation_response | null)
+    /** insert a single row into the table: "v0_4_questions" */
+    insert_v0_4_questions_one: (v0_4_questions | null)
+    /** insert data into the table: "v0_4_splits" */
+    insert_v0_4_splits: (v0_4_splits_mutation_response | null)
+    /** insert a single row into the table: "v0_4_splits" */
+    insert_v0_4_splits_one: (v0_4_splits | null)
+    /** insert data into the table: "v0_4_swaps" */
+    insert_v0_4_swaps: (v0_4_swaps_mutation_response | null)
+    /** insert a single row into the table: "v0_4_swaps" */
+    insert_v0_4_swaps_one: (v0_4_swaps | null)
     /** update data of the table: "candles" */
     update_candles: (candles_mutation_response | null)
     /** update single row of the table: "candles" */
@@ -1775,6 +1934,10 @@ export interface mutation_root {
     update_prices: (prices_mutation_response | null)
     /** update single row of the table: "prices" */
     update_prices_by_pk: (prices | null)
+    /** update data of the table: "prices_chart_data" */
+    update_prices_chart_data: (prices_chart_data_mutation_response | null)
+    /** update multiples rows of table: "prices_chart_data" */
+    update_prices_chart_data_many: ((prices_chart_data_mutation_response | null)[] | null)
     /** update multiples rows of table: "prices" */
     update_prices_many: ((prices_mutation_response | null)[] | null)
     /** update data of the table: "program_system" */
@@ -1819,6 +1982,18 @@ export interface mutation_root {
     update_sessions_by_pk: (sessions | null)
     /** update multiples rows of table: "sessions" */
     update_sessions_many: ((sessions_mutation_response | null)[] | null)
+    /** update data of the table: "signature_accounts" */
+    update_signature_accounts: (signature_accounts_mutation_response | null)
+    /** update single row of the table: "signature_accounts" */
+    update_signature_accounts_by_pk: (signature_accounts | null)
+    /** update multiples rows of table: "signature_accounts" */
+    update_signature_accounts_many: ((signature_accounts_mutation_response | null)[] | null)
+    /** update data of the table: "signatures" */
+    update_signatures: (signatures_mutation_response | null)
+    /** update single row of the table: "signatures" */
+    update_signatures_by_pk: (signatures | null)
+    /** update multiples rows of table: "signatures" */
+    update_signatures_many: ((signatures_mutation_response | null)[] | null)
     /** update data of the table: "takes" */
     update_takes: (takes_mutation_response | null)
     /** update single row of the table: "takes" */
@@ -1861,18 +2036,74 @@ export interface mutation_root {
     update_transactions_by_pk: (transactions | null)
     /** update multiples rows of table: "transactions" */
     update_transactions_many: ((transactions_mutation_response | null)[] | null)
+    /** update data of the table: "twap_chart_data" */
+    update_twap_chart_data: (twap_chart_data_mutation_response | null)
+    /** update multiples rows of table: "twap_chart_data" */
+    update_twap_chart_data_many: ((twap_chart_data_mutation_response | null)[] | null)
     /** update data of the table: "twaps" */
     update_twaps: (twaps_mutation_response | null)
     /** update single row of the table: "twaps" */
     update_twaps_by_pk: (twaps | null)
     /** update multiples rows of table: "twaps" */
     update_twaps_many: ((twaps_mutation_response | null)[] | null)
+    /** update data of the table: "user_deposits" */
+    update_user_deposits: (user_deposits_mutation_response | null)
+    /** update multiples rows of table: "user_deposits" */
+    update_user_deposits_many: ((user_deposits_mutation_response | null)[] | null)
+    /** update data of the table: "user_performance" */
+    update_user_performance: (user_performance_mutation_response | null)
+    /** update single row of the table: "user_performance" */
+    update_user_performance_by_pk: (user_performance | null)
+    /** update multiples rows of table: "user_performance" */
+    update_user_performance_many: ((user_performance_mutation_response | null)[] | null)
     /** update data of the table: "users" */
     update_users: (users_mutation_response | null)
     /** update single row of the table: "users" */
     update_users_by_pk: (users | null)
     /** update multiples rows of table: "users" */
     update_users_many: ((users_mutation_response | null)[] | null)
+    /** update data of the table: "v0_4_amms" */
+    update_v0_4_amms: (v0_4_amms_mutation_response | null)
+    /** update single row of the table: "v0_4_amms" */
+    update_v0_4_amms_by_pk: (v0_4_amms | null)
+    /** update multiples rows of table: "v0_4_amms" */
+    update_v0_4_amms_many: ((v0_4_amms_mutation_response | null)[] | null)
+    /** update data of the table: "v0_4_conditional_vaults" */
+    update_v0_4_conditional_vaults: (v0_4_conditional_vaults_mutation_response | null)
+    /** update single row of the table: "v0_4_conditional_vaults" */
+    update_v0_4_conditional_vaults_by_pk: (v0_4_conditional_vaults | null)
+    /** update multiples rows of table: "v0_4_conditional_vaults" */
+    update_v0_4_conditional_vaults_many: ((v0_4_conditional_vaults_mutation_response | null)[] | null)
+    /** update data of the table: "v0_4_merges" */
+    update_v0_4_merges: (v0_4_merges_mutation_response | null)
+    /** update single row of the table: "v0_4_merges" */
+    update_v0_4_merges_by_pk: (v0_4_merges | null)
+    /** update multiples rows of table: "v0_4_merges" */
+    update_v0_4_merges_many: ((v0_4_merges_mutation_response | null)[] | null)
+    /** update data of the table: "v0_4_metric_decisions" */
+    update_v0_4_metric_decisions: (v0_4_metric_decisions_mutation_response | null)
+    /** update single row of the table: "v0_4_metric_decisions" */
+    update_v0_4_metric_decisions_by_pk: (v0_4_metric_decisions | null)
+    /** update multiples rows of table: "v0_4_metric_decisions" */
+    update_v0_4_metric_decisions_many: ((v0_4_metric_decisions_mutation_response | null)[] | null)
+    /** update data of the table: "v0_4_questions" */
+    update_v0_4_questions: (v0_4_questions_mutation_response | null)
+    /** update single row of the table: "v0_4_questions" */
+    update_v0_4_questions_by_pk: (v0_4_questions | null)
+    /** update multiples rows of table: "v0_4_questions" */
+    update_v0_4_questions_many: ((v0_4_questions_mutation_response | null)[] | null)
+    /** update data of the table: "v0_4_splits" */
+    update_v0_4_splits: (v0_4_splits_mutation_response | null)
+    /** update single row of the table: "v0_4_splits" */
+    update_v0_4_splits_by_pk: (v0_4_splits | null)
+    /** update multiples rows of table: "v0_4_splits" */
+    update_v0_4_splits_many: ((v0_4_splits_mutation_response | null)[] | null)
+    /** update data of the table: "v0_4_swaps" */
+    update_v0_4_swaps: (v0_4_swaps_mutation_response | null)
+    /** update single row of the table: "v0_4_swaps" */
+    update_v0_4_swaps_by_pk: (v0_4_swaps | null)
+    /** update multiples rows of table: "v0_4_swaps" */
+    update_v0_4_swaps_many: ((v0_4_swaps_mutation_response | null)[] | null)
     __typename: 'mutation_root'
 }
 
@@ -1905,6 +2136,8 @@ export interface orders {
     transaction: (transactions | null)
     unfilled_base_amount: Scalars['bigint']
     updated_at: Scalars['timestamptz']
+    /** An object relationship */
+    user: (users | null)
     __typename: 'orders'
 }
 
@@ -2189,6 +2422,10 @@ export interface prices_chart_data_avg_fields {
 }
 
 
+/** unique or primary key constraints on table "prices_chart_data" */
+export type prices_chart_data_constraint = 'idx_price_acct_interv'
+
+
 /** aggregate max on columns */
 export interface prices_chart_data_max_fields {
     base_amount: (Scalars['bigint'] | null)
@@ -2210,6 +2447,16 @@ export interface prices_chart_data_min_fields {
     prices_type: (Scalars['String'] | null)
     quote_amount: (Scalars['bigint'] | null)
     __typename: 'prices_chart_data_min_fields'
+}
+
+
+/** response of any mutation on the table "prices_chart_data" */
+export interface prices_chart_data_mutation_response {
+    /** number of rows affected by the mutation */
+    affected_rows: Scalars['Int']
+    /** data from the rows affected by the mutation */
+    returning: prices_chart_data[]
+    __typename: 'prices_chart_data_mutation_response'
 }
 
 
@@ -2253,6 +2500,10 @@ export interface prices_chart_data_sum_fields {
 }
 
 
+/** update columns of table "prices_chart_data" */
+export type prices_chart_data_update_column = 'base_amount' | 'interv' | 'market_acct' | 'price' | 'prices_type' | 'quote_amount'
+
+
 /** aggregate var_pop on columns */
 export interface prices_chart_data_var_pop_fields {
     base_amount: (Scalars['Float'] | null)
@@ -2281,7 +2532,7 @@ export interface prices_chart_data_variance_fields {
 
 
 /** unique or primary key constraints on table "prices" */
-export type prices_constraint = 'prices_created_at_market_acct_pk'
+export type prices_constraint = 'prices2_pkey'
 
 
 /** aggregate max on columns */
@@ -2791,7 +3042,7 @@ export interface proposal_bars_avg_fields {
 
 
 /** unique or primary key constraints on table "proposal_bars" */
-export type proposal_bars_constraint = 'proposal_bars_pkey'
+export type proposal_bars_constraint = 'pg_table_pkey'
 
 
 /** aggregate max on columns */
@@ -3084,6 +3335,15 @@ export interface proposal_details_variance_fields {
     __typename: 'proposal_details_variance_fields'
 }
 
+export interface proposal_statistics {
+    proposal_acct: Scalars['String']
+    trade_count: (Scalars['numeric'] | null)
+    user_count: (Scalars['bigint'] | null)
+    __typename: 'proposal_statistics'
+}
+
+export type proposal_statistics_enum_name = 'proposal_acct' | 'trade_count' | 'user_count'
+
 
 /** columns and relationships of "proposal_total_trade_volume" */
 export interface proposal_total_trade_volume {
@@ -3235,6 +3495,7 @@ export interface proposals {
     dao: daos
     dao_acct: Scalars['String']
     description_url: (Scalars['String'] | null)
+    duration_in_slots: (Scalars['bigint'] | null)
     end_slot: (Scalars['bigint'] | null)
     ended_at: (Scalars['timestamptz'] | null)
     fail_market_acct: (Scalars['String'] | null)
@@ -3243,7 +3504,10 @@ export interface proposals {
     markets: markets[]
     /** An aggregate relationship */
     markets_aggregate: markets_aggregate
+    min_base_futarchic_liquidity: (Scalars['bigint'] | null)
+    min_quote_futarchic_liquidity: (Scalars['bigint'] | null)
     pass_market_acct: (Scalars['String'] | null)
+    pass_threshold_bps: (Scalars['bigint'] | null)
     pricing_model_fail_acct: (Scalars['String'] | null)
     pricing_model_pass_acct: (Scalars['String'] | null)
     proposal_acct: Scalars['String']
@@ -3259,11 +3523,17 @@ export interface proposals {
     /** An aggregate relationship */
     reactions_aggregate: reactions_aggregate
     status: Scalars['String']
+    twap_initial_observation: (Scalars['bigint'] | null)
+    twap_max_observation_change_per_update: (Scalars['bigint'] | null)
     /** An array relationship */
     twaps: twaps[]
     /** An aggregate relationship */
     twaps_aggregate: twaps_aggregate
     updated_at: Scalars['timestamptz']
+    /** An array relationship */
+    user_performances: user_performance[]
+    /** An aggregate relationship */
+    user_performances_aggregate: user_performance_aggregate
     __typename: 'proposals'
 }
 
@@ -3296,9 +3566,15 @@ export interface proposals_aggregate_fields {
 /** aggregate avg on columns */
 export interface proposals_avg_fields {
     autocrat_version: (Scalars['Float'] | null)
+    duration_in_slots: (Scalars['Float'] | null)
     end_slot: (Scalars['Float'] | null)
     initial_slot: (Scalars['Float'] | null)
+    min_base_futarchic_liquidity: (Scalars['Float'] | null)
+    min_quote_futarchic_liquidity: (Scalars['Float'] | null)
+    pass_threshold_bps: (Scalars['Float'] | null)
     proposal_num: (Scalars['Float'] | null)
+    twap_initial_observation: (Scalars['Float'] | null)
+    twap_max_observation_change_per_update: (Scalars['Float'] | null)
     __typename: 'proposals_avg_fields'
 }
 
@@ -3315,11 +3591,15 @@ export interface proposals_max_fields {
     created_at: (Scalars['timestamptz'] | null)
     dao_acct: (Scalars['String'] | null)
     description_url: (Scalars['String'] | null)
+    duration_in_slots: (Scalars['bigint'] | null)
     end_slot: (Scalars['bigint'] | null)
     ended_at: (Scalars['timestamptz'] | null)
     fail_market_acct: (Scalars['String'] | null)
     initial_slot: (Scalars['bigint'] | null)
+    min_base_futarchic_liquidity: (Scalars['bigint'] | null)
+    min_quote_futarchic_liquidity: (Scalars['bigint'] | null)
     pass_market_acct: (Scalars['String'] | null)
+    pass_threshold_bps: (Scalars['bigint'] | null)
     pricing_model_fail_acct: (Scalars['String'] | null)
     pricing_model_pass_acct: (Scalars['String'] | null)
     proposal_acct: (Scalars['String'] | null)
@@ -3327,6 +3607,8 @@ export interface proposals_max_fields {
     proposer_acct: (Scalars['String'] | null)
     quote_vault: (Scalars['String'] | null)
     status: (Scalars['String'] | null)
+    twap_initial_observation: (Scalars['bigint'] | null)
+    twap_max_observation_change_per_update: (Scalars['bigint'] | null)
     updated_at: (Scalars['timestamptz'] | null)
     __typename: 'proposals_max_fields'
 }
@@ -3340,11 +3622,15 @@ export interface proposals_min_fields {
     created_at: (Scalars['timestamptz'] | null)
     dao_acct: (Scalars['String'] | null)
     description_url: (Scalars['String'] | null)
+    duration_in_slots: (Scalars['bigint'] | null)
     end_slot: (Scalars['bigint'] | null)
     ended_at: (Scalars['timestamptz'] | null)
     fail_market_acct: (Scalars['String'] | null)
     initial_slot: (Scalars['bigint'] | null)
+    min_base_futarchic_liquidity: (Scalars['bigint'] | null)
+    min_quote_futarchic_liquidity: (Scalars['bigint'] | null)
     pass_market_acct: (Scalars['String'] | null)
+    pass_threshold_bps: (Scalars['bigint'] | null)
     pricing_model_fail_acct: (Scalars['String'] | null)
     pricing_model_pass_acct: (Scalars['String'] | null)
     proposal_acct: (Scalars['String'] | null)
@@ -3352,6 +3638,8 @@ export interface proposals_min_fields {
     proposer_acct: (Scalars['String'] | null)
     quote_vault: (Scalars['String'] | null)
     status: (Scalars['String'] | null)
+    twap_initial_observation: (Scalars['bigint'] | null)
+    twap_max_observation_change_per_update: (Scalars['bigint'] | null)
     updated_at: (Scalars['timestamptz'] | null)
     __typename: 'proposals_min_fields'
 }
@@ -3368,7 +3656,7 @@ export interface proposals_mutation_response {
 
 
 /** select columns of table "proposals" */
-export type proposals_select_column = 'autocrat_version' | 'base_vault' | 'completed_at' | 'created_at' | 'dao_acct' | 'description_url' | 'end_slot' | 'ended_at' | 'fail_market_acct' | 'initial_slot' | 'pass_market_acct' | 'pricing_model_fail_acct' | 'pricing_model_pass_acct' | 'proposal_acct' | 'proposal_num' | 'proposer_acct' | 'quote_vault' | 'status' | 'updated_at'
+export type proposals_select_column = 'autocrat_version' | 'base_vault' | 'completed_at' | 'created_at' | 'dao_acct' | 'description_url' | 'duration_in_slots' | 'end_slot' | 'ended_at' | 'fail_market_acct' | 'initial_slot' | 'min_base_futarchic_liquidity' | 'min_quote_futarchic_liquidity' | 'pass_market_acct' | 'pass_threshold_bps' | 'pricing_model_fail_acct' | 'pricing_model_pass_acct' | 'proposal_acct' | 'proposal_num' | 'proposer_acct' | 'quote_vault' | 'status' | 'twap_initial_observation' | 'twap_max_observation_change_per_update' | 'updated_at'
 
 
 /** select "proposals_aggregate_bool_exp_avg_arguments_columns" columns of table "proposals" */
@@ -3406,9 +3694,15 @@ export type proposals_select_column_proposals_aggregate_bool_exp_var_samp_argume
 /** aggregate stddev on columns */
 export interface proposals_stddev_fields {
     autocrat_version: (Scalars['Float'] | null)
+    duration_in_slots: (Scalars['Float'] | null)
     end_slot: (Scalars['Float'] | null)
     initial_slot: (Scalars['Float'] | null)
+    min_base_futarchic_liquidity: (Scalars['Float'] | null)
+    min_quote_futarchic_liquidity: (Scalars['Float'] | null)
+    pass_threshold_bps: (Scalars['Float'] | null)
     proposal_num: (Scalars['Float'] | null)
+    twap_initial_observation: (Scalars['Float'] | null)
+    twap_max_observation_change_per_update: (Scalars['Float'] | null)
     __typename: 'proposals_stddev_fields'
 }
 
@@ -3416,9 +3710,15 @@ export interface proposals_stddev_fields {
 /** aggregate stddev_pop on columns */
 export interface proposals_stddev_pop_fields {
     autocrat_version: (Scalars['Float'] | null)
+    duration_in_slots: (Scalars['Float'] | null)
     end_slot: (Scalars['Float'] | null)
     initial_slot: (Scalars['Float'] | null)
+    min_base_futarchic_liquidity: (Scalars['Float'] | null)
+    min_quote_futarchic_liquidity: (Scalars['Float'] | null)
+    pass_threshold_bps: (Scalars['Float'] | null)
     proposal_num: (Scalars['Float'] | null)
+    twap_initial_observation: (Scalars['Float'] | null)
+    twap_max_observation_change_per_update: (Scalars['Float'] | null)
     __typename: 'proposals_stddev_pop_fields'
 }
 
@@ -3426,9 +3726,15 @@ export interface proposals_stddev_pop_fields {
 /** aggregate stddev_samp on columns */
 export interface proposals_stddev_samp_fields {
     autocrat_version: (Scalars['Float'] | null)
+    duration_in_slots: (Scalars['Float'] | null)
     end_slot: (Scalars['Float'] | null)
     initial_slot: (Scalars['Float'] | null)
+    min_base_futarchic_liquidity: (Scalars['Float'] | null)
+    min_quote_futarchic_liquidity: (Scalars['Float'] | null)
+    pass_threshold_bps: (Scalars['Float'] | null)
     proposal_num: (Scalars['Float'] | null)
+    twap_initial_observation: (Scalars['Float'] | null)
+    twap_max_observation_change_per_update: (Scalars['Float'] | null)
     __typename: 'proposals_stddev_samp_fields'
 }
 
@@ -3436,23 +3742,35 @@ export interface proposals_stddev_samp_fields {
 /** aggregate sum on columns */
 export interface proposals_sum_fields {
     autocrat_version: (Scalars['float8'] | null)
+    duration_in_slots: (Scalars['bigint'] | null)
     end_slot: (Scalars['bigint'] | null)
     initial_slot: (Scalars['bigint'] | null)
+    min_base_futarchic_liquidity: (Scalars['bigint'] | null)
+    min_quote_futarchic_liquidity: (Scalars['bigint'] | null)
+    pass_threshold_bps: (Scalars['bigint'] | null)
     proposal_num: (Scalars['bigint'] | null)
+    twap_initial_observation: (Scalars['bigint'] | null)
+    twap_max_observation_change_per_update: (Scalars['bigint'] | null)
     __typename: 'proposals_sum_fields'
 }
 
 
 /** update columns of table "proposals" */
-export type proposals_update_column = 'autocrat_version' | 'base_vault' | 'completed_at' | 'created_at' | 'dao_acct' | 'description_url' | 'end_slot' | 'ended_at' | 'fail_market_acct' | 'initial_slot' | 'pass_market_acct' | 'pricing_model_fail_acct' | 'pricing_model_pass_acct' | 'proposal_acct' | 'proposal_num' | 'proposer_acct' | 'quote_vault' | 'status' | 'updated_at'
+export type proposals_update_column = 'autocrat_version' | 'base_vault' | 'completed_at' | 'created_at' | 'dao_acct' | 'description_url' | 'duration_in_slots' | 'end_slot' | 'ended_at' | 'fail_market_acct' | 'initial_slot' | 'min_base_futarchic_liquidity' | 'min_quote_futarchic_liquidity' | 'pass_market_acct' | 'pass_threshold_bps' | 'pricing_model_fail_acct' | 'pricing_model_pass_acct' | 'proposal_acct' | 'proposal_num' | 'proposer_acct' | 'quote_vault' | 'status' | 'twap_initial_observation' | 'twap_max_observation_change_per_update' | 'updated_at'
 
 
 /** aggregate var_pop on columns */
 export interface proposals_var_pop_fields {
     autocrat_version: (Scalars['Float'] | null)
+    duration_in_slots: (Scalars['Float'] | null)
     end_slot: (Scalars['Float'] | null)
     initial_slot: (Scalars['Float'] | null)
+    min_base_futarchic_liquidity: (Scalars['Float'] | null)
+    min_quote_futarchic_liquidity: (Scalars['Float'] | null)
+    pass_threshold_bps: (Scalars['Float'] | null)
     proposal_num: (Scalars['Float'] | null)
+    twap_initial_observation: (Scalars['Float'] | null)
+    twap_max_observation_change_per_update: (Scalars['Float'] | null)
     __typename: 'proposals_var_pop_fields'
 }
 
@@ -3460,9 +3778,15 @@ export interface proposals_var_pop_fields {
 /** aggregate var_samp on columns */
 export interface proposals_var_samp_fields {
     autocrat_version: (Scalars['Float'] | null)
+    duration_in_slots: (Scalars['Float'] | null)
     end_slot: (Scalars['Float'] | null)
     initial_slot: (Scalars['Float'] | null)
+    min_base_futarchic_liquidity: (Scalars['Float'] | null)
+    min_quote_futarchic_liquidity: (Scalars['Float'] | null)
+    pass_threshold_bps: (Scalars['Float'] | null)
     proposal_num: (Scalars['Float'] | null)
+    twap_initial_observation: (Scalars['Float'] | null)
+    twap_max_observation_change_per_update: (Scalars['Float'] | null)
     __typename: 'proposals_var_samp_fields'
 }
 
@@ -3470,9 +3794,15 @@ export interface proposals_var_samp_fields {
 /** aggregate variance on columns */
 export interface proposals_variance_fields {
     autocrat_version: (Scalars['Float'] | null)
+    duration_in_slots: (Scalars['Float'] | null)
     end_slot: (Scalars['Float'] | null)
     initial_slot: (Scalars['Float'] | null)
+    min_base_futarchic_liquidity: (Scalars['Float'] | null)
+    min_quote_futarchic_liquidity: (Scalars['Float'] | null)
+    pass_threshold_bps: (Scalars['Float'] | null)
     proposal_num: (Scalars['Float'] | null)
+    twap_initial_observation: (Scalars['Float'] | null)
+    twap_max_observation_change_per_update: (Scalars['Float'] | null)
     __typename: 'proposals_variance_fields'
 }
 
@@ -3593,6 +3923,18 @@ export interface query_root {
     sessions_aggregate: sessions_aggregate
     /** fetch data from the table: "sessions" using primary key columns */
     sessions_by_pk: (sessions | null)
+    /** fetch data from the table: "signature_accounts" */
+    signature_accounts: signature_accounts[]
+    /** fetch aggregated fields from the table: "signature_accounts" */
+    signature_accounts_aggregate: signature_accounts_aggregate
+    /** fetch data from the table: "signature_accounts" using primary key columns */
+    signature_accounts_by_pk: (signature_accounts | null)
+    /** fetch data from the table: "signatures" */
+    signatures: signatures[]
+    /** fetch aggregated fields from the table: "signatures" */
+    signatures_aggregate: signatures_aggregate
+    /** fetch data from the table: "signatures" using primary key columns */
+    signatures_by_pk: (signatures | null)
     /** An array relationship */
     takes: takes[]
     /** An aggregate relationship */
@@ -3617,6 +3959,7 @@ export interface query_root {
     tokens_aggregate: tokens_aggregate
     /** fetch data from the table: "tokens" using primary key columns */
     tokens_by_pk: (tokens | null)
+    top_dao_traders: dao_trader[]
     /** An array relationship */
     transaction_watcher_transactions: transaction_watcher_transactions[]
     /** An aggregate relationship */
@@ -3645,12 +3988,65 @@ export interface query_root {
     twaps_aggregate: twaps_aggregate
     /** fetch data from the table: "twaps" using primary key columns */
     twaps_by_pk: (twaps | null)
+    user_count_and_trade_count_per_proposal: proposal_statistics[]
+    /** An array relationship */
+    user_deposits: user_deposits[]
+    /** An aggregate relationship */
+    user_deposits_aggregate: user_deposits_aggregate
+    /** fetch data from the table: "user_performance" */
+    user_performance: user_performance[]
+    /** fetch aggregated fields from the table: "user_performance" */
+    user_performance_aggregate: user_performance_aggregate
+    /** fetch data from the table: "user_performance" using primary key columns */
+    user_performance_by_pk: (user_performance | null)
     /** fetch data from the table: "users" */
     users: users[]
     /** fetch aggregated fields from the table: "users" */
     users_aggregate: users_aggregate
     /** fetch data from the table: "users" using primary key columns */
     users_by_pk: (users | null)
+    /** An array relationship */
+    v0_4_amms: v0_4_amms[]
+    /** An aggregate relationship */
+    v0_4_amms_aggregate: v0_4_amms_aggregate
+    /** fetch data from the table: "v0_4_amms" using primary key columns */
+    v0_4_amms_by_pk: (v0_4_amms | null)
+    /** An array relationship */
+    v0_4_conditional_vaults: v0_4_conditional_vaults[]
+    /** An aggregate relationship */
+    v0_4_conditional_vaults_aggregate: v0_4_conditional_vaults_aggregate
+    /** fetch data from the table: "v0_4_conditional_vaults" using primary key columns */
+    v0_4_conditional_vaults_by_pk: (v0_4_conditional_vaults | null)
+    /** An array relationship */
+    v0_4_merges: v0_4_merges[]
+    /** An aggregate relationship */
+    v0_4_merges_aggregate: v0_4_merges_aggregate
+    /** fetch data from the table: "v0_4_merges" using primary key columns */
+    v0_4_merges_by_pk: (v0_4_merges | null)
+    /** An array relationship */
+    v0_4_metric_decisions: v0_4_metric_decisions[]
+    /** An aggregate relationship */
+    v0_4_metric_decisions_aggregate: v0_4_metric_decisions_aggregate
+    /** fetch data from the table: "v0_4_metric_decisions" using primary key columns */
+    v0_4_metric_decisions_by_pk: (v0_4_metric_decisions | null)
+    /** fetch data from the table: "v0_4_questions" */
+    v0_4_questions: v0_4_questions[]
+    /** fetch aggregated fields from the table: "v0_4_questions" */
+    v0_4_questions_aggregate: v0_4_questions_aggregate
+    /** fetch data from the table: "v0_4_questions" using primary key columns */
+    v0_4_questions_by_pk: (v0_4_questions | null)
+    /** An array relationship */
+    v0_4_splits: v0_4_splits[]
+    /** An aggregate relationship */
+    v0_4_splits_aggregate: v0_4_splits_aggregate
+    /** fetch data from the table: "v0_4_splits" using primary key columns */
+    v0_4_splits_by_pk: (v0_4_splits | null)
+    /** fetch data from the table: "v0_4_swaps" */
+    v0_4_swaps: v0_4_swaps[]
+    /** fetch aggregated fields from the table: "v0_4_swaps" */
+    v0_4_swaps_aggregate: v0_4_swaps_aggregate
+    /** fetch data from the table: "v0_4_swaps" using primary key columns */
+    v0_4_swaps_by_pk: (v0_4_swaps | null)
     __typename: 'query_root'
 }
 
@@ -3664,6 +4060,7 @@ export interface reactions {
     proposal: proposals
     proposal_acct: Scalars['String']
     reaction: Scalars['String']
+    reaction_id: Scalars['uuid']
     reactor_acct: Scalars['String']
     updated_at: Scalars['timestamptz']
     __typename: 'reactions'
@@ -3703,7 +4100,7 @@ export interface reactions_avg_fields {
 
 
 /** unique or primary key constraints on table "reactions" */
-export type reactions_constraint = 'reactions_proposal_acct_reaction_reactor_acct_pk'
+export type reactions_constraint = 'reactions_pkey'
 
 
 /** aggregate max on columns */
@@ -3711,6 +4108,7 @@ export interface reactions_max_fields {
     comment_id: (Scalars['bigint'] | null)
     proposal_acct: (Scalars['String'] | null)
     reaction: (Scalars['String'] | null)
+    reaction_id: (Scalars['uuid'] | null)
     reactor_acct: (Scalars['String'] | null)
     updated_at: (Scalars['timestamptz'] | null)
     __typename: 'reactions_max_fields'
@@ -3722,6 +4120,7 @@ export interface reactions_min_fields {
     comment_id: (Scalars['bigint'] | null)
     proposal_acct: (Scalars['String'] | null)
     reaction: (Scalars['String'] | null)
+    reaction_id: (Scalars['uuid'] | null)
     reactor_acct: (Scalars['String'] | null)
     updated_at: (Scalars['timestamptz'] | null)
     __typename: 'reactions_min_fields'
@@ -3739,7 +4138,7 @@ export interface reactions_mutation_response {
 
 
 /** select columns of table "reactions" */
-export type reactions_select_column = 'comment_id' | 'proposal_acct' | 'reaction' | 'reactor_acct' | 'updated_at'
+export type reactions_select_column = 'comment_id' | 'proposal_acct' | 'reaction' | 'reaction_id' | 'reactor_acct' | 'updated_at'
 
 
 /** aggregate stddev on columns */
@@ -3771,7 +4170,7 @@ export interface reactions_sum_fields {
 
 
 /** update columns of table "reactions" */
-export type reactions_update_column = 'comment_id' | 'proposal_acct' | 'reaction' | 'reactor_acct' | 'updated_at'
+export type reactions_update_column = 'comment_id' | 'proposal_acct' | 'reaction' | 'reaction_id' | 'reactor_acct' | 'updated_at'
 
 
 /** aggregate var_pop on columns */
@@ -3864,6 +4263,228 @@ export type sessions_select_column = 'created_at' | 'expires_at' | 'id' | 'user_
 
 /** update columns of table "sessions" */
 export type sessions_update_column = 'created_at' | 'expires_at' | 'id' | 'user_acct'
+
+
+/** columns and relationships of "signature_accounts" */
+export interface signature_accounts {
+    account: Scalars['String']
+    inserted_at: Scalars['timestamptz']
+    signature: Scalars['String']
+    __typename: 'signature_accounts'
+}
+
+
+/** aggregated selection of "signature_accounts" */
+export interface signature_accounts_aggregate {
+    aggregate: (signature_accounts_aggregate_fields | null)
+    nodes: signature_accounts[]
+    __typename: 'signature_accounts_aggregate'
+}
+
+
+/** aggregate fields of "signature_accounts" */
+export interface signature_accounts_aggregate_fields {
+    count: Scalars['Int']
+    max: (signature_accounts_max_fields | null)
+    min: (signature_accounts_min_fields | null)
+    __typename: 'signature_accounts_aggregate_fields'
+}
+
+
+/** unique or primary key constraints on table "signature_accounts" */
+export type signature_accounts_constraint = 'signature_accounts_signature_account_pk'
+
+
+/** aggregate max on columns */
+export interface signature_accounts_max_fields {
+    account: (Scalars['String'] | null)
+    inserted_at: (Scalars['timestamptz'] | null)
+    signature: (Scalars['String'] | null)
+    __typename: 'signature_accounts_max_fields'
+}
+
+
+/** aggregate min on columns */
+export interface signature_accounts_min_fields {
+    account: (Scalars['String'] | null)
+    inserted_at: (Scalars['timestamptz'] | null)
+    signature: (Scalars['String'] | null)
+    __typename: 'signature_accounts_min_fields'
+}
+
+
+/** response of any mutation on the table "signature_accounts" */
+export interface signature_accounts_mutation_response {
+    /** number of rows affected by the mutation */
+    affected_rows: Scalars['Int']
+    /** data from the rows affected by the mutation */
+    returning: signature_accounts[]
+    __typename: 'signature_accounts_mutation_response'
+}
+
+
+/** select columns of table "signature_accounts" */
+export type signature_accounts_select_column = 'account' | 'inserted_at' | 'signature'
+
+
+/** update columns of table "signature_accounts" */
+export type signature_accounts_update_column = 'account' | 'inserted_at' | 'signature'
+
+
+/** columns and relationships of "signatures" */
+export interface signatures {
+    block_time: (Scalars['timestamptz'] | null)
+    did_err: Scalars['Boolean']
+    err: (Scalars['String'] | null)
+    inserted_at: Scalars['timestamptz']
+    seq_num: Scalars['bigint']
+    signature: Scalars['String']
+    slot: Scalars['bigint']
+    /** An array relationship */
+    v0_4_merges: v0_4_merges[]
+    /** An aggregate relationship */
+    v0_4_merges_aggregate: v0_4_merges_aggregate
+    /** An array relationship */
+    v0_4_splits: v0_4_splits[]
+    /** An aggregate relationship */
+    v0_4_splits_aggregate: v0_4_splits_aggregate
+    __typename: 'signatures'
+}
+
+
+/** aggregated selection of "signatures" */
+export interface signatures_aggregate {
+    aggregate: (signatures_aggregate_fields | null)
+    nodes: signatures[]
+    __typename: 'signatures_aggregate'
+}
+
+
+/** aggregate fields of "signatures" */
+export interface signatures_aggregate_fields {
+    avg: (signatures_avg_fields | null)
+    count: Scalars['Int']
+    max: (signatures_max_fields | null)
+    min: (signatures_min_fields | null)
+    stddev: (signatures_stddev_fields | null)
+    stddev_pop: (signatures_stddev_pop_fields | null)
+    stddev_samp: (signatures_stddev_samp_fields | null)
+    sum: (signatures_sum_fields | null)
+    var_pop: (signatures_var_pop_fields | null)
+    var_samp: (signatures_var_samp_fields | null)
+    variance: (signatures_variance_fields | null)
+    __typename: 'signatures_aggregate_fields'
+}
+
+
+/** aggregate avg on columns */
+export interface signatures_avg_fields {
+    seq_num: (Scalars['Float'] | null)
+    slot: (Scalars['Float'] | null)
+    __typename: 'signatures_avg_fields'
+}
+
+
+/** unique or primary key constraints on table "signatures" */
+export type signatures_constraint = 'signatures_pkey' | 'signatures_seq_num_unique'
+
+
+/** aggregate max on columns */
+export interface signatures_max_fields {
+    block_time: (Scalars['timestamptz'] | null)
+    err: (Scalars['String'] | null)
+    inserted_at: (Scalars['timestamptz'] | null)
+    seq_num: (Scalars['bigint'] | null)
+    signature: (Scalars['String'] | null)
+    slot: (Scalars['bigint'] | null)
+    __typename: 'signatures_max_fields'
+}
+
+
+/** aggregate min on columns */
+export interface signatures_min_fields {
+    block_time: (Scalars['timestamptz'] | null)
+    err: (Scalars['String'] | null)
+    inserted_at: (Scalars['timestamptz'] | null)
+    seq_num: (Scalars['bigint'] | null)
+    signature: (Scalars['String'] | null)
+    slot: (Scalars['bigint'] | null)
+    __typename: 'signatures_min_fields'
+}
+
+
+/** response of any mutation on the table "signatures" */
+export interface signatures_mutation_response {
+    /** number of rows affected by the mutation */
+    affected_rows: Scalars['Int']
+    /** data from the rows affected by the mutation */
+    returning: signatures[]
+    __typename: 'signatures_mutation_response'
+}
+
+
+/** select columns of table "signatures" */
+export type signatures_select_column = 'block_time' | 'did_err' | 'err' | 'inserted_at' | 'seq_num' | 'signature' | 'slot'
+
+
+/** aggregate stddev on columns */
+export interface signatures_stddev_fields {
+    seq_num: (Scalars['Float'] | null)
+    slot: (Scalars['Float'] | null)
+    __typename: 'signatures_stddev_fields'
+}
+
+
+/** aggregate stddev_pop on columns */
+export interface signatures_stddev_pop_fields {
+    seq_num: (Scalars['Float'] | null)
+    slot: (Scalars['Float'] | null)
+    __typename: 'signatures_stddev_pop_fields'
+}
+
+
+/** aggregate stddev_samp on columns */
+export interface signatures_stddev_samp_fields {
+    seq_num: (Scalars['Float'] | null)
+    slot: (Scalars['Float'] | null)
+    __typename: 'signatures_stddev_samp_fields'
+}
+
+
+/** aggregate sum on columns */
+export interface signatures_sum_fields {
+    seq_num: (Scalars['bigint'] | null)
+    slot: (Scalars['bigint'] | null)
+    __typename: 'signatures_sum_fields'
+}
+
+
+/** update columns of table "signatures" */
+export type signatures_update_column = 'block_time' | 'did_err' | 'err' | 'inserted_at' | 'seq_num' | 'signature' | 'slot'
+
+
+/** aggregate var_pop on columns */
+export interface signatures_var_pop_fields {
+    seq_num: (Scalars['Float'] | null)
+    slot: (Scalars['Float'] | null)
+    __typename: 'signatures_var_pop_fields'
+}
+
+
+/** aggregate var_samp on columns */
+export interface signatures_var_samp_fields {
+    seq_num: (Scalars['Float'] | null)
+    slot: (Scalars['Float'] | null)
+    __typename: 'signatures_var_samp_fields'
+}
+
+
+/** aggregate variance on columns */
+export interface signatures_variance_fields {
+    seq_num: (Scalars['Float'] | null)
+    slot: (Scalars['Float'] | null)
+    __typename: 'signatures_variance_fields'
+}
 
 export interface subscription_root {
     /** An array relationship */
@@ -4022,6 +4643,22 @@ export interface subscription_root {
     sessions_by_pk: (sessions | null)
     /** fetch data from the table in a streaming manner: "sessions" */
     sessions_stream: sessions[]
+    /** fetch data from the table: "signature_accounts" */
+    signature_accounts: signature_accounts[]
+    /** fetch aggregated fields from the table: "signature_accounts" */
+    signature_accounts_aggregate: signature_accounts_aggregate
+    /** fetch data from the table: "signature_accounts" using primary key columns */
+    signature_accounts_by_pk: (signature_accounts | null)
+    /** fetch data from the table in a streaming manner: "signature_accounts" */
+    signature_accounts_stream: signature_accounts[]
+    /** fetch data from the table: "signatures" */
+    signatures: signatures[]
+    /** fetch aggregated fields from the table: "signatures" */
+    signatures_aggregate: signatures_aggregate
+    /** fetch data from the table: "signatures" using primary key columns */
+    signatures_by_pk: (signatures | null)
+    /** fetch data from the table in a streaming manner: "signatures" */
+    signatures_stream: signatures[]
     /** An array relationship */
     takes: takes[]
     /** An aggregate relationship */
@@ -4054,6 +4691,7 @@ export interface subscription_root {
     tokens_by_pk: (tokens | null)
     /** fetch data from the table in a streaming manner: "tokens" */
     tokens_stream: tokens[]
+    top_dao_traders: dao_trader[]
     /** An array relationship */
     transaction_watcher_transactions: transaction_watcher_transactions[]
     /** An aggregate relationship */
@@ -4092,6 +4730,21 @@ export interface subscription_root {
     twaps_by_pk: (twaps | null)
     /** fetch data from the table in a streaming manner: "twaps" */
     twaps_stream: twaps[]
+    user_count_and_trade_count_per_proposal: proposal_statistics[]
+    /** An array relationship */
+    user_deposits: user_deposits[]
+    /** An aggregate relationship */
+    user_deposits_aggregate: user_deposits_aggregate
+    /** fetch data from the table in a streaming manner: "user_deposits" */
+    user_deposits_stream: user_deposits[]
+    /** fetch data from the table: "user_performance" */
+    user_performance: user_performance[]
+    /** fetch aggregated fields from the table: "user_performance" */
+    user_performance_aggregate: user_performance_aggregate
+    /** fetch data from the table: "user_performance" using primary key columns */
+    user_performance_by_pk: (user_performance | null)
+    /** fetch data from the table in a streaming manner: "user_performance" */
+    user_performance_stream: user_performance[]
     /** fetch data from the table: "users" */
     users: users[]
     /** fetch aggregated fields from the table: "users" */
@@ -4100,6 +4753,62 @@ export interface subscription_root {
     users_by_pk: (users | null)
     /** fetch data from the table in a streaming manner: "users" */
     users_stream: users[]
+    /** An array relationship */
+    v0_4_amms: v0_4_amms[]
+    /** An aggregate relationship */
+    v0_4_amms_aggregate: v0_4_amms_aggregate
+    /** fetch data from the table: "v0_4_amms" using primary key columns */
+    v0_4_amms_by_pk: (v0_4_amms | null)
+    /** fetch data from the table in a streaming manner: "v0_4_amms" */
+    v0_4_amms_stream: v0_4_amms[]
+    /** An array relationship */
+    v0_4_conditional_vaults: v0_4_conditional_vaults[]
+    /** An aggregate relationship */
+    v0_4_conditional_vaults_aggregate: v0_4_conditional_vaults_aggregate
+    /** fetch data from the table: "v0_4_conditional_vaults" using primary key columns */
+    v0_4_conditional_vaults_by_pk: (v0_4_conditional_vaults | null)
+    /** fetch data from the table in a streaming manner: "v0_4_conditional_vaults" */
+    v0_4_conditional_vaults_stream: v0_4_conditional_vaults[]
+    /** An array relationship */
+    v0_4_merges: v0_4_merges[]
+    /** An aggregate relationship */
+    v0_4_merges_aggregate: v0_4_merges_aggregate
+    /** fetch data from the table: "v0_4_merges" using primary key columns */
+    v0_4_merges_by_pk: (v0_4_merges | null)
+    /** fetch data from the table in a streaming manner: "v0_4_merges" */
+    v0_4_merges_stream: v0_4_merges[]
+    /** An array relationship */
+    v0_4_metric_decisions: v0_4_metric_decisions[]
+    /** An aggregate relationship */
+    v0_4_metric_decisions_aggregate: v0_4_metric_decisions_aggregate
+    /** fetch data from the table: "v0_4_metric_decisions" using primary key columns */
+    v0_4_metric_decisions_by_pk: (v0_4_metric_decisions | null)
+    /** fetch data from the table in a streaming manner: "v0_4_metric_decisions" */
+    v0_4_metric_decisions_stream: v0_4_metric_decisions[]
+    /** fetch data from the table: "v0_4_questions" */
+    v0_4_questions: v0_4_questions[]
+    /** fetch aggregated fields from the table: "v0_4_questions" */
+    v0_4_questions_aggregate: v0_4_questions_aggregate
+    /** fetch data from the table: "v0_4_questions" using primary key columns */
+    v0_4_questions_by_pk: (v0_4_questions | null)
+    /** fetch data from the table in a streaming manner: "v0_4_questions" */
+    v0_4_questions_stream: v0_4_questions[]
+    /** An array relationship */
+    v0_4_splits: v0_4_splits[]
+    /** An aggregate relationship */
+    v0_4_splits_aggregate: v0_4_splits_aggregate
+    /** fetch data from the table: "v0_4_splits" using primary key columns */
+    v0_4_splits_by_pk: (v0_4_splits | null)
+    /** fetch data from the table in a streaming manner: "v0_4_splits" */
+    v0_4_splits_stream: v0_4_splits[]
+    /** fetch data from the table: "v0_4_swaps" */
+    v0_4_swaps: v0_4_swaps[]
+    /** fetch aggregated fields from the table: "v0_4_swaps" */
+    v0_4_swaps_aggregate: v0_4_swaps_aggregate
+    /** fetch data from the table: "v0_4_swaps" using primary key columns */
+    v0_4_swaps_by_pk: (v0_4_swaps | null)
+    /** fetch data from the table in a streaming manner: "v0_4_swaps" */
+    v0_4_swaps_stream: v0_4_swaps[]
     __typename: 'subscription_root'
 }
 
@@ -4325,6 +5034,8 @@ export interface token_acct_balances {
     /** An object relationship */
     tokenAcctByTokenAcct: token_accts
     token_acct: Scalars['String']
+    /** An object relationship */
+    transaction: (transactions | null)
     tx_sig: (Scalars['String'] | null)
     __typename: 'token_acct_balances'
 }
@@ -4365,7 +5076,7 @@ export interface token_acct_balances_avg_fields {
 
 
 /** unique or primary key constraints on table "token_acct_balances" */
-export type token_acct_balances_constraint = 'token_acct_balances_token_acct_mint_acct_amount_created_at_pk'
+export type token_acct_balances_constraint = 'new_token_acct_balances_pkey'
 
 
 /** aggregate max on columns */
@@ -4499,6 +5210,10 @@ export interface token_accts {
     /** An aggregate relationship */
     token_acct_balances_aggregate: token_acct_balances_aggregate
     updated_at: (Scalars['timestamptz'] | null)
+    /** An array relationship */
+    v0_4_conditional_vaults: v0_4_conditional_vaults[]
+    /** An aggregate relationship */
+    v0_4_conditional_vaults_aggregate: v0_4_conditional_vaults_aggregate
     __typename: 'token_accts'
 }
 
@@ -4667,6 +5382,26 @@ export interface tokens {
     /** An aggregate relationship */
     token_accts_aggregate: token_accts_aggregate
     updated_at: Scalars['timestamptz']
+    /** An array relationship */
+    user_deposits: user_deposits[]
+    /** An aggregate relationship */
+    user_deposits_aggregate: user_deposits_aggregate
+    /** An array relationship */
+    v04AmmsByLpMintAddr: v0_4_amms[]
+    /** An aggregate relationship */
+    v04AmmsByLpMintAddr_aggregate: v0_4_amms_aggregate
+    /** An array relationship */
+    v04AmmsByQuoteMintAddr: v0_4_amms[]
+    /** An aggregate relationship */
+    v04AmmsByQuoteMintAddr_aggregate: v0_4_amms_aggregate
+    /** An array relationship */
+    v0_4_amms: v0_4_amms[]
+    /** An aggregate relationship */
+    v0_4_amms_aggregate: v0_4_amms_aggregate
+    /** An array relationship */
+    v0_4_conditional_vaults: v0_4_conditional_vaults[]
+    /** An aggregate relationship */
+    v0_4_conditional_vaults_aggregate: v0_4_conditional_vaults_aggregate
     /** An object relationship */
     vault_by_finalize: (conditional_vaults | null)
     /** An object relationship */
@@ -5125,6 +5860,10 @@ export interface transactions {
     serializer_logic_version: Scalars['smallint']
     slot: Scalars['bigint']
     /** An array relationship */
+    token_acct_balances: token_acct_balances[]
+    /** An aggregate relationship */
+    token_acct_balances_aggregate: token_acct_balances_aggregate
+    /** An array relationship */
     transactionWatchersByLatestTxSig: transaction_watchers[]
     /** An aggregate relationship */
     transactionWatchersByLatestTxSig_aggregate: transaction_watchers_aggregate
@@ -5137,6 +5876,10 @@ export interface transactions {
     /** An aggregate relationship */
     transaction_watchers_aggregate: transaction_watchers_aggregate
     tx_sig: Scalars['String']
+    /** An array relationship */
+    user_deposits: user_deposits[]
+    /** An aggregate relationship */
+    user_deposits_aggregate: user_deposits_aggregate
     __typename: 'transactions'
 }
 
@@ -5319,6 +6062,10 @@ export interface twap_chart_data_avg_fields {
 }
 
 
+/** unique or primary key constraints on table "twap_chart_data" */
+export type twap_chart_data_constraint = 'idx_acct_interv'
+
+
 /** aggregate max on columns */
 export interface twap_chart_data_max_fields {
     interv: (Scalars['timestamptz'] | null)
@@ -5334,6 +6081,16 @@ export interface twap_chart_data_min_fields {
     market_acct: (Scalars['String'] | null)
     token_amount: (Scalars['bigint'] | null)
     __typename: 'twap_chart_data_min_fields'
+}
+
+
+/** response of any mutation on the table "twap_chart_data" */
+export interface twap_chart_data_mutation_response {
+    /** number of rows affected by the mutation */
+    affected_rows: Scalars['Int']
+    /** data from the rows affected by the mutation */
+    returning: twap_chart_data[]
+    __typename: 'twap_chart_data_mutation_response'
 }
 
 
@@ -5367,6 +6124,10 @@ export interface twap_chart_data_sum_fields {
     token_amount: (Scalars['bigint'] | null)
     __typename: 'twap_chart_data_sum_fields'
 }
+
+
+/** update columns of table "twap_chart_data" */
+export type twap_chart_data_update_column = 'interv' | 'market_acct' | 'token_amount'
 
 
 /** aggregate var_pop on columns */
@@ -5571,14 +6332,426 @@ export interface twaps_variance_fields {
 }
 
 
+/** columns and relationships of "user_deposits" */
+export interface user_deposits {
+    created_at: Scalars['timestamptz']
+    mint_acct: Scalars['String']
+    /** An object relationship */
+    token: tokens
+    token_amount: Scalars['bigint']
+    /** An object relationship */
+    transaction: transactions
+    tx_sig: Scalars['String']
+    /** An object relationship */
+    user: users
+    user_acct: Scalars['String']
+    __typename: 'user_deposits'
+}
+
+
+/** aggregated selection of "user_deposits" */
+export interface user_deposits_aggregate {
+    aggregate: (user_deposits_aggregate_fields | null)
+    nodes: user_deposits[]
+    __typename: 'user_deposits_aggregate'
+}
+
+
+/** aggregate fields of "user_deposits" */
+export interface user_deposits_aggregate_fields {
+    avg: (user_deposits_avg_fields | null)
+    count: Scalars['Int']
+    max: (user_deposits_max_fields | null)
+    min: (user_deposits_min_fields | null)
+    stddev: (user_deposits_stddev_fields | null)
+    stddev_pop: (user_deposits_stddev_pop_fields | null)
+    stddev_samp: (user_deposits_stddev_samp_fields | null)
+    sum: (user_deposits_sum_fields | null)
+    var_pop: (user_deposits_var_pop_fields | null)
+    var_samp: (user_deposits_var_samp_fields | null)
+    variance: (user_deposits_variance_fields | null)
+    __typename: 'user_deposits_aggregate_fields'
+}
+
+
+/** aggregate avg on columns */
+export interface user_deposits_avg_fields {
+    token_amount: (Scalars['Float'] | null)
+    __typename: 'user_deposits_avg_fields'
+}
+
+
+/** aggregate max on columns */
+export interface user_deposits_max_fields {
+    created_at: (Scalars['timestamptz'] | null)
+    mint_acct: (Scalars['String'] | null)
+    token_amount: (Scalars['bigint'] | null)
+    tx_sig: (Scalars['String'] | null)
+    user_acct: (Scalars['String'] | null)
+    __typename: 'user_deposits_max_fields'
+}
+
+
+/** aggregate min on columns */
+export interface user_deposits_min_fields {
+    created_at: (Scalars['timestamptz'] | null)
+    mint_acct: (Scalars['String'] | null)
+    token_amount: (Scalars['bigint'] | null)
+    tx_sig: (Scalars['String'] | null)
+    user_acct: (Scalars['String'] | null)
+    __typename: 'user_deposits_min_fields'
+}
+
+
+/** response of any mutation on the table "user_deposits" */
+export interface user_deposits_mutation_response {
+    /** number of rows affected by the mutation */
+    affected_rows: Scalars['Int']
+    /** data from the rows affected by the mutation */
+    returning: user_deposits[]
+    __typename: 'user_deposits_mutation_response'
+}
+
+
+/** select columns of table "user_deposits" */
+export type user_deposits_select_column = 'created_at' | 'mint_acct' | 'token_amount' | 'tx_sig' | 'user_acct'
+
+
+/** aggregate stddev on columns */
+export interface user_deposits_stddev_fields {
+    token_amount: (Scalars['Float'] | null)
+    __typename: 'user_deposits_stddev_fields'
+}
+
+
+/** aggregate stddev_pop on columns */
+export interface user_deposits_stddev_pop_fields {
+    token_amount: (Scalars['Float'] | null)
+    __typename: 'user_deposits_stddev_pop_fields'
+}
+
+
+/** aggregate stddev_samp on columns */
+export interface user_deposits_stddev_samp_fields {
+    token_amount: (Scalars['Float'] | null)
+    __typename: 'user_deposits_stddev_samp_fields'
+}
+
+
+/** aggregate sum on columns */
+export interface user_deposits_sum_fields {
+    token_amount: (Scalars['bigint'] | null)
+    __typename: 'user_deposits_sum_fields'
+}
+
+
+/** aggregate var_pop on columns */
+export interface user_deposits_var_pop_fields {
+    token_amount: (Scalars['Float'] | null)
+    __typename: 'user_deposits_var_pop_fields'
+}
+
+
+/** aggregate var_samp on columns */
+export interface user_deposits_var_samp_fields {
+    token_amount: (Scalars['Float'] | null)
+    __typename: 'user_deposits_var_samp_fields'
+}
+
+
+/** aggregate variance on columns */
+export interface user_deposits_variance_fields {
+    token_amount: (Scalars['Float'] | null)
+    __typename: 'user_deposits_variance_fields'
+}
+
+
+/** columns and relationships of "user_performance" */
+export interface user_performance {
+    buy_orders_count: Scalars['bigint']
+    created_at: Scalars['timestamptz']
+    /** An object relationship */
+    dao: daos
+    dao_acct: Scalars['String']
+    /** An object relationship */
+    proposal: proposals
+    proposal_acct: Scalars['String']
+    sell_orders_count: Scalars['bigint']
+    tokens_bought: Scalars['numeric']
+    tokens_bought_resolving_market: Scalars['numeric']
+    /** amount of tokens sold */
+    tokens_sold: Scalars['numeric']
+    tokens_sold_resolving_market: Scalars['numeric']
+    total_volume: (Scalars['numeric'] | null)
+    updated_at: (Scalars['timestamptz'] | null)
+    /** An object relationship */
+    user: users
+    user_acct: Scalars['String']
+    volume_bought: Scalars['numeric']
+    volume_bought_resolving_market: Scalars['numeric']
+    volume_sold: Scalars['numeric']
+    volume_sold_resolving_market: Scalars['numeric']
+    __typename: 'user_performance'
+}
+
+
+/** aggregated selection of "user_performance" */
+export interface user_performance_aggregate {
+    aggregate: (user_performance_aggregate_fields | null)
+    nodes: user_performance[]
+    __typename: 'user_performance_aggregate'
+}
+
+
+/** aggregate fields of "user_performance" */
+export interface user_performance_aggregate_fields {
+    avg: (user_performance_avg_fields | null)
+    count: Scalars['Int']
+    max: (user_performance_max_fields | null)
+    min: (user_performance_min_fields | null)
+    stddev: (user_performance_stddev_fields | null)
+    stddev_pop: (user_performance_stddev_pop_fields | null)
+    stddev_samp: (user_performance_stddev_samp_fields | null)
+    sum: (user_performance_sum_fields | null)
+    var_pop: (user_performance_var_pop_fields | null)
+    var_samp: (user_performance_var_samp_fields | null)
+    variance: (user_performance_variance_fields | null)
+    __typename: 'user_performance_aggregate_fields'
+}
+
+
+/** aggregate avg on columns */
+export interface user_performance_avg_fields {
+    buy_orders_count: (Scalars['Float'] | null)
+    sell_orders_count: (Scalars['Float'] | null)
+    tokens_bought: (Scalars['Float'] | null)
+    tokens_bought_resolving_market: (Scalars['Float'] | null)
+    /** amount of tokens sold */
+    tokens_sold: (Scalars['Float'] | null)
+    tokens_sold_resolving_market: (Scalars['Float'] | null)
+    total_volume: (Scalars['Float'] | null)
+    volume_bought: (Scalars['Float'] | null)
+    volume_bought_resolving_market: (Scalars['Float'] | null)
+    volume_sold: (Scalars['Float'] | null)
+    volume_sold_resolving_market: (Scalars['Float'] | null)
+    __typename: 'user_performance_avg_fields'
+}
+
+
+/** unique or primary key constraints on table "user_performance" */
+export type user_performance_constraint = 'user_performance_proposal_acct_user_acct_pk'
+
+
+/** aggregate max on columns */
+export interface user_performance_max_fields {
+    buy_orders_count: (Scalars['bigint'] | null)
+    created_at: (Scalars['timestamptz'] | null)
+    dao_acct: (Scalars['String'] | null)
+    proposal_acct: (Scalars['String'] | null)
+    sell_orders_count: (Scalars['bigint'] | null)
+    tokens_bought: (Scalars['numeric'] | null)
+    tokens_bought_resolving_market: (Scalars['numeric'] | null)
+    /** amount of tokens sold */
+    tokens_sold: (Scalars['numeric'] | null)
+    tokens_sold_resolving_market: (Scalars['numeric'] | null)
+    total_volume: (Scalars['numeric'] | null)
+    updated_at: (Scalars['timestamptz'] | null)
+    user_acct: (Scalars['String'] | null)
+    volume_bought: (Scalars['numeric'] | null)
+    volume_bought_resolving_market: (Scalars['numeric'] | null)
+    volume_sold: (Scalars['numeric'] | null)
+    volume_sold_resolving_market: (Scalars['numeric'] | null)
+    __typename: 'user_performance_max_fields'
+}
+
+
+/** aggregate min on columns */
+export interface user_performance_min_fields {
+    buy_orders_count: (Scalars['bigint'] | null)
+    created_at: (Scalars['timestamptz'] | null)
+    dao_acct: (Scalars['String'] | null)
+    proposal_acct: (Scalars['String'] | null)
+    sell_orders_count: (Scalars['bigint'] | null)
+    tokens_bought: (Scalars['numeric'] | null)
+    tokens_bought_resolving_market: (Scalars['numeric'] | null)
+    /** amount of tokens sold */
+    tokens_sold: (Scalars['numeric'] | null)
+    tokens_sold_resolving_market: (Scalars['numeric'] | null)
+    total_volume: (Scalars['numeric'] | null)
+    updated_at: (Scalars['timestamptz'] | null)
+    user_acct: (Scalars['String'] | null)
+    volume_bought: (Scalars['numeric'] | null)
+    volume_bought_resolving_market: (Scalars['numeric'] | null)
+    volume_sold: (Scalars['numeric'] | null)
+    volume_sold_resolving_market: (Scalars['numeric'] | null)
+    __typename: 'user_performance_min_fields'
+}
+
+
+/** response of any mutation on the table "user_performance" */
+export interface user_performance_mutation_response {
+    /** number of rows affected by the mutation */
+    affected_rows: Scalars['Int']
+    /** data from the rows affected by the mutation */
+    returning: user_performance[]
+    __typename: 'user_performance_mutation_response'
+}
+
+
+/** select columns of table "user_performance" */
+export type user_performance_select_column = 'buy_orders_count' | 'created_at' | 'dao_acct' | 'proposal_acct' | 'sell_orders_count' | 'tokens_bought' | 'tokens_bought_resolving_market' | 'tokens_sold' | 'tokens_sold_resolving_market' | 'total_volume' | 'updated_at' | 'user_acct' | 'volume_bought' | 'volume_bought_resolving_market' | 'volume_sold' | 'volume_sold_resolving_market'
+
+
+/** aggregate stddev on columns */
+export interface user_performance_stddev_fields {
+    buy_orders_count: (Scalars['Float'] | null)
+    sell_orders_count: (Scalars['Float'] | null)
+    tokens_bought: (Scalars['Float'] | null)
+    tokens_bought_resolving_market: (Scalars['Float'] | null)
+    /** amount of tokens sold */
+    tokens_sold: (Scalars['Float'] | null)
+    tokens_sold_resolving_market: (Scalars['Float'] | null)
+    total_volume: (Scalars['Float'] | null)
+    volume_bought: (Scalars['Float'] | null)
+    volume_bought_resolving_market: (Scalars['Float'] | null)
+    volume_sold: (Scalars['Float'] | null)
+    volume_sold_resolving_market: (Scalars['Float'] | null)
+    __typename: 'user_performance_stddev_fields'
+}
+
+
+/** aggregate stddev_pop on columns */
+export interface user_performance_stddev_pop_fields {
+    buy_orders_count: (Scalars['Float'] | null)
+    sell_orders_count: (Scalars['Float'] | null)
+    tokens_bought: (Scalars['Float'] | null)
+    tokens_bought_resolving_market: (Scalars['Float'] | null)
+    /** amount of tokens sold */
+    tokens_sold: (Scalars['Float'] | null)
+    tokens_sold_resolving_market: (Scalars['Float'] | null)
+    total_volume: (Scalars['Float'] | null)
+    volume_bought: (Scalars['Float'] | null)
+    volume_bought_resolving_market: (Scalars['Float'] | null)
+    volume_sold: (Scalars['Float'] | null)
+    volume_sold_resolving_market: (Scalars['Float'] | null)
+    __typename: 'user_performance_stddev_pop_fields'
+}
+
+
+/** aggregate stddev_samp on columns */
+export interface user_performance_stddev_samp_fields {
+    buy_orders_count: (Scalars['Float'] | null)
+    sell_orders_count: (Scalars['Float'] | null)
+    tokens_bought: (Scalars['Float'] | null)
+    tokens_bought_resolving_market: (Scalars['Float'] | null)
+    /** amount of tokens sold */
+    tokens_sold: (Scalars['Float'] | null)
+    tokens_sold_resolving_market: (Scalars['Float'] | null)
+    total_volume: (Scalars['Float'] | null)
+    volume_bought: (Scalars['Float'] | null)
+    volume_bought_resolving_market: (Scalars['Float'] | null)
+    volume_sold: (Scalars['Float'] | null)
+    volume_sold_resolving_market: (Scalars['Float'] | null)
+    __typename: 'user_performance_stddev_samp_fields'
+}
+
+
+/** aggregate sum on columns */
+export interface user_performance_sum_fields {
+    buy_orders_count: (Scalars['bigint'] | null)
+    sell_orders_count: (Scalars['bigint'] | null)
+    tokens_bought: (Scalars['numeric'] | null)
+    tokens_bought_resolving_market: (Scalars['numeric'] | null)
+    /** amount of tokens sold */
+    tokens_sold: (Scalars['numeric'] | null)
+    tokens_sold_resolving_market: (Scalars['numeric'] | null)
+    total_volume: (Scalars['numeric'] | null)
+    volume_bought: (Scalars['numeric'] | null)
+    volume_bought_resolving_market: (Scalars['numeric'] | null)
+    volume_sold: (Scalars['numeric'] | null)
+    volume_sold_resolving_market: (Scalars['numeric'] | null)
+    __typename: 'user_performance_sum_fields'
+}
+
+
+/** update columns of table "user_performance" */
+export type user_performance_update_column = 'buy_orders_count' | 'created_at' | 'dao_acct' | 'proposal_acct' | 'sell_orders_count' | 'tokens_bought' | 'tokens_bought_resolving_market' | 'tokens_sold' | 'tokens_sold_resolving_market' | 'updated_at' | 'user_acct' | 'volume_bought' | 'volume_bought_resolving_market' | 'volume_sold' | 'volume_sold_resolving_market'
+
+
+/** aggregate var_pop on columns */
+export interface user_performance_var_pop_fields {
+    buy_orders_count: (Scalars['Float'] | null)
+    sell_orders_count: (Scalars['Float'] | null)
+    tokens_bought: (Scalars['Float'] | null)
+    tokens_bought_resolving_market: (Scalars['Float'] | null)
+    /** amount of tokens sold */
+    tokens_sold: (Scalars['Float'] | null)
+    tokens_sold_resolving_market: (Scalars['Float'] | null)
+    total_volume: (Scalars['Float'] | null)
+    volume_bought: (Scalars['Float'] | null)
+    volume_bought_resolving_market: (Scalars['Float'] | null)
+    volume_sold: (Scalars['Float'] | null)
+    volume_sold_resolving_market: (Scalars['Float'] | null)
+    __typename: 'user_performance_var_pop_fields'
+}
+
+
+/** aggregate var_samp on columns */
+export interface user_performance_var_samp_fields {
+    buy_orders_count: (Scalars['Float'] | null)
+    sell_orders_count: (Scalars['Float'] | null)
+    tokens_bought: (Scalars['Float'] | null)
+    tokens_bought_resolving_market: (Scalars['Float'] | null)
+    /** amount of tokens sold */
+    tokens_sold: (Scalars['Float'] | null)
+    tokens_sold_resolving_market: (Scalars['Float'] | null)
+    total_volume: (Scalars['Float'] | null)
+    volume_bought: (Scalars['Float'] | null)
+    volume_bought_resolving_market: (Scalars['Float'] | null)
+    volume_sold: (Scalars['Float'] | null)
+    volume_sold_resolving_market: (Scalars['Float'] | null)
+    __typename: 'user_performance_var_samp_fields'
+}
+
+
+/** aggregate variance on columns */
+export interface user_performance_variance_fields {
+    buy_orders_count: (Scalars['Float'] | null)
+    sell_orders_count: (Scalars['Float'] | null)
+    tokens_bought: (Scalars['Float'] | null)
+    tokens_bought_resolving_market: (Scalars['Float'] | null)
+    /** amount of tokens sold */
+    tokens_sold: (Scalars['Float'] | null)
+    tokens_sold_resolving_market: (Scalars['Float'] | null)
+    total_volume: (Scalars['Float'] | null)
+    volume_bought: (Scalars['Float'] | null)
+    volume_bought_resolving_market: (Scalars['Float'] | null)
+    volume_sold: (Scalars['Float'] | null)
+    volume_sold_resolving_market: (Scalars['Float'] | null)
+    __typename: 'user_performance_variance_fields'
+}
+
+
 /** columns and relationships of "users" */
 export interface users {
     created_at: Scalars['timestamptz']
+    /** An array relationship */
+    orders: orders[]
+    /** An aggregate relationship */
+    orders_aggregate: orders_aggregate
     /** An array relationship */
     sessions: sessions[]
     /** An aggregate relationship */
     sessions_aggregate: sessions_aggregate
     user_acct: Scalars['String']
+    /** An array relationship */
+    user_deposits: user_deposits[]
+    /** An aggregate relationship */
+    user_deposits_aggregate: user_deposits_aggregate
+    /** An array relationship */
+    user_performances: user_performance[]
+    /** An aggregate relationship */
+    user_performances_aggregate: user_performance_aggregate
     __typename: 'users'
 }
 
@@ -5636,6 +6809,1238 @@ export type users_select_column = 'created_at' | 'user_acct'
 
 /** update columns of table "users" */
 export type users_update_column = 'created_at' | 'user_acct'
+
+
+/** columns and relationships of "v0_4_amms" */
+export interface v0_4_amms {
+    amm_addr: Scalars['String']
+    base_mint_addr: Scalars['String']
+    base_reserves: Scalars['bigint']
+    /** An object relationship */
+    base_token: tokens
+    created_at_slot: Scalars['bigint']
+    /** An array relationship */
+    decisions: v0_4_metric_decisions[]
+    /** An aggregate relationship */
+    decisions_aggregate: v0_4_metric_decisions_aggregate
+    inserted_at: Scalars['timestamptz']
+    latest_amm_seq_num_applied: Scalars['bigint']
+    lp_mint_addr: Scalars['String']
+    /** An object relationship */
+    lp_token: tokens
+    quote_mint_addr: Scalars['String']
+    quote_reserves: Scalars['bigint']
+    /** An object relationship */
+    quote_token: tokens
+    __typename: 'v0_4_amms'
+}
+
+
+/** aggregated selection of "v0_4_amms" */
+export interface v0_4_amms_aggregate {
+    aggregate: (v0_4_amms_aggregate_fields | null)
+    nodes: v0_4_amms[]
+    __typename: 'v0_4_amms_aggregate'
+}
+
+
+/** aggregate fields of "v0_4_amms" */
+export interface v0_4_amms_aggregate_fields {
+    avg: (v0_4_amms_avg_fields | null)
+    count: Scalars['Int']
+    max: (v0_4_amms_max_fields | null)
+    min: (v0_4_amms_min_fields | null)
+    stddev: (v0_4_amms_stddev_fields | null)
+    stddev_pop: (v0_4_amms_stddev_pop_fields | null)
+    stddev_samp: (v0_4_amms_stddev_samp_fields | null)
+    sum: (v0_4_amms_sum_fields | null)
+    var_pop: (v0_4_amms_var_pop_fields | null)
+    var_samp: (v0_4_amms_var_samp_fields | null)
+    variance: (v0_4_amms_variance_fields | null)
+    __typename: 'v0_4_amms_aggregate_fields'
+}
+
+
+/** aggregate avg on columns */
+export interface v0_4_amms_avg_fields {
+    base_reserves: (Scalars['Float'] | null)
+    created_at_slot: (Scalars['Float'] | null)
+    latest_amm_seq_num_applied: (Scalars['Float'] | null)
+    quote_reserves: (Scalars['Float'] | null)
+    __typename: 'v0_4_amms_avg_fields'
+}
+
+
+/** unique or primary key constraints on table "v0_4_amms" */
+export type v0_4_amms_constraint = 'v0_4_amms_pkey'
+
+
+/** aggregate max on columns */
+export interface v0_4_amms_max_fields {
+    amm_addr: (Scalars['String'] | null)
+    base_mint_addr: (Scalars['String'] | null)
+    base_reserves: (Scalars['bigint'] | null)
+    created_at_slot: (Scalars['bigint'] | null)
+    inserted_at: (Scalars['timestamptz'] | null)
+    latest_amm_seq_num_applied: (Scalars['bigint'] | null)
+    lp_mint_addr: (Scalars['String'] | null)
+    quote_mint_addr: (Scalars['String'] | null)
+    quote_reserves: (Scalars['bigint'] | null)
+    __typename: 'v0_4_amms_max_fields'
+}
+
+
+/** aggregate min on columns */
+export interface v0_4_amms_min_fields {
+    amm_addr: (Scalars['String'] | null)
+    base_mint_addr: (Scalars['String'] | null)
+    base_reserves: (Scalars['bigint'] | null)
+    created_at_slot: (Scalars['bigint'] | null)
+    inserted_at: (Scalars['timestamptz'] | null)
+    latest_amm_seq_num_applied: (Scalars['bigint'] | null)
+    lp_mint_addr: (Scalars['String'] | null)
+    quote_mint_addr: (Scalars['String'] | null)
+    quote_reserves: (Scalars['bigint'] | null)
+    __typename: 'v0_4_amms_min_fields'
+}
+
+
+/** response of any mutation on the table "v0_4_amms" */
+export interface v0_4_amms_mutation_response {
+    /** number of rows affected by the mutation */
+    affected_rows: Scalars['Int']
+    /** data from the rows affected by the mutation */
+    returning: v0_4_amms[]
+    __typename: 'v0_4_amms_mutation_response'
+}
+
+
+/** select columns of table "v0_4_amms" */
+export type v0_4_amms_select_column = 'amm_addr' | 'base_mint_addr' | 'base_reserves' | 'created_at_slot' | 'inserted_at' | 'latest_amm_seq_num_applied' | 'lp_mint_addr' | 'quote_mint_addr' | 'quote_reserves'
+
+
+/** aggregate stddev on columns */
+export interface v0_4_amms_stddev_fields {
+    base_reserves: (Scalars['Float'] | null)
+    created_at_slot: (Scalars['Float'] | null)
+    latest_amm_seq_num_applied: (Scalars['Float'] | null)
+    quote_reserves: (Scalars['Float'] | null)
+    __typename: 'v0_4_amms_stddev_fields'
+}
+
+
+/** aggregate stddev_pop on columns */
+export interface v0_4_amms_stddev_pop_fields {
+    base_reserves: (Scalars['Float'] | null)
+    created_at_slot: (Scalars['Float'] | null)
+    latest_amm_seq_num_applied: (Scalars['Float'] | null)
+    quote_reserves: (Scalars['Float'] | null)
+    __typename: 'v0_4_amms_stddev_pop_fields'
+}
+
+
+/** aggregate stddev_samp on columns */
+export interface v0_4_amms_stddev_samp_fields {
+    base_reserves: (Scalars['Float'] | null)
+    created_at_slot: (Scalars['Float'] | null)
+    latest_amm_seq_num_applied: (Scalars['Float'] | null)
+    quote_reserves: (Scalars['Float'] | null)
+    __typename: 'v0_4_amms_stddev_samp_fields'
+}
+
+
+/** aggregate sum on columns */
+export interface v0_4_amms_sum_fields {
+    base_reserves: (Scalars['bigint'] | null)
+    created_at_slot: (Scalars['bigint'] | null)
+    latest_amm_seq_num_applied: (Scalars['bigint'] | null)
+    quote_reserves: (Scalars['bigint'] | null)
+    __typename: 'v0_4_amms_sum_fields'
+}
+
+
+/** update columns of table "v0_4_amms" */
+export type v0_4_amms_update_column = 'amm_addr' | 'base_mint_addr' | 'base_reserves' | 'created_at_slot' | 'inserted_at' | 'latest_amm_seq_num_applied' | 'lp_mint_addr' | 'quote_mint_addr' | 'quote_reserves'
+
+
+/** aggregate var_pop on columns */
+export interface v0_4_amms_var_pop_fields {
+    base_reserves: (Scalars['Float'] | null)
+    created_at_slot: (Scalars['Float'] | null)
+    latest_amm_seq_num_applied: (Scalars['Float'] | null)
+    quote_reserves: (Scalars['Float'] | null)
+    __typename: 'v0_4_amms_var_pop_fields'
+}
+
+
+/** aggregate var_samp on columns */
+export interface v0_4_amms_var_samp_fields {
+    base_reserves: (Scalars['Float'] | null)
+    created_at_slot: (Scalars['Float'] | null)
+    latest_amm_seq_num_applied: (Scalars['Float'] | null)
+    quote_reserves: (Scalars['Float'] | null)
+    __typename: 'v0_4_amms_var_samp_fields'
+}
+
+
+/** aggregate variance on columns */
+export interface v0_4_amms_variance_fields {
+    base_reserves: (Scalars['Float'] | null)
+    created_at_slot: (Scalars['Float'] | null)
+    latest_amm_seq_num_applied: (Scalars['Float'] | null)
+    quote_reserves: (Scalars['Float'] | null)
+    __typename: 'v0_4_amms_variance_fields'
+}
+
+
+/** columns and relationships of "v0_4_conditional_vaults" */
+export interface v0_4_conditional_vaults {
+    conditional_vault_addr: Scalars['String']
+    created_at: Scalars['timestamptz']
+    latest_vault_seq_num_applied: Scalars['bigint']
+    /** An array relationship */
+    metric_decisions: v0_4_metric_decisions[]
+    /** An aggregate relationship */
+    metric_decisions_aggregate: v0_4_metric_decisions_aggregate
+    /** An array relationship */
+    outcome_decisions: v0_4_metric_decisions[]
+    /** An aggregate relationship */
+    outcome_decisions_aggregate: v0_4_metric_decisions_aggregate
+    pda_bump: Scalars['smallint']
+    /** An object relationship */
+    question: v0_4_questions
+    question_addr: Scalars['String']
+    /** An object relationship */
+    token_acct: token_accts
+    /** An object relationship */
+    underlying_mint: tokens
+    underlying_mint_acct: Scalars['String']
+    underlying_token_acct: Scalars['String']
+    /** An array relationship */
+    v0_4_merges: v0_4_merges[]
+    /** An aggregate relationship */
+    v0_4_merges_aggregate: v0_4_merges_aggregate
+    /** An array relationship */
+    v0_4_splits: v0_4_splits[]
+    /** An aggregate relationship */
+    v0_4_splits_aggregate: v0_4_splits_aggregate
+    __typename: 'v0_4_conditional_vaults'
+}
+
+
+/** aggregated selection of "v0_4_conditional_vaults" */
+export interface v0_4_conditional_vaults_aggregate {
+    aggregate: (v0_4_conditional_vaults_aggregate_fields | null)
+    nodes: v0_4_conditional_vaults[]
+    __typename: 'v0_4_conditional_vaults_aggregate'
+}
+
+
+/** aggregate fields of "v0_4_conditional_vaults" */
+export interface v0_4_conditional_vaults_aggregate_fields {
+    avg: (v0_4_conditional_vaults_avg_fields | null)
+    count: Scalars['Int']
+    max: (v0_4_conditional_vaults_max_fields | null)
+    min: (v0_4_conditional_vaults_min_fields | null)
+    stddev: (v0_4_conditional_vaults_stddev_fields | null)
+    stddev_pop: (v0_4_conditional_vaults_stddev_pop_fields | null)
+    stddev_samp: (v0_4_conditional_vaults_stddev_samp_fields | null)
+    sum: (v0_4_conditional_vaults_sum_fields | null)
+    var_pop: (v0_4_conditional_vaults_var_pop_fields | null)
+    var_samp: (v0_4_conditional_vaults_var_samp_fields | null)
+    variance: (v0_4_conditional_vaults_variance_fields | null)
+    __typename: 'v0_4_conditional_vaults_aggregate_fields'
+}
+
+
+/** aggregate avg on columns */
+export interface v0_4_conditional_vaults_avg_fields {
+    latest_vault_seq_num_applied: (Scalars['Float'] | null)
+    pda_bump: (Scalars['Float'] | null)
+    __typename: 'v0_4_conditional_vaults_avg_fields'
+}
+
+
+/** unique or primary key constraints on table "v0_4_conditional_vaults" */
+export type v0_4_conditional_vaults_constraint = 'v0_4_conditional_vaults_pkey'
+
+
+/** aggregate max on columns */
+export interface v0_4_conditional_vaults_max_fields {
+    conditional_vault_addr: (Scalars['String'] | null)
+    created_at: (Scalars['timestamptz'] | null)
+    latest_vault_seq_num_applied: (Scalars['bigint'] | null)
+    pda_bump: (Scalars['smallint'] | null)
+    question_addr: (Scalars['String'] | null)
+    underlying_mint_acct: (Scalars['String'] | null)
+    underlying_token_acct: (Scalars['String'] | null)
+    __typename: 'v0_4_conditional_vaults_max_fields'
+}
+
+
+/** aggregate min on columns */
+export interface v0_4_conditional_vaults_min_fields {
+    conditional_vault_addr: (Scalars['String'] | null)
+    created_at: (Scalars['timestamptz'] | null)
+    latest_vault_seq_num_applied: (Scalars['bigint'] | null)
+    pda_bump: (Scalars['smallint'] | null)
+    question_addr: (Scalars['String'] | null)
+    underlying_mint_acct: (Scalars['String'] | null)
+    underlying_token_acct: (Scalars['String'] | null)
+    __typename: 'v0_4_conditional_vaults_min_fields'
+}
+
+
+/** response of any mutation on the table "v0_4_conditional_vaults" */
+export interface v0_4_conditional_vaults_mutation_response {
+    /** number of rows affected by the mutation */
+    affected_rows: Scalars['Int']
+    /** data from the rows affected by the mutation */
+    returning: v0_4_conditional_vaults[]
+    __typename: 'v0_4_conditional_vaults_mutation_response'
+}
+
+
+/** select columns of table "v0_4_conditional_vaults" */
+export type v0_4_conditional_vaults_select_column = 'conditional_vault_addr' | 'created_at' | 'latest_vault_seq_num_applied' | 'pda_bump' | 'question_addr' | 'underlying_mint_acct' | 'underlying_token_acct'
+
+
+/** aggregate stddev on columns */
+export interface v0_4_conditional_vaults_stddev_fields {
+    latest_vault_seq_num_applied: (Scalars['Float'] | null)
+    pda_bump: (Scalars['Float'] | null)
+    __typename: 'v0_4_conditional_vaults_stddev_fields'
+}
+
+
+/** aggregate stddev_pop on columns */
+export interface v0_4_conditional_vaults_stddev_pop_fields {
+    latest_vault_seq_num_applied: (Scalars['Float'] | null)
+    pda_bump: (Scalars['Float'] | null)
+    __typename: 'v0_4_conditional_vaults_stddev_pop_fields'
+}
+
+
+/** aggregate stddev_samp on columns */
+export interface v0_4_conditional_vaults_stddev_samp_fields {
+    latest_vault_seq_num_applied: (Scalars['Float'] | null)
+    pda_bump: (Scalars['Float'] | null)
+    __typename: 'v0_4_conditional_vaults_stddev_samp_fields'
+}
+
+
+/** aggregate sum on columns */
+export interface v0_4_conditional_vaults_sum_fields {
+    latest_vault_seq_num_applied: (Scalars['bigint'] | null)
+    pda_bump: (Scalars['smallint'] | null)
+    __typename: 'v0_4_conditional_vaults_sum_fields'
+}
+
+
+/** update columns of table "v0_4_conditional_vaults" */
+export type v0_4_conditional_vaults_update_column = 'conditional_vault_addr' | 'created_at' | 'latest_vault_seq_num_applied' | 'pda_bump' | 'question_addr' | 'underlying_mint_acct' | 'underlying_token_acct'
+
+
+/** aggregate var_pop on columns */
+export interface v0_4_conditional_vaults_var_pop_fields {
+    latest_vault_seq_num_applied: (Scalars['Float'] | null)
+    pda_bump: (Scalars['Float'] | null)
+    __typename: 'v0_4_conditional_vaults_var_pop_fields'
+}
+
+
+/** aggregate var_samp on columns */
+export interface v0_4_conditional_vaults_var_samp_fields {
+    latest_vault_seq_num_applied: (Scalars['Float'] | null)
+    pda_bump: (Scalars['Float'] | null)
+    __typename: 'v0_4_conditional_vaults_var_samp_fields'
+}
+
+
+/** aggregate variance on columns */
+export interface v0_4_conditional_vaults_variance_fields {
+    latest_vault_seq_num_applied: (Scalars['Float'] | null)
+    pda_bump: (Scalars['Float'] | null)
+    __typename: 'v0_4_conditional_vaults_variance_fields'
+}
+
+
+/** columns and relationships of "v0_4_merges" */
+export interface v0_4_merges {
+    amount: Scalars['bigint']
+    created_at: Scalars['timestamptz']
+    signature: Scalars['String']
+    /** An object relationship */
+    signatureBySignature: signatures
+    slot: Scalars['bigint']
+    /** An object relationship */
+    v0_4_conditional_vault: v0_4_conditional_vaults
+    vault_addr: Scalars['String']
+    vault_seq_num: Scalars['bigint']
+    __typename: 'v0_4_merges'
+}
+
+
+/** aggregated selection of "v0_4_merges" */
+export interface v0_4_merges_aggregate {
+    aggregate: (v0_4_merges_aggregate_fields | null)
+    nodes: v0_4_merges[]
+    __typename: 'v0_4_merges_aggregate'
+}
+
+
+/** aggregate fields of "v0_4_merges" */
+export interface v0_4_merges_aggregate_fields {
+    avg: (v0_4_merges_avg_fields | null)
+    count: Scalars['Int']
+    max: (v0_4_merges_max_fields | null)
+    min: (v0_4_merges_min_fields | null)
+    stddev: (v0_4_merges_stddev_fields | null)
+    stddev_pop: (v0_4_merges_stddev_pop_fields | null)
+    stddev_samp: (v0_4_merges_stddev_samp_fields | null)
+    sum: (v0_4_merges_sum_fields | null)
+    var_pop: (v0_4_merges_var_pop_fields | null)
+    var_samp: (v0_4_merges_var_samp_fields | null)
+    variance: (v0_4_merges_variance_fields | null)
+    __typename: 'v0_4_merges_aggregate_fields'
+}
+
+
+/** aggregate avg on columns */
+export interface v0_4_merges_avg_fields {
+    amount: (Scalars['Float'] | null)
+    slot: (Scalars['Float'] | null)
+    vault_seq_num: (Scalars['Float'] | null)
+    __typename: 'v0_4_merges_avg_fields'
+}
+
+
+/** unique or primary key constraints on table "v0_4_merges" */
+export type v0_4_merges_constraint = 'v0_4_merges_vault_addr_vault_seq_num_pk'
+
+
+/** aggregate max on columns */
+export interface v0_4_merges_max_fields {
+    amount: (Scalars['bigint'] | null)
+    created_at: (Scalars['timestamptz'] | null)
+    signature: (Scalars['String'] | null)
+    slot: (Scalars['bigint'] | null)
+    vault_addr: (Scalars['String'] | null)
+    vault_seq_num: (Scalars['bigint'] | null)
+    __typename: 'v0_4_merges_max_fields'
+}
+
+
+/** aggregate min on columns */
+export interface v0_4_merges_min_fields {
+    amount: (Scalars['bigint'] | null)
+    created_at: (Scalars['timestamptz'] | null)
+    signature: (Scalars['String'] | null)
+    slot: (Scalars['bigint'] | null)
+    vault_addr: (Scalars['String'] | null)
+    vault_seq_num: (Scalars['bigint'] | null)
+    __typename: 'v0_4_merges_min_fields'
+}
+
+
+/** response of any mutation on the table "v0_4_merges" */
+export interface v0_4_merges_mutation_response {
+    /** number of rows affected by the mutation */
+    affected_rows: Scalars['Int']
+    /** data from the rows affected by the mutation */
+    returning: v0_4_merges[]
+    __typename: 'v0_4_merges_mutation_response'
+}
+
+
+/** select columns of table "v0_4_merges" */
+export type v0_4_merges_select_column = 'amount' | 'created_at' | 'signature' | 'slot' | 'vault_addr' | 'vault_seq_num'
+
+
+/** aggregate stddev on columns */
+export interface v0_4_merges_stddev_fields {
+    amount: (Scalars['Float'] | null)
+    slot: (Scalars['Float'] | null)
+    vault_seq_num: (Scalars['Float'] | null)
+    __typename: 'v0_4_merges_stddev_fields'
+}
+
+
+/** aggregate stddev_pop on columns */
+export interface v0_4_merges_stddev_pop_fields {
+    amount: (Scalars['Float'] | null)
+    slot: (Scalars['Float'] | null)
+    vault_seq_num: (Scalars['Float'] | null)
+    __typename: 'v0_4_merges_stddev_pop_fields'
+}
+
+
+/** aggregate stddev_samp on columns */
+export interface v0_4_merges_stddev_samp_fields {
+    amount: (Scalars['Float'] | null)
+    slot: (Scalars['Float'] | null)
+    vault_seq_num: (Scalars['Float'] | null)
+    __typename: 'v0_4_merges_stddev_samp_fields'
+}
+
+
+/** aggregate sum on columns */
+export interface v0_4_merges_sum_fields {
+    amount: (Scalars['bigint'] | null)
+    slot: (Scalars['bigint'] | null)
+    vault_seq_num: (Scalars['bigint'] | null)
+    __typename: 'v0_4_merges_sum_fields'
+}
+
+
+/** update columns of table "v0_4_merges" */
+export type v0_4_merges_update_column = 'amount' | 'created_at' | 'signature' | 'slot' | 'vault_addr' | 'vault_seq_num'
+
+
+/** aggregate var_pop on columns */
+export interface v0_4_merges_var_pop_fields {
+    amount: (Scalars['Float'] | null)
+    slot: (Scalars['Float'] | null)
+    vault_seq_num: (Scalars['Float'] | null)
+    __typename: 'v0_4_merges_var_pop_fields'
+}
+
+
+/** aggregate var_samp on columns */
+export interface v0_4_merges_var_samp_fields {
+    amount: (Scalars['Float'] | null)
+    slot: (Scalars['Float'] | null)
+    vault_seq_num: (Scalars['Float'] | null)
+    __typename: 'v0_4_merges_var_samp_fields'
+}
+
+
+/** aggregate variance on columns */
+export interface v0_4_merges_variance_fields {
+    amount: (Scalars['Float'] | null)
+    slot: (Scalars['Float'] | null)
+    vault_seq_num: (Scalars['Float'] | null)
+    __typename: 'v0_4_merges_variance_fields'
+}
+
+
+/** columns and relationships of "v0_4_metric_decisions" */
+export interface v0_4_metric_decisions {
+    /** An object relationship */
+    amm: v0_4_amms
+    amm_addr: Scalars['String']
+    committee_evaluation: Scalars['timestamptz']
+    created_at: Scalars['timestamptz']
+    /** An object relationship */
+    dao_detail: dao_details
+    dao_id: Scalars['bigint']
+    description: Scalars['String']
+    grant_awarded: Scalars['timestamptz']
+    id: Scalars['bigint']
+    market_opened: Scalars['timestamptz']
+    /** An object relationship */
+    metric_question: v0_4_questions
+    metric_question_addr: Scalars['String']
+    /** An object relationship */
+    metric_vault: v0_4_conditional_vaults
+    metric_vault_addr: Scalars['String']
+    /** An object relationship */
+    outcome_question: v0_4_questions
+    outcome_question_addr: Scalars['String']
+    /** An object relationship */
+    outcome_vault: v0_4_conditional_vaults
+    outcome_vault_addr: Scalars['String']
+    recipient: Scalars['String']
+    score_max_value: (Scalars['numeric'] | null)
+    score_min_value: (Scalars['numeric'] | null)
+    score_term: Scalars['String']
+    score_unit: (Scalars['String'] | null)
+    title: Scalars['String']
+    __typename: 'v0_4_metric_decisions'
+}
+
+
+/** aggregated selection of "v0_4_metric_decisions" */
+export interface v0_4_metric_decisions_aggregate {
+    aggregate: (v0_4_metric_decisions_aggregate_fields | null)
+    nodes: v0_4_metric_decisions[]
+    __typename: 'v0_4_metric_decisions_aggregate'
+}
+
+
+/** aggregate fields of "v0_4_metric_decisions" */
+export interface v0_4_metric_decisions_aggregate_fields {
+    avg: (v0_4_metric_decisions_avg_fields | null)
+    count: Scalars['Int']
+    max: (v0_4_metric_decisions_max_fields | null)
+    min: (v0_4_metric_decisions_min_fields | null)
+    stddev: (v0_4_metric_decisions_stddev_fields | null)
+    stddev_pop: (v0_4_metric_decisions_stddev_pop_fields | null)
+    stddev_samp: (v0_4_metric_decisions_stddev_samp_fields | null)
+    sum: (v0_4_metric_decisions_sum_fields | null)
+    var_pop: (v0_4_metric_decisions_var_pop_fields | null)
+    var_samp: (v0_4_metric_decisions_var_samp_fields | null)
+    variance: (v0_4_metric_decisions_variance_fields | null)
+    __typename: 'v0_4_metric_decisions_aggregate_fields'
+}
+
+
+/** aggregate avg on columns */
+export interface v0_4_metric_decisions_avg_fields {
+    dao_id: (Scalars['Float'] | null)
+    id: (Scalars['Float'] | null)
+    score_max_value: (Scalars['Float'] | null)
+    score_min_value: (Scalars['Float'] | null)
+    __typename: 'v0_4_metric_decisions_avg_fields'
+}
+
+
+/** unique or primary key constraints on table "v0_4_metric_decisions" */
+export type v0_4_metric_decisions_constraint = 'v0_4_metric_decisions_pkey'
+
+
+/** aggregate max on columns */
+export interface v0_4_metric_decisions_max_fields {
+    amm_addr: (Scalars['String'] | null)
+    committee_evaluation: (Scalars['timestamptz'] | null)
+    created_at: (Scalars['timestamptz'] | null)
+    dao_id: (Scalars['bigint'] | null)
+    description: (Scalars['String'] | null)
+    grant_awarded: (Scalars['timestamptz'] | null)
+    id: (Scalars['bigint'] | null)
+    market_opened: (Scalars['timestamptz'] | null)
+    metric_question_addr: (Scalars['String'] | null)
+    metric_vault_addr: (Scalars['String'] | null)
+    outcome_question_addr: (Scalars['String'] | null)
+    outcome_vault_addr: (Scalars['String'] | null)
+    recipient: (Scalars['String'] | null)
+    score_max_value: (Scalars['numeric'] | null)
+    score_min_value: (Scalars['numeric'] | null)
+    score_term: (Scalars['String'] | null)
+    score_unit: (Scalars['String'] | null)
+    title: (Scalars['String'] | null)
+    __typename: 'v0_4_metric_decisions_max_fields'
+}
+
+
+/** aggregate min on columns */
+export interface v0_4_metric_decisions_min_fields {
+    amm_addr: (Scalars['String'] | null)
+    committee_evaluation: (Scalars['timestamptz'] | null)
+    created_at: (Scalars['timestamptz'] | null)
+    dao_id: (Scalars['bigint'] | null)
+    description: (Scalars['String'] | null)
+    grant_awarded: (Scalars['timestamptz'] | null)
+    id: (Scalars['bigint'] | null)
+    market_opened: (Scalars['timestamptz'] | null)
+    metric_question_addr: (Scalars['String'] | null)
+    metric_vault_addr: (Scalars['String'] | null)
+    outcome_question_addr: (Scalars['String'] | null)
+    outcome_vault_addr: (Scalars['String'] | null)
+    recipient: (Scalars['String'] | null)
+    score_max_value: (Scalars['numeric'] | null)
+    score_min_value: (Scalars['numeric'] | null)
+    score_term: (Scalars['String'] | null)
+    score_unit: (Scalars['String'] | null)
+    title: (Scalars['String'] | null)
+    __typename: 'v0_4_metric_decisions_min_fields'
+}
+
+
+/** response of any mutation on the table "v0_4_metric_decisions" */
+export interface v0_4_metric_decisions_mutation_response {
+    /** number of rows affected by the mutation */
+    affected_rows: Scalars['Int']
+    /** data from the rows affected by the mutation */
+    returning: v0_4_metric_decisions[]
+    __typename: 'v0_4_metric_decisions_mutation_response'
+}
+
+
+/** select columns of table "v0_4_metric_decisions" */
+export type v0_4_metric_decisions_select_column = 'amm_addr' | 'committee_evaluation' | 'created_at' | 'dao_id' | 'description' | 'grant_awarded' | 'id' | 'market_opened' | 'metric_question_addr' | 'metric_vault_addr' | 'outcome_question_addr' | 'outcome_vault_addr' | 'recipient' | 'score_max_value' | 'score_min_value' | 'score_term' | 'score_unit' | 'title'
+
+
+/** aggregate stddev on columns */
+export interface v0_4_metric_decisions_stddev_fields {
+    dao_id: (Scalars['Float'] | null)
+    id: (Scalars['Float'] | null)
+    score_max_value: (Scalars['Float'] | null)
+    score_min_value: (Scalars['Float'] | null)
+    __typename: 'v0_4_metric_decisions_stddev_fields'
+}
+
+
+/** aggregate stddev_pop on columns */
+export interface v0_4_metric_decisions_stddev_pop_fields {
+    dao_id: (Scalars['Float'] | null)
+    id: (Scalars['Float'] | null)
+    score_max_value: (Scalars['Float'] | null)
+    score_min_value: (Scalars['Float'] | null)
+    __typename: 'v0_4_metric_decisions_stddev_pop_fields'
+}
+
+
+/** aggregate stddev_samp on columns */
+export interface v0_4_metric_decisions_stddev_samp_fields {
+    dao_id: (Scalars['Float'] | null)
+    id: (Scalars['Float'] | null)
+    score_max_value: (Scalars['Float'] | null)
+    score_min_value: (Scalars['Float'] | null)
+    __typename: 'v0_4_metric_decisions_stddev_samp_fields'
+}
+
+
+/** aggregate sum on columns */
+export interface v0_4_metric_decisions_sum_fields {
+    dao_id: (Scalars['bigint'] | null)
+    id: (Scalars['bigint'] | null)
+    score_max_value: (Scalars['numeric'] | null)
+    score_min_value: (Scalars['numeric'] | null)
+    __typename: 'v0_4_metric_decisions_sum_fields'
+}
+
+
+/** update columns of table "v0_4_metric_decisions" */
+export type v0_4_metric_decisions_update_column = 'amm_addr' | 'committee_evaluation' | 'created_at' | 'dao_id' | 'description' | 'grant_awarded' | 'id' | 'market_opened' | 'metric_question_addr' | 'metric_vault_addr' | 'outcome_question_addr' | 'outcome_vault_addr' | 'recipient' | 'score_max_value' | 'score_min_value' | 'score_term' | 'score_unit' | 'title'
+
+
+/** aggregate var_pop on columns */
+export interface v0_4_metric_decisions_var_pop_fields {
+    dao_id: (Scalars['Float'] | null)
+    id: (Scalars['Float'] | null)
+    score_max_value: (Scalars['Float'] | null)
+    score_min_value: (Scalars['Float'] | null)
+    __typename: 'v0_4_metric_decisions_var_pop_fields'
+}
+
+
+/** aggregate var_samp on columns */
+export interface v0_4_metric_decisions_var_samp_fields {
+    dao_id: (Scalars['Float'] | null)
+    id: (Scalars['Float'] | null)
+    score_max_value: (Scalars['Float'] | null)
+    score_min_value: (Scalars['Float'] | null)
+    __typename: 'v0_4_metric_decisions_var_samp_fields'
+}
+
+
+/** aggregate variance on columns */
+export interface v0_4_metric_decisions_variance_fields {
+    dao_id: (Scalars['Float'] | null)
+    id: (Scalars['Float'] | null)
+    score_max_value: (Scalars['Float'] | null)
+    score_min_value: (Scalars['Float'] | null)
+    __typename: 'v0_4_metric_decisions_variance_fields'
+}
+
+
+/** columns and relationships of "v0_4_questions" */
+export interface v0_4_questions {
+    created_at: Scalars['timestamptz']
+    /** An array relationship */
+    decisions: v0_4_metric_decisions[]
+    /** An aggregate relationship */
+    decisions_aggregate: v0_4_metric_decisions_aggregate
+    is_resolved: Scalars['Boolean']
+    /** An array relationship */
+    metric_decisions: v0_4_metric_decisions[]
+    /** An aggregate relationship */
+    metric_decisions_aggregate: v0_4_metric_decisions_aggregate
+    num_outcomes: Scalars['smallint']
+    oracle_addr: Scalars['String']
+    payout_denominator: Scalars['bigint']
+    payout_numerators: Scalars['jsonb']
+    question_addr: Scalars['String']
+    question_id: Scalars['jsonb']
+    /** An array relationship */
+    question_vaults: v0_4_conditional_vaults[]
+    /** An aggregate relationship */
+    question_vaults_aggregate: v0_4_conditional_vaults_aggregate
+    __typename: 'v0_4_questions'
+}
+
+
+/** aggregated selection of "v0_4_questions" */
+export interface v0_4_questions_aggregate {
+    aggregate: (v0_4_questions_aggregate_fields | null)
+    nodes: v0_4_questions[]
+    __typename: 'v0_4_questions_aggregate'
+}
+
+
+/** aggregate fields of "v0_4_questions" */
+export interface v0_4_questions_aggregate_fields {
+    avg: (v0_4_questions_avg_fields | null)
+    count: Scalars['Int']
+    max: (v0_4_questions_max_fields | null)
+    min: (v0_4_questions_min_fields | null)
+    stddev: (v0_4_questions_stddev_fields | null)
+    stddev_pop: (v0_4_questions_stddev_pop_fields | null)
+    stddev_samp: (v0_4_questions_stddev_samp_fields | null)
+    sum: (v0_4_questions_sum_fields | null)
+    var_pop: (v0_4_questions_var_pop_fields | null)
+    var_samp: (v0_4_questions_var_samp_fields | null)
+    variance: (v0_4_questions_variance_fields | null)
+    __typename: 'v0_4_questions_aggregate_fields'
+}
+
+
+/** aggregate avg on columns */
+export interface v0_4_questions_avg_fields {
+    num_outcomes: (Scalars['Float'] | null)
+    payout_denominator: (Scalars['Float'] | null)
+    __typename: 'v0_4_questions_avg_fields'
+}
+
+
+/** unique or primary key constraints on table "v0_4_questions" */
+export type v0_4_questions_constraint = 'v0_4_questions_pkey'
+
+
+/** aggregate max on columns */
+export interface v0_4_questions_max_fields {
+    created_at: (Scalars['timestamptz'] | null)
+    num_outcomes: (Scalars['smallint'] | null)
+    oracle_addr: (Scalars['String'] | null)
+    payout_denominator: (Scalars['bigint'] | null)
+    question_addr: (Scalars['String'] | null)
+    __typename: 'v0_4_questions_max_fields'
+}
+
+
+/** aggregate min on columns */
+export interface v0_4_questions_min_fields {
+    created_at: (Scalars['timestamptz'] | null)
+    num_outcomes: (Scalars['smallint'] | null)
+    oracle_addr: (Scalars['String'] | null)
+    payout_denominator: (Scalars['bigint'] | null)
+    question_addr: (Scalars['String'] | null)
+    __typename: 'v0_4_questions_min_fields'
+}
+
+
+/** response of any mutation on the table "v0_4_questions" */
+export interface v0_4_questions_mutation_response {
+    /** number of rows affected by the mutation */
+    affected_rows: Scalars['Int']
+    /** data from the rows affected by the mutation */
+    returning: v0_4_questions[]
+    __typename: 'v0_4_questions_mutation_response'
+}
+
+
+/** select columns of table "v0_4_questions" */
+export type v0_4_questions_select_column = 'created_at' | 'is_resolved' | 'num_outcomes' | 'oracle_addr' | 'payout_denominator' | 'payout_numerators' | 'question_addr' | 'question_id'
+
+
+/** aggregate stddev on columns */
+export interface v0_4_questions_stddev_fields {
+    num_outcomes: (Scalars['Float'] | null)
+    payout_denominator: (Scalars['Float'] | null)
+    __typename: 'v0_4_questions_stddev_fields'
+}
+
+
+/** aggregate stddev_pop on columns */
+export interface v0_4_questions_stddev_pop_fields {
+    num_outcomes: (Scalars['Float'] | null)
+    payout_denominator: (Scalars['Float'] | null)
+    __typename: 'v0_4_questions_stddev_pop_fields'
+}
+
+
+/** aggregate stddev_samp on columns */
+export interface v0_4_questions_stddev_samp_fields {
+    num_outcomes: (Scalars['Float'] | null)
+    payout_denominator: (Scalars['Float'] | null)
+    __typename: 'v0_4_questions_stddev_samp_fields'
+}
+
+
+/** aggregate sum on columns */
+export interface v0_4_questions_sum_fields {
+    num_outcomes: (Scalars['smallint'] | null)
+    payout_denominator: (Scalars['bigint'] | null)
+    __typename: 'v0_4_questions_sum_fields'
+}
+
+
+/** update columns of table "v0_4_questions" */
+export type v0_4_questions_update_column = 'created_at' | 'is_resolved' | 'num_outcomes' | 'oracle_addr' | 'payout_denominator' | 'payout_numerators' | 'question_addr' | 'question_id'
+
+
+/** aggregate var_pop on columns */
+export interface v0_4_questions_var_pop_fields {
+    num_outcomes: (Scalars['Float'] | null)
+    payout_denominator: (Scalars['Float'] | null)
+    __typename: 'v0_4_questions_var_pop_fields'
+}
+
+
+/** aggregate var_samp on columns */
+export interface v0_4_questions_var_samp_fields {
+    num_outcomes: (Scalars['Float'] | null)
+    payout_denominator: (Scalars['Float'] | null)
+    __typename: 'v0_4_questions_var_samp_fields'
+}
+
+
+/** aggregate variance on columns */
+export interface v0_4_questions_variance_fields {
+    num_outcomes: (Scalars['Float'] | null)
+    payout_denominator: (Scalars['Float'] | null)
+    __typename: 'v0_4_questions_variance_fields'
+}
+
+
+/** columns and relationships of "v0_4_splits" */
+export interface v0_4_splits {
+    amount: Scalars['bigint']
+    created_at: Scalars['timestamptz']
+    signature: Scalars['String']
+    /** An object relationship */
+    signatureBySignature: signatures
+    slot: Scalars['bigint']
+    /** An object relationship */
+    v0_4_conditional_vault: v0_4_conditional_vaults
+    vault_addr: Scalars['String']
+    vault_seq_num: Scalars['bigint']
+    __typename: 'v0_4_splits'
+}
+
+
+/** aggregated selection of "v0_4_splits" */
+export interface v0_4_splits_aggregate {
+    aggregate: (v0_4_splits_aggregate_fields | null)
+    nodes: v0_4_splits[]
+    __typename: 'v0_4_splits_aggregate'
+}
+
+
+/** aggregate fields of "v0_4_splits" */
+export interface v0_4_splits_aggregate_fields {
+    avg: (v0_4_splits_avg_fields | null)
+    count: Scalars['Int']
+    max: (v0_4_splits_max_fields | null)
+    min: (v0_4_splits_min_fields | null)
+    stddev: (v0_4_splits_stddev_fields | null)
+    stddev_pop: (v0_4_splits_stddev_pop_fields | null)
+    stddev_samp: (v0_4_splits_stddev_samp_fields | null)
+    sum: (v0_4_splits_sum_fields | null)
+    var_pop: (v0_4_splits_var_pop_fields | null)
+    var_samp: (v0_4_splits_var_samp_fields | null)
+    variance: (v0_4_splits_variance_fields | null)
+    __typename: 'v0_4_splits_aggregate_fields'
+}
+
+
+/** aggregate avg on columns */
+export interface v0_4_splits_avg_fields {
+    amount: (Scalars['Float'] | null)
+    slot: (Scalars['Float'] | null)
+    vault_seq_num: (Scalars['Float'] | null)
+    __typename: 'v0_4_splits_avg_fields'
+}
+
+
+/** unique or primary key constraints on table "v0_4_splits" */
+export type v0_4_splits_constraint = 'v0_4_splits_vault_addr_vault_seq_num_pk'
+
+
+/** aggregate max on columns */
+export interface v0_4_splits_max_fields {
+    amount: (Scalars['bigint'] | null)
+    created_at: (Scalars['timestamptz'] | null)
+    signature: (Scalars['String'] | null)
+    slot: (Scalars['bigint'] | null)
+    vault_addr: (Scalars['String'] | null)
+    vault_seq_num: (Scalars['bigint'] | null)
+    __typename: 'v0_4_splits_max_fields'
+}
+
+
+/** aggregate min on columns */
+export interface v0_4_splits_min_fields {
+    amount: (Scalars['bigint'] | null)
+    created_at: (Scalars['timestamptz'] | null)
+    signature: (Scalars['String'] | null)
+    slot: (Scalars['bigint'] | null)
+    vault_addr: (Scalars['String'] | null)
+    vault_seq_num: (Scalars['bigint'] | null)
+    __typename: 'v0_4_splits_min_fields'
+}
+
+
+/** response of any mutation on the table "v0_4_splits" */
+export interface v0_4_splits_mutation_response {
+    /** number of rows affected by the mutation */
+    affected_rows: Scalars['Int']
+    /** data from the rows affected by the mutation */
+    returning: v0_4_splits[]
+    __typename: 'v0_4_splits_mutation_response'
+}
+
+
+/** select columns of table "v0_4_splits" */
+export type v0_4_splits_select_column = 'amount' | 'created_at' | 'signature' | 'slot' | 'vault_addr' | 'vault_seq_num'
+
+
+/** aggregate stddev on columns */
+export interface v0_4_splits_stddev_fields {
+    amount: (Scalars['Float'] | null)
+    slot: (Scalars['Float'] | null)
+    vault_seq_num: (Scalars['Float'] | null)
+    __typename: 'v0_4_splits_stddev_fields'
+}
+
+
+/** aggregate stddev_pop on columns */
+export interface v0_4_splits_stddev_pop_fields {
+    amount: (Scalars['Float'] | null)
+    slot: (Scalars['Float'] | null)
+    vault_seq_num: (Scalars['Float'] | null)
+    __typename: 'v0_4_splits_stddev_pop_fields'
+}
+
+
+/** aggregate stddev_samp on columns */
+export interface v0_4_splits_stddev_samp_fields {
+    amount: (Scalars['Float'] | null)
+    slot: (Scalars['Float'] | null)
+    vault_seq_num: (Scalars['Float'] | null)
+    __typename: 'v0_4_splits_stddev_samp_fields'
+}
+
+
+/** aggregate sum on columns */
+export interface v0_4_splits_sum_fields {
+    amount: (Scalars['bigint'] | null)
+    slot: (Scalars['bigint'] | null)
+    vault_seq_num: (Scalars['bigint'] | null)
+    __typename: 'v0_4_splits_sum_fields'
+}
+
+
+/** update columns of table "v0_4_splits" */
+export type v0_4_splits_update_column = 'amount' | 'created_at' | 'signature' | 'slot' | 'vault_addr' | 'vault_seq_num'
+
+
+/** aggregate var_pop on columns */
+export interface v0_4_splits_var_pop_fields {
+    amount: (Scalars['Float'] | null)
+    slot: (Scalars['Float'] | null)
+    vault_seq_num: (Scalars['Float'] | null)
+    __typename: 'v0_4_splits_var_pop_fields'
+}
+
+
+/** aggregate var_samp on columns */
+export interface v0_4_splits_var_samp_fields {
+    amount: (Scalars['Float'] | null)
+    slot: (Scalars['Float'] | null)
+    vault_seq_num: (Scalars['Float'] | null)
+    __typename: 'v0_4_splits_var_samp_fields'
+}
+
+
+/** aggregate variance on columns */
+export interface v0_4_splits_variance_fields {
+    amount: (Scalars['Float'] | null)
+    slot: (Scalars['Float'] | null)
+    vault_seq_num: (Scalars['Float'] | null)
+    __typename: 'v0_4_splits_variance_fields'
+}
+
+
+/** columns and relationships of "v0_4_swaps" */
+export interface v0_4_swaps {
+    amm_addr: Scalars['String']
+    amm_seq_num: Scalars['bigint']
+    block_time: Scalars['timestamptz']
+    created_at: Scalars['timestamptz']
+    id: Scalars['bigint']
+    input_amount: Scalars['bigint']
+    output_amount: Scalars['bigint']
+    signature: Scalars['String']
+    slot: Scalars['bigint']
+    swap_type: Scalars['String']
+    user_addr: Scalars['String']
+    /** An object relationship */
+    v0_4_merges: (v0_4_merges | null)
+    /** An object relationship */
+    v0_4_splits: (v0_4_splits | null)
+    __typename: 'v0_4_swaps'
+}
+
+
+/** aggregated selection of "v0_4_swaps" */
+export interface v0_4_swaps_aggregate {
+    aggregate: (v0_4_swaps_aggregate_fields | null)
+    nodes: v0_4_swaps[]
+    __typename: 'v0_4_swaps_aggregate'
+}
+
+
+/** aggregate fields of "v0_4_swaps" */
+export interface v0_4_swaps_aggregate_fields {
+    avg: (v0_4_swaps_avg_fields | null)
+    count: Scalars['Int']
+    max: (v0_4_swaps_max_fields | null)
+    min: (v0_4_swaps_min_fields | null)
+    stddev: (v0_4_swaps_stddev_fields | null)
+    stddev_pop: (v0_4_swaps_stddev_pop_fields | null)
+    stddev_samp: (v0_4_swaps_stddev_samp_fields | null)
+    sum: (v0_4_swaps_sum_fields | null)
+    var_pop: (v0_4_swaps_var_pop_fields | null)
+    var_samp: (v0_4_swaps_var_samp_fields | null)
+    variance: (v0_4_swaps_variance_fields | null)
+    __typename: 'v0_4_swaps_aggregate_fields'
+}
+
+
+/** aggregate avg on columns */
+export interface v0_4_swaps_avg_fields {
+    amm_seq_num: (Scalars['Float'] | null)
+    id: (Scalars['Float'] | null)
+    input_amount: (Scalars['Float'] | null)
+    output_amount: (Scalars['Float'] | null)
+    slot: (Scalars['Float'] | null)
+    __typename: 'v0_4_swaps_avg_fields'
+}
+
+
+/** unique or primary key constraints on table "v0_4_swaps" */
+export type v0_4_swaps_constraint = 'v0_4_swaps_pkey'
+
+
+/** aggregate max on columns */
+export interface v0_4_swaps_max_fields {
+    amm_addr: (Scalars['String'] | null)
+    amm_seq_num: (Scalars['bigint'] | null)
+    block_time: (Scalars['timestamptz'] | null)
+    created_at: (Scalars['timestamptz'] | null)
+    id: (Scalars['bigint'] | null)
+    input_amount: (Scalars['bigint'] | null)
+    output_amount: (Scalars['bigint'] | null)
+    signature: (Scalars['String'] | null)
+    slot: (Scalars['bigint'] | null)
+    swap_type: (Scalars['String'] | null)
+    user_addr: (Scalars['String'] | null)
+    __typename: 'v0_4_swaps_max_fields'
+}
+
+
+/** aggregate min on columns */
+export interface v0_4_swaps_min_fields {
+    amm_addr: (Scalars['String'] | null)
+    amm_seq_num: (Scalars['bigint'] | null)
+    block_time: (Scalars['timestamptz'] | null)
+    created_at: (Scalars['timestamptz'] | null)
+    id: (Scalars['bigint'] | null)
+    input_amount: (Scalars['bigint'] | null)
+    output_amount: (Scalars['bigint'] | null)
+    signature: (Scalars['String'] | null)
+    slot: (Scalars['bigint'] | null)
+    swap_type: (Scalars['String'] | null)
+    user_addr: (Scalars['String'] | null)
+    __typename: 'v0_4_swaps_min_fields'
+}
+
+
+/** response of any mutation on the table "v0_4_swaps" */
+export interface v0_4_swaps_mutation_response {
+    /** number of rows affected by the mutation */
+    affected_rows: Scalars['Int']
+    /** data from the rows affected by the mutation */
+    returning: v0_4_swaps[]
+    __typename: 'v0_4_swaps_mutation_response'
+}
+
+
+/** select columns of table "v0_4_swaps" */
+export type v0_4_swaps_select_column = 'amm_addr' | 'amm_seq_num' | 'block_time' | 'created_at' | 'id' | 'input_amount' | 'output_amount' | 'signature' | 'slot' | 'swap_type' | 'user_addr'
+
+
+/** aggregate stddev on columns */
+export interface v0_4_swaps_stddev_fields {
+    amm_seq_num: (Scalars['Float'] | null)
+    id: (Scalars['Float'] | null)
+    input_amount: (Scalars['Float'] | null)
+    output_amount: (Scalars['Float'] | null)
+    slot: (Scalars['Float'] | null)
+    __typename: 'v0_4_swaps_stddev_fields'
+}
+
+
+/** aggregate stddev_pop on columns */
+export interface v0_4_swaps_stddev_pop_fields {
+    amm_seq_num: (Scalars['Float'] | null)
+    id: (Scalars['Float'] | null)
+    input_amount: (Scalars['Float'] | null)
+    output_amount: (Scalars['Float'] | null)
+    slot: (Scalars['Float'] | null)
+    __typename: 'v0_4_swaps_stddev_pop_fields'
+}
+
+
+/** aggregate stddev_samp on columns */
+export interface v0_4_swaps_stddev_samp_fields {
+    amm_seq_num: (Scalars['Float'] | null)
+    id: (Scalars['Float'] | null)
+    input_amount: (Scalars['Float'] | null)
+    output_amount: (Scalars['Float'] | null)
+    slot: (Scalars['Float'] | null)
+    __typename: 'v0_4_swaps_stddev_samp_fields'
+}
+
+
+/** aggregate sum on columns */
+export interface v0_4_swaps_sum_fields {
+    amm_seq_num: (Scalars['bigint'] | null)
+    id: (Scalars['bigint'] | null)
+    input_amount: (Scalars['bigint'] | null)
+    output_amount: (Scalars['bigint'] | null)
+    slot: (Scalars['bigint'] | null)
+    __typename: 'v0_4_swaps_sum_fields'
+}
+
+
+/** update columns of table "v0_4_swaps" */
+export type v0_4_swaps_update_column = 'amm_addr' | 'amm_seq_num' | 'block_time' | 'created_at' | 'id' | 'input_amount' | 'output_amount' | 'signature' | 'slot' | 'swap_type' | 'user_addr'
+
+
+/** aggregate var_pop on columns */
+export interface v0_4_swaps_var_pop_fields {
+    amm_seq_num: (Scalars['Float'] | null)
+    id: (Scalars['Float'] | null)
+    input_amount: (Scalars['Float'] | null)
+    output_amount: (Scalars['Float'] | null)
+    slot: (Scalars['Float'] | null)
+    __typename: 'v0_4_swaps_var_pop_fields'
+}
+
+
+/** aggregate var_samp on columns */
+export interface v0_4_swaps_var_samp_fields {
+    amm_seq_num: (Scalars['Float'] | null)
+    id: (Scalars['Float'] | null)
+    input_amount: (Scalars['Float'] | null)
+    output_amount: (Scalars['Float'] | null)
+    slot: (Scalars['Float'] | null)
+    __typename: 'v0_4_swaps_var_samp_fields'
+}
+
+
+/** aggregate variance on columns */
+export interface v0_4_swaps_variance_fields {
+    amm_seq_num: (Scalars['Float'] | null)
+    id: (Scalars['Float'] | null)
+    input_amount: (Scalars['Float'] | null)
+    output_amount: (Scalars['Float'] | null)
+    slot: (Scalars['Float'] | null)
+    __typename: 'v0_4_swaps_variance_fields'
+}
 
 export type Query = query_root
 export type Mutation = mutation_root
@@ -6535,8 +8940,35 @@ export interface dao_detailsGenqlSelection{
     name?: boolean | number
     pass_token_image_url?: boolean | number
     slug?: boolean | number
+    socials?: { __args: {
+    /** JSON select path */
+    path?: (Scalars['String'] | null)} } | boolean | number
     token_image_url?: boolean | number
     url?: boolean | number
+    /** An array relationship */
+    v0_4_metric_decisions?: (v0_4_metric_decisionsGenqlSelection & { __args?: {
+    /** distinct select on columns */
+    distinct_on?: (v0_4_metric_decisions_select_column[] | null), 
+    /** limit the number of rows returned */
+    limit?: (Scalars['Int'] | null), 
+    /** skip the first n rows. Use only with order_by */
+    offset?: (Scalars['Int'] | null), 
+    /** sort the rows by one or more columns */
+    order_by?: (v0_4_metric_decisions_order_by[] | null), 
+    /** filter the rows returned */
+    where?: (v0_4_metric_decisions_bool_exp | null)} })
+    /** An aggregate relationship */
+    v0_4_metric_decisions_aggregate?: (v0_4_metric_decisions_aggregateGenqlSelection & { __args?: {
+    /** distinct select on columns */
+    distinct_on?: (v0_4_metric_decisions_select_column[] | null), 
+    /** limit the number of rows returned */
+    limit?: (Scalars['Int'] | null), 
+    /** skip the first n rows. Use only with order_by */
+    offset?: (Scalars['Int'] | null), 
+    /** sort the rows by one or more columns */
+    order_by?: (v0_4_metric_decisions_order_by[] | null), 
+    /** filter the rows returned */
+    where?: (v0_4_metric_decisions_bool_exp | null)} })
     x_account?: boolean | number
     __typename?: boolean | number
     __scalar?: boolean | number
@@ -6571,7 +9003,7 @@ export interface dao_details_aggregate_fieldsGenqlSelection{
 
 
 /** append existing jsonb value of filtered columns with new jsonb value */
-export interface dao_details_append_input {admin_accts?: (Scalars['jsonb'] | null)}
+export interface dao_details_append_input {admin_accts?: (Scalars['jsonb'] | null),socials?: (Scalars['jsonb'] | null)}
 
 
 /** aggregate avg on columns */
@@ -6583,19 +9015,19 @@ export interface dao_details_avg_fieldsGenqlSelection{
 
 
 /** Boolean expression to filter rows from the table "dao_details". All fields are combined with a logical 'AND'. */
-export interface dao_details_bool_exp {_and?: (dao_details_bool_exp[] | null),_not?: (dao_details_bool_exp | null),_or?: (dao_details_bool_exp[] | null),admin_accts?: (jsonb_comparison_exp | null),creator_acct?: (String_comparison_exp | null),dao_id?: (bigint_comparison_exp | null),daos?: (daos_bool_exp | null),daos_aggregate?: (daos_aggregate_bool_exp | null),description?: (String_comparison_exp | null),fail_token_image_url?: (String_comparison_exp | null),github?: (String_comparison_exp | null),image_url?: (String_comparison_exp | null),is_hide?: (Boolean_comparison_exp | null),lp_token_image_url?: (String_comparison_exp | null),name?: (String_comparison_exp | null),pass_token_image_url?: (String_comparison_exp | null),slug?: (String_comparison_exp | null),token_image_url?: (String_comparison_exp | null),url?: (String_comparison_exp | null),x_account?: (String_comparison_exp | null)}
+export interface dao_details_bool_exp {_and?: (dao_details_bool_exp[] | null),_not?: (dao_details_bool_exp | null),_or?: (dao_details_bool_exp[] | null),admin_accts?: (jsonb_comparison_exp | null),creator_acct?: (String_comparison_exp | null),dao_id?: (bigint_comparison_exp | null),daos?: (daos_bool_exp | null),daos_aggregate?: (daos_aggregate_bool_exp | null),description?: (String_comparison_exp | null),fail_token_image_url?: (String_comparison_exp | null),github?: (String_comparison_exp | null),image_url?: (String_comparison_exp | null),is_hide?: (Boolean_comparison_exp | null),lp_token_image_url?: (String_comparison_exp | null),name?: (String_comparison_exp | null),pass_token_image_url?: (String_comparison_exp | null),slug?: (String_comparison_exp | null),socials?: (jsonb_comparison_exp | null),token_image_url?: (String_comparison_exp | null),url?: (String_comparison_exp | null),v0_4_metric_decisions?: (v0_4_metric_decisions_bool_exp | null),v0_4_metric_decisions_aggregate?: (v0_4_metric_decisions_aggregate_bool_exp | null),x_account?: (String_comparison_exp | null)}
 
 
 /** delete the field or element with specified path (for JSON arrays, negative integers count from the end) */
-export interface dao_details_delete_at_path_input {admin_accts?: (Scalars['String'][] | null)}
+export interface dao_details_delete_at_path_input {admin_accts?: (Scalars['String'][] | null),socials?: (Scalars['String'][] | null)}
 
 
 /** delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array */
-export interface dao_details_delete_elem_input {admin_accts?: (Scalars['Int'] | null)}
+export interface dao_details_delete_elem_input {admin_accts?: (Scalars['Int'] | null),socials?: (Scalars['Int'] | null)}
 
 
 /** delete key/value pair or string element. key/value pairs are matched based on their key value */
-export interface dao_details_delete_key_input {admin_accts?: (Scalars['String'] | null)}
+export interface dao_details_delete_key_input {admin_accts?: (Scalars['String'] | null),socials?: (Scalars['String'] | null)}
 
 
 /** input type for incrementing numeric columns in table "dao_details" */
@@ -6603,7 +9035,7 @@ export interface dao_details_inc_input {dao_id?: (Scalars['bigint'] | null)}
 
 
 /** input type for inserting data into table "dao_details" */
-export interface dao_details_insert_input {admin_accts?: (Scalars['jsonb'] | null),creator_acct?: (Scalars['String'] | null),dao_id?: (Scalars['bigint'] | null),daos?: (daos_arr_rel_insert_input | null),description?: (Scalars['String'] | null),fail_token_image_url?: (Scalars['String'] | null),github?: (Scalars['String'] | null),image_url?: (Scalars['String'] | null),is_hide?: (Scalars['Boolean'] | null),lp_token_image_url?: (Scalars['String'] | null),name?: (Scalars['String'] | null),pass_token_image_url?: (Scalars['String'] | null),slug?: (Scalars['String'] | null),token_image_url?: (Scalars['String'] | null),url?: (Scalars['String'] | null),x_account?: (Scalars['String'] | null)}
+export interface dao_details_insert_input {admin_accts?: (Scalars['jsonb'] | null),creator_acct?: (Scalars['String'] | null),dao_id?: (Scalars['bigint'] | null),daos?: (daos_arr_rel_insert_input | null),description?: (Scalars['String'] | null),fail_token_image_url?: (Scalars['String'] | null),github?: (Scalars['String'] | null),image_url?: (Scalars['String'] | null),is_hide?: (Scalars['Boolean'] | null),lp_token_image_url?: (Scalars['String'] | null),name?: (Scalars['String'] | null),pass_token_image_url?: (Scalars['String'] | null),slug?: (Scalars['String'] | null),socials?: (Scalars['jsonb'] | null),token_image_url?: (Scalars['String'] | null),url?: (Scalars['String'] | null),v0_4_metric_decisions?: (v0_4_metric_decisions_arr_rel_insert_input | null),x_account?: (Scalars['String'] | null)}
 
 
 /** aggregate max on columns */
@@ -6668,7 +9100,7 @@ export interface dao_details_on_conflict {constraint: dao_details_constraint,upd
 
 
 /** Ordering options when selecting data from "dao_details". */
-export interface dao_details_order_by {admin_accts?: (order_by | null),creator_acct?: (order_by | null),dao_id?: (order_by | null),daos_aggregate?: (daos_aggregate_order_by | null),description?: (order_by | null),fail_token_image_url?: (order_by | null),github?: (order_by | null),image_url?: (order_by | null),is_hide?: (order_by | null),lp_token_image_url?: (order_by | null),name?: (order_by | null),pass_token_image_url?: (order_by | null),slug?: (order_by | null),token_image_url?: (order_by | null),url?: (order_by | null),x_account?: (order_by | null)}
+export interface dao_details_order_by {admin_accts?: (order_by | null),creator_acct?: (order_by | null),dao_id?: (order_by | null),daos_aggregate?: (daos_aggregate_order_by | null),description?: (order_by | null),fail_token_image_url?: (order_by | null),github?: (order_by | null),image_url?: (order_by | null),is_hide?: (order_by | null),lp_token_image_url?: (order_by | null),name?: (order_by | null),pass_token_image_url?: (order_by | null),slug?: (order_by | null),socials?: (order_by | null),token_image_url?: (order_by | null),url?: (order_by | null),v0_4_metric_decisions_aggregate?: (v0_4_metric_decisions_aggregate_order_by | null),x_account?: (order_by | null)}
 
 
 /** primary key columns input for table: dao_details */
@@ -6676,11 +9108,11 @@ export interface dao_details_pk_columns_input {dao_id: Scalars['bigint']}
 
 
 /** prepend existing jsonb value of filtered columns with new jsonb value */
-export interface dao_details_prepend_input {admin_accts?: (Scalars['jsonb'] | null)}
+export interface dao_details_prepend_input {admin_accts?: (Scalars['jsonb'] | null),socials?: (Scalars['jsonb'] | null)}
 
 
 /** input type for updating data in table "dao_details" */
-export interface dao_details_set_input {admin_accts?: (Scalars['jsonb'] | null),creator_acct?: (Scalars['String'] | null),dao_id?: (Scalars['bigint'] | null),description?: (Scalars['String'] | null),fail_token_image_url?: (Scalars['String'] | null),github?: (Scalars['String'] | null),image_url?: (Scalars['String'] | null),is_hide?: (Scalars['Boolean'] | null),lp_token_image_url?: (Scalars['String'] | null),name?: (Scalars['String'] | null),pass_token_image_url?: (Scalars['String'] | null),slug?: (Scalars['String'] | null),token_image_url?: (Scalars['String'] | null),url?: (Scalars['String'] | null),x_account?: (Scalars['String'] | null)}
+export interface dao_details_set_input {admin_accts?: (Scalars['jsonb'] | null),creator_acct?: (Scalars['String'] | null),dao_id?: (Scalars['bigint'] | null),description?: (Scalars['String'] | null),fail_token_image_url?: (Scalars['String'] | null),github?: (Scalars['String'] | null),image_url?: (Scalars['String'] | null),is_hide?: (Scalars['Boolean'] | null),lp_token_image_url?: (Scalars['String'] | null),name?: (Scalars['String'] | null),pass_token_image_url?: (Scalars['String'] | null),slug?: (Scalars['String'] | null),socials?: (Scalars['jsonb'] | null),token_image_url?: (Scalars['String'] | null),url?: (Scalars['String'] | null),x_account?: (Scalars['String'] | null)}
 
 
 /** aggregate stddev on columns */
@@ -6716,7 +9148,7 @@ ordering?: (cursor_ordering | null)}
 
 
 /** Initial value of the column from where the streaming should start */
-export interface dao_details_stream_cursor_value_input {admin_accts?: (Scalars['jsonb'] | null),creator_acct?: (Scalars['String'] | null),dao_id?: (Scalars['bigint'] | null),description?: (Scalars['String'] | null),fail_token_image_url?: (Scalars['String'] | null),github?: (Scalars['String'] | null),image_url?: (Scalars['String'] | null),is_hide?: (Scalars['Boolean'] | null),lp_token_image_url?: (Scalars['String'] | null),name?: (Scalars['String'] | null),pass_token_image_url?: (Scalars['String'] | null),slug?: (Scalars['String'] | null),token_image_url?: (Scalars['String'] | null),url?: (Scalars['String'] | null),x_account?: (Scalars['String'] | null)}
+export interface dao_details_stream_cursor_value_input {admin_accts?: (Scalars['jsonb'] | null),creator_acct?: (Scalars['String'] | null),dao_id?: (Scalars['bigint'] | null),description?: (Scalars['String'] | null),fail_token_image_url?: (Scalars['String'] | null),github?: (Scalars['String'] | null),image_url?: (Scalars['String'] | null),is_hide?: (Scalars['Boolean'] | null),lp_token_image_url?: (Scalars['String'] | null),name?: (Scalars['String'] | null),pass_token_image_url?: (Scalars['String'] | null),slug?: (Scalars['String'] | null),socials?: (Scalars['jsonb'] | null),token_image_url?: (Scalars['String'] | null),url?: (Scalars['String'] | null),x_account?: (Scalars['String'] | null)}
 
 
 /** aggregate sum on columns */
@@ -6768,6 +9200,21 @@ export interface dao_details_variance_fieldsGenqlSelection{
     __scalar?: boolean | number
 }
 
+export interface dao_traderGenqlSelection{
+    total_volume?: boolean | number
+    user_acct?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+
+/** Boolean expression to filter rows from the logical model for "dao_trader". All fields are combined with a logical 'AND'. */
+export interface dao_trader_bool_exp_bool_exp {_and?: (dao_trader_bool_exp_bool_exp[] | null),_not?: (dao_trader_bool_exp_bool_exp | null),_or?: (dao_trader_bool_exp_bool_exp[] | null),total_volume?: (bigint_comparison_exp | null),user_acct?: (String_comparison_exp | null)}
+
+
+/** Ordering options when selecting data from "dao_trader". */
+export interface dao_trader_order_by {total_volume?: (order_by | null),user_acct?: (order_by | null)}
+
 
 /** columns and relationships of "daos" */
 export interface daosGenqlSelection{
@@ -6777,6 +9224,8 @@ export interface daosGenqlSelection{
     /** An object relationship */
     dao_detail?: dao_detailsGenqlSelection
     dao_id?: boolean | number
+    min_base_futarchic_liquidity?: boolean | number
+    min_quote_futarchic_liquidity?: boolean | number
     pass_threshold_bps?: boolean | number
     /** An object relationship */
     program?: programsGenqlSelection
@@ -6814,7 +9263,33 @@ export interface daosGenqlSelection{
     /** An object relationship */
     tokenByQuoteAcct?: tokensGenqlSelection
     treasury_acct?: boolean | number
+    twap_initial_observation?: boolean | number
+    twap_max_observation_change_per_update?: boolean | number
     updated_at?: boolean | number
+    /** An array relationship */
+    user_performances?: (user_performanceGenqlSelection & { __args?: {
+    /** distinct select on columns */
+    distinct_on?: (user_performance_select_column[] | null), 
+    /** limit the number of rows returned */
+    limit?: (Scalars['Int'] | null), 
+    /** skip the first n rows. Use only with order_by */
+    offset?: (Scalars['Int'] | null), 
+    /** sort the rows by one or more columns */
+    order_by?: (user_performance_order_by[] | null), 
+    /** filter the rows returned */
+    where?: (user_performance_bool_exp | null)} })
+    /** An aggregate relationship */
+    user_performances_aggregate?: (user_performance_aggregateGenqlSelection & { __args?: {
+    /** distinct select on columns */
+    distinct_on?: (user_performance_select_column[] | null), 
+    /** limit the number of rows returned */
+    limit?: (Scalars['Int'] | null), 
+    /** skip the first n rows. Use only with order_by */
+    offset?: (Scalars['Int'] | null), 
+    /** sort the rows by one or more columns */
+    order_by?: (user_performance_order_by[] | null), 
+    /** filter the rows returned */
+    where?: (user_performance_bool_exp | null)} })
     __typename?: boolean | number
     __scalar?: boolean | number
 }
@@ -6864,27 +9339,31 @@ on_conflict?: (daos_on_conflict | null)}
 /** aggregate avg on columns */
 export interface daos_avg_fieldsGenqlSelection{
     dao_id?: boolean | number
+    min_base_futarchic_liquidity?: boolean | number
+    min_quote_futarchic_liquidity?: boolean | number
     pass_threshold_bps?: boolean | number
     slots_per_proposal?: boolean | number
+    twap_initial_observation?: boolean | number
+    twap_max_observation_change_per_update?: boolean | number
     __typename?: boolean | number
     __scalar?: boolean | number
 }
 
 
 /** order by avg() on columns of table "daos" */
-export interface daos_avg_order_by {dao_id?: (order_by | null),pass_threshold_bps?: (order_by | null),slots_per_proposal?: (order_by | null)}
+export interface daos_avg_order_by {dao_id?: (order_by | null),min_base_futarchic_liquidity?: (order_by | null),min_quote_futarchic_liquidity?: (order_by | null),pass_threshold_bps?: (order_by | null),slots_per_proposal?: (order_by | null),twap_initial_observation?: (order_by | null),twap_max_observation_change_per_update?: (order_by | null)}
 
 
 /** Boolean expression to filter rows from the table "daos". All fields are combined with a logical 'AND'. */
-export interface daos_bool_exp {_and?: (daos_bool_exp[] | null),_not?: (daos_bool_exp | null),_or?: (daos_bool_exp[] | null),base_acct?: (String_comparison_exp | null),created_at?: (timestamptz_comparison_exp | null),dao_acct?: (String_comparison_exp | null),dao_detail?: (dao_details_bool_exp | null),dao_id?: (bigint_comparison_exp | null),pass_threshold_bps?: (bigint_comparison_exp | null),program?: (programs_bool_exp | null),program_acct?: (String_comparison_exp | null),proposals?: (proposals_bool_exp | null),proposals_aggregate?: (proposals_aggregate_bool_exp | null),quote_acct?: (String_comparison_exp | null),slots_per_proposal?: (bigint_comparison_exp | null),token?: (tokens_bool_exp | null),tokenByBaseAcct?: (tokens_bool_exp | null),tokenByQuoteAcct?: (tokens_bool_exp | null),treasury_acct?: (String_comparison_exp | null),updated_at?: (timestamptz_comparison_exp | null)}
+export interface daos_bool_exp {_and?: (daos_bool_exp[] | null),_not?: (daos_bool_exp | null),_or?: (daos_bool_exp[] | null),base_acct?: (String_comparison_exp | null),created_at?: (timestamptz_comparison_exp | null),dao_acct?: (String_comparison_exp | null),dao_detail?: (dao_details_bool_exp | null),dao_id?: (bigint_comparison_exp | null),min_base_futarchic_liquidity?: (bigint_comparison_exp | null),min_quote_futarchic_liquidity?: (bigint_comparison_exp | null),pass_threshold_bps?: (bigint_comparison_exp | null),program?: (programs_bool_exp | null),program_acct?: (String_comparison_exp | null),proposals?: (proposals_bool_exp | null),proposals_aggregate?: (proposals_aggregate_bool_exp | null),quote_acct?: (String_comparison_exp | null),slots_per_proposal?: (bigint_comparison_exp | null),token?: (tokens_bool_exp | null),tokenByBaseAcct?: (tokens_bool_exp | null),tokenByQuoteAcct?: (tokens_bool_exp | null),treasury_acct?: (String_comparison_exp | null),twap_initial_observation?: (bigint_comparison_exp | null),twap_max_observation_change_per_update?: (bigint_comparison_exp | null),updated_at?: (timestamptz_comparison_exp | null),user_performances?: (user_performance_bool_exp | null),user_performances_aggregate?: (user_performance_aggregate_bool_exp | null)}
 
 
 /** input type for incrementing numeric columns in table "daos" */
-export interface daos_inc_input {dao_id?: (Scalars['bigint'] | null),pass_threshold_bps?: (Scalars['bigint'] | null),slots_per_proposal?: (Scalars['bigint'] | null)}
+export interface daos_inc_input {dao_id?: (Scalars['bigint'] | null),min_base_futarchic_liquidity?: (Scalars['bigint'] | null),min_quote_futarchic_liquidity?: (Scalars['bigint'] | null),pass_threshold_bps?: (Scalars['bigint'] | null),slots_per_proposal?: (Scalars['bigint'] | null),twap_initial_observation?: (Scalars['bigint'] | null),twap_max_observation_change_per_update?: (Scalars['bigint'] | null)}
 
 
 /** input type for inserting data into table "daos" */
-export interface daos_insert_input {base_acct?: (Scalars['String'] | null),created_at?: (Scalars['timestamptz'] | null),dao_acct?: (Scalars['String'] | null),dao_detail?: (dao_details_obj_rel_insert_input | null),dao_id?: (Scalars['bigint'] | null),pass_threshold_bps?: (Scalars['bigint'] | null),program?: (programs_obj_rel_insert_input | null),program_acct?: (Scalars['String'] | null),proposals?: (proposals_arr_rel_insert_input | null),quote_acct?: (Scalars['String'] | null),slots_per_proposal?: (Scalars['bigint'] | null),token?: (tokens_obj_rel_insert_input | null),tokenByBaseAcct?: (tokens_obj_rel_insert_input | null),tokenByQuoteAcct?: (tokens_obj_rel_insert_input | null),treasury_acct?: (Scalars['String'] | null),updated_at?: (Scalars['timestamptz'] | null)}
+export interface daos_insert_input {base_acct?: (Scalars['String'] | null),created_at?: (Scalars['timestamptz'] | null),dao_acct?: (Scalars['String'] | null),dao_detail?: (dao_details_obj_rel_insert_input | null),dao_id?: (Scalars['bigint'] | null),min_base_futarchic_liquidity?: (Scalars['bigint'] | null),min_quote_futarchic_liquidity?: (Scalars['bigint'] | null),pass_threshold_bps?: (Scalars['bigint'] | null),program?: (programs_obj_rel_insert_input | null),program_acct?: (Scalars['String'] | null),proposals?: (proposals_arr_rel_insert_input | null),quote_acct?: (Scalars['String'] | null),slots_per_proposal?: (Scalars['bigint'] | null),token?: (tokens_obj_rel_insert_input | null),tokenByBaseAcct?: (tokens_obj_rel_insert_input | null),tokenByQuoteAcct?: (tokens_obj_rel_insert_input | null),treasury_acct?: (Scalars['String'] | null),twap_initial_observation?: (Scalars['bigint'] | null),twap_max_observation_change_per_update?: (Scalars['bigint'] | null),updated_at?: (Scalars['timestamptz'] | null),user_performances?: (user_performance_arr_rel_insert_input | null)}
 
 
 /** aggregate max on columns */
@@ -6893,11 +9372,15 @@ export interface daos_max_fieldsGenqlSelection{
     created_at?: boolean | number
     dao_acct?: boolean | number
     dao_id?: boolean | number
+    min_base_futarchic_liquidity?: boolean | number
+    min_quote_futarchic_liquidity?: boolean | number
     pass_threshold_bps?: boolean | number
     program_acct?: boolean | number
     quote_acct?: boolean | number
     slots_per_proposal?: boolean | number
     treasury_acct?: boolean | number
+    twap_initial_observation?: boolean | number
+    twap_max_observation_change_per_update?: boolean | number
     updated_at?: boolean | number
     __typename?: boolean | number
     __scalar?: boolean | number
@@ -6905,7 +9388,7 @@ export interface daos_max_fieldsGenqlSelection{
 
 
 /** order by max() on columns of table "daos" */
-export interface daos_max_order_by {base_acct?: (order_by | null),created_at?: (order_by | null),dao_acct?: (order_by | null),dao_id?: (order_by | null),pass_threshold_bps?: (order_by | null),program_acct?: (order_by | null),quote_acct?: (order_by | null),slots_per_proposal?: (order_by | null),treasury_acct?: (order_by | null),updated_at?: (order_by | null)}
+export interface daos_max_order_by {base_acct?: (order_by | null),created_at?: (order_by | null),dao_acct?: (order_by | null),dao_id?: (order_by | null),min_base_futarchic_liquidity?: (order_by | null),min_quote_futarchic_liquidity?: (order_by | null),pass_threshold_bps?: (order_by | null),program_acct?: (order_by | null),quote_acct?: (order_by | null),slots_per_proposal?: (order_by | null),treasury_acct?: (order_by | null),twap_initial_observation?: (order_by | null),twap_max_observation_change_per_update?: (order_by | null),updated_at?: (order_by | null)}
 
 
 /** aggregate min on columns */
@@ -6914,11 +9397,15 @@ export interface daos_min_fieldsGenqlSelection{
     created_at?: boolean | number
     dao_acct?: boolean | number
     dao_id?: boolean | number
+    min_base_futarchic_liquidity?: boolean | number
+    min_quote_futarchic_liquidity?: boolean | number
     pass_threshold_bps?: boolean | number
     program_acct?: boolean | number
     quote_acct?: boolean | number
     slots_per_proposal?: boolean | number
     treasury_acct?: boolean | number
+    twap_initial_observation?: boolean | number
+    twap_max_observation_change_per_update?: boolean | number
     updated_at?: boolean | number
     __typename?: boolean | number
     __scalar?: boolean | number
@@ -6926,7 +9413,7 @@ export interface daos_min_fieldsGenqlSelection{
 
 
 /** order by min() on columns of table "daos" */
-export interface daos_min_order_by {base_acct?: (order_by | null),created_at?: (order_by | null),dao_acct?: (order_by | null),dao_id?: (order_by | null),pass_threshold_bps?: (order_by | null),program_acct?: (order_by | null),quote_acct?: (order_by | null),slots_per_proposal?: (order_by | null),treasury_acct?: (order_by | null),updated_at?: (order_by | null)}
+export interface daos_min_order_by {base_acct?: (order_by | null),created_at?: (order_by | null),dao_acct?: (order_by | null),dao_id?: (order_by | null),min_base_futarchic_liquidity?: (order_by | null),min_quote_futarchic_liquidity?: (order_by | null),pass_threshold_bps?: (order_by | null),program_acct?: (order_by | null),quote_acct?: (order_by | null),slots_per_proposal?: (order_by | null),treasury_acct?: (order_by | null),twap_initial_observation?: (order_by | null),twap_max_observation_change_per_update?: (order_by | null),updated_at?: (order_by | null)}
 
 
 /** response of any mutation on the table "daos" */
@@ -6951,7 +9438,7 @@ export interface daos_on_conflict {constraint: daos_constraint,update_columns?: 
 
 
 /** Ordering options when selecting data from "daos". */
-export interface daos_order_by {base_acct?: (order_by | null),created_at?: (order_by | null),dao_acct?: (order_by | null),dao_detail?: (dao_details_order_by | null),dao_id?: (order_by | null),pass_threshold_bps?: (order_by | null),program?: (programs_order_by | null),program_acct?: (order_by | null),proposals_aggregate?: (proposals_aggregate_order_by | null),quote_acct?: (order_by | null),slots_per_proposal?: (order_by | null),token?: (tokens_order_by | null),tokenByBaseAcct?: (tokens_order_by | null),tokenByQuoteAcct?: (tokens_order_by | null),treasury_acct?: (order_by | null),updated_at?: (order_by | null)}
+export interface daos_order_by {base_acct?: (order_by | null),created_at?: (order_by | null),dao_acct?: (order_by | null),dao_detail?: (dao_details_order_by | null),dao_id?: (order_by | null),min_base_futarchic_liquidity?: (order_by | null),min_quote_futarchic_liquidity?: (order_by | null),pass_threshold_bps?: (order_by | null),program?: (programs_order_by | null),program_acct?: (order_by | null),proposals_aggregate?: (proposals_aggregate_order_by | null),quote_acct?: (order_by | null),slots_per_proposal?: (order_by | null),token?: (tokens_order_by | null),tokenByBaseAcct?: (tokens_order_by | null),tokenByQuoteAcct?: (tokens_order_by | null),treasury_acct?: (order_by | null),twap_initial_observation?: (order_by | null),twap_max_observation_change_per_update?: (order_by | null),updated_at?: (order_by | null),user_performances_aggregate?: (user_performance_aggregate_order_by | null)}
 
 
 /** primary key columns input for table: daos */
@@ -6959,49 +9446,61 @@ export interface daos_pk_columns_input {dao_acct: Scalars['String']}
 
 
 /** input type for updating data in table "daos" */
-export interface daos_set_input {base_acct?: (Scalars['String'] | null),created_at?: (Scalars['timestamptz'] | null),dao_acct?: (Scalars['String'] | null),dao_id?: (Scalars['bigint'] | null),pass_threshold_bps?: (Scalars['bigint'] | null),program_acct?: (Scalars['String'] | null),quote_acct?: (Scalars['String'] | null),slots_per_proposal?: (Scalars['bigint'] | null),treasury_acct?: (Scalars['String'] | null),updated_at?: (Scalars['timestamptz'] | null)}
+export interface daos_set_input {base_acct?: (Scalars['String'] | null),created_at?: (Scalars['timestamptz'] | null),dao_acct?: (Scalars['String'] | null),dao_id?: (Scalars['bigint'] | null),min_base_futarchic_liquidity?: (Scalars['bigint'] | null),min_quote_futarchic_liquidity?: (Scalars['bigint'] | null),pass_threshold_bps?: (Scalars['bigint'] | null),program_acct?: (Scalars['String'] | null),quote_acct?: (Scalars['String'] | null),slots_per_proposal?: (Scalars['bigint'] | null),treasury_acct?: (Scalars['String'] | null),twap_initial_observation?: (Scalars['bigint'] | null),twap_max_observation_change_per_update?: (Scalars['bigint'] | null),updated_at?: (Scalars['timestamptz'] | null)}
 
 
 /** aggregate stddev on columns */
 export interface daos_stddev_fieldsGenqlSelection{
     dao_id?: boolean | number
+    min_base_futarchic_liquidity?: boolean | number
+    min_quote_futarchic_liquidity?: boolean | number
     pass_threshold_bps?: boolean | number
     slots_per_proposal?: boolean | number
+    twap_initial_observation?: boolean | number
+    twap_max_observation_change_per_update?: boolean | number
     __typename?: boolean | number
     __scalar?: boolean | number
 }
 
 
 /** order by stddev() on columns of table "daos" */
-export interface daos_stddev_order_by {dao_id?: (order_by | null),pass_threshold_bps?: (order_by | null),slots_per_proposal?: (order_by | null)}
+export interface daos_stddev_order_by {dao_id?: (order_by | null),min_base_futarchic_liquidity?: (order_by | null),min_quote_futarchic_liquidity?: (order_by | null),pass_threshold_bps?: (order_by | null),slots_per_proposal?: (order_by | null),twap_initial_observation?: (order_by | null),twap_max_observation_change_per_update?: (order_by | null)}
 
 
 /** aggregate stddev_pop on columns */
 export interface daos_stddev_pop_fieldsGenqlSelection{
     dao_id?: boolean | number
+    min_base_futarchic_liquidity?: boolean | number
+    min_quote_futarchic_liquidity?: boolean | number
     pass_threshold_bps?: boolean | number
     slots_per_proposal?: boolean | number
+    twap_initial_observation?: boolean | number
+    twap_max_observation_change_per_update?: boolean | number
     __typename?: boolean | number
     __scalar?: boolean | number
 }
 
 
 /** order by stddev_pop() on columns of table "daos" */
-export interface daos_stddev_pop_order_by {dao_id?: (order_by | null),pass_threshold_bps?: (order_by | null),slots_per_proposal?: (order_by | null)}
+export interface daos_stddev_pop_order_by {dao_id?: (order_by | null),min_base_futarchic_liquidity?: (order_by | null),min_quote_futarchic_liquidity?: (order_by | null),pass_threshold_bps?: (order_by | null),slots_per_proposal?: (order_by | null),twap_initial_observation?: (order_by | null),twap_max_observation_change_per_update?: (order_by | null)}
 
 
 /** aggregate stddev_samp on columns */
 export interface daos_stddev_samp_fieldsGenqlSelection{
     dao_id?: boolean | number
+    min_base_futarchic_liquidity?: boolean | number
+    min_quote_futarchic_liquidity?: boolean | number
     pass_threshold_bps?: boolean | number
     slots_per_proposal?: boolean | number
+    twap_initial_observation?: boolean | number
+    twap_max_observation_change_per_update?: boolean | number
     __typename?: boolean | number
     __scalar?: boolean | number
 }
 
 
 /** order by stddev_samp() on columns of table "daos" */
-export interface daos_stddev_samp_order_by {dao_id?: (order_by | null),pass_threshold_bps?: (order_by | null),slots_per_proposal?: (order_by | null)}
+export interface daos_stddev_samp_order_by {dao_id?: (order_by | null),min_base_futarchic_liquidity?: (order_by | null),min_quote_futarchic_liquidity?: (order_by | null),pass_threshold_bps?: (order_by | null),slots_per_proposal?: (order_by | null),twap_initial_observation?: (order_by | null),twap_max_observation_change_per_update?: (order_by | null)}
 
 
 /** Streaming cursor of the table "daos" */
@@ -7013,21 +9512,25 @@ ordering?: (cursor_ordering | null)}
 
 
 /** Initial value of the column from where the streaming should start */
-export interface daos_stream_cursor_value_input {base_acct?: (Scalars['String'] | null),created_at?: (Scalars['timestamptz'] | null),dao_acct?: (Scalars['String'] | null),dao_id?: (Scalars['bigint'] | null),pass_threshold_bps?: (Scalars['bigint'] | null),program_acct?: (Scalars['String'] | null),quote_acct?: (Scalars['String'] | null),slots_per_proposal?: (Scalars['bigint'] | null),treasury_acct?: (Scalars['String'] | null),updated_at?: (Scalars['timestamptz'] | null)}
+export interface daos_stream_cursor_value_input {base_acct?: (Scalars['String'] | null),created_at?: (Scalars['timestamptz'] | null),dao_acct?: (Scalars['String'] | null),dao_id?: (Scalars['bigint'] | null),min_base_futarchic_liquidity?: (Scalars['bigint'] | null),min_quote_futarchic_liquidity?: (Scalars['bigint'] | null),pass_threshold_bps?: (Scalars['bigint'] | null),program_acct?: (Scalars['String'] | null),quote_acct?: (Scalars['String'] | null),slots_per_proposal?: (Scalars['bigint'] | null),treasury_acct?: (Scalars['String'] | null),twap_initial_observation?: (Scalars['bigint'] | null),twap_max_observation_change_per_update?: (Scalars['bigint'] | null),updated_at?: (Scalars['timestamptz'] | null)}
 
 
 /** aggregate sum on columns */
 export interface daos_sum_fieldsGenqlSelection{
     dao_id?: boolean | number
+    min_base_futarchic_liquidity?: boolean | number
+    min_quote_futarchic_liquidity?: boolean | number
     pass_threshold_bps?: boolean | number
     slots_per_proposal?: boolean | number
+    twap_initial_observation?: boolean | number
+    twap_max_observation_change_per_update?: boolean | number
     __typename?: boolean | number
     __scalar?: boolean | number
 }
 
 
 /** order by sum() on columns of table "daos" */
-export interface daos_sum_order_by {dao_id?: (order_by | null),pass_threshold_bps?: (order_by | null),slots_per_proposal?: (order_by | null)}
+export interface daos_sum_order_by {dao_id?: (order_by | null),min_base_futarchic_liquidity?: (order_by | null),min_quote_futarchic_liquidity?: (order_by | null),pass_threshold_bps?: (order_by | null),slots_per_proposal?: (order_by | null),twap_initial_observation?: (order_by | null),twap_max_observation_change_per_update?: (order_by | null)}
 
 export interface daos_updates {
 /** increments the numeric columns with given value of the filtered values */
@@ -7041,43 +9544,55 @@ where: daos_bool_exp}
 /** aggregate var_pop on columns */
 export interface daos_var_pop_fieldsGenqlSelection{
     dao_id?: boolean | number
+    min_base_futarchic_liquidity?: boolean | number
+    min_quote_futarchic_liquidity?: boolean | number
     pass_threshold_bps?: boolean | number
     slots_per_proposal?: boolean | number
+    twap_initial_observation?: boolean | number
+    twap_max_observation_change_per_update?: boolean | number
     __typename?: boolean | number
     __scalar?: boolean | number
 }
 
 
 /** order by var_pop() on columns of table "daos" */
-export interface daos_var_pop_order_by {dao_id?: (order_by | null),pass_threshold_bps?: (order_by | null),slots_per_proposal?: (order_by | null)}
+export interface daos_var_pop_order_by {dao_id?: (order_by | null),min_base_futarchic_liquidity?: (order_by | null),min_quote_futarchic_liquidity?: (order_by | null),pass_threshold_bps?: (order_by | null),slots_per_proposal?: (order_by | null),twap_initial_observation?: (order_by | null),twap_max_observation_change_per_update?: (order_by | null)}
 
 
 /** aggregate var_samp on columns */
 export interface daos_var_samp_fieldsGenqlSelection{
     dao_id?: boolean | number
+    min_base_futarchic_liquidity?: boolean | number
+    min_quote_futarchic_liquidity?: boolean | number
     pass_threshold_bps?: boolean | number
     slots_per_proposal?: boolean | number
+    twap_initial_observation?: boolean | number
+    twap_max_observation_change_per_update?: boolean | number
     __typename?: boolean | number
     __scalar?: boolean | number
 }
 
 
 /** order by var_samp() on columns of table "daos" */
-export interface daos_var_samp_order_by {dao_id?: (order_by | null),pass_threshold_bps?: (order_by | null),slots_per_proposal?: (order_by | null)}
+export interface daos_var_samp_order_by {dao_id?: (order_by | null),min_base_futarchic_liquidity?: (order_by | null),min_quote_futarchic_liquidity?: (order_by | null),pass_threshold_bps?: (order_by | null),slots_per_proposal?: (order_by | null),twap_initial_observation?: (order_by | null),twap_max_observation_change_per_update?: (order_by | null)}
 
 
 /** aggregate variance on columns */
 export interface daos_variance_fieldsGenqlSelection{
     dao_id?: boolean | number
+    min_base_futarchic_liquidity?: boolean | number
+    min_quote_futarchic_liquidity?: boolean | number
     pass_threshold_bps?: boolean | number
     slots_per_proposal?: boolean | number
+    twap_initial_observation?: boolean | number
+    twap_max_observation_change_per_update?: boolean | number
     __typename?: boolean | number
     __scalar?: boolean | number
 }
 
 
 /** order by variance() on columns of table "daos" */
-export interface daos_variance_order_by {dao_id?: (order_by | null),pass_threshold_bps?: (order_by | null),slots_per_proposal?: (order_by | null)}
+export interface daos_variance_order_by {dao_id?: (order_by | null),min_base_futarchic_liquidity?: (order_by | null),min_quote_futarchic_liquidity?: (order_by | null),pass_threshold_bps?: (order_by | null),slots_per_proposal?: (order_by | null),twap_initial_observation?: (order_by | null),twap_max_observation_change_per_update?: (order_by | null)}
 
 
 /** Boolean expression to compare columns of type "float8". All fields are combined with logical 'AND'. */
@@ -8324,6 +10839,10 @@ export interface mutation_rootGenqlSelection{
     where: prices_bool_exp} })
     /** delete single row from the table: "prices" */
     delete_prices_by_pk?: (pricesGenqlSelection & { __args: {created_at: Scalars['timestamptz'], market_acct: Scalars['String']} })
+    /** delete data from the table: "prices_chart_data" */
+    delete_prices_chart_data?: (prices_chart_data_mutation_responseGenqlSelection & { __args: {
+    /** filter the rows which have to be deleted */
+    where: prices_chart_data_bool_exp} })
     /** delete data from the table: "program_system" */
     delete_program_system?: (program_system_mutation_responseGenqlSelection & { __args: {
     /** filter the rows which have to be deleted */
@@ -8359,13 +10878,25 @@ export interface mutation_rootGenqlSelection{
     /** filter the rows which have to be deleted */
     where: reactions_bool_exp} })
     /** delete single row from the table: "reactions" */
-    delete_reactions_by_pk?: (reactionsGenqlSelection & { __args: {proposal_acct: Scalars['String'], reaction: Scalars['String'], reactor_acct: Scalars['String']} })
+    delete_reactions_by_pk?: (reactionsGenqlSelection & { __args: {reaction_id: Scalars['uuid']} })
     /** delete data from the table: "sessions" */
     delete_sessions?: (sessions_mutation_responseGenqlSelection & { __args: {
     /** filter the rows which have to be deleted */
     where: sessions_bool_exp} })
     /** delete single row from the table: "sessions" */
     delete_sessions_by_pk?: (sessionsGenqlSelection & { __args: {id: Scalars['uuid']} })
+    /** delete data from the table: "signature_accounts" */
+    delete_signature_accounts?: (signature_accounts_mutation_responseGenqlSelection & { __args: {
+    /** filter the rows which have to be deleted */
+    where: signature_accounts_bool_exp} })
+    /** delete single row from the table: "signature_accounts" */
+    delete_signature_accounts_by_pk?: (signature_accountsGenqlSelection & { __args: {account: Scalars['String'], signature: Scalars['String']} })
+    /** delete data from the table: "signatures" */
+    delete_signatures?: (signatures_mutation_responseGenqlSelection & { __args: {
+    /** filter the rows which have to be deleted */
+    where: signatures_bool_exp} })
+    /** delete single row from the table: "signatures" */
+    delete_signatures_by_pk?: (signaturesGenqlSelection & { __args: {signature: Scalars['String']} })
     /** delete data from the table: "takes" */
     delete_takes?: (takes_mutation_responseGenqlSelection & { __args: {
     /** filter the rows which have to be deleted */
@@ -8408,18 +10939,74 @@ export interface mutation_rootGenqlSelection{
     where: transactions_bool_exp} })
     /** delete single row from the table: "transactions" */
     delete_transactions_by_pk?: (transactionsGenqlSelection & { __args: {tx_sig: Scalars['String']} })
+    /** delete data from the table: "twap_chart_data" */
+    delete_twap_chart_data?: (twap_chart_data_mutation_responseGenqlSelection & { __args: {
+    /** filter the rows which have to be deleted */
+    where: twap_chart_data_bool_exp} })
     /** delete data from the table: "twaps" */
     delete_twaps?: (twaps_mutation_responseGenqlSelection & { __args: {
     /** filter the rows which have to be deleted */
     where: twaps_bool_exp} })
     /** delete single row from the table: "twaps" */
     delete_twaps_by_pk?: (twapsGenqlSelection & { __args: {market_acct: Scalars['String'], updated_slot: Scalars['bigint']} })
+    /** delete data from the table: "user_deposits" */
+    delete_user_deposits?: (user_deposits_mutation_responseGenqlSelection & { __args: {
+    /** filter the rows which have to be deleted */
+    where: user_deposits_bool_exp} })
+    /** delete data from the table: "user_performance" */
+    delete_user_performance?: (user_performance_mutation_responseGenqlSelection & { __args: {
+    /** filter the rows which have to be deleted */
+    where: user_performance_bool_exp} })
+    /** delete single row from the table: "user_performance" */
+    delete_user_performance_by_pk?: (user_performanceGenqlSelection & { __args: {proposal_acct: Scalars['String'], user_acct: Scalars['String']} })
     /** delete data from the table: "users" */
     delete_users?: (users_mutation_responseGenqlSelection & { __args: {
     /** filter the rows which have to be deleted */
     where: users_bool_exp} })
     /** delete single row from the table: "users" */
     delete_users_by_pk?: (usersGenqlSelection & { __args: {user_acct: Scalars['String']} })
+    /** delete data from the table: "v0_4_amms" */
+    delete_v0_4_amms?: (v0_4_amms_mutation_responseGenqlSelection & { __args: {
+    /** filter the rows which have to be deleted */
+    where: v0_4_amms_bool_exp} })
+    /** delete single row from the table: "v0_4_amms" */
+    delete_v0_4_amms_by_pk?: (v0_4_ammsGenqlSelection & { __args: {amm_addr: Scalars['String']} })
+    /** delete data from the table: "v0_4_conditional_vaults" */
+    delete_v0_4_conditional_vaults?: (v0_4_conditional_vaults_mutation_responseGenqlSelection & { __args: {
+    /** filter the rows which have to be deleted */
+    where: v0_4_conditional_vaults_bool_exp} })
+    /** delete single row from the table: "v0_4_conditional_vaults" */
+    delete_v0_4_conditional_vaults_by_pk?: (v0_4_conditional_vaultsGenqlSelection & { __args: {conditional_vault_addr: Scalars['String']} })
+    /** delete data from the table: "v0_4_merges" */
+    delete_v0_4_merges?: (v0_4_merges_mutation_responseGenqlSelection & { __args: {
+    /** filter the rows which have to be deleted */
+    where: v0_4_merges_bool_exp} })
+    /** delete single row from the table: "v0_4_merges" */
+    delete_v0_4_merges_by_pk?: (v0_4_mergesGenqlSelection & { __args: {vault_addr: Scalars['String'], vault_seq_num: Scalars['bigint']} })
+    /** delete data from the table: "v0_4_metric_decisions" */
+    delete_v0_4_metric_decisions?: (v0_4_metric_decisions_mutation_responseGenqlSelection & { __args: {
+    /** filter the rows which have to be deleted */
+    where: v0_4_metric_decisions_bool_exp} })
+    /** delete single row from the table: "v0_4_metric_decisions" */
+    delete_v0_4_metric_decisions_by_pk?: (v0_4_metric_decisionsGenqlSelection & { __args: {id: Scalars['bigint']} })
+    /** delete data from the table: "v0_4_questions" */
+    delete_v0_4_questions?: (v0_4_questions_mutation_responseGenqlSelection & { __args: {
+    /** filter the rows which have to be deleted */
+    where: v0_4_questions_bool_exp} })
+    /** delete single row from the table: "v0_4_questions" */
+    delete_v0_4_questions_by_pk?: (v0_4_questionsGenqlSelection & { __args: {question_addr: Scalars['String']} })
+    /** delete data from the table: "v0_4_splits" */
+    delete_v0_4_splits?: (v0_4_splits_mutation_responseGenqlSelection & { __args: {
+    /** filter the rows which have to be deleted */
+    where: v0_4_splits_bool_exp} })
+    /** delete single row from the table: "v0_4_splits" */
+    delete_v0_4_splits_by_pk?: (v0_4_splitsGenqlSelection & { __args: {vault_addr: Scalars['String'], vault_seq_num: Scalars['bigint']} })
+    /** delete data from the table: "v0_4_swaps" */
+    delete_v0_4_swaps?: (v0_4_swaps_mutation_responseGenqlSelection & { __args: {
+    /** filter the rows which have to be deleted */
+    where: v0_4_swaps_bool_exp} })
+    /** delete single row from the table: "v0_4_swaps" */
+    delete_v0_4_swaps_by_pk?: (v0_4_swapsGenqlSelection & { __args: {signature: Scalars['String']} })
     /** insert data into the table: "candles" */
     insert_candles?: (candles_mutation_responseGenqlSelection & { __args: {
     /** the rows to be inserted */
@@ -8546,6 +11133,18 @@ export interface mutation_rootGenqlSelection{
     objects: prices_insert_input[], 
     /** upsert condition */
     on_conflict?: (prices_on_conflict | null)} })
+    /** insert data into the table: "prices_chart_data" */
+    insert_prices_chart_data?: (prices_chart_data_mutation_responseGenqlSelection & { __args: {
+    /** the rows to be inserted */
+    objects: prices_chart_data_insert_input[], 
+    /** upsert condition */
+    on_conflict?: (prices_chart_data_on_conflict | null)} })
+    /** insert a single row into the table: "prices_chart_data" */
+    insert_prices_chart_data_one?: (prices_chart_dataGenqlSelection & { __args: {
+    /** the row to be inserted */
+    object: prices_chart_data_insert_input, 
+    /** upsert condition */
+    on_conflict?: (prices_chart_data_on_conflict | null)} })
     /** insert a single row into the table: "prices" */
     insert_prices_one?: (pricesGenqlSelection & { __args: {
     /** the row to be inserted */
@@ -8636,6 +11235,30 @@ export interface mutation_rootGenqlSelection{
     object: sessions_insert_input, 
     /** upsert condition */
     on_conflict?: (sessions_on_conflict | null)} })
+    /** insert data into the table: "signature_accounts" */
+    insert_signature_accounts?: (signature_accounts_mutation_responseGenqlSelection & { __args: {
+    /** the rows to be inserted */
+    objects: signature_accounts_insert_input[], 
+    /** upsert condition */
+    on_conflict?: (signature_accounts_on_conflict | null)} })
+    /** insert a single row into the table: "signature_accounts" */
+    insert_signature_accounts_one?: (signature_accountsGenqlSelection & { __args: {
+    /** the row to be inserted */
+    object: signature_accounts_insert_input, 
+    /** upsert condition */
+    on_conflict?: (signature_accounts_on_conflict | null)} })
+    /** insert data into the table: "signatures" */
+    insert_signatures?: (signatures_mutation_responseGenqlSelection & { __args: {
+    /** the rows to be inserted */
+    objects: signatures_insert_input[], 
+    /** upsert condition */
+    on_conflict?: (signatures_on_conflict | null)} })
+    /** insert a single row into the table: "signatures" */
+    insert_signatures_one?: (signaturesGenqlSelection & { __args: {
+    /** the row to be inserted */
+    object: signatures_insert_input, 
+    /** upsert condition */
+    on_conflict?: (signatures_on_conflict | null)} })
     /** insert data into the table: "takes" */
     insert_takes?: (takes_mutation_responseGenqlSelection & { __args: {
     /** the rows to be inserted */
@@ -8720,6 +11343,18 @@ export interface mutation_rootGenqlSelection{
     object: transactions_insert_input, 
     /** upsert condition */
     on_conflict?: (transactions_on_conflict | null)} })
+    /** insert data into the table: "twap_chart_data" */
+    insert_twap_chart_data?: (twap_chart_data_mutation_responseGenqlSelection & { __args: {
+    /** the rows to be inserted */
+    objects: twap_chart_data_insert_input[], 
+    /** upsert condition */
+    on_conflict?: (twap_chart_data_on_conflict | null)} })
+    /** insert a single row into the table: "twap_chart_data" */
+    insert_twap_chart_data_one?: (twap_chart_dataGenqlSelection & { __args: {
+    /** the row to be inserted */
+    object: twap_chart_data_insert_input, 
+    /** upsert condition */
+    on_conflict?: (twap_chart_data_on_conflict | null)} })
     /** insert data into the table: "twaps" */
     insert_twaps?: (twaps_mutation_responseGenqlSelection & { __args: {
     /** the rows to be inserted */
@@ -8732,6 +11367,26 @@ export interface mutation_rootGenqlSelection{
     object: twaps_insert_input, 
     /** upsert condition */
     on_conflict?: (twaps_on_conflict | null)} })
+    /** insert data into the table: "user_deposits" */
+    insert_user_deposits?: (user_deposits_mutation_responseGenqlSelection & { __args: {
+    /** the rows to be inserted */
+    objects: user_deposits_insert_input[]} })
+    /** insert a single row into the table: "user_deposits" */
+    insert_user_deposits_one?: (user_depositsGenqlSelection & { __args: {
+    /** the row to be inserted */
+    object: user_deposits_insert_input} })
+    /** insert data into the table: "user_performance" */
+    insert_user_performance?: (user_performance_mutation_responseGenqlSelection & { __args: {
+    /** the rows to be inserted */
+    objects: user_performance_insert_input[], 
+    /** upsert condition */
+    on_conflict?: (user_performance_on_conflict | null)} })
+    /** insert a single row into the table: "user_performance" */
+    insert_user_performance_one?: (user_performanceGenqlSelection & { __args: {
+    /** the row to be inserted */
+    object: user_performance_insert_input, 
+    /** upsert condition */
+    on_conflict?: (user_performance_on_conflict | null)} })
     /** insert data into the table: "users" */
     insert_users?: (users_mutation_responseGenqlSelection & { __args: {
     /** the rows to be inserted */
@@ -8744,6 +11399,90 @@ export interface mutation_rootGenqlSelection{
     object: users_insert_input, 
     /** upsert condition */
     on_conflict?: (users_on_conflict | null)} })
+    /** insert data into the table: "v0_4_amms" */
+    insert_v0_4_amms?: (v0_4_amms_mutation_responseGenqlSelection & { __args: {
+    /** the rows to be inserted */
+    objects: v0_4_amms_insert_input[], 
+    /** upsert condition */
+    on_conflict?: (v0_4_amms_on_conflict | null)} })
+    /** insert a single row into the table: "v0_4_amms" */
+    insert_v0_4_amms_one?: (v0_4_ammsGenqlSelection & { __args: {
+    /** the row to be inserted */
+    object: v0_4_amms_insert_input, 
+    /** upsert condition */
+    on_conflict?: (v0_4_amms_on_conflict | null)} })
+    /** insert data into the table: "v0_4_conditional_vaults" */
+    insert_v0_4_conditional_vaults?: (v0_4_conditional_vaults_mutation_responseGenqlSelection & { __args: {
+    /** the rows to be inserted */
+    objects: v0_4_conditional_vaults_insert_input[], 
+    /** upsert condition */
+    on_conflict?: (v0_4_conditional_vaults_on_conflict | null)} })
+    /** insert a single row into the table: "v0_4_conditional_vaults" */
+    insert_v0_4_conditional_vaults_one?: (v0_4_conditional_vaultsGenqlSelection & { __args: {
+    /** the row to be inserted */
+    object: v0_4_conditional_vaults_insert_input, 
+    /** upsert condition */
+    on_conflict?: (v0_4_conditional_vaults_on_conflict | null)} })
+    /** insert data into the table: "v0_4_merges" */
+    insert_v0_4_merges?: (v0_4_merges_mutation_responseGenqlSelection & { __args: {
+    /** the rows to be inserted */
+    objects: v0_4_merges_insert_input[], 
+    /** upsert condition */
+    on_conflict?: (v0_4_merges_on_conflict | null)} })
+    /** insert a single row into the table: "v0_4_merges" */
+    insert_v0_4_merges_one?: (v0_4_mergesGenqlSelection & { __args: {
+    /** the row to be inserted */
+    object: v0_4_merges_insert_input, 
+    /** upsert condition */
+    on_conflict?: (v0_4_merges_on_conflict | null)} })
+    /** insert data into the table: "v0_4_metric_decisions" */
+    insert_v0_4_metric_decisions?: (v0_4_metric_decisions_mutation_responseGenqlSelection & { __args: {
+    /** the rows to be inserted */
+    objects: v0_4_metric_decisions_insert_input[], 
+    /** upsert condition */
+    on_conflict?: (v0_4_metric_decisions_on_conflict | null)} })
+    /** insert a single row into the table: "v0_4_metric_decisions" */
+    insert_v0_4_metric_decisions_one?: (v0_4_metric_decisionsGenqlSelection & { __args: {
+    /** the row to be inserted */
+    object: v0_4_metric_decisions_insert_input, 
+    /** upsert condition */
+    on_conflict?: (v0_4_metric_decisions_on_conflict | null)} })
+    /** insert data into the table: "v0_4_questions" */
+    insert_v0_4_questions?: (v0_4_questions_mutation_responseGenqlSelection & { __args: {
+    /** the rows to be inserted */
+    objects: v0_4_questions_insert_input[], 
+    /** upsert condition */
+    on_conflict?: (v0_4_questions_on_conflict | null)} })
+    /** insert a single row into the table: "v0_4_questions" */
+    insert_v0_4_questions_one?: (v0_4_questionsGenqlSelection & { __args: {
+    /** the row to be inserted */
+    object: v0_4_questions_insert_input, 
+    /** upsert condition */
+    on_conflict?: (v0_4_questions_on_conflict | null)} })
+    /** insert data into the table: "v0_4_splits" */
+    insert_v0_4_splits?: (v0_4_splits_mutation_responseGenqlSelection & { __args: {
+    /** the rows to be inserted */
+    objects: v0_4_splits_insert_input[], 
+    /** upsert condition */
+    on_conflict?: (v0_4_splits_on_conflict | null)} })
+    /** insert a single row into the table: "v0_4_splits" */
+    insert_v0_4_splits_one?: (v0_4_splitsGenqlSelection & { __args: {
+    /** the row to be inserted */
+    object: v0_4_splits_insert_input, 
+    /** upsert condition */
+    on_conflict?: (v0_4_splits_on_conflict | null)} })
+    /** insert data into the table: "v0_4_swaps" */
+    insert_v0_4_swaps?: (v0_4_swaps_mutation_responseGenqlSelection & { __args: {
+    /** the rows to be inserted */
+    objects: v0_4_swaps_insert_input[], 
+    /** upsert condition */
+    on_conflict?: (v0_4_swaps_on_conflict | null)} })
+    /** insert a single row into the table: "v0_4_swaps" */
+    insert_v0_4_swaps_one?: (v0_4_swapsGenqlSelection & { __args: {
+    /** the row to be inserted */
+    object: v0_4_swaps_insert_input, 
+    /** upsert condition */
+    on_conflict?: (v0_4_swaps_on_conflict | null)} })
     /** update data of the table: "candles" */
     update_candles?: (candles_mutation_responseGenqlSelection & { __args: {
     /** increments the numeric columns with given value of the filtered values */
@@ -8950,6 +11689,18 @@ export interface mutation_rootGenqlSelection{
     _inc?: (prices_inc_input | null), 
     /** sets the columns of the filtered rows to the given values */
     _set?: (prices_set_input | null), pk_columns: prices_pk_columns_input} })
+    /** update data of the table: "prices_chart_data" */
+    update_prices_chart_data?: (prices_chart_data_mutation_responseGenqlSelection & { __args: {
+    /** increments the numeric columns with given value of the filtered values */
+    _inc?: (prices_chart_data_inc_input | null), 
+    /** sets the columns of the filtered rows to the given values */
+    _set?: (prices_chart_data_set_input | null), 
+    /** filter the rows which have to be updated */
+    where: prices_chart_data_bool_exp} })
+    /** update multiples rows of table: "prices_chart_data" */
+    update_prices_chart_data_many?: (prices_chart_data_mutation_responseGenqlSelection & { __args: {
+    /** updates to execute, in order */
+    updates: prices_chart_data_updates[]} })
     /** update multiples rows of table: "prices" */
     update_prices_many?: (prices_mutation_responseGenqlSelection & { __args: {
     /** updates to execute, in order */
@@ -9096,6 +11847,38 @@ export interface mutation_rootGenqlSelection{
     update_sessions_many?: (sessions_mutation_responseGenqlSelection & { __args: {
     /** updates to execute, in order */
     updates: sessions_updates[]} })
+    /** update data of the table: "signature_accounts" */
+    update_signature_accounts?: (signature_accounts_mutation_responseGenqlSelection & { __args: {
+    /** sets the columns of the filtered rows to the given values */
+    _set?: (signature_accounts_set_input | null), 
+    /** filter the rows which have to be updated */
+    where: signature_accounts_bool_exp} })
+    /** update single row of the table: "signature_accounts" */
+    update_signature_accounts_by_pk?: (signature_accountsGenqlSelection & { __args: {
+    /** sets the columns of the filtered rows to the given values */
+    _set?: (signature_accounts_set_input | null), pk_columns: signature_accounts_pk_columns_input} })
+    /** update multiples rows of table: "signature_accounts" */
+    update_signature_accounts_many?: (signature_accounts_mutation_responseGenqlSelection & { __args: {
+    /** updates to execute, in order */
+    updates: signature_accounts_updates[]} })
+    /** update data of the table: "signatures" */
+    update_signatures?: (signatures_mutation_responseGenqlSelection & { __args: {
+    /** increments the numeric columns with given value of the filtered values */
+    _inc?: (signatures_inc_input | null), 
+    /** sets the columns of the filtered rows to the given values */
+    _set?: (signatures_set_input | null), 
+    /** filter the rows which have to be updated */
+    where: signatures_bool_exp} })
+    /** update single row of the table: "signatures" */
+    update_signatures_by_pk?: (signaturesGenqlSelection & { __args: {
+    /** increments the numeric columns with given value of the filtered values */
+    _inc?: (signatures_inc_input | null), 
+    /** sets the columns of the filtered rows to the given values */
+    _set?: (signatures_set_input | null), pk_columns: signatures_pk_columns_input} })
+    /** update multiples rows of table: "signatures" */
+    update_signatures_many?: (signatures_mutation_responseGenqlSelection & { __args: {
+    /** updates to execute, in order */
+    updates: signatures_updates[]} })
     /** update data of the table: "takes" */
     update_takes?: (takes_mutation_responseGenqlSelection & { __args: {
     /** increments the numeric columns with given value of the filtered values */
@@ -9222,6 +12005,18 @@ export interface mutation_rootGenqlSelection{
     update_transactions_many?: (transactions_mutation_responseGenqlSelection & { __args: {
     /** updates to execute, in order */
     updates: transactions_updates[]} })
+    /** update data of the table: "twap_chart_data" */
+    update_twap_chart_data?: (twap_chart_data_mutation_responseGenqlSelection & { __args: {
+    /** increments the numeric columns with given value of the filtered values */
+    _inc?: (twap_chart_data_inc_input | null), 
+    /** sets the columns of the filtered rows to the given values */
+    _set?: (twap_chart_data_set_input | null), 
+    /** filter the rows which have to be updated */
+    where: twap_chart_data_bool_exp} })
+    /** update multiples rows of table: "twap_chart_data" */
+    update_twap_chart_data_many?: (twap_chart_data_mutation_responseGenqlSelection & { __args: {
+    /** updates to execute, in order */
+    updates: twap_chart_data_updates[]} })
     /** update data of the table: "twaps" */
     update_twaps?: (twaps_mutation_responseGenqlSelection & { __args: {
     /** increments the numeric columns with given value of the filtered values */
@@ -9240,6 +12035,36 @@ export interface mutation_rootGenqlSelection{
     update_twaps_many?: (twaps_mutation_responseGenqlSelection & { __args: {
     /** updates to execute, in order */
     updates: twaps_updates[]} })
+    /** update data of the table: "user_deposits" */
+    update_user_deposits?: (user_deposits_mutation_responseGenqlSelection & { __args: {
+    /** increments the numeric columns with given value of the filtered values */
+    _inc?: (user_deposits_inc_input | null), 
+    /** sets the columns of the filtered rows to the given values */
+    _set?: (user_deposits_set_input | null), 
+    /** filter the rows which have to be updated */
+    where: user_deposits_bool_exp} })
+    /** update multiples rows of table: "user_deposits" */
+    update_user_deposits_many?: (user_deposits_mutation_responseGenqlSelection & { __args: {
+    /** updates to execute, in order */
+    updates: user_deposits_updates[]} })
+    /** update data of the table: "user_performance" */
+    update_user_performance?: (user_performance_mutation_responseGenqlSelection & { __args: {
+    /** increments the numeric columns with given value of the filtered values */
+    _inc?: (user_performance_inc_input | null), 
+    /** sets the columns of the filtered rows to the given values */
+    _set?: (user_performance_set_input | null), 
+    /** filter the rows which have to be updated */
+    where: user_performance_bool_exp} })
+    /** update single row of the table: "user_performance" */
+    update_user_performance_by_pk?: (user_performanceGenqlSelection & { __args: {
+    /** increments the numeric columns with given value of the filtered values */
+    _inc?: (user_performance_inc_input | null), 
+    /** sets the columns of the filtered rows to the given values */
+    _set?: (user_performance_set_input | null), pk_columns: user_performance_pk_columns_input} })
+    /** update multiples rows of table: "user_performance" */
+    update_user_performance_many?: (user_performance_mutation_responseGenqlSelection & { __args: {
+    /** updates to execute, in order */
+    updates: user_performance_updates[]} })
     /** update data of the table: "users" */
     update_users?: (users_mutation_responseGenqlSelection & { __args: {
     /** sets the columns of the filtered rows to the given values */
@@ -9254,6 +12079,152 @@ export interface mutation_rootGenqlSelection{
     update_users_many?: (users_mutation_responseGenqlSelection & { __args: {
     /** updates to execute, in order */
     updates: users_updates[]} })
+    /** update data of the table: "v0_4_amms" */
+    update_v0_4_amms?: (v0_4_amms_mutation_responseGenqlSelection & { __args: {
+    /** increments the numeric columns with given value of the filtered values */
+    _inc?: (v0_4_amms_inc_input | null), 
+    /** sets the columns of the filtered rows to the given values */
+    _set?: (v0_4_amms_set_input | null), 
+    /** filter the rows which have to be updated */
+    where: v0_4_amms_bool_exp} })
+    /** update single row of the table: "v0_4_amms" */
+    update_v0_4_amms_by_pk?: (v0_4_ammsGenqlSelection & { __args: {
+    /** increments the numeric columns with given value of the filtered values */
+    _inc?: (v0_4_amms_inc_input | null), 
+    /** sets the columns of the filtered rows to the given values */
+    _set?: (v0_4_amms_set_input | null), pk_columns: v0_4_amms_pk_columns_input} })
+    /** update multiples rows of table: "v0_4_amms" */
+    update_v0_4_amms_many?: (v0_4_amms_mutation_responseGenqlSelection & { __args: {
+    /** updates to execute, in order */
+    updates: v0_4_amms_updates[]} })
+    /** update data of the table: "v0_4_conditional_vaults" */
+    update_v0_4_conditional_vaults?: (v0_4_conditional_vaults_mutation_responseGenqlSelection & { __args: {
+    /** increments the numeric columns with given value of the filtered values */
+    _inc?: (v0_4_conditional_vaults_inc_input | null), 
+    /** sets the columns of the filtered rows to the given values */
+    _set?: (v0_4_conditional_vaults_set_input | null), 
+    /** filter the rows which have to be updated */
+    where: v0_4_conditional_vaults_bool_exp} })
+    /** update single row of the table: "v0_4_conditional_vaults" */
+    update_v0_4_conditional_vaults_by_pk?: (v0_4_conditional_vaultsGenqlSelection & { __args: {
+    /** increments the numeric columns with given value of the filtered values */
+    _inc?: (v0_4_conditional_vaults_inc_input | null), 
+    /** sets the columns of the filtered rows to the given values */
+    _set?: (v0_4_conditional_vaults_set_input | null), pk_columns: v0_4_conditional_vaults_pk_columns_input} })
+    /** update multiples rows of table: "v0_4_conditional_vaults" */
+    update_v0_4_conditional_vaults_many?: (v0_4_conditional_vaults_mutation_responseGenqlSelection & { __args: {
+    /** updates to execute, in order */
+    updates: v0_4_conditional_vaults_updates[]} })
+    /** update data of the table: "v0_4_merges" */
+    update_v0_4_merges?: (v0_4_merges_mutation_responseGenqlSelection & { __args: {
+    /** increments the numeric columns with given value of the filtered values */
+    _inc?: (v0_4_merges_inc_input | null), 
+    /** sets the columns of the filtered rows to the given values */
+    _set?: (v0_4_merges_set_input | null), 
+    /** filter the rows which have to be updated */
+    where: v0_4_merges_bool_exp} })
+    /** update single row of the table: "v0_4_merges" */
+    update_v0_4_merges_by_pk?: (v0_4_mergesGenqlSelection & { __args: {
+    /** increments the numeric columns with given value of the filtered values */
+    _inc?: (v0_4_merges_inc_input | null), 
+    /** sets the columns of the filtered rows to the given values */
+    _set?: (v0_4_merges_set_input | null), pk_columns: v0_4_merges_pk_columns_input} })
+    /** update multiples rows of table: "v0_4_merges" */
+    update_v0_4_merges_many?: (v0_4_merges_mutation_responseGenqlSelection & { __args: {
+    /** updates to execute, in order */
+    updates: v0_4_merges_updates[]} })
+    /** update data of the table: "v0_4_metric_decisions" */
+    update_v0_4_metric_decisions?: (v0_4_metric_decisions_mutation_responseGenqlSelection & { __args: {
+    /** increments the numeric columns with given value of the filtered values */
+    _inc?: (v0_4_metric_decisions_inc_input | null), 
+    /** sets the columns of the filtered rows to the given values */
+    _set?: (v0_4_metric_decisions_set_input | null), 
+    /** filter the rows which have to be updated */
+    where: v0_4_metric_decisions_bool_exp} })
+    /** update single row of the table: "v0_4_metric_decisions" */
+    update_v0_4_metric_decisions_by_pk?: (v0_4_metric_decisionsGenqlSelection & { __args: {
+    /** increments the numeric columns with given value of the filtered values */
+    _inc?: (v0_4_metric_decisions_inc_input | null), 
+    /** sets the columns of the filtered rows to the given values */
+    _set?: (v0_4_metric_decisions_set_input | null), pk_columns: v0_4_metric_decisions_pk_columns_input} })
+    /** update multiples rows of table: "v0_4_metric_decisions" */
+    update_v0_4_metric_decisions_many?: (v0_4_metric_decisions_mutation_responseGenqlSelection & { __args: {
+    /** updates to execute, in order */
+    updates: v0_4_metric_decisions_updates[]} })
+    /** update data of the table: "v0_4_questions" */
+    update_v0_4_questions?: (v0_4_questions_mutation_responseGenqlSelection & { __args: {
+    /** append existing jsonb value of filtered columns with new jsonb value */
+    _append?: (v0_4_questions_append_input | null), 
+    /** delete the field or element with specified path (for JSON arrays, negative integers count from the end) */
+    _delete_at_path?: (v0_4_questions_delete_at_path_input | null), 
+    /** delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array */
+    _delete_elem?: (v0_4_questions_delete_elem_input | null), 
+    /** delete key/value pair or string element. key/value pairs are matched based on their key value */
+    _delete_key?: (v0_4_questions_delete_key_input | null), 
+    /** increments the numeric columns with given value of the filtered values */
+    _inc?: (v0_4_questions_inc_input | null), 
+    /** prepend existing jsonb value of filtered columns with new jsonb value */
+    _prepend?: (v0_4_questions_prepend_input | null), 
+    /** sets the columns of the filtered rows to the given values */
+    _set?: (v0_4_questions_set_input | null), 
+    /** filter the rows which have to be updated */
+    where: v0_4_questions_bool_exp} })
+    /** update single row of the table: "v0_4_questions" */
+    update_v0_4_questions_by_pk?: (v0_4_questionsGenqlSelection & { __args: {
+    /** append existing jsonb value of filtered columns with new jsonb value */
+    _append?: (v0_4_questions_append_input | null), 
+    /** delete the field or element with specified path (for JSON arrays, negative integers count from the end) */
+    _delete_at_path?: (v0_4_questions_delete_at_path_input | null), 
+    /** delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array */
+    _delete_elem?: (v0_4_questions_delete_elem_input | null), 
+    /** delete key/value pair or string element. key/value pairs are matched based on their key value */
+    _delete_key?: (v0_4_questions_delete_key_input | null), 
+    /** increments the numeric columns with given value of the filtered values */
+    _inc?: (v0_4_questions_inc_input | null), 
+    /** prepend existing jsonb value of filtered columns with new jsonb value */
+    _prepend?: (v0_4_questions_prepend_input | null), 
+    /** sets the columns of the filtered rows to the given values */
+    _set?: (v0_4_questions_set_input | null), pk_columns: v0_4_questions_pk_columns_input} })
+    /** update multiples rows of table: "v0_4_questions" */
+    update_v0_4_questions_many?: (v0_4_questions_mutation_responseGenqlSelection & { __args: {
+    /** updates to execute, in order */
+    updates: v0_4_questions_updates[]} })
+    /** update data of the table: "v0_4_splits" */
+    update_v0_4_splits?: (v0_4_splits_mutation_responseGenqlSelection & { __args: {
+    /** increments the numeric columns with given value of the filtered values */
+    _inc?: (v0_4_splits_inc_input | null), 
+    /** sets the columns of the filtered rows to the given values */
+    _set?: (v0_4_splits_set_input | null), 
+    /** filter the rows which have to be updated */
+    where: v0_4_splits_bool_exp} })
+    /** update single row of the table: "v0_4_splits" */
+    update_v0_4_splits_by_pk?: (v0_4_splitsGenqlSelection & { __args: {
+    /** increments the numeric columns with given value of the filtered values */
+    _inc?: (v0_4_splits_inc_input | null), 
+    /** sets the columns of the filtered rows to the given values */
+    _set?: (v0_4_splits_set_input | null), pk_columns: v0_4_splits_pk_columns_input} })
+    /** update multiples rows of table: "v0_4_splits" */
+    update_v0_4_splits_many?: (v0_4_splits_mutation_responseGenqlSelection & { __args: {
+    /** updates to execute, in order */
+    updates: v0_4_splits_updates[]} })
+    /** update data of the table: "v0_4_swaps" */
+    update_v0_4_swaps?: (v0_4_swaps_mutation_responseGenqlSelection & { __args: {
+    /** increments the numeric columns with given value of the filtered values */
+    _inc?: (v0_4_swaps_inc_input | null), 
+    /** sets the columns of the filtered rows to the given values */
+    _set?: (v0_4_swaps_set_input | null), 
+    /** filter the rows which have to be updated */
+    where: v0_4_swaps_bool_exp} })
+    /** update single row of the table: "v0_4_swaps" */
+    update_v0_4_swaps_by_pk?: (v0_4_swapsGenqlSelection & { __args: {
+    /** increments the numeric columns with given value of the filtered values */
+    _inc?: (v0_4_swaps_inc_input | null), 
+    /** sets the columns of the filtered rows to the given values */
+    _set?: (v0_4_swaps_set_input | null), pk_columns: v0_4_swaps_pk_columns_input} })
+    /** update multiples rows of table: "v0_4_swaps" */
+    update_v0_4_swaps_many?: (v0_4_swaps_mutation_responseGenqlSelection & { __args: {
+    /** updates to execute, in order */
+    updates: v0_4_swaps_updates[]} })
     __typename?: boolean | number
     __scalar?: boolean | number
 }
@@ -9287,6 +12258,8 @@ export interface ordersGenqlSelection{
     transaction?: transactionsGenqlSelection
     unfilled_base_amount?: boolean | number
     updated_at?: boolean | number
+    /** An object relationship */
+    user?: usersGenqlSelection
     __typename?: boolean | number
     __scalar?: boolean | number
 }
@@ -9354,7 +12327,7 @@ export interface orders_avg_order_by {cancel_block?: (order_by | null),filled_ba
 
 
 /** Boolean expression to filter rows from the table "orders". All fields are combined with a logical 'AND'. */
-export interface orders_bool_exp {_and?: (orders_bool_exp[] | null),_not?: (orders_bool_exp | null),_or?: (orders_bool_exp[] | null),actor_acct?: (String_comparison_exp | null),cancel_block?: (bigint_comparison_exp | null),cancel_time?: (timestamptz_comparison_exp | null),cancel_tx_sig?: (String_comparison_exp | null),filled_base_amount?: (bigint_comparison_exp | null),is_active?: (Boolean_comparison_exp | null),make?: (makes_bool_exp | null),market?: (markets_bool_exp | null),market_acct?: (String_comparison_exp | null),order_block?: (bigint_comparison_exp | null),order_time?: (timestamptz_comparison_exp | null),order_tx_sig?: (String_comparison_exp | null),quote_price?: (numeric_comparison_exp | null),side?: (String_comparison_exp | null),take?: (takes_bool_exp | null),transaction?: (transactions_bool_exp | null),unfilled_base_amount?: (bigint_comparison_exp | null),updated_at?: (timestamptz_comparison_exp | null)}
+export interface orders_bool_exp {_and?: (orders_bool_exp[] | null),_not?: (orders_bool_exp | null),_or?: (orders_bool_exp[] | null),actor_acct?: (String_comparison_exp | null),cancel_block?: (bigint_comparison_exp | null),cancel_time?: (timestamptz_comparison_exp | null),cancel_tx_sig?: (String_comparison_exp | null),filled_base_amount?: (bigint_comparison_exp | null),is_active?: (Boolean_comparison_exp | null),make?: (makes_bool_exp | null),market?: (markets_bool_exp | null),market_acct?: (String_comparison_exp | null),order_block?: (bigint_comparison_exp | null),order_time?: (timestamptz_comparison_exp | null),order_tx_sig?: (String_comparison_exp | null),quote_price?: (numeric_comparison_exp | null),side?: (String_comparison_exp | null),take?: (takes_bool_exp | null),transaction?: (transactions_bool_exp | null),unfilled_base_amount?: (bigint_comparison_exp | null),updated_at?: (timestamptz_comparison_exp | null),user?: (users_bool_exp | null)}
 
 
 /** input type for incrementing numeric columns in table "orders" */
@@ -9362,7 +12335,7 @@ export interface orders_inc_input {cancel_block?: (Scalars['bigint'] | null),fil
 
 
 /** input type for inserting data into table "orders" */
-export interface orders_insert_input {actor_acct?: (Scalars['String'] | null),cancel_block?: (Scalars['bigint'] | null),cancel_time?: (Scalars['timestamptz'] | null),cancel_tx_sig?: (Scalars['String'] | null),filled_base_amount?: (Scalars['bigint'] | null),is_active?: (Scalars['Boolean'] | null),make?: (makes_obj_rel_insert_input | null),market?: (markets_obj_rel_insert_input | null),market_acct?: (Scalars['String'] | null),order_block?: (Scalars['bigint'] | null),order_time?: (Scalars['timestamptz'] | null),order_tx_sig?: (Scalars['String'] | null),quote_price?: (Scalars['numeric'] | null),side?: (Scalars['String'] | null),take?: (takes_obj_rel_insert_input | null),transaction?: (transactions_obj_rel_insert_input | null),unfilled_base_amount?: (Scalars['bigint'] | null),updated_at?: (Scalars['timestamptz'] | null)}
+export interface orders_insert_input {actor_acct?: (Scalars['String'] | null),cancel_block?: (Scalars['bigint'] | null),cancel_time?: (Scalars['timestamptz'] | null),cancel_tx_sig?: (Scalars['String'] | null),filled_base_amount?: (Scalars['bigint'] | null),is_active?: (Scalars['Boolean'] | null),make?: (makes_obj_rel_insert_input | null),market?: (markets_obj_rel_insert_input | null),market_acct?: (Scalars['String'] | null),order_block?: (Scalars['bigint'] | null),order_time?: (Scalars['timestamptz'] | null),order_tx_sig?: (Scalars['String'] | null),quote_price?: (Scalars['numeric'] | null),side?: (Scalars['String'] | null),take?: (takes_obj_rel_insert_input | null),transaction?: (transactions_obj_rel_insert_input | null),unfilled_base_amount?: (Scalars['bigint'] | null),updated_at?: (Scalars['timestamptz'] | null),user?: (users_obj_rel_insert_input | null)}
 
 
 /** aggregate max on columns */
@@ -9435,7 +12408,7 @@ export interface orders_on_conflict {constraint: orders_constraint,update_column
 
 
 /** Ordering options when selecting data from "orders". */
-export interface orders_order_by {actor_acct?: (order_by | null),cancel_block?: (order_by | null),cancel_time?: (order_by | null),cancel_tx_sig?: (order_by | null),filled_base_amount?: (order_by | null),is_active?: (order_by | null),make?: (makes_order_by | null),market?: (markets_order_by | null),market_acct?: (order_by | null),order_block?: (order_by | null),order_time?: (order_by | null),order_tx_sig?: (order_by | null),quote_price?: (order_by | null),side?: (order_by | null),take?: (takes_order_by | null),transaction?: (transactions_order_by | null),unfilled_base_amount?: (order_by | null),updated_at?: (order_by | null)}
+export interface orders_order_by {actor_acct?: (order_by | null),cancel_block?: (order_by | null),cancel_time?: (order_by | null),cancel_tx_sig?: (order_by | null),filled_base_amount?: (order_by | null),is_active?: (order_by | null),make?: (makes_order_by | null),market?: (markets_order_by | null),market_acct?: (order_by | null),order_block?: (order_by | null),order_time?: (order_by | null),order_tx_sig?: (order_by | null),quote_price?: (order_by | null),side?: (order_by | null),take?: (takes_order_by | null),transaction?: (transactions_order_by | null),unfilled_base_amount?: (order_by | null),updated_at?: (order_by | null),user?: (users_order_by | null)}
 
 
 /** primary key columns input for table: orders */
@@ -9711,6 +12684,14 @@ export interface prices_chart_data_avg_fieldsGenqlSelection{
 export interface prices_chart_data_bool_exp {_and?: (prices_chart_data_bool_exp[] | null),_not?: (prices_chart_data_bool_exp | null),_or?: (prices_chart_data_bool_exp[] | null),base_amount?: (bigint_comparison_exp | null),interv?: (timestamptz_comparison_exp | null),market?: (markets_bool_exp | null),market_acct?: (String_comparison_exp | null),price?: (numeric_comparison_exp | null),prices_type?: (String_comparison_exp | null),quote_amount?: (bigint_comparison_exp | null)}
 
 
+/** input type for incrementing numeric columns in table "prices_chart_data" */
+export interface prices_chart_data_inc_input {base_amount?: (Scalars['bigint'] | null),price?: (Scalars['numeric'] | null),quote_amount?: (Scalars['bigint'] | null)}
+
+
+/** input type for inserting data into table "prices_chart_data" */
+export interface prices_chart_data_insert_input {base_amount?: (Scalars['bigint'] | null),interv?: (Scalars['timestamptz'] | null),market?: (markets_obj_rel_insert_input | null),market_acct?: (Scalars['String'] | null),price?: (Scalars['numeric'] | null),prices_type?: (Scalars['String'] | null),quote_amount?: (Scalars['bigint'] | null)}
+
+
 /** aggregate max on columns */
 export interface prices_chart_data_max_fieldsGenqlSelection{
     base_amount?: boolean | number
@@ -9737,8 +12718,27 @@ export interface prices_chart_data_min_fieldsGenqlSelection{
 }
 
 
+/** response of any mutation on the table "prices_chart_data" */
+export interface prices_chart_data_mutation_responseGenqlSelection{
+    /** number of rows affected by the mutation */
+    affected_rows?: boolean | number
+    /** data from the rows affected by the mutation */
+    returning?: prices_chart_dataGenqlSelection
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+
+/** on_conflict condition type for table "prices_chart_data" */
+export interface prices_chart_data_on_conflict {constraint: prices_chart_data_constraint,update_columns?: prices_chart_data_update_column[],where?: (prices_chart_data_bool_exp | null)}
+
+
 /** Ordering options when selecting data from "prices_chart_data". */
 export interface prices_chart_data_order_by {base_amount?: (order_by | null),interv?: (order_by | null),market?: (markets_order_by | null),market_acct?: (order_by | null),price?: (order_by | null),prices_type?: (order_by | null),quote_amount?: (order_by | null)}
+
+
+/** input type for updating data in table "prices_chart_data" */
+export interface prices_chart_data_set_input {base_amount?: (Scalars['bigint'] | null),interv?: (Scalars['timestamptz'] | null),market_acct?: (Scalars['String'] | null),price?: (Scalars['numeric'] | null),prices_type?: (Scalars['String'] | null),quote_amount?: (Scalars['bigint'] | null)}
 
 
 /** aggregate stddev on columns */
@@ -9791,6 +12791,14 @@ export interface prices_chart_data_sum_fieldsGenqlSelection{
     __typename?: boolean | number
     __scalar?: boolean | number
 }
+
+export interface prices_chart_data_updates {
+/** increments the numeric columns with given value of the filtered values */
+_inc?: (prices_chart_data_inc_input | null),
+/** sets the columns of the filtered rows to the given values */
+_set?: (prices_chart_data_set_input | null),
+/** filter the rows which have to be updated */
+where: prices_chart_data_bool_exp}
 
 
 /** aggregate var_pop on columns */
@@ -11139,6 +14147,22 @@ export interface proposal_details_variance_fieldsGenqlSelection{
 /** order by variance() on columns of table "proposal_details" */
 export interface proposal_details_variance_order_by {proposal_id?: (order_by | null)}
 
+export interface proposal_statisticsGenqlSelection{
+    proposal_acct?: boolean | number
+    trade_count?: boolean | number
+    user_count?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+
+/** Boolean expression to filter rows from the logical model for "proposal_statistics". All fields are combined with a logical 'AND'. */
+export interface proposal_statistics_bool_exp_bool_exp {_and?: (proposal_statistics_bool_exp_bool_exp[] | null),_not?: (proposal_statistics_bool_exp_bool_exp | null),_or?: (proposal_statistics_bool_exp_bool_exp[] | null),proposal_acct?: (String_comparison_exp | null),trade_count?: (numeric_comparison_exp | null),user_count?: (bigint_comparison_exp | null)}
+
+
+/** Ordering options when selecting data from "proposal_statistics". */
+export interface proposal_statistics_order_by {proposal_acct?: (order_by | null),trade_count?: (order_by | null),user_count?: (order_by | null)}
+
 
 /** columns and relationships of "proposal_total_trade_volume" */
 export interface proposal_total_trade_volumeGenqlSelection{
@@ -11339,6 +14363,7 @@ export interface proposalsGenqlSelection{
     dao?: daosGenqlSelection
     dao_acct?: boolean | number
     description_url?: boolean | number
+    duration_in_slots?: boolean | number
     end_slot?: boolean | number
     ended_at?: boolean | number
     fail_market_acct?: boolean | number
@@ -11367,7 +14392,10 @@ export interface proposalsGenqlSelection{
     order_by?: (markets_order_by[] | null), 
     /** filter the rows returned */
     where?: (markets_bool_exp | null)} })
+    min_base_futarchic_liquidity?: boolean | number
+    min_quote_futarchic_liquidity?: boolean | number
     pass_market_acct?: boolean | number
+    pass_threshold_bps?: boolean | number
     pricing_model_fail_acct?: boolean | number
     pricing_model_pass_acct?: boolean | number
     proposal_acct?: boolean | number
@@ -11423,6 +14451,8 @@ export interface proposalsGenqlSelection{
     /** filter the rows returned */
     where?: (reactions_bool_exp | null)} })
     status?: boolean | number
+    twap_initial_observation?: boolean | number
+    twap_max_observation_change_per_update?: boolean | number
     /** An array relationship */
     twaps?: (twapsGenqlSelection & { __args?: {
     /** distinct select on columns */
@@ -11448,6 +14478,30 @@ export interface proposalsGenqlSelection{
     /** filter the rows returned */
     where?: (twaps_bool_exp | null)} })
     updated_at?: boolean | number
+    /** An array relationship */
+    user_performances?: (user_performanceGenqlSelection & { __args?: {
+    /** distinct select on columns */
+    distinct_on?: (user_performance_select_column[] | null), 
+    /** limit the number of rows returned */
+    limit?: (Scalars['Int'] | null), 
+    /** skip the first n rows. Use only with order_by */
+    offset?: (Scalars['Int'] | null), 
+    /** sort the rows by one or more columns */
+    order_by?: (user_performance_order_by[] | null), 
+    /** filter the rows returned */
+    where?: (user_performance_bool_exp | null)} })
+    /** An aggregate relationship */
+    user_performances_aggregate?: (user_performance_aggregateGenqlSelection & { __args?: {
+    /** distinct select on columns */
+    distinct_on?: (user_performance_select_column[] | null), 
+    /** limit the number of rows returned */
+    limit?: (Scalars['Int'] | null), 
+    /** skip the first n rows. Use only with order_by */
+    offset?: (Scalars['Int'] | null), 
+    /** sort the rows by one or more columns */
+    order_by?: (user_performance_order_by[] | null), 
+    /** filter the rows returned */
+    where?: (user_performance_bool_exp | null)} })
     __typename?: boolean | number
     __scalar?: boolean | number
 }
@@ -11517,28 +14571,34 @@ on_conflict?: (proposals_on_conflict | null)}
 /** aggregate avg on columns */
 export interface proposals_avg_fieldsGenqlSelection{
     autocrat_version?: boolean | number
+    duration_in_slots?: boolean | number
     end_slot?: boolean | number
     initial_slot?: boolean | number
+    min_base_futarchic_liquidity?: boolean | number
+    min_quote_futarchic_liquidity?: boolean | number
+    pass_threshold_bps?: boolean | number
     proposal_num?: boolean | number
+    twap_initial_observation?: boolean | number
+    twap_max_observation_change_per_update?: boolean | number
     __typename?: boolean | number
     __scalar?: boolean | number
 }
 
 
 /** order by avg() on columns of table "proposals" */
-export interface proposals_avg_order_by {autocrat_version?: (order_by | null),end_slot?: (order_by | null),initial_slot?: (order_by | null),proposal_num?: (order_by | null)}
+export interface proposals_avg_order_by {autocrat_version?: (order_by | null),duration_in_slots?: (order_by | null),end_slot?: (order_by | null),initial_slot?: (order_by | null),min_base_futarchic_liquidity?: (order_by | null),min_quote_futarchic_liquidity?: (order_by | null),pass_threshold_bps?: (order_by | null),proposal_num?: (order_by | null),twap_initial_observation?: (order_by | null),twap_max_observation_change_per_update?: (order_by | null)}
 
 
 /** Boolean expression to filter rows from the table "proposals". All fields are combined with a logical 'AND'. */
-export interface proposals_bool_exp {_and?: (proposals_bool_exp[] | null),_not?: (proposals_bool_exp | null),_or?: (proposals_bool_exp[] | null),autocrat_version?: (float8_comparison_exp | null),base_vault?: (String_comparison_exp | null),comments?: (comments_bool_exp | null),comments_aggregate?: (comments_aggregate_bool_exp | null),completed_at?: (timestamptz_comparison_exp | null),conditionalVaultByQuoteVault?: (conditional_vaults_bool_exp | null),conditional_vault?: (conditional_vaults_bool_exp | null),created_at?: (timestamptz_comparison_exp | null),dao?: (daos_bool_exp | null),dao_acct?: (String_comparison_exp | null),description_url?: (String_comparison_exp | null),end_slot?: (bigint_comparison_exp | null),ended_at?: (timestamptz_comparison_exp | null),fail_market_acct?: (String_comparison_exp | null),initial_slot?: (bigint_comparison_exp | null),markets?: (markets_bool_exp | null),markets_aggregate?: (markets_aggregate_bool_exp | null),pass_market_acct?: (String_comparison_exp | null),pricing_model_fail_acct?: (String_comparison_exp | null),pricing_model_pass_acct?: (String_comparison_exp | null),proposal_acct?: (String_comparison_exp | null),proposal_details?: (proposal_details_bool_exp | null),proposal_details_aggregate?: (proposal_details_aggregate_bool_exp | null),proposal_num?: (bigint_comparison_exp | null),proposer_acct?: (String_comparison_exp | null),quote_vault?: (String_comparison_exp | null),reactions?: (reactions_bool_exp | null),reactions_aggregate?: (reactions_aggregate_bool_exp | null),status?: (String_comparison_exp | null),twaps?: (twaps_bool_exp | null),twaps_aggregate?: (twaps_aggregate_bool_exp | null),updated_at?: (timestamptz_comparison_exp | null)}
+export interface proposals_bool_exp {_and?: (proposals_bool_exp[] | null),_not?: (proposals_bool_exp | null),_or?: (proposals_bool_exp[] | null),autocrat_version?: (float8_comparison_exp | null),base_vault?: (String_comparison_exp | null),comments?: (comments_bool_exp | null),comments_aggregate?: (comments_aggregate_bool_exp | null),completed_at?: (timestamptz_comparison_exp | null),conditionalVaultByQuoteVault?: (conditional_vaults_bool_exp | null),conditional_vault?: (conditional_vaults_bool_exp | null),created_at?: (timestamptz_comparison_exp | null),dao?: (daos_bool_exp | null),dao_acct?: (String_comparison_exp | null),description_url?: (String_comparison_exp | null),duration_in_slots?: (bigint_comparison_exp | null),end_slot?: (bigint_comparison_exp | null),ended_at?: (timestamptz_comparison_exp | null),fail_market_acct?: (String_comparison_exp | null),initial_slot?: (bigint_comparison_exp | null),markets?: (markets_bool_exp | null),markets_aggregate?: (markets_aggregate_bool_exp | null),min_base_futarchic_liquidity?: (bigint_comparison_exp | null),min_quote_futarchic_liquidity?: (bigint_comparison_exp | null),pass_market_acct?: (String_comparison_exp | null),pass_threshold_bps?: (bigint_comparison_exp | null),pricing_model_fail_acct?: (String_comparison_exp | null),pricing_model_pass_acct?: (String_comparison_exp | null),proposal_acct?: (String_comparison_exp | null),proposal_details?: (proposal_details_bool_exp | null),proposal_details_aggregate?: (proposal_details_aggregate_bool_exp | null),proposal_num?: (bigint_comparison_exp | null),proposer_acct?: (String_comparison_exp | null),quote_vault?: (String_comparison_exp | null),reactions?: (reactions_bool_exp | null),reactions_aggregate?: (reactions_aggregate_bool_exp | null),status?: (String_comparison_exp | null),twap_initial_observation?: (bigint_comparison_exp | null),twap_max_observation_change_per_update?: (bigint_comparison_exp | null),twaps?: (twaps_bool_exp | null),twaps_aggregate?: (twaps_aggregate_bool_exp | null),updated_at?: (timestamptz_comparison_exp | null),user_performances?: (user_performance_bool_exp | null),user_performances_aggregate?: (user_performance_aggregate_bool_exp | null)}
 
 
 /** input type for incrementing numeric columns in table "proposals" */
-export interface proposals_inc_input {autocrat_version?: (Scalars['float8'] | null),end_slot?: (Scalars['bigint'] | null),initial_slot?: (Scalars['bigint'] | null),proposal_num?: (Scalars['bigint'] | null)}
+export interface proposals_inc_input {autocrat_version?: (Scalars['float8'] | null),duration_in_slots?: (Scalars['bigint'] | null),end_slot?: (Scalars['bigint'] | null),initial_slot?: (Scalars['bigint'] | null),min_base_futarchic_liquidity?: (Scalars['bigint'] | null),min_quote_futarchic_liquidity?: (Scalars['bigint'] | null),pass_threshold_bps?: (Scalars['bigint'] | null),proposal_num?: (Scalars['bigint'] | null),twap_initial_observation?: (Scalars['bigint'] | null),twap_max_observation_change_per_update?: (Scalars['bigint'] | null)}
 
 
 /** input type for inserting data into table "proposals" */
-export interface proposals_insert_input {autocrat_version?: (Scalars['float8'] | null),base_vault?: (Scalars['String'] | null),comments?: (comments_arr_rel_insert_input | null),completed_at?: (Scalars['timestamptz'] | null),conditionalVaultByQuoteVault?: (conditional_vaults_obj_rel_insert_input | null),conditional_vault?: (conditional_vaults_obj_rel_insert_input | null),created_at?: (Scalars['timestamptz'] | null),dao?: (daos_obj_rel_insert_input | null),dao_acct?: (Scalars['String'] | null),description_url?: (Scalars['String'] | null),end_slot?: (Scalars['bigint'] | null),ended_at?: (Scalars['timestamptz'] | null),fail_market_acct?: (Scalars['String'] | null),initial_slot?: (Scalars['bigint'] | null),markets?: (markets_arr_rel_insert_input | null),pass_market_acct?: (Scalars['String'] | null),pricing_model_fail_acct?: (Scalars['String'] | null),pricing_model_pass_acct?: (Scalars['String'] | null),proposal_acct?: (Scalars['String'] | null),proposal_details?: (proposal_details_arr_rel_insert_input | null),proposal_num?: (Scalars['bigint'] | null),proposer_acct?: (Scalars['String'] | null),quote_vault?: (Scalars['String'] | null),reactions?: (reactions_arr_rel_insert_input | null),status?: (Scalars['String'] | null),twaps?: (twaps_arr_rel_insert_input | null),updated_at?: (Scalars['timestamptz'] | null)}
+export interface proposals_insert_input {autocrat_version?: (Scalars['float8'] | null),base_vault?: (Scalars['String'] | null),comments?: (comments_arr_rel_insert_input | null),completed_at?: (Scalars['timestamptz'] | null),conditionalVaultByQuoteVault?: (conditional_vaults_obj_rel_insert_input | null),conditional_vault?: (conditional_vaults_obj_rel_insert_input | null),created_at?: (Scalars['timestamptz'] | null),dao?: (daos_obj_rel_insert_input | null),dao_acct?: (Scalars['String'] | null),description_url?: (Scalars['String'] | null),duration_in_slots?: (Scalars['bigint'] | null),end_slot?: (Scalars['bigint'] | null),ended_at?: (Scalars['timestamptz'] | null),fail_market_acct?: (Scalars['String'] | null),initial_slot?: (Scalars['bigint'] | null),markets?: (markets_arr_rel_insert_input | null),min_base_futarchic_liquidity?: (Scalars['bigint'] | null),min_quote_futarchic_liquidity?: (Scalars['bigint'] | null),pass_market_acct?: (Scalars['String'] | null),pass_threshold_bps?: (Scalars['bigint'] | null),pricing_model_fail_acct?: (Scalars['String'] | null),pricing_model_pass_acct?: (Scalars['String'] | null),proposal_acct?: (Scalars['String'] | null),proposal_details?: (proposal_details_arr_rel_insert_input | null),proposal_num?: (Scalars['bigint'] | null),proposer_acct?: (Scalars['String'] | null),quote_vault?: (Scalars['String'] | null),reactions?: (reactions_arr_rel_insert_input | null),status?: (Scalars['String'] | null),twap_initial_observation?: (Scalars['bigint'] | null),twap_max_observation_change_per_update?: (Scalars['bigint'] | null),twaps?: (twaps_arr_rel_insert_input | null),updated_at?: (Scalars['timestamptz'] | null),user_performances?: (user_performance_arr_rel_insert_input | null)}
 
 
 /** aggregate max on columns */
@@ -11549,11 +14609,15 @@ export interface proposals_max_fieldsGenqlSelection{
     created_at?: boolean | number
     dao_acct?: boolean | number
     description_url?: boolean | number
+    duration_in_slots?: boolean | number
     end_slot?: boolean | number
     ended_at?: boolean | number
     fail_market_acct?: boolean | number
     initial_slot?: boolean | number
+    min_base_futarchic_liquidity?: boolean | number
+    min_quote_futarchic_liquidity?: boolean | number
     pass_market_acct?: boolean | number
+    pass_threshold_bps?: boolean | number
     pricing_model_fail_acct?: boolean | number
     pricing_model_pass_acct?: boolean | number
     proposal_acct?: boolean | number
@@ -11561,6 +14625,8 @@ export interface proposals_max_fieldsGenqlSelection{
     proposer_acct?: boolean | number
     quote_vault?: boolean | number
     status?: boolean | number
+    twap_initial_observation?: boolean | number
+    twap_max_observation_change_per_update?: boolean | number
     updated_at?: boolean | number
     __typename?: boolean | number
     __scalar?: boolean | number
@@ -11568,7 +14634,7 @@ export interface proposals_max_fieldsGenqlSelection{
 
 
 /** order by max() on columns of table "proposals" */
-export interface proposals_max_order_by {autocrat_version?: (order_by | null),base_vault?: (order_by | null),completed_at?: (order_by | null),created_at?: (order_by | null),dao_acct?: (order_by | null),description_url?: (order_by | null),end_slot?: (order_by | null),ended_at?: (order_by | null),fail_market_acct?: (order_by | null),initial_slot?: (order_by | null),pass_market_acct?: (order_by | null),pricing_model_fail_acct?: (order_by | null),pricing_model_pass_acct?: (order_by | null),proposal_acct?: (order_by | null),proposal_num?: (order_by | null),proposer_acct?: (order_by | null),quote_vault?: (order_by | null),status?: (order_by | null),updated_at?: (order_by | null)}
+export interface proposals_max_order_by {autocrat_version?: (order_by | null),base_vault?: (order_by | null),completed_at?: (order_by | null),created_at?: (order_by | null),dao_acct?: (order_by | null),description_url?: (order_by | null),duration_in_slots?: (order_by | null),end_slot?: (order_by | null),ended_at?: (order_by | null),fail_market_acct?: (order_by | null),initial_slot?: (order_by | null),min_base_futarchic_liquidity?: (order_by | null),min_quote_futarchic_liquidity?: (order_by | null),pass_market_acct?: (order_by | null),pass_threshold_bps?: (order_by | null),pricing_model_fail_acct?: (order_by | null),pricing_model_pass_acct?: (order_by | null),proposal_acct?: (order_by | null),proposal_num?: (order_by | null),proposer_acct?: (order_by | null),quote_vault?: (order_by | null),status?: (order_by | null),twap_initial_observation?: (order_by | null),twap_max_observation_change_per_update?: (order_by | null),updated_at?: (order_by | null)}
 
 
 /** aggregate min on columns */
@@ -11579,11 +14645,15 @@ export interface proposals_min_fieldsGenqlSelection{
     created_at?: boolean | number
     dao_acct?: boolean | number
     description_url?: boolean | number
+    duration_in_slots?: boolean | number
     end_slot?: boolean | number
     ended_at?: boolean | number
     fail_market_acct?: boolean | number
     initial_slot?: boolean | number
+    min_base_futarchic_liquidity?: boolean | number
+    min_quote_futarchic_liquidity?: boolean | number
     pass_market_acct?: boolean | number
+    pass_threshold_bps?: boolean | number
     pricing_model_fail_acct?: boolean | number
     pricing_model_pass_acct?: boolean | number
     proposal_acct?: boolean | number
@@ -11591,6 +14661,8 @@ export interface proposals_min_fieldsGenqlSelection{
     proposer_acct?: boolean | number
     quote_vault?: boolean | number
     status?: boolean | number
+    twap_initial_observation?: boolean | number
+    twap_max_observation_change_per_update?: boolean | number
     updated_at?: boolean | number
     __typename?: boolean | number
     __scalar?: boolean | number
@@ -11598,7 +14670,7 @@ export interface proposals_min_fieldsGenqlSelection{
 
 
 /** order by min() on columns of table "proposals" */
-export interface proposals_min_order_by {autocrat_version?: (order_by | null),base_vault?: (order_by | null),completed_at?: (order_by | null),created_at?: (order_by | null),dao_acct?: (order_by | null),description_url?: (order_by | null),end_slot?: (order_by | null),ended_at?: (order_by | null),fail_market_acct?: (order_by | null),initial_slot?: (order_by | null),pass_market_acct?: (order_by | null),pricing_model_fail_acct?: (order_by | null),pricing_model_pass_acct?: (order_by | null),proposal_acct?: (order_by | null),proposal_num?: (order_by | null),proposer_acct?: (order_by | null),quote_vault?: (order_by | null),status?: (order_by | null),updated_at?: (order_by | null)}
+export interface proposals_min_order_by {autocrat_version?: (order_by | null),base_vault?: (order_by | null),completed_at?: (order_by | null),created_at?: (order_by | null),dao_acct?: (order_by | null),description_url?: (order_by | null),duration_in_slots?: (order_by | null),end_slot?: (order_by | null),ended_at?: (order_by | null),fail_market_acct?: (order_by | null),initial_slot?: (order_by | null),min_base_futarchic_liquidity?: (order_by | null),min_quote_futarchic_liquidity?: (order_by | null),pass_market_acct?: (order_by | null),pass_threshold_bps?: (order_by | null),pricing_model_fail_acct?: (order_by | null),pricing_model_pass_acct?: (order_by | null),proposal_acct?: (order_by | null),proposal_num?: (order_by | null),proposer_acct?: (order_by | null),quote_vault?: (order_by | null),status?: (order_by | null),twap_initial_observation?: (order_by | null),twap_max_observation_change_per_update?: (order_by | null),updated_at?: (order_by | null)}
 
 
 /** response of any mutation on the table "proposals" */
@@ -11623,7 +14695,7 @@ export interface proposals_on_conflict {constraint: proposals_constraint,update_
 
 
 /** Ordering options when selecting data from "proposals". */
-export interface proposals_order_by {autocrat_version?: (order_by | null),base_vault?: (order_by | null),comments_aggregate?: (comments_aggregate_order_by | null),completed_at?: (order_by | null),conditionalVaultByQuoteVault?: (conditional_vaults_order_by | null),conditional_vault?: (conditional_vaults_order_by | null),created_at?: (order_by | null),dao?: (daos_order_by | null),dao_acct?: (order_by | null),description_url?: (order_by | null),end_slot?: (order_by | null),ended_at?: (order_by | null),fail_market_acct?: (order_by | null),initial_slot?: (order_by | null),markets_aggregate?: (markets_aggregate_order_by | null),pass_market_acct?: (order_by | null),pricing_model_fail_acct?: (order_by | null),pricing_model_pass_acct?: (order_by | null),proposal_acct?: (order_by | null),proposal_details_aggregate?: (proposal_details_aggregate_order_by | null),proposal_num?: (order_by | null),proposer_acct?: (order_by | null),quote_vault?: (order_by | null),reactions_aggregate?: (reactions_aggregate_order_by | null),status?: (order_by | null),twaps_aggregate?: (twaps_aggregate_order_by | null),updated_at?: (order_by | null)}
+export interface proposals_order_by {autocrat_version?: (order_by | null),base_vault?: (order_by | null),comments_aggregate?: (comments_aggregate_order_by | null),completed_at?: (order_by | null),conditionalVaultByQuoteVault?: (conditional_vaults_order_by | null),conditional_vault?: (conditional_vaults_order_by | null),created_at?: (order_by | null),dao?: (daos_order_by | null),dao_acct?: (order_by | null),description_url?: (order_by | null),duration_in_slots?: (order_by | null),end_slot?: (order_by | null),ended_at?: (order_by | null),fail_market_acct?: (order_by | null),initial_slot?: (order_by | null),markets_aggregate?: (markets_aggregate_order_by | null),min_base_futarchic_liquidity?: (order_by | null),min_quote_futarchic_liquidity?: (order_by | null),pass_market_acct?: (order_by | null),pass_threshold_bps?: (order_by | null),pricing_model_fail_acct?: (order_by | null),pricing_model_pass_acct?: (order_by | null),proposal_acct?: (order_by | null),proposal_details_aggregate?: (proposal_details_aggregate_order_by | null),proposal_num?: (order_by | null),proposer_acct?: (order_by | null),quote_vault?: (order_by | null),reactions_aggregate?: (reactions_aggregate_order_by | null),status?: (order_by | null),twap_initial_observation?: (order_by | null),twap_max_observation_change_per_update?: (order_by | null),twaps_aggregate?: (twaps_aggregate_order_by | null),updated_at?: (order_by | null),user_performances_aggregate?: (user_performance_aggregate_order_by | null)}
 
 
 /** primary key columns input for table: proposals */
@@ -11631,52 +14703,70 @@ export interface proposals_pk_columns_input {proposal_acct: Scalars['String']}
 
 
 /** input type for updating data in table "proposals" */
-export interface proposals_set_input {autocrat_version?: (Scalars['float8'] | null),base_vault?: (Scalars['String'] | null),completed_at?: (Scalars['timestamptz'] | null),created_at?: (Scalars['timestamptz'] | null),dao_acct?: (Scalars['String'] | null),description_url?: (Scalars['String'] | null),end_slot?: (Scalars['bigint'] | null),ended_at?: (Scalars['timestamptz'] | null),fail_market_acct?: (Scalars['String'] | null),initial_slot?: (Scalars['bigint'] | null),pass_market_acct?: (Scalars['String'] | null),pricing_model_fail_acct?: (Scalars['String'] | null),pricing_model_pass_acct?: (Scalars['String'] | null),proposal_acct?: (Scalars['String'] | null),proposal_num?: (Scalars['bigint'] | null),proposer_acct?: (Scalars['String'] | null),quote_vault?: (Scalars['String'] | null),status?: (Scalars['String'] | null),updated_at?: (Scalars['timestamptz'] | null)}
+export interface proposals_set_input {autocrat_version?: (Scalars['float8'] | null),base_vault?: (Scalars['String'] | null),completed_at?: (Scalars['timestamptz'] | null),created_at?: (Scalars['timestamptz'] | null),dao_acct?: (Scalars['String'] | null),description_url?: (Scalars['String'] | null),duration_in_slots?: (Scalars['bigint'] | null),end_slot?: (Scalars['bigint'] | null),ended_at?: (Scalars['timestamptz'] | null),fail_market_acct?: (Scalars['String'] | null),initial_slot?: (Scalars['bigint'] | null),min_base_futarchic_liquidity?: (Scalars['bigint'] | null),min_quote_futarchic_liquidity?: (Scalars['bigint'] | null),pass_market_acct?: (Scalars['String'] | null),pass_threshold_bps?: (Scalars['bigint'] | null),pricing_model_fail_acct?: (Scalars['String'] | null),pricing_model_pass_acct?: (Scalars['String'] | null),proposal_acct?: (Scalars['String'] | null),proposal_num?: (Scalars['bigint'] | null),proposer_acct?: (Scalars['String'] | null),quote_vault?: (Scalars['String'] | null),status?: (Scalars['String'] | null),twap_initial_observation?: (Scalars['bigint'] | null),twap_max_observation_change_per_update?: (Scalars['bigint'] | null),updated_at?: (Scalars['timestamptz'] | null)}
 
 
 /** aggregate stddev on columns */
 export interface proposals_stddev_fieldsGenqlSelection{
     autocrat_version?: boolean | number
+    duration_in_slots?: boolean | number
     end_slot?: boolean | number
     initial_slot?: boolean | number
+    min_base_futarchic_liquidity?: boolean | number
+    min_quote_futarchic_liquidity?: boolean | number
+    pass_threshold_bps?: boolean | number
     proposal_num?: boolean | number
+    twap_initial_observation?: boolean | number
+    twap_max_observation_change_per_update?: boolean | number
     __typename?: boolean | number
     __scalar?: boolean | number
 }
 
 
 /** order by stddev() on columns of table "proposals" */
-export interface proposals_stddev_order_by {autocrat_version?: (order_by | null),end_slot?: (order_by | null),initial_slot?: (order_by | null),proposal_num?: (order_by | null)}
+export interface proposals_stddev_order_by {autocrat_version?: (order_by | null),duration_in_slots?: (order_by | null),end_slot?: (order_by | null),initial_slot?: (order_by | null),min_base_futarchic_liquidity?: (order_by | null),min_quote_futarchic_liquidity?: (order_by | null),pass_threshold_bps?: (order_by | null),proposal_num?: (order_by | null),twap_initial_observation?: (order_by | null),twap_max_observation_change_per_update?: (order_by | null)}
 
 
 /** aggregate stddev_pop on columns */
 export interface proposals_stddev_pop_fieldsGenqlSelection{
     autocrat_version?: boolean | number
+    duration_in_slots?: boolean | number
     end_slot?: boolean | number
     initial_slot?: boolean | number
+    min_base_futarchic_liquidity?: boolean | number
+    min_quote_futarchic_liquidity?: boolean | number
+    pass_threshold_bps?: boolean | number
     proposal_num?: boolean | number
+    twap_initial_observation?: boolean | number
+    twap_max_observation_change_per_update?: boolean | number
     __typename?: boolean | number
     __scalar?: boolean | number
 }
 
 
 /** order by stddev_pop() on columns of table "proposals" */
-export interface proposals_stddev_pop_order_by {autocrat_version?: (order_by | null),end_slot?: (order_by | null),initial_slot?: (order_by | null),proposal_num?: (order_by | null)}
+export interface proposals_stddev_pop_order_by {autocrat_version?: (order_by | null),duration_in_slots?: (order_by | null),end_slot?: (order_by | null),initial_slot?: (order_by | null),min_base_futarchic_liquidity?: (order_by | null),min_quote_futarchic_liquidity?: (order_by | null),pass_threshold_bps?: (order_by | null),proposal_num?: (order_by | null),twap_initial_observation?: (order_by | null),twap_max_observation_change_per_update?: (order_by | null)}
 
 
 /** aggregate stddev_samp on columns */
 export interface proposals_stddev_samp_fieldsGenqlSelection{
     autocrat_version?: boolean | number
+    duration_in_slots?: boolean | number
     end_slot?: boolean | number
     initial_slot?: boolean | number
+    min_base_futarchic_liquidity?: boolean | number
+    min_quote_futarchic_liquidity?: boolean | number
+    pass_threshold_bps?: boolean | number
     proposal_num?: boolean | number
+    twap_initial_observation?: boolean | number
+    twap_max_observation_change_per_update?: boolean | number
     __typename?: boolean | number
     __scalar?: boolean | number
 }
 
 
 /** order by stddev_samp() on columns of table "proposals" */
-export interface proposals_stddev_samp_order_by {autocrat_version?: (order_by | null),end_slot?: (order_by | null),initial_slot?: (order_by | null),proposal_num?: (order_by | null)}
+export interface proposals_stddev_samp_order_by {autocrat_version?: (order_by | null),duration_in_slots?: (order_by | null),end_slot?: (order_by | null),initial_slot?: (order_by | null),min_base_futarchic_liquidity?: (order_by | null),min_quote_futarchic_liquidity?: (order_by | null),pass_threshold_bps?: (order_by | null),proposal_num?: (order_by | null),twap_initial_observation?: (order_by | null),twap_max_observation_change_per_update?: (order_by | null)}
 
 
 /** Streaming cursor of the table "proposals" */
@@ -11688,22 +14778,28 @@ ordering?: (cursor_ordering | null)}
 
 
 /** Initial value of the column from where the streaming should start */
-export interface proposals_stream_cursor_value_input {autocrat_version?: (Scalars['float8'] | null),base_vault?: (Scalars['String'] | null),completed_at?: (Scalars['timestamptz'] | null),created_at?: (Scalars['timestamptz'] | null),dao_acct?: (Scalars['String'] | null),description_url?: (Scalars['String'] | null),end_slot?: (Scalars['bigint'] | null),ended_at?: (Scalars['timestamptz'] | null),fail_market_acct?: (Scalars['String'] | null),initial_slot?: (Scalars['bigint'] | null),pass_market_acct?: (Scalars['String'] | null),pricing_model_fail_acct?: (Scalars['String'] | null),pricing_model_pass_acct?: (Scalars['String'] | null),proposal_acct?: (Scalars['String'] | null),proposal_num?: (Scalars['bigint'] | null),proposer_acct?: (Scalars['String'] | null),quote_vault?: (Scalars['String'] | null),status?: (Scalars['String'] | null),updated_at?: (Scalars['timestamptz'] | null)}
+export interface proposals_stream_cursor_value_input {autocrat_version?: (Scalars['float8'] | null),base_vault?: (Scalars['String'] | null),completed_at?: (Scalars['timestamptz'] | null),created_at?: (Scalars['timestamptz'] | null),dao_acct?: (Scalars['String'] | null),description_url?: (Scalars['String'] | null),duration_in_slots?: (Scalars['bigint'] | null),end_slot?: (Scalars['bigint'] | null),ended_at?: (Scalars['timestamptz'] | null),fail_market_acct?: (Scalars['String'] | null),initial_slot?: (Scalars['bigint'] | null),min_base_futarchic_liquidity?: (Scalars['bigint'] | null),min_quote_futarchic_liquidity?: (Scalars['bigint'] | null),pass_market_acct?: (Scalars['String'] | null),pass_threshold_bps?: (Scalars['bigint'] | null),pricing_model_fail_acct?: (Scalars['String'] | null),pricing_model_pass_acct?: (Scalars['String'] | null),proposal_acct?: (Scalars['String'] | null),proposal_num?: (Scalars['bigint'] | null),proposer_acct?: (Scalars['String'] | null),quote_vault?: (Scalars['String'] | null),status?: (Scalars['String'] | null),twap_initial_observation?: (Scalars['bigint'] | null),twap_max_observation_change_per_update?: (Scalars['bigint'] | null),updated_at?: (Scalars['timestamptz'] | null)}
 
 
 /** aggregate sum on columns */
 export interface proposals_sum_fieldsGenqlSelection{
     autocrat_version?: boolean | number
+    duration_in_slots?: boolean | number
     end_slot?: boolean | number
     initial_slot?: boolean | number
+    min_base_futarchic_liquidity?: boolean | number
+    min_quote_futarchic_liquidity?: boolean | number
+    pass_threshold_bps?: boolean | number
     proposal_num?: boolean | number
+    twap_initial_observation?: boolean | number
+    twap_max_observation_change_per_update?: boolean | number
     __typename?: boolean | number
     __scalar?: boolean | number
 }
 
 
 /** order by sum() on columns of table "proposals" */
-export interface proposals_sum_order_by {autocrat_version?: (order_by | null),end_slot?: (order_by | null),initial_slot?: (order_by | null),proposal_num?: (order_by | null)}
+export interface proposals_sum_order_by {autocrat_version?: (order_by | null),duration_in_slots?: (order_by | null),end_slot?: (order_by | null),initial_slot?: (order_by | null),min_base_futarchic_liquidity?: (order_by | null),min_quote_futarchic_liquidity?: (order_by | null),pass_threshold_bps?: (order_by | null),proposal_num?: (order_by | null),twap_initial_observation?: (order_by | null),twap_max_observation_change_per_update?: (order_by | null)}
 
 export interface proposals_updates {
 /** increments the numeric columns with given value of the filtered values */
@@ -11717,46 +14813,64 @@ where: proposals_bool_exp}
 /** aggregate var_pop on columns */
 export interface proposals_var_pop_fieldsGenqlSelection{
     autocrat_version?: boolean | number
+    duration_in_slots?: boolean | number
     end_slot?: boolean | number
     initial_slot?: boolean | number
+    min_base_futarchic_liquidity?: boolean | number
+    min_quote_futarchic_liquidity?: boolean | number
+    pass_threshold_bps?: boolean | number
     proposal_num?: boolean | number
+    twap_initial_observation?: boolean | number
+    twap_max_observation_change_per_update?: boolean | number
     __typename?: boolean | number
     __scalar?: boolean | number
 }
 
 
 /** order by var_pop() on columns of table "proposals" */
-export interface proposals_var_pop_order_by {autocrat_version?: (order_by | null),end_slot?: (order_by | null),initial_slot?: (order_by | null),proposal_num?: (order_by | null)}
+export interface proposals_var_pop_order_by {autocrat_version?: (order_by | null),duration_in_slots?: (order_by | null),end_slot?: (order_by | null),initial_slot?: (order_by | null),min_base_futarchic_liquidity?: (order_by | null),min_quote_futarchic_liquidity?: (order_by | null),pass_threshold_bps?: (order_by | null),proposal_num?: (order_by | null),twap_initial_observation?: (order_by | null),twap_max_observation_change_per_update?: (order_by | null)}
 
 
 /** aggregate var_samp on columns */
 export interface proposals_var_samp_fieldsGenqlSelection{
     autocrat_version?: boolean | number
+    duration_in_slots?: boolean | number
     end_slot?: boolean | number
     initial_slot?: boolean | number
+    min_base_futarchic_liquidity?: boolean | number
+    min_quote_futarchic_liquidity?: boolean | number
+    pass_threshold_bps?: boolean | number
     proposal_num?: boolean | number
+    twap_initial_observation?: boolean | number
+    twap_max_observation_change_per_update?: boolean | number
     __typename?: boolean | number
     __scalar?: boolean | number
 }
 
 
 /** order by var_samp() on columns of table "proposals" */
-export interface proposals_var_samp_order_by {autocrat_version?: (order_by | null),end_slot?: (order_by | null),initial_slot?: (order_by | null),proposal_num?: (order_by | null)}
+export interface proposals_var_samp_order_by {autocrat_version?: (order_by | null),duration_in_slots?: (order_by | null),end_slot?: (order_by | null),initial_slot?: (order_by | null),min_base_futarchic_liquidity?: (order_by | null),min_quote_futarchic_liquidity?: (order_by | null),pass_threshold_bps?: (order_by | null),proposal_num?: (order_by | null),twap_initial_observation?: (order_by | null),twap_max_observation_change_per_update?: (order_by | null)}
 
 
 /** aggregate variance on columns */
 export interface proposals_variance_fieldsGenqlSelection{
     autocrat_version?: boolean | number
+    duration_in_slots?: boolean | number
     end_slot?: boolean | number
     initial_slot?: boolean | number
+    min_base_futarchic_liquidity?: boolean | number
+    min_quote_futarchic_liquidity?: boolean | number
+    pass_threshold_bps?: boolean | number
     proposal_num?: boolean | number
+    twap_initial_observation?: boolean | number
+    twap_max_observation_change_per_update?: boolean | number
     __typename?: boolean | number
     __scalar?: boolean | number
 }
 
 
 /** order by variance() on columns of table "proposals" */
-export interface proposals_variance_order_by {autocrat_version?: (order_by | null),end_slot?: (order_by | null),initial_slot?: (order_by | null),proposal_num?: (order_by | null)}
+export interface proposals_variance_order_by {autocrat_version?: (order_by | null),duration_in_slots?: (order_by | null),end_slot?: (order_by | null),initial_slot?: (order_by | null),min_base_futarchic_liquidity?: (order_by | null),min_quote_futarchic_liquidity?: (order_by | null),pass_threshold_bps?: (order_by | null),proposal_num?: (order_by | null),twap_initial_observation?: (order_by | null),twap_max_observation_change_per_update?: (order_by | null)}
 
 export interface query_rootGenqlSelection{
     /** An array relationship */
@@ -12248,7 +15362,7 @@ export interface query_rootGenqlSelection{
     /** filter the rows returned */
     where?: (reactions_bool_exp | null)} })
     /** fetch data from the table: "reactions" using primary key columns */
-    reactions_by_pk?: (reactionsGenqlSelection & { __args: {proposal_acct: Scalars['String'], reaction: Scalars['String'], reactor_acct: Scalars['String']} })
+    reactions_by_pk?: (reactionsGenqlSelection & { __args: {reaction_id: Scalars['uuid']} })
     /** An array relationship */
     sessions?: (sessionsGenqlSelection & { __args?: {
     /** distinct select on columns */
@@ -12275,6 +15389,58 @@ export interface query_rootGenqlSelection{
     where?: (sessions_bool_exp | null)} })
     /** fetch data from the table: "sessions" using primary key columns */
     sessions_by_pk?: (sessionsGenqlSelection & { __args: {id: Scalars['uuid']} })
+    /** fetch data from the table: "signature_accounts" */
+    signature_accounts?: (signature_accountsGenqlSelection & { __args?: {
+    /** distinct select on columns */
+    distinct_on?: (signature_accounts_select_column[] | null), 
+    /** limit the number of rows returned */
+    limit?: (Scalars['Int'] | null), 
+    /** skip the first n rows. Use only with order_by */
+    offset?: (Scalars['Int'] | null), 
+    /** sort the rows by one or more columns */
+    order_by?: (signature_accounts_order_by[] | null), 
+    /** filter the rows returned */
+    where?: (signature_accounts_bool_exp | null)} })
+    /** fetch aggregated fields from the table: "signature_accounts" */
+    signature_accounts_aggregate?: (signature_accounts_aggregateGenqlSelection & { __args?: {
+    /** distinct select on columns */
+    distinct_on?: (signature_accounts_select_column[] | null), 
+    /** limit the number of rows returned */
+    limit?: (Scalars['Int'] | null), 
+    /** skip the first n rows. Use only with order_by */
+    offset?: (Scalars['Int'] | null), 
+    /** sort the rows by one or more columns */
+    order_by?: (signature_accounts_order_by[] | null), 
+    /** filter the rows returned */
+    where?: (signature_accounts_bool_exp | null)} })
+    /** fetch data from the table: "signature_accounts" using primary key columns */
+    signature_accounts_by_pk?: (signature_accountsGenqlSelection & { __args: {account: Scalars['String'], signature: Scalars['String']} })
+    /** fetch data from the table: "signatures" */
+    signatures?: (signaturesGenqlSelection & { __args?: {
+    /** distinct select on columns */
+    distinct_on?: (signatures_select_column[] | null), 
+    /** limit the number of rows returned */
+    limit?: (Scalars['Int'] | null), 
+    /** skip the first n rows. Use only with order_by */
+    offset?: (Scalars['Int'] | null), 
+    /** sort the rows by one or more columns */
+    order_by?: (signatures_order_by[] | null), 
+    /** filter the rows returned */
+    where?: (signatures_bool_exp | null)} })
+    /** fetch aggregated fields from the table: "signatures" */
+    signatures_aggregate?: (signatures_aggregateGenqlSelection & { __args?: {
+    /** distinct select on columns */
+    distinct_on?: (signatures_select_column[] | null), 
+    /** limit the number of rows returned */
+    limit?: (Scalars['Int'] | null), 
+    /** skip the first n rows. Use only with order_by */
+    offset?: (Scalars['Int'] | null), 
+    /** sort the rows by one or more columns */
+    order_by?: (signatures_order_by[] | null), 
+    /** filter the rows returned */
+    where?: (signatures_bool_exp | null)} })
+    /** fetch data from the table: "signatures" using primary key columns */
+    signatures_by_pk?: (signaturesGenqlSelection & { __args: {signature: Scalars['String']} })
     /** An array relationship */
     takes?: (takesGenqlSelection & { __args?: {
     /** distinct select on columns */
@@ -12379,6 +15545,19 @@ export interface query_rootGenqlSelection{
     where?: (tokens_bool_exp | null)} })
     /** fetch data from the table: "tokens" using primary key columns */
     tokens_by_pk?: (tokensGenqlSelection & { __args: {mint_acct: Scalars['String']} })
+    top_dao_traders?: (dao_traderGenqlSelection & { __args: {
+    /** top_dao_tradersNative Query Arguments */
+    args: top_dao_traders_arguments, 
+    /** distinct select on columns */
+    distinct_on?: (dao_trader_enum_name[] | null), 
+    /** limit the number of rows returned */
+    limit?: (Scalars['Int'] | null), 
+    /** skip the first n rows. Use only with order_by */
+    offset?: (Scalars['Int'] | null), 
+    /** sort the rows by one or more columns */
+    order_by?: (dao_trader_order_by[] | null), 
+    /** filter the rows returned */
+    where?: (dao_trader_bool_exp_bool_exp | null)} })
     /** An array relationship */
     transaction_watcher_transactions?: (transaction_watcher_transactionsGenqlSelection & { __args?: {
     /** distinct select on columns */
@@ -12507,6 +15686,69 @@ export interface query_rootGenqlSelection{
     where?: (twaps_bool_exp | null)} })
     /** fetch data from the table: "twaps" using primary key columns */
     twaps_by_pk?: (twapsGenqlSelection & { __args: {market_acct: Scalars['String'], updated_slot: Scalars['bigint']} })
+    user_count_and_trade_count_per_proposal?: (proposal_statisticsGenqlSelection & { __args: {
+    /** user_count_and_trade_count_per_proposalNative Query Arguments */
+    args: user_count_and_trade_count_per_proposal_arguments, 
+    /** distinct select on columns */
+    distinct_on?: (proposal_statistics_enum_name[] | null), 
+    /** limit the number of rows returned */
+    limit?: (Scalars['Int'] | null), 
+    /** skip the first n rows. Use only with order_by */
+    offset?: (Scalars['Int'] | null), 
+    /** sort the rows by one or more columns */
+    order_by?: (proposal_statistics_order_by[] | null), 
+    /** filter the rows returned */
+    where?: (proposal_statistics_bool_exp_bool_exp | null)} })
+    /** An array relationship */
+    user_deposits?: (user_depositsGenqlSelection & { __args?: {
+    /** distinct select on columns */
+    distinct_on?: (user_deposits_select_column[] | null), 
+    /** limit the number of rows returned */
+    limit?: (Scalars['Int'] | null), 
+    /** skip the first n rows. Use only with order_by */
+    offset?: (Scalars['Int'] | null), 
+    /** sort the rows by one or more columns */
+    order_by?: (user_deposits_order_by[] | null), 
+    /** filter the rows returned */
+    where?: (user_deposits_bool_exp | null)} })
+    /** An aggregate relationship */
+    user_deposits_aggregate?: (user_deposits_aggregateGenqlSelection & { __args?: {
+    /** distinct select on columns */
+    distinct_on?: (user_deposits_select_column[] | null), 
+    /** limit the number of rows returned */
+    limit?: (Scalars['Int'] | null), 
+    /** skip the first n rows. Use only with order_by */
+    offset?: (Scalars['Int'] | null), 
+    /** sort the rows by one or more columns */
+    order_by?: (user_deposits_order_by[] | null), 
+    /** filter the rows returned */
+    where?: (user_deposits_bool_exp | null)} })
+    /** fetch data from the table: "user_performance" */
+    user_performance?: (user_performanceGenqlSelection & { __args?: {
+    /** distinct select on columns */
+    distinct_on?: (user_performance_select_column[] | null), 
+    /** limit the number of rows returned */
+    limit?: (Scalars['Int'] | null), 
+    /** skip the first n rows. Use only with order_by */
+    offset?: (Scalars['Int'] | null), 
+    /** sort the rows by one or more columns */
+    order_by?: (user_performance_order_by[] | null), 
+    /** filter the rows returned */
+    where?: (user_performance_bool_exp | null)} })
+    /** fetch aggregated fields from the table: "user_performance" */
+    user_performance_aggregate?: (user_performance_aggregateGenqlSelection & { __args?: {
+    /** distinct select on columns */
+    distinct_on?: (user_performance_select_column[] | null), 
+    /** limit the number of rows returned */
+    limit?: (Scalars['Int'] | null), 
+    /** skip the first n rows. Use only with order_by */
+    offset?: (Scalars['Int'] | null), 
+    /** sort the rows by one or more columns */
+    order_by?: (user_performance_order_by[] | null), 
+    /** filter the rows returned */
+    where?: (user_performance_bool_exp | null)} })
+    /** fetch data from the table: "user_performance" using primary key columns */
+    user_performance_by_pk?: (user_performanceGenqlSelection & { __args: {proposal_acct: Scalars['String'], user_acct: Scalars['String']} })
     /** fetch data from the table: "users" */
     users?: (usersGenqlSelection & { __args?: {
     /** distinct select on columns */
@@ -12533,6 +15775,188 @@ export interface query_rootGenqlSelection{
     where?: (users_bool_exp | null)} })
     /** fetch data from the table: "users" using primary key columns */
     users_by_pk?: (usersGenqlSelection & { __args: {user_acct: Scalars['String']} })
+    /** An array relationship */
+    v0_4_amms?: (v0_4_ammsGenqlSelection & { __args?: {
+    /** distinct select on columns */
+    distinct_on?: (v0_4_amms_select_column[] | null), 
+    /** limit the number of rows returned */
+    limit?: (Scalars['Int'] | null), 
+    /** skip the first n rows. Use only with order_by */
+    offset?: (Scalars['Int'] | null), 
+    /** sort the rows by one or more columns */
+    order_by?: (v0_4_amms_order_by[] | null), 
+    /** filter the rows returned */
+    where?: (v0_4_amms_bool_exp | null)} })
+    /** An aggregate relationship */
+    v0_4_amms_aggregate?: (v0_4_amms_aggregateGenqlSelection & { __args?: {
+    /** distinct select on columns */
+    distinct_on?: (v0_4_amms_select_column[] | null), 
+    /** limit the number of rows returned */
+    limit?: (Scalars['Int'] | null), 
+    /** skip the first n rows. Use only with order_by */
+    offset?: (Scalars['Int'] | null), 
+    /** sort the rows by one or more columns */
+    order_by?: (v0_4_amms_order_by[] | null), 
+    /** filter the rows returned */
+    where?: (v0_4_amms_bool_exp | null)} })
+    /** fetch data from the table: "v0_4_amms" using primary key columns */
+    v0_4_amms_by_pk?: (v0_4_ammsGenqlSelection & { __args: {amm_addr: Scalars['String']} })
+    /** An array relationship */
+    v0_4_conditional_vaults?: (v0_4_conditional_vaultsGenqlSelection & { __args?: {
+    /** distinct select on columns */
+    distinct_on?: (v0_4_conditional_vaults_select_column[] | null), 
+    /** limit the number of rows returned */
+    limit?: (Scalars['Int'] | null), 
+    /** skip the first n rows. Use only with order_by */
+    offset?: (Scalars['Int'] | null), 
+    /** sort the rows by one or more columns */
+    order_by?: (v0_4_conditional_vaults_order_by[] | null), 
+    /** filter the rows returned */
+    where?: (v0_4_conditional_vaults_bool_exp | null)} })
+    /** An aggregate relationship */
+    v0_4_conditional_vaults_aggregate?: (v0_4_conditional_vaults_aggregateGenqlSelection & { __args?: {
+    /** distinct select on columns */
+    distinct_on?: (v0_4_conditional_vaults_select_column[] | null), 
+    /** limit the number of rows returned */
+    limit?: (Scalars['Int'] | null), 
+    /** skip the first n rows. Use only with order_by */
+    offset?: (Scalars['Int'] | null), 
+    /** sort the rows by one or more columns */
+    order_by?: (v0_4_conditional_vaults_order_by[] | null), 
+    /** filter the rows returned */
+    where?: (v0_4_conditional_vaults_bool_exp | null)} })
+    /** fetch data from the table: "v0_4_conditional_vaults" using primary key columns */
+    v0_4_conditional_vaults_by_pk?: (v0_4_conditional_vaultsGenqlSelection & { __args: {conditional_vault_addr: Scalars['String']} })
+    /** An array relationship */
+    v0_4_merges?: (v0_4_mergesGenqlSelection & { __args?: {
+    /** distinct select on columns */
+    distinct_on?: (v0_4_merges_select_column[] | null), 
+    /** limit the number of rows returned */
+    limit?: (Scalars['Int'] | null), 
+    /** skip the first n rows. Use only with order_by */
+    offset?: (Scalars['Int'] | null), 
+    /** sort the rows by one or more columns */
+    order_by?: (v0_4_merges_order_by[] | null), 
+    /** filter the rows returned */
+    where?: (v0_4_merges_bool_exp | null)} })
+    /** An aggregate relationship */
+    v0_4_merges_aggregate?: (v0_4_merges_aggregateGenqlSelection & { __args?: {
+    /** distinct select on columns */
+    distinct_on?: (v0_4_merges_select_column[] | null), 
+    /** limit the number of rows returned */
+    limit?: (Scalars['Int'] | null), 
+    /** skip the first n rows. Use only with order_by */
+    offset?: (Scalars['Int'] | null), 
+    /** sort the rows by one or more columns */
+    order_by?: (v0_4_merges_order_by[] | null), 
+    /** filter the rows returned */
+    where?: (v0_4_merges_bool_exp | null)} })
+    /** fetch data from the table: "v0_4_merges" using primary key columns */
+    v0_4_merges_by_pk?: (v0_4_mergesGenqlSelection & { __args: {vault_addr: Scalars['String'], vault_seq_num: Scalars['bigint']} })
+    /** An array relationship */
+    v0_4_metric_decisions?: (v0_4_metric_decisionsGenqlSelection & { __args?: {
+    /** distinct select on columns */
+    distinct_on?: (v0_4_metric_decisions_select_column[] | null), 
+    /** limit the number of rows returned */
+    limit?: (Scalars['Int'] | null), 
+    /** skip the first n rows. Use only with order_by */
+    offset?: (Scalars['Int'] | null), 
+    /** sort the rows by one or more columns */
+    order_by?: (v0_4_metric_decisions_order_by[] | null), 
+    /** filter the rows returned */
+    where?: (v0_4_metric_decisions_bool_exp | null)} })
+    /** An aggregate relationship */
+    v0_4_metric_decisions_aggregate?: (v0_4_metric_decisions_aggregateGenqlSelection & { __args?: {
+    /** distinct select on columns */
+    distinct_on?: (v0_4_metric_decisions_select_column[] | null), 
+    /** limit the number of rows returned */
+    limit?: (Scalars['Int'] | null), 
+    /** skip the first n rows. Use only with order_by */
+    offset?: (Scalars['Int'] | null), 
+    /** sort the rows by one or more columns */
+    order_by?: (v0_4_metric_decisions_order_by[] | null), 
+    /** filter the rows returned */
+    where?: (v0_4_metric_decisions_bool_exp | null)} })
+    /** fetch data from the table: "v0_4_metric_decisions" using primary key columns */
+    v0_4_metric_decisions_by_pk?: (v0_4_metric_decisionsGenqlSelection & { __args: {id: Scalars['bigint']} })
+    /** fetch data from the table: "v0_4_questions" */
+    v0_4_questions?: (v0_4_questionsGenqlSelection & { __args?: {
+    /** distinct select on columns */
+    distinct_on?: (v0_4_questions_select_column[] | null), 
+    /** limit the number of rows returned */
+    limit?: (Scalars['Int'] | null), 
+    /** skip the first n rows. Use only with order_by */
+    offset?: (Scalars['Int'] | null), 
+    /** sort the rows by one or more columns */
+    order_by?: (v0_4_questions_order_by[] | null), 
+    /** filter the rows returned */
+    where?: (v0_4_questions_bool_exp | null)} })
+    /** fetch aggregated fields from the table: "v0_4_questions" */
+    v0_4_questions_aggregate?: (v0_4_questions_aggregateGenqlSelection & { __args?: {
+    /** distinct select on columns */
+    distinct_on?: (v0_4_questions_select_column[] | null), 
+    /** limit the number of rows returned */
+    limit?: (Scalars['Int'] | null), 
+    /** skip the first n rows. Use only with order_by */
+    offset?: (Scalars['Int'] | null), 
+    /** sort the rows by one or more columns */
+    order_by?: (v0_4_questions_order_by[] | null), 
+    /** filter the rows returned */
+    where?: (v0_4_questions_bool_exp | null)} })
+    /** fetch data from the table: "v0_4_questions" using primary key columns */
+    v0_4_questions_by_pk?: (v0_4_questionsGenqlSelection & { __args: {question_addr: Scalars['String']} })
+    /** An array relationship */
+    v0_4_splits?: (v0_4_splitsGenqlSelection & { __args?: {
+    /** distinct select on columns */
+    distinct_on?: (v0_4_splits_select_column[] | null), 
+    /** limit the number of rows returned */
+    limit?: (Scalars['Int'] | null), 
+    /** skip the first n rows. Use only with order_by */
+    offset?: (Scalars['Int'] | null), 
+    /** sort the rows by one or more columns */
+    order_by?: (v0_4_splits_order_by[] | null), 
+    /** filter the rows returned */
+    where?: (v0_4_splits_bool_exp | null)} })
+    /** An aggregate relationship */
+    v0_4_splits_aggregate?: (v0_4_splits_aggregateGenqlSelection & { __args?: {
+    /** distinct select on columns */
+    distinct_on?: (v0_4_splits_select_column[] | null), 
+    /** limit the number of rows returned */
+    limit?: (Scalars['Int'] | null), 
+    /** skip the first n rows. Use only with order_by */
+    offset?: (Scalars['Int'] | null), 
+    /** sort the rows by one or more columns */
+    order_by?: (v0_4_splits_order_by[] | null), 
+    /** filter the rows returned */
+    where?: (v0_4_splits_bool_exp | null)} })
+    /** fetch data from the table: "v0_4_splits" using primary key columns */
+    v0_4_splits_by_pk?: (v0_4_splitsGenqlSelection & { __args: {vault_addr: Scalars['String'], vault_seq_num: Scalars['bigint']} })
+    /** fetch data from the table: "v0_4_swaps" */
+    v0_4_swaps?: (v0_4_swapsGenqlSelection & { __args?: {
+    /** distinct select on columns */
+    distinct_on?: (v0_4_swaps_select_column[] | null), 
+    /** limit the number of rows returned */
+    limit?: (Scalars['Int'] | null), 
+    /** skip the first n rows. Use only with order_by */
+    offset?: (Scalars['Int'] | null), 
+    /** sort the rows by one or more columns */
+    order_by?: (v0_4_swaps_order_by[] | null), 
+    /** filter the rows returned */
+    where?: (v0_4_swaps_bool_exp | null)} })
+    /** fetch aggregated fields from the table: "v0_4_swaps" */
+    v0_4_swaps_aggregate?: (v0_4_swaps_aggregateGenqlSelection & { __args?: {
+    /** distinct select on columns */
+    distinct_on?: (v0_4_swaps_select_column[] | null), 
+    /** limit the number of rows returned */
+    limit?: (Scalars['Int'] | null), 
+    /** skip the first n rows. Use only with order_by */
+    offset?: (Scalars['Int'] | null), 
+    /** sort the rows by one or more columns */
+    order_by?: (v0_4_swaps_order_by[] | null), 
+    /** filter the rows returned */
+    where?: (v0_4_swaps_bool_exp | null)} })
+    /** fetch data from the table: "v0_4_swaps" using primary key columns */
+    v0_4_swaps_by_pk?: (v0_4_swapsGenqlSelection & { __args: {signature: Scalars['String']} })
     __typename?: boolean | number
     __scalar?: boolean | number
 }
@@ -12547,6 +15971,7 @@ export interface reactionsGenqlSelection{
     proposal?: proposalsGenqlSelection
     proposal_acct?: boolean | number
     reaction?: boolean | number
+    reaction_id?: boolean | number
     reactor_acct?: boolean | number
     updated_at?: boolean | number
     __typename?: boolean | number
@@ -12608,7 +16033,7 @@ export interface reactions_avg_order_by {comment_id?: (order_by | null)}
 
 
 /** Boolean expression to filter rows from the table "reactions". All fields are combined with a logical 'AND'. */
-export interface reactions_bool_exp {_and?: (reactions_bool_exp[] | null),_not?: (reactions_bool_exp | null),_or?: (reactions_bool_exp[] | null),comment?: (comments_bool_exp | null),comment_id?: (bigint_comparison_exp | null),proposal?: (proposals_bool_exp | null),proposal_acct?: (String_comparison_exp | null),reaction?: (String_comparison_exp | null),reactor_acct?: (String_comparison_exp | null),updated_at?: (timestamptz_comparison_exp | null)}
+export interface reactions_bool_exp {_and?: (reactions_bool_exp[] | null),_not?: (reactions_bool_exp | null),_or?: (reactions_bool_exp[] | null),comment?: (comments_bool_exp | null),comment_id?: (bigint_comparison_exp | null),proposal?: (proposals_bool_exp | null),proposal_acct?: (String_comparison_exp | null),reaction?: (String_comparison_exp | null),reaction_id?: (uuid_comparison_exp | null),reactor_acct?: (String_comparison_exp | null),updated_at?: (timestamptz_comparison_exp | null)}
 
 
 /** input type for incrementing numeric columns in table "reactions" */
@@ -12616,7 +16041,7 @@ export interface reactions_inc_input {comment_id?: (Scalars['bigint'] | null)}
 
 
 /** input type for inserting data into table "reactions" */
-export interface reactions_insert_input {comment?: (comments_obj_rel_insert_input | null),comment_id?: (Scalars['bigint'] | null),proposal?: (proposals_obj_rel_insert_input | null),proposal_acct?: (Scalars['String'] | null),reaction?: (Scalars['String'] | null),reactor_acct?: (Scalars['String'] | null),updated_at?: (Scalars['timestamptz'] | null)}
+export interface reactions_insert_input {comment?: (comments_obj_rel_insert_input | null),comment_id?: (Scalars['bigint'] | null),proposal?: (proposals_obj_rel_insert_input | null),proposal_acct?: (Scalars['String'] | null),reaction?: (Scalars['String'] | null),reaction_id?: (Scalars['uuid'] | null),reactor_acct?: (Scalars['String'] | null),updated_at?: (Scalars['timestamptz'] | null)}
 
 
 /** aggregate max on columns */
@@ -12624,6 +16049,7 @@ export interface reactions_max_fieldsGenqlSelection{
     comment_id?: boolean | number
     proposal_acct?: boolean | number
     reaction?: boolean | number
+    reaction_id?: boolean | number
     reactor_acct?: boolean | number
     updated_at?: boolean | number
     __typename?: boolean | number
@@ -12632,7 +16058,7 @@ export interface reactions_max_fieldsGenqlSelection{
 
 
 /** order by max() on columns of table "reactions" */
-export interface reactions_max_order_by {comment_id?: (order_by | null),proposal_acct?: (order_by | null),reaction?: (order_by | null),reactor_acct?: (order_by | null),updated_at?: (order_by | null)}
+export interface reactions_max_order_by {comment_id?: (order_by | null),proposal_acct?: (order_by | null),reaction?: (order_by | null),reaction_id?: (order_by | null),reactor_acct?: (order_by | null),updated_at?: (order_by | null)}
 
 
 /** aggregate min on columns */
@@ -12640,6 +16066,7 @@ export interface reactions_min_fieldsGenqlSelection{
     comment_id?: boolean | number
     proposal_acct?: boolean | number
     reaction?: boolean | number
+    reaction_id?: boolean | number
     reactor_acct?: boolean | number
     updated_at?: boolean | number
     __typename?: boolean | number
@@ -12648,7 +16075,7 @@ export interface reactions_min_fieldsGenqlSelection{
 
 
 /** order by min() on columns of table "reactions" */
-export interface reactions_min_order_by {comment_id?: (order_by | null),proposal_acct?: (order_by | null),reaction?: (order_by | null),reactor_acct?: (order_by | null),updated_at?: (order_by | null)}
+export interface reactions_min_order_by {comment_id?: (order_by | null),proposal_acct?: (order_by | null),reaction?: (order_by | null),reaction_id?: (order_by | null),reactor_acct?: (order_by | null),updated_at?: (order_by | null)}
 
 
 /** response of any mutation on the table "reactions" */
@@ -12667,15 +16094,15 @@ export interface reactions_on_conflict {constraint: reactions_constraint,update_
 
 
 /** Ordering options when selecting data from "reactions". */
-export interface reactions_order_by {comment?: (comments_order_by | null),comment_id?: (order_by | null),proposal?: (proposals_order_by | null),proposal_acct?: (order_by | null),reaction?: (order_by | null),reactor_acct?: (order_by | null),updated_at?: (order_by | null)}
+export interface reactions_order_by {comment?: (comments_order_by | null),comment_id?: (order_by | null),proposal?: (proposals_order_by | null),proposal_acct?: (order_by | null),reaction?: (order_by | null),reaction_id?: (order_by | null),reactor_acct?: (order_by | null),updated_at?: (order_by | null)}
 
 
 /** primary key columns input for table: reactions */
-export interface reactions_pk_columns_input {proposal_acct: Scalars['String'],reaction: Scalars['String'],reactor_acct: Scalars['String']}
+export interface reactions_pk_columns_input {reaction_id: Scalars['uuid']}
 
 
 /** input type for updating data in table "reactions" */
-export interface reactions_set_input {comment_id?: (Scalars['bigint'] | null),proposal_acct?: (Scalars['String'] | null),reaction?: (Scalars['String'] | null),reactor_acct?: (Scalars['String'] | null),updated_at?: (Scalars['timestamptz'] | null)}
+export interface reactions_set_input {comment_id?: (Scalars['bigint'] | null),proposal_acct?: (Scalars['String'] | null),reaction?: (Scalars['String'] | null),reaction_id?: (Scalars['uuid'] | null),reactor_acct?: (Scalars['String'] | null),updated_at?: (Scalars['timestamptz'] | null)}
 
 
 /** aggregate stddev on columns */
@@ -12723,7 +16150,7 @@ ordering?: (cursor_ordering | null)}
 
 
 /** Initial value of the column from where the streaming should start */
-export interface reactions_stream_cursor_value_input {comment_id?: (Scalars['bigint'] | null),proposal_acct?: (Scalars['String'] | null),reaction?: (Scalars['String'] | null),reactor_acct?: (Scalars['String'] | null),updated_at?: (Scalars['timestamptz'] | null)}
+export interface reactions_stream_cursor_value_input {comment_id?: (Scalars['bigint'] | null),proposal_acct?: (Scalars['String'] | null),reaction?: (Scalars['String'] | null),reaction_id?: (Scalars['uuid'] | null),reactor_acct?: (Scalars['String'] | null),updated_at?: (Scalars['timestamptz'] | null)}
 
 
 /** aggregate sum on columns */
@@ -12909,6 +16336,360 @@ export interface sessions_updates {
 _set?: (sessions_set_input | null),
 /** filter the rows which have to be updated */
 where: sessions_bool_exp}
+
+
+/** columns and relationships of "signature_accounts" */
+export interface signature_accountsGenqlSelection{
+    account?: boolean | number
+    inserted_at?: boolean | number
+    signature?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+
+/** aggregated selection of "signature_accounts" */
+export interface signature_accounts_aggregateGenqlSelection{
+    aggregate?: signature_accounts_aggregate_fieldsGenqlSelection
+    nodes?: signature_accountsGenqlSelection
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+
+/** aggregate fields of "signature_accounts" */
+export interface signature_accounts_aggregate_fieldsGenqlSelection{
+    count?: { __args: {columns?: (signature_accounts_select_column[] | null), distinct?: (Scalars['Boolean'] | null)} } | boolean | number
+    max?: signature_accounts_max_fieldsGenqlSelection
+    min?: signature_accounts_min_fieldsGenqlSelection
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+
+/** Boolean expression to filter rows from the table "signature_accounts". All fields are combined with a logical 'AND'. */
+export interface signature_accounts_bool_exp {_and?: (signature_accounts_bool_exp[] | null),_not?: (signature_accounts_bool_exp | null),_or?: (signature_accounts_bool_exp[] | null),account?: (String_comparison_exp | null),inserted_at?: (timestamptz_comparison_exp | null),signature?: (String_comparison_exp | null)}
+
+
+/** input type for inserting data into table "signature_accounts" */
+export interface signature_accounts_insert_input {account?: (Scalars['String'] | null),inserted_at?: (Scalars['timestamptz'] | null),signature?: (Scalars['String'] | null)}
+
+
+/** aggregate max on columns */
+export interface signature_accounts_max_fieldsGenqlSelection{
+    account?: boolean | number
+    inserted_at?: boolean | number
+    signature?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+
+/** aggregate min on columns */
+export interface signature_accounts_min_fieldsGenqlSelection{
+    account?: boolean | number
+    inserted_at?: boolean | number
+    signature?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+
+/** response of any mutation on the table "signature_accounts" */
+export interface signature_accounts_mutation_responseGenqlSelection{
+    /** number of rows affected by the mutation */
+    affected_rows?: boolean | number
+    /** data from the rows affected by the mutation */
+    returning?: signature_accountsGenqlSelection
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+
+/** on_conflict condition type for table "signature_accounts" */
+export interface signature_accounts_on_conflict {constraint: signature_accounts_constraint,update_columns?: signature_accounts_update_column[],where?: (signature_accounts_bool_exp | null)}
+
+
+/** Ordering options when selecting data from "signature_accounts". */
+export interface signature_accounts_order_by {account?: (order_by | null),inserted_at?: (order_by | null),signature?: (order_by | null)}
+
+
+/** primary key columns input for table: signature_accounts */
+export interface signature_accounts_pk_columns_input {account: Scalars['String'],signature: Scalars['String']}
+
+
+/** input type for updating data in table "signature_accounts" */
+export interface signature_accounts_set_input {account?: (Scalars['String'] | null),inserted_at?: (Scalars['timestamptz'] | null),signature?: (Scalars['String'] | null)}
+
+
+/** Streaming cursor of the table "signature_accounts" */
+export interface signature_accounts_stream_cursor_input {
+/** Stream column input with initial value */
+initial_value: signature_accounts_stream_cursor_value_input,
+/** cursor ordering */
+ordering?: (cursor_ordering | null)}
+
+
+/** Initial value of the column from where the streaming should start */
+export interface signature_accounts_stream_cursor_value_input {account?: (Scalars['String'] | null),inserted_at?: (Scalars['timestamptz'] | null),signature?: (Scalars['String'] | null)}
+
+export interface signature_accounts_updates {
+/** sets the columns of the filtered rows to the given values */
+_set?: (signature_accounts_set_input | null),
+/** filter the rows which have to be updated */
+where: signature_accounts_bool_exp}
+
+
+/** columns and relationships of "signatures" */
+export interface signaturesGenqlSelection{
+    block_time?: boolean | number
+    did_err?: boolean | number
+    err?: boolean | number
+    inserted_at?: boolean | number
+    seq_num?: boolean | number
+    signature?: boolean | number
+    slot?: boolean | number
+    /** An array relationship */
+    v0_4_merges?: (v0_4_mergesGenqlSelection & { __args?: {
+    /** distinct select on columns */
+    distinct_on?: (v0_4_merges_select_column[] | null), 
+    /** limit the number of rows returned */
+    limit?: (Scalars['Int'] | null), 
+    /** skip the first n rows. Use only with order_by */
+    offset?: (Scalars['Int'] | null), 
+    /** sort the rows by one or more columns */
+    order_by?: (v0_4_merges_order_by[] | null), 
+    /** filter the rows returned */
+    where?: (v0_4_merges_bool_exp | null)} })
+    /** An aggregate relationship */
+    v0_4_merges_aggregate?: (v0_4_merges_aggregateGenqlSelection & { __args?: {
+    /** distinct select on columns */
+    distinct_on?: (v0_4_merges_select_column[] | null), 
+    /** limit the number of rows returned */
+    limit?: (Scalars['Int'] | null), 
+    /** skip the first n rows. Use only with order_by */
+    offset?: (Scalars['Int'] | null), 
+    /** sort the rows by one or more columns */
+    order_by?: (v0_4_merges_order_by[] | null), 
+    /** filter the rows returned */
+    where?: (v0_4_merges_bool_exp | null)} })
+    /** An array relationship */
+    v0_4_splits?: (v0_4_splitsGenqlSelection & { __args?: {
+    /** distinct select on columns */
+    distinct_on?: (v0_4_splits_select_column[] | null), 
+    /** limit the number of rows returned */
+    limit?: (Scalars['Int'] | null), 
+    /** skip the first n rows. Use only with order_by */
+    offset?: (Scalars['Int'] | null), 
+    /** sort the rows by one or more columns */
+    order_by?: (v0_4_splits_order_by[] | null), 
+    /** filter the rows returned */
+    where?: (v0_4_splits_bool_exp | null)} })
+    /** An aggregate relationship */
+    v0_4_splits_aggregate?: (v0_4_splits_aggregateGenqlSelection & { __args?: {
+    /** distinct select on columns */
+    distinct_on?: (v0_4_splits_select_column[] | null), 
+    /** limit the number of rows returned */
+    limit?: (Scalars['Int'] | null), 
+    /** skip the first n rows. Use only with order_by */
+    offset?: (Scalars['Int'] | null), 
+    /** sort the rows by one or more columns */
+    order_by?: (v0_4_splits_order_by[] | null), 
+    /** filter the rows returned */
+    where?: (v0_4_splits_bool_exp | null)} })
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+
+/** aggregated selection of "signatures" */
+export interface signatures_aggregateGenqlSelection{
+    aggregate?: signatures_aggregate_fieldsGenqlSelection
+    nodes?: signaturesGenqlSelection
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+
+/** aggregate fields of "signatures" */
+export interface signatures_aggregate_fieldsGenqlSelection{
+    avg?: signatures_avg_fieldsGenqlSelection
+    count?: { __args: {columns?: (signatures_select_column[] | null), distinct?: (Scalars['Boolean'] | null)} } | boolean | number
+    max?: signatures_max_fieldsGenqlSelection
+    min?: signatures_min_fieldsGenqlSelection
+    stddev?: signatures_stddev_fieldsGenqlSelection
+    stddev_pop?: signatures_stddev_pop_fieldsGenqlSelection
+    stddev_samp?: signatures_stddev_samp_fieldsGenqlSelection
+    sum?: signatures_sum_fieldsGenqlSelection
+    var_pop?: signatures_var_pop_fieldsGenqlSelection
+    var_samp?: signatures_var_samp_fieldsGenqlSelection
+    variance?: signatures_variance_fieldsGenqlSelection
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+
+/** aggregate avg on columns */
+export interface signatures_avg_fieldsGenqlSelection{
+    seq_num?: boolean | number
+    slot?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+
+/** Boolean expression to filter rows from the table "signatures". All fields are combined with a logical 'AND'. */
+export interface signatures_bool_exp {_and?: (signatures_bool_exp[] | null),_not?: (signatures_bool_exp | null),_or?: (signatures_bool_exp[] | null),block_time?: (timestamptz_comparison_exp | null),did_err?: (Boolean_comparison_exp | null),err?: (String_comparison_exp | null),inserted_at?: (timestamptz_comparison_exp | null),seq_num?: (bigint_comparison_exp | null),signature?: (String_comparison_exp | null),slot?: (bigint_comparison_exp | null),v0_4_merges?: (v0_4_merges_bool_exp | null),v0_4_merges_aggregate?: (v0_4_merges_aggregate_bool_exp | null),v0_4_splits?: (v0_4_splits_bool_exp | null),v0_4_splits_aggregate?: (v0_4_splits_aggregate_bool_exp | null)}
+
+
+/** input type for incrementing numeric columns in table "signatures" */
+export interface signatures_inc_input {seq_num?: (Scalars['bigint'] | null),slot?: (Scalars['bigint'] | null)}
+
+
+/** input type for inserting data into table "signatures" */
+export interface signatures_insert_input {block_time?: (Scalars['timestamptz'] | null),did_err?: (Scalars['Boolean'] | null),err?: (Scalars['String'] | null),inserted_at?: (Scalars['timestamptz'] | null),seq_num?: (Scalars['bigint'] | null),signature?: (Scalars['String'] | null),slot?: (Scalars['bigint'] | null),v0_4_merges?: (v0_4_merges_arr_rel_insert_input | null),v0_4_splits?: (v0_4_splits_arr_rel_insert_input | null)}
+
+
+/** aggregate max on columns */
+export interface signatures_max_fieldsGenqlSelection{
+    block_time?: boolean | number
+    err?: boolean | number
+    inserted_at?: boolean | number
+    seq_num?: boolean | number
+    signature?: boolean | number
+    slot?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+
+/** aggregate min on columns */
+export interface signatures_min_fieldsGenqlSelection{
+    block_time?: boolean | number
+    err?: boolean | number
+    inserted_at?: boolean | number
+    seq_num?: boolean | number
+    signature?: boolean | number
+    slot?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+
+/** response of any mutation on the table "signatures" */
+export interface signatures_mutation_responseGenqlSelection{
+    /** number of rows affected by the mutation */
+    affected_rows?: boolean | number
+    /** data from the rows affected by the mutation */
+    returning?: signaturesGenqlSelection
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+
+/** input type for inserting object relation for remote table "signatures" */
+export interface signatures_obj_rel_insert_input {data: signatures_insert_input,
+/** upsert condition */
+on_conflict?: (signatures_on_conflict | null)}
+
+
+/** on_conflict condition type for table "signatures" */
+export interface signatures_on_conflict {constraint: signatures_constraint,update_columns?: signatures_update_column[],where?: (signatures_bool_exp | null)}
+
+
+/** Ordering options when selecting data from "signatures". */
+export interface signatures_order_by {block_time?: (order_by | null),did_err?: (order_by | null),err?: (order_by | null),inserted_at?: (order_by | null),seq_num?: (order_by | null),signature?: (order_by | null),slot?: (order_by | null),v0_4_merges_aggregate?: (v0_4_merges_aggregate_order_by | null),v0_4_splits_aggregate?: (v0_4_splits_aggregate_order_by | null)}
+
+
+/** primary key columns input for table: signatures */
+export interface signatures_pk_columns_input {signature: Scalars['String']}
+
+
+/** input type for updating data in table "signatures" */
+export interface signatures_set_input {block_time?: (Scalars['timestamptz'] | null),did_err?: (Scalars['Boolean'] | null),err?: (Scalars['String'] | null),inserted_at?: (Scalars['timestamptz'] | null),seq_num?: (Scalars['bigint'] | null),signature?: (Scalars['String'] | null),slot?: (Scalars['bigint'] | null)}
+
+
+/** aggregate stddev on columns */
+export interface signatures_stddev_fieldsGenqlSelection{
+    seq_num?: boolean | number
+    slot?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+
+/** aggregate stddev_pop on columns */
+export interface signatures_stddev_pop_fieldsGenqlSelection{
+    seq_num?: boolean | number
+    slot?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+
+/** aggregate stddev_samp on columns */
+export interface signatures_stddev_samp_fieldsGenqlSelection{
+    seq_num?: boolean | number
+    slot?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+
+/** Streaming cursor of the table "signatures" */
+export interface signatures_stream_cursor_input {
+/** Stream column input with initial value */
+initial_value: signatures_stream_cursor_value_input,
+/** cursor ordering */
+ordering?: (cursor_ordering | null)}
+
+
+/** Initial value of the column from where the streaming should start */
+export interface signatures_stream_cursor_value_input {block_time?: (Scalars['timestamptz'] | null),did_err?: (Scalars['Boolean'] | null),err?: (Scalars['String'] | null),inserted_at?: (Scalars['timestamptz'] | null),seq_num?: (Scalars['bigint'] | null),signature?: (Scalars['String'] | null),slot?: (Scalars['bigint'] | null)}
+
+
+/** aggregate sum on columns */
+export interface signatures_sum_fieldsGenqlSelection{
+    seq_num?: boolean | number
+    slot?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+export interface signatures_updates {
+/** increments the numeric columns with given value of the filtered values */
+_inc?: (signatures_inc_input | null),
+/** sets the columns of the filtered rows to the given values */
+_set?: (signatures_set_input | null),
+/** filter the rows which have to be updated */
+where: signatures_bool_exp}
+
+
+/** aggregate var_pop on columns */
+export interface signatures_var_pop_fieldsGenqlSelection{
+    seq_num?: boolean | number
+    slot?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+
+/** aggregate var_samp on columns */
+export interface signatures_var_samp_fieldsGenqlSelection{
+    seq_num?: boolean | number
+    slot?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+
+/** aggregate variance on columns */
+export interface signatures_variance_fieldsGenqlSelection{
+    seq_num?: boolean | number
+    slot?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
 
 
 /** Boolean expression to compare columns of type "smallint". All fields are combined with logical 'AND'. */
@@ -13548,7 +17329,7 @@ export interface subscription_rootGenqlSelection{
     /** filter the rows returned */
     where?: (reactions_bool_exp | null)} })
     /** fetch data from the table: "reactions" using primary key columns */
-    reactions_by_pk?: (reactionsGenqlSelection & { __args: {proposal_acct: Scalars['String'], reaction: Scalars['String'], reactor_acct: Scalars['String']} })
+    reactions_by_pk?: (reactionsGenqlSelection & { __args: {reaction_id: Scalars['uuid']} })
     /** fetch data from the table in a streaming manner: "reactions" */
     reactions_stream?: (reactionsGenqlSelection & { __args: {
     /** maximum number of rows returned in a single batch */
@@ -13591,6 +17372,74 @@ export interface subscription_rootGenqlSelection{
     cursor: (sessions_stream_cursor_input | null)[], 
     /** filter the rows returned */
     where?: (sessions_bool_exp | null)} })
+    /** fetch data from the table: "signature_accounts" */
+    signature_accounts?: (signature_accountsGenqlSelection & { __args?: {
+    /** distinct select on columns */
+    distinct_on?: (signature_accounts_select_column[] | null), 
+    /** limit the number of rows returned */
+    limit?: (Scalars['Int'] | null), 
+    /** skip the first n rows. Use only with order_by */
+    offset?: (Scalars['Int'] | null), 
+    /** sort the rows by one or more columns */
+    order_by?: (signature_accounts_order_by[] | null), 
+    /** filter the rows returned */
+    where?: (signature_accounts_bool_exp | null)} })
+    /** fetch aggregated fields from the table: "signature_accounts" */
+    signature_accounts_aggregate?: (signature_accounts_aggregateGenqlSelection & { __args?: {
+    /** distinct select on columns */
+    distinct_on?: (signature_accounts_select_column[] | null), 
+    /** limit the number of rows returned */
+    limit?: (Scalars['Int'] | null), 
+    /** skip the first n rows. Use only with order_by */
+    offset?: (Scalars['Int'] | null), 
+    /** sort the rows by one or more columns */
+    order_by?: (signature_accounts_order_by[] | null), 
+    /** filter the rows returned */
+    where?: (signature_accounts_bool_exp | null)} })
+    /** fetch data from the table: "signature_accounts" using primary key columns */
+    signature_accounts_by_pk?: (signature_accountsGenqlSelection & { __args: {account: Scalars['String'], signature: Scalars['String']} })
+    /** fetch data from the table in a streaming manner: "signature_accounts" */
+    signature_accounts_stream?: (signature_accountsGenqlSelection & { __args: {
+    /** maximum number of rows returned in a single batch */
+    batch_size: Scalars['Int'], 
+    /** cursor to stream the results returned by the query */
+    cursor: (signature_accounts_stream_cursor_input | null)[], 
+    /** filter the rows returned */
+    where?: (signature_accounts_bool_exp | null)} })
+    /** fetch data from the table: "signatures" */
+    signatures?: (signaturesGenqlSelection & { __args?: {
+    /** distinct select on columns */
+    distinct_on?: (signatures_select_column[] | null), 
+    /** limit the number of rows returned */
+    limit?: (Scalars['Int'] | null), 
+    /** skip the first n rows. Use only with order_by */
+    offset?: (Scalars['Int'] | null), 
+    /** sort the rows by one or more columns */
+    order_by?: (signatures_order_by[] | null), 
+    /** filter the rows returned */
+    where?: (signatures_bool_exp | null)} })
+    /** fetch aggregated fields from the table: "signatures" */
+    signatures_aggregate?: (signatures_aggregateGenqlSelection & { __args?: {
+    /** distinct select on columns */
+    distinct_on?: (signatures_select_column[] | null), 
+    /** limit the number of rows returned */
+    limit?: (Scalars['Int'] | null), 
+    /** skip the first n rows. Use only with order_by */
+    offset?: (Scalars['Int'] | null), 
+    /** sort the rows by one or more columns */
+    order_by?: (signatures_order_by[] | null), 
+    /** filter the rows returned */
+    where?: (signatures_bool_exp | null)} })
+    /** fetch data from the table: "signatures" using primary key columns */
+    signatures_by_pk?: (signaturesGenqlSelection & { __args: {signature: Scalars['String']} })
+    /** fetch data from the table in a streaming manner: "signatures" */
+    signatures_stream?: (signaturesGenqlSelection & { __args: {
+    /** maximum number of rows returned in a single batch */
+    batch_size: Scalars['Int'], 
+    /** cursor to stream the results returned by the query */
+    cursor: (signatures_stream_cursor_input | null)[], 
+    /** filter the rows returned */
+    where?: (signatures_bool_exp | null)} })
     /** An array relationship */
     takes?: (takesGenqlSelection & { __args?: {
     /** distinct select on columns */
@@ -13727,6 +17576,19 @@ export interface subscription_rootGenqlSelection{
     cursor: (tokens_stream_cursor_input | null)[], 
     /** filter the rows returned */
     where?: (tokens_bool_exp | null)} })
+    top_dao_traders?: (dao_traderGenqlSelection & { __args: {
+    /** top_dao_tradersNative Query Arguments */
+    args: top_dao_traders_arguments, 
+    /** distinct select on columns */
+    distinct_on?: (dao_trader_enum_name[] | null), 
+    /** limit the number of rows returned */
+    limit?: (Scalars['Int'] | null), 
+    /** skip the first n rows. Use only with order_by */
+    offset?: (Scalars['Int'] | null), 
+    /** sort the rows by one or more columns */
+    order_by?: (dao_trader_order_by[] | null), 
+    /** filter the rows returned */
+    where?: (dao_trader_bool_exp_bool_exp | null)} })
     /** An array relationship */
     transaction_watcher_transactions?: (transaction_watcher_transactionsGenqlSelection & { __args?: {
     /** distinct select on columns */
@@ -13895,6 +17757,85 @@ export interface subscription_rootGenqlSelection{
     cursor: (twaps_stream_cursor_input | null)[], 
     /** filter the rows returned */
     where?: (twaps_bool_exp | null)} })
+    user_count_and_trade_count_per_proposal?: (proposal_statisticsGenqlSelection & { __args: {
+    /** user_count_and_trade_count_per_proposalNative Query Arguments */
+    args: user_count_and_trade_count_per_proposal_arguments, 
+    /** distinct select on columns */
+    distinct_on?: (proposal_statistics_enum_name[] | null), 
+    /** limit the number of rows returned */
+    limit?: (Scalars['Int'] | null), 
+    /** skip the first n rows. Use only with order_by */
+    offset?: (Scalars['Int'] | null), 
+    /** sort the rows by one or more columns */
+    order_by?: (proposal_statistics_order_by[] | null), 
+    /** filter the rows returned */
+    where?: (proposal_statistics_bool_exp_bool_exp | null)} })
+    /** An array relationship */
+    user_deposits?: (user_depositsGenqlSelection & { __args?: {
+    /** distinct select on columns */
+    distinct_on?: (user_deposits_select_column[] | null), 
+    /** limit the number of rows returned */
+    limit?: (Scalars['Int'] | null), 
+    /** skip the first n rows. Use only with order_by */
+    offset?: (Scalars['Int'] | null), 
+    /** sort the rows by one or more columns */
+    order_by?: (user_deposits_order_by[] | null), 
+    /** filter the rows returned */
+    where?: (user_deposits_bool_exp | null)} })
+    /** An aggregate relationship */
+    user_deposits_aggregate?: (user_deposits_aggregateGenqlSelection & { __args?: {
+    /** distinct select on columns */
+    distinct_on?: (user_deposits_select_column[] | null), 
+    /** limit the number of rows returned */
+    limit?: (Scalars['Int'] | null), 
+    /** skip the first n rows. Use only with order_by */
+    offset?: (Scalars['Int'] | null), 
+    /** sort the rows by one or more columns */
+    order_by?: (user_deposits_order_by[] | null), 
+    /** filter the rows returned */
+    where?: (user_deposits_bool_exp | null)} })
+    /** fetch data from the table in a streaming manner: "user_deposits" */
+    user_deposits_stream?: (user_depositsGenqlSelection & { __args: {
+    /** maximum number of rows returned in a single batch */
+    batch_size: Scalars['Int'], 
+    /** cursor to stream the results returned by the query */
+    cursor: (user_deposits_stream_cursor_input | null)[], 
+    /** filter the rows returned */
+    where?: (user_deposits_bool_exp | null)} })
+    /** fetch data from the table: "user_performance" */
+    user_performance?: (user_performanceGenqlSelection & { __args?: {
+    /** distinct select on columns */
+    distinct_on?: (user_performance_select_column[] | null), 
+    /** limit the number of rows returned */
+    limit?: (Scalars['Int'] | null), 
+    /** skip the first n rows. Use only with order_by */
+    offset?: (Scalars['Int'] | null), 
+    /** sort the rows by one or more columns */
+    order_by?: (user_performance_order_by[] | null), 
+    /** filter the rows returned */
+    where?: (user_performance_bool_exp | null)} })
+    /** fetch aggregated fields from the table: "user_performance" */
+    user_performance_aggregate?: (user_performance_aggregateGenqlSelection & { __args?: {
+    /** distinct select on columns */
+    distinct_on?: (user_performance_select_column[] | null), 
+    /** limit the number of rows returned */
+    limit?: (Scalars['Int'] | null), 
+    /** skip the first n rows. Use only with order_by */
+    offset?: (Scalars['Int'] | null), 
+    /** sort the rows by one or more columns */
+    order_by?: (user_performance_order_by[] | null), 
+    /** filter the rows returned */
+    where?: (user_performance_bool_exp | null)} })
+    /** fetch data from the table: "user_performance" using primary key columns */
+    user_performance_by_pk?: (user_performanceGenqlSelection & { __args: {proposal_acct: Scalars['String'], user_acct: Scalars['String']} })
+    /** fetch data from the table in a streaming manner: "user_performance" */
+    user_performance_stream?: (user_performanceGenqlSelection & { __args: {
+    /** maximum number of rows returned in a single batch */
+    batch_size: Scalars['Int'], 
+    /** cursor to stream the results returned by the query */
+    cursor: (user_performance_stream_cursor_input | null)[], 
+    /** filter the rows returned */
+    where?: (user_performance_bool_exp | null)} })
     /** fetch data from the table: "users" */
     users?: (usersGenqlSelection & { __args?: {
     /** distinct select on columns */
@@ -13929,6 +17870,244 @@ export interface subscription_rootGenqlSelection{
     cursor: (users_stream_cursor_input | null)[], 
     /** filter the rows returned */
     where?: (users_bool_exp | null)} })
+    /** An array relationship */
+    v0_4_amms?: (v0_4_ammsGenqlSelection & { __args?: {
+    /** distinct select on columns */
+    distinct_on?: (v0_4_amms_select_column[] | null), 
+    /** limit the number of rows returned */
+    limit?: (Scalars['Int'] | null), 
+    /** skip the first n rows. Use only with order_by */
+    offset?: (Scalars['Int'] | null), 
+    /** sort the rows by one or more columns */
+    order_by?: (v0_4_amms_order_by[] | null), 
+    /** filter the rows returned */
+    where?: (v0_4_amms_bool_exp | null)} })
+    /** An aggregate relationship */
+    v0_4_amms_aggregate?: (v0_4_amms_aggregateGenqlSelection & { __args?: {
+    /** distinct select on columns */
+    distinct_on?: (v0_4_amms_select_column[] | null), 
+    /** limit the number of rows returned */
+    limit?: (Scalars['Int'] | null), 
+    /** skip the first n rows. Use only with order_by */
+    offset?: (Scalars['Int'] | null), 
+    /** sort the rows by one or more columns */
+    order_by?: (v0_4_amms_order_by[] | null), 
+    /** filter the rows returned */
+    where?: (v0_4_amms_bool_exp | null)} })
+    /** fetch data from the table: "v0_4_amms" using primary key columns */
+    v0_4_amms_by_pk?: (v0_4_ammsGenqlSelection & { __args: {amm_addr: Scalars['String']} })
+    /** fetch data from the table in a streaming manner: "v0_4_amms" */
+    v0_4_amms_stream?: (v0_4_ammsGenqlSelection & { __args: {
+    /** maximum number of rows returned in a single batch */
+    batch_size: Scalars['Int'], 
+    /** cursor to stream the results returned by the query */
+    cursor: (v0_4_amms_stream_cursor_input | null)[], 
+    /** filter the rows returned */
+    where?: (v0_4_amms_bool_exp | null)} })
+    /** An array relationship */
+    v0_4_conditional_vaults?: (v0_4_conditional_vaultsGenqlSelection & { __args?: {
+    /** distinct select on columns */
+    distinct_on?: (v0_4_conditional_vaults_select_column[] | null), 
+    /** limit the number of rows returned */
+    limit?: (Scalars['Int'] | null), 
+    /** skip the first n rows. Use only with order_by */
+    offset?: (Scalars['Int'] | null), 
+    /** sort the rows by one or more columns */
+    order_by?: (v0_4_conditional_vaults_order_by[] | null), 
+    /** filter the rows returned */
+    where?: (v0_4_conditional_vaults_bool_exp | null)} })
+    /** An aggregate relationship */
+    v0_4_conditional_vaults_aggregate?: (v0_4_conditional_vaults_aggregateGenqlSelection & { __args?: {
+    /** distinct select on columns */
+    distinct_on?: (v0_4_conditional_vaults_select_column[] | null), 
+    /** limit the number of rows returned */
+    limit?: (Scalars['Int'] | null), 
+    /** skip the first n rows. Use only with order_by */
+    offset?: (Scalars['Int'] | null), 
+    /** sort the rows by one or more columns */
+    order_by?: (v0_4_conditional_vaults_order_by[] | null), 
+    /** filter the rows returned */
+    where?: (v0_4_conditional_vaults_bool_exp | null)} })
+    /** fetch data from the table: "v0_4_conditional_vaults" using primary key columns */
+    v0_4_conditional_vaults_by_pk?: (v0_4_conditional_vaultsGenqlSelection & { __args: {conditional_vault_addr: Scalars['String']} })
+    /** fetch data from the table in a streaming manner: "v0_4_conditional_vaults" */
+    v0_4_conditional_vaults_stream?: (v0_4_conditional_vaultsGenqlSelection & { __args: {
+    /** maximum number of rows returned in a single batch */
+    batch_size: Scalars['Int'], 
+    /** cursor to stream the results returned by the query */
+    cursor: (v0_4_conditional_vaults_stream_cursor_input | null)[], 
+    /** filter the rows returned */
+    where?: (v0_4_conditional_vaults_bool_exp | null)} })
+    /** An array relationship */
+    v0_4_merges?: (v0_4_mergesGenqlSelection & { __args?: {
+    /** distinct select on columns */
+    distinct_on?: (v0_4_merges_select_column[] | null), 
+    /** limit the number of rows returned */
+    limit?: (Scalars['Int'] | null), 
+    /** skip the first n rows. Use only with order_by */
+    offset?: (Scalars['Int'] | null), 
+    /** sort the rows by one or more columns */
+    order_by?: (v0_4_merges_order_by[] | null), 
+    /** filter the rows returned */
+    where?: (v0_4_merges_bool_exp | null)} })
+    /** An aggregate relationship */
+    v0_4_merges_aggregate?: (v0_4_merges_aggregateGenqlSelection & { __args?: {
+    /** distinct select on columns */
+    distinct_on?: (v0_4_merges_select_column[] | null), 
+    /** limit the number of rows returned */
+    limit?: (Scalars['Int'] | null), 
+    /** skip the first n rows. Use only with order_by */
+    offset?: (Scalars['Int'] | null), 
+    /** sort the rows by one or more columns */
+    order_by?: (v0_4_merges_order_by[] | null), 
+    /** filter the rows returned */
+    where?: (v0_4_merges_bool_exp | null)} })
+    /** fetch data from the table: "v0_4_merges" using primary key columns */
+    v0_4_merges_by_pk?: (v0_4_mergesGenqlSelection & { __args: {vault_addr: Scalars['String'], vault_seq_num: Scalars['bigint']} })
+    /** fetch data from the table in a streaming manner: "v0_4_merges" */
+    v0_4_merges_stream?: (v0_4_mergesGenqlSelection & { __args: {
+    /** maximum number of rows returned in a single batch */
+    batch_size: Scalars['Int'], 
+    /** cursor to stream the results returned by the query */
+    cursor: (v0_4_merges_stream_cursor_input | null)[], 
+    /** filter the rows returned */
+    where?: (v0_4_merges_bool_exp | null)} })
+    /** An array relationship */
+    v0_4_metric_decisions?: (v0_4_metric_decisionsGenqlSelection & { __args?: {
+    /** distinct select on columns */
+    distinct_on?: (v0_4_metric_decisions_select_column[] | null), 
+    /** limit the number of rows returned */
+    limit?: (Scalars['Int'] | null), 
+    /** skip the first n rows. Use only with order_by */
+    offset?: (Scalars['Int'] | null), 
+    /** sort the rows by one or more columns */
+    order_by?: (v0_4_metric_decisions_order_by[] | null), 
+    /** filter the rows returned */
+    where?: (v0_4_metric_decisions_bool_exp | null)} })
+    /** An aggregate relationship */
+    v0_4_metric_decisions_aggregate?: (v0_4_metric_decisions_aggregateGenqlSelection & { __args?: {
+    /** distinct select on columns */
+    distinct_on?: (v0_4_metric_decisions_select_column[] | null), 
+    /** limit the number of rows returned */
+    limit?: (Scalars['Int'] | null), 
+    /** skip the first n rows. Use only with order_by */
+    offset?: (Scalars['Int'] | null), 
+    /** sort the rows by one or more columns */
+    order_by?: (v0_4_metric_decisions_order_by[] | null), 
+    /** filter the rows returned */
+    where?: (v0_4_metric_decisions_bool_exp | null)} })
+    /** fetch data from the table: "v0_4_metric_decisions" using primary key columns */
+    v0_4_metric_decisions_by_pk?: (v0_4_metric_decisionsGenqlSelection & { __args: {id: Scalars['bigint']} })
+    /** fetch data from the table in a streaming manner: "v0_4_metric_decisions" */
+    v0_4_metric_decisions_stream?: (v0_4_metric_decisionsGenqlSelection & { __args: {
+    /** maximum number of rows returned in a single batch */
+    batch_size: Scalars['Int'], 
+    /** cursor to stream the results returned by the query */
+    cursor: (v0_4_metric_decisions_stream_cursor_input | null)[], 
+    /** filter the rows returned */
+    where?: (v0_4_metric_decisions_bool_exp | null)} })
+    /** fetch data from the table: "v0_4_questions" */
+    v0_4_questions?: (v0_4_questionsGenqlSelection & { __args?: {
+    /** distinct select on columns */
+    distinct_on?: (v0_4_questions_select_column[] | null), 
+    /** limit the number of rows returned */
+    limit?: (Scalars['Int'] | null), 
+    /** skip the first n rows. Use only with order_by */
+    offset?: (Scalars['Int'] | null), 
+    /** sort the rows by one or more columns */
+    order_by?: (v0_4_questions_order_by[] | null), 
+    /** filter the rows returned */
+    where?: (v0_4_questions_bool_exp | null)} })
+    /** fetch aggregated fields from the table: "v0_4_questions" */
+    v0_4_questions_aggregate?: (v0_4_questions_aggregateGenqlSelection & { __args?: {
+    /** distinct select on columns */
+    distinct_on?: (v0_4_questions_select_column[] | null), 
+    /** limit the number of rows returned */
+    limit?: (Scalars['Int'] | null), 
+    /** skip the first n rows. Use only with order_by */
+    offset?: (Scalars['Int'] | null), 
+    /** sort the rows by one or more columns */
+    order_by?: (v0_4_questions_order_by[] | null), 
+    /** filter the rows returned */
+    where?: (v0_4_questions_bool_exp | null)} })
+    /** fetch data from the table: "v0_4_questions" using primary key columns */
+    v0_4_questions_by_pk?: (v0_4_questionsGenqlSelection & { __args: {question_addr: Scalars['String']} })
+    /** fetch data from the table in a streaming manner: "v0_4_questions" */
+    v0_4_questions_stream?: (v0_4_questionsGenqlSelection & { __args: {
+    /** maximum number of rows returned in a single batch */
+    batch_size: Scalars['Int'], 
+    /** cursor to stream the results returned by the query */
+    cursor: (v0_4_questions_stream_cursor_input | null)[], 
+    /** filter the rows returned */
+    where?: (v0_4_questions_bool_exp | null)} })
+    /** An array relationship */
+    v0_4_splits?: (v0_4_splitsGenqlSelection & { __args?: {
+    /** distinct select on columns */
+    distinct_on?: (v0_4_splits_select_column[] | null), 
+    /** limit the number of rows returned */
+    limit?: (Scalars['Int'] | null), 
+    /** skip the first n rows. Use only with order_by */
+    offset?: (Scalars['Int'] | null), 
+    /** sort the rows by one or more columns */
+    order_by?: (v0_4_splits_order_by[] | null), 
+    /** filter the rows returned */
+    where?: (v0_4_splits_bool_exp | null)} })
+    /** An aggregate relationship */
+    v0_4_splits_aggregate?: (v0_4_splits_aggregateGenqlSelection & { __args?: {
+    /** distinct select on columns */
+    distinct_on?: (v0_4_splits_select_column[] | null), 
+    /** limit the number of rows returned */
+    limit?: (Scalars['Int'] | null), 
+    /** skip the first n rows. Use only with order_by */
+    offset?: (Scalars['Int'] | null), 
+    /** sort the rows by one or more columns */
+    order_by?: (v0_4_splits_order_by[] | null), 
+    /** filter the rows returned */
+    where?: (v0_4_splits_bool_exp | null)} })
+    /** fetch data from the table: "v0_4_splits" using primary key columns */
+    v0_4_splits_by_pk?: (v0_4_splitsGenqlSelection & { __args: {vault_addr: Scalars['String'], vault_seq_num: Scalars['bigint']} })
+    /** fetch data from the table in a streaming manner: "v0_4_splits" */
+    v0_4_splits_stream?: (v0_4_splitsGenqlSelection & { __args: {
+    /** maximum number of rows returned in a single batch */
+    batch_size: Scalars['Int'], 
+    /** cursor to stream the results returned by the query */
+    cursor: (v0_4_splits_stream_cursor_input | null)[], 
+    /** filter the rows returned */
+    where?: (v0_4_splits_bool_exp | null)} })
+    /** fetch data from the table: "v0_4_swaps" */
+    v0_4_swaps?: (v0_4_swapsGenqlSelection & { __args?: {
+    /** distinct select on columns */
+    distinct_on?: (v0_4_swaps_select_column[] | null), 
+    /** limit the number of rows returned */
+    limit?: (Scalars['Int'] | null), 
+    /** skip the first n rows. Use only with order_by */
+    offset?: (Scalars['Int'] | null), 
+    /** sort the rows by one or more columns */
+    order_by?: (v0_4_swaps_order_by[] | null), 
+    /** filter the rows returned */
+    where?: (v0_4_swaps_bool_exp | null)} })
+    /** fetch aggregated fields from the table: "v0_4_swaps" */
+    v0_4_swaps_aggregate?: (v0_4_swaps_aggregateGenqlSelection & { __args?: {
+    /** distinct select on columns */
+    distinct_on?: (v0_4_swaps_select_column[] | null), 
+    /** limit the number of rows returned */
+    limit?: (Scalars['Int'] | null), 
+    /** skip the first n rows. Use only with order_by */
+    offset?: (Scalars['Int'] | null), 
+    /** sort the rows by one or more columns */
+    order_by?: (v0_4_swaps_order_by[] | null), 
+    /** filter the rows returned */
+    where?: (v0_4_swaps_bool_exp | null)} })
+    /** fetch data from the table: "v0_4_swaps" using primary key columns */
+    v0_4_swaps_by_pk?: (v0_4_swapsGenqlSelection & { __args: {signature: Scalars['String']} })
+    /** fetch data from the table in a streaming manner: "v0_4_swaps" */
+    v0_4_swaps_stream?: (v0_4_swapsGenqlSelection & { __args: {
+    /** maximum number of rows returned in a single batch */
+    batch_size: Scalars['Int'], 
+    /** cursor to stream the results returned by the query */
+    cursor: (v0_4_swaps_stream_cursor_input | null)[], 
+    /** filter the rows returned */
+    where?: (v0_4_swaps_bool_exp | null)} })
     __typename?: boolean | number
     __scalar?: boolean | number
 }
@@ -14273,6 +18452,8 @@ export interface token_acct_balancesGenqlSelection{
     /** An object relationship */
     tokenAcctByTokenAcct?: token_acctsGenqlSelection
     token_acct?: boolean | number
+    /** An object relationship */
+    transaction?: transactionsGenqlSelection
     tx_sig?: boolean | number
     __typename?: boolean | number
     __scalar?: boolean | number
@@ -14335,7 +18516,7 @@ export interface token_acct_balances_avg_order_by {amount?: (order_by | null),de
 
 
 /** Boolean expression to filter rows from the table "token_acct_balances". All fields are combined with a logical 'AND'. */
-export interface token_acct_balances_bool_exp {_and?: (token_acct_balances_bool_exp[] | null),_not?: (token_acct_balances_bool_exp | null),_or?: (token_acct_balances_bool_exp[] | null),amount?: (bigint_comparison_exp | null),created_at?: (timestamptz_comparison_exp | null),delta?: (bigint_comparison_exp | null),mint_acct?: (String_comparison_exp | null),owner_acct?: (String_comparison_exp | null),slot?: (bigint_comparison_exp | null),token?: (tokens_bool_exp | null),tokenAcctByTokenAcct?: (token_accts_bool_exp | null),token_acct?: (String_comparison_exp | null),tx_sig?: (String_comparison_exp | null)}
+export interface token_acct_balances_bool_exp {_and?: (token_acct_balances_bool_exp[] | null),_not?: (token_acct_balances_bool_exp | null),_or?: (token_acct_balances_bool_exp[] | null),amount?: (bigint_comparison_exp | null),created_at?: (timestamptz_comparison_exp | null),delta?: (bigint_comparison_exp | null),mint_acct?: (String_comparison_exp | null),owner_acct?: (String_comparison_exp | null),slot?: (bigint_comparison_exp | null),token?: (tokens_bool_exp | null),tokenAcctByTokenAcct?: (token_accts_bool_exp | null),token_acct?: (String_comparison_exp | null),transaction?: (transactions_bool_exp | null),tx_sig?: (String_comparison_exp | null)}
 
 
 /** input type for incrementing numeric columns in table "token_acct_balances" */
@@ -14343,7 +18524,7 @@ export interface token_acct_balances_inc_input {amount?: (Scalars['bigint'] | nu
 
 
 /** input type for inserting data into table "token_acct_balances" */
-export interface token_acct_balances_insert_input {amount?: (Scalars['bigint'] | null),created_at?: (Scalars['timestamptz'] | null),delta?: (Scalars['bigint'] | null),mint_acct?: (Scalars['String'] | null),owner_acct?: (Scalars['String'] | null),slot?: (Scalars['bigint'] | null),token?: (tokens_obj_rel_insert_input | null),tokenAcctByTokenAcct?: (token_accts_obj_rel_insert_input | null),token_acct?: (Scalars['String'] | null),tx_sig?: (Scalars['String'] | null)}
+export interface token_acct_balances_insert_input {amount?: (Scalars['bigint'] | null),created_at?: (Scalars['timestamptz'] | null),delta?: (Scalars['bigint'] | null),mint_acct?: (Scalars['String'] | null),owner_acct?: (Scalars['String'] | null),slot?: (Scalars['bigint'] | null),token?: (tokens_obj_rel_insert_input | null),tokenAcctByTokenAcct?: (token_accts_obj_rel_insert_input | null),token_acct?: (Scalars['String'] | null),transaction?: (transactions_obj_rel_insert_input | null),tx_sig?: (Scalars['String'] | null)}
 
 
 /** aggregate max on columns */
@@ -14400,7 +18581,7 @@ export interface token_acct_balances_on_conflict {constraint: token_acct_balance
 
 
 /** Ordering options when selecting data from "token_acct_balances". */
-export interface token_acct_balances_order_by {amount?: (order_by | null),created_at?: (order_by | null),delta?: (order_by | null),mint_acct?: (order_by | null),owner_acct?: (order_by | null),slot?: (order_by | null),token?: (tokens_order_by | null),tokenAcctByTokenAcct?: (token_accts_order_by | null),token_acct?: (order_by | null),tx_sig?: (order_by | null)}
+export interface token_acct_balances_order_by {amount?: (order_by | null),created_at?: (order_by | null),delta?: (order_by | null),mint_acct?: (order_by | null),owner_acct?: (order_by | null),slot?: (order_by | null),token?: (tokens_order_by | null),tokenAcctByTokenAcct?: (token_accts_order_by | null),token_acct?: (order_by | null),transaction?: (transactions_order_by | null),tx_sig?: (order_by | null)}
 
 
 /** primary key columns input for table: token_acct_balances */
@@ -14615,6 +18796,30 @@ export interface token_acctsGenqlSelection{
     /** filter the rows returned */
     where?: (token_acct_balances_bool_exp | null)} })
     updated_at?: boolean | number
+    /** An array relationship */
+    v0_4_conditional_vaults?: (v0_4_conditional_vaultsGenqlSelection & { __args?: {
+    /** distinct select on columns */
+    distinct_on?: (v0_4_conditional_vaults_select_column[] | null), 
+    /** limit the number of rows returned */
+    limit?: (Scalars['Int'] | null), 
+    /** skip the first n rows. Use only with order_by */
+    offset?: (Scalars['Int'] | null), 
+    /** sort the rows by one or more columns */
+    order_by?: (v0_4_conditional_vaults_order_by[] | null), 
+    /** filter the rows returned */
+    where?: (v0_4_conditional_vaults_bool_exp | null)} })
+    /** An aggregate relationship */
+    v0_4_conditional_vaults_aggregate?: (v0_4_conditional_vaults_aggregateGenqlSelection & { __args?: {
+    /** distinct select on columns */
+    distinct_on?: (v0_4_conditional_vaults_select_column[] | null), 
+    /** limit the number of rows returned */
+    limit?: (Scalars['Int'] | null), 
+    /** skip the first n rows. Use only with order_by */
+    offset?: (Scalars['Int'] | null), 
+    /** sort the rows by one or more columns */
+    order_by?: (v0_4_conditional_vaults_order_by[] | null), 
+    /** filter the rows returned */
+    where?: (v0_4_conditional_vaults_bool_exp | null)} })
     __typename?: boolean | number
     __scalar?: boolean | number
 }
@@ -14674,7 +18879,7 @@ export interface token_accts_avg_order_by {amount?: (order_by | null)}
 
 
 /** Boolean expression to filter rows from the table "token_accts". All fields are combined with a logical 'AND'. */
-export interface token_accts_bool_exp {_and?: (token_accts_bool_exp[] | null),_not?: (token_accts_bool_exp | null),_or?: (token_accts_bool_exp[] | null),amount?: (bigint_comparison_exp | null),markets?: (markets_bool_exp | null),marketsByBidsTokenAcct?: (markets_bool_exp | null),marketsByBidsTokenAcct_aggregate?: (markets_aggregate_bool_exp | null),markets_aggregate?: (markets_aggregate_bool_exp | null),mint_acct?: (String_comparison_exp | null),owner_acct?: (String_comparison_exp | null),status?: (token_acct_status_comparison_exp | null),token?: (tokens_bool_exp | null),token_acct?: (String_comparison_exp | null),token_acct_balances?: (token_acct_balances_bool_exp | null),token_acct_balances_aggregate?: (token_acct_balances_aggregate_bool_exp | null),updated_at?: (timestamptz_comparison_exp | null)}
+export interface token_accts_bool_exp {_and?: (token_accts_bool_exp[] | null),_not?: (token_accts_bool_exp | null),_or?: (token_accts_bool_exp[] | null),amount?: (bigint_comparison_exp | null),markets?: (markets_bool_exp | null),marketsByBidsTokenAcct?: (markets_bool_exp | null),marketsByBidsTokenAcct_aggregate?: (markets_aggregate_bool_exp | null),markets_aggregate?: (markets_aggregate_bool_exp | null),mint_acct?: (String_comparison_exp | null),owner_acct?: (String_comparison_exp | null),status?: (token_acct_status_comparison_exp | null),token?: (tokens_bool_exp | null),token_acct?: (String_comparison_exp | null),token_acct_balances?: (token_acct_balances_bool_exp | null),token_acct_balances_aggregate?: (token_acct_balances_aggregate_bool_exp | null),updated_at?: (timestamptz_comparison_exp | null),v0_4_conditional_vaults?: (v0_4_conditional_vaults_bool_exp | null),v0_4_conditional_vaults_aggregate?: (v0_4_conditional_vaults_aggregate_bool_exp | null)}
 
 
 /** input type for incrementing numeric columns in table "token_accts" */
@@ -14682,7 +18887,7 @@ export interface token_accts_inc_input {amount?: (Scalars['bigint'] | null)}
 
 
 /** input type for inserting data into table "token_accts" */
-export interface token_accts_insert_input {amount?: (Scalars['bigint'] | null),markets?: (markets_arr_rel_insert_input | null),marketsByBidsTokenAcct?: (markets_arr_rel_insert_input | null),mint_acct?: (Scalars['String'] | null),owner_acct?: (Scalars['String'] | null),status?: (Scalars['token_acct_status'] | null),token?: (tokens_obj_rel_insert_input | null),token_acct?: (Scalars['String'] | null),token_acct_balances?: (token_acct_balances_arr_rel_insert_input | null),updated_at?: (Scalars['timestamptz'] | null)}
+export interface token_accts_insert_input {amount?: (Scalars['bigint'] | null),markets?: (markets_arr_rel_insert_input | null),marketsByBidsTokenAcct?: (markets_arr_rel_insert_input | null),mint_acct?: (Scalars['String'] | null),owner_acct?: (Scalars['String'] | null),status?: (Scalars['token_acct_status'] | null),token?: (tokens_obj_rel_insert_input | null),token_acct?: (Scalars['String'] | null),token_acct_balances?: (token_acct_balances_arr_rel_insert_input | null),updated_at?: (Scalars['timestamptz'] | null),v0_4_conditional_vaults?: (v0_4_conditional_vaults_arr_rel_insert_input | null)}
 
 
 /** aggregate max on columns */
@@ -14741,7 +18946,7 @@ export interface token_accts_on_conflict {constraint: token_accts_constraint,upd
 
 
 /** Ordering options when selecting data from "token_accts". */
-export interface token_accts_order_by {amount?: (order_by | null),marketsByBidsTokenAcct_aggregate?: (markets_aggregate_order_by | null),markets_aggregate?: (markets_aggregate_order_by | null),mint_acct?: (order_by | null),owner_acct?: (order_by | null),status?: (order_by | null),token?: (tokens_order_by | null),token_acct?: (order_by | null),token_acct_balances_aggregate?: (token_acct_balances_aggregate_order_by | null),updated_at?: (order_by | null)}
+export interface token_accts_order_by {amount?: (order_by | null),marketsByBidsTokenAcct_aggregate?: (markets_aggregate_order_by | null),markets_aggregate?: (markets_aggregate_order_by | null),mint_acct?: (order_by | null),owner_acct?: (order_by | null),status?: (order_by | null),token?: (tokens_order_by | null),token_acct?: (order_by | null),token_acct_balances_aggregate?: (token_acct_balances_aggregate_order_by | null),updated_at?: (order_by | null),v0_4_conditional_vaults_aggregate?: (v0_4_conditional_vaults_aggregate_order_by | null)}
 
 
 /** primary key columns input for table: token_accts */
@@ -15033,6 +19238,126 @@ export interface tokensGenqlSelection{
     /** filter the rows returned */
     where?: (token_accts_bool_exp | null)} })
     updated_at?: boolean | number
+    /** An array relationship */
+    user_deposits?: (user_depositsGenqlSelection & { __args?: {
+    /** distinct select on columns */
+    distinct_on?: (user_deposits_select_column[] | null), 
+    /** limit the number of rows returned */
+    limit?: (Scalars['Int'] | null), 
+    /** skip the first n rows. Use only with order_by */
+    offset?: (Scalars['Int'] | null), 
+    /** sort the rows by one or more columns */
+    order_by?: (user_deposits_order_by[] | null), 
+    /** filter the rows returned */
+    where?: (user_deposits_bool_exp | null)} })
+    /** An aggregate relationship */
+    user_deposits_aggregate?: (user_deposits_aggregateGenqlSelection & { __args?: {
+    /** distinct select on columns */
+    distinct_on?: (user_deposits_select_column[] | null), 
+    /** limit the number of rows returned */
+    limit?: (Scalars['Int'] | null), 
+    /** skip the first n rows. Use only with order_by */
+    offset?: (Scalars['Int'] | null), 
+    /** sort the rows by one or more columns */
+    order_by?: (user_deposits_order_by[] | null), 
+    /** filter the rows returned */
+    where?: (user_deposits_bool_exp | null)} })
+    /** An array relationship */
+    v04AmmsByLpMintAddr?: (v0_4_ammsGenqlSelection & { __args?: {
+    /** distinct select on columns */
+    distinct_on?: (v0_4_amms_select_column[] | null), 
+    /** limit the number of rows returned */
+    limit?: (Scalars['Int'] | null), 
+    /** skip the first n rows. Use only with order_by */
+    offset?: (Scalars['Int'] | null), 
+    /** sort the rows by one or more columns */
+    order_by?: (v0_4_amms_order_by[] | null), 
+    /** filter the rows returned */
+    where?: (v0_4_amms_bool_exp | null)} })
+    /** An aggregate relationship */
+    v04AmmsByLpMintAddr_aggregate?: (v0_4_amms_aggregateGenqlSelection & { __args?: {
+    /** distinct select on columns */
+    distinct_on?: (v0_4_amms_select_column[] | null), 
+    /** limit the number of rows returned */
+    limit?: (Scalars['Int'] | null), 
+    /** skip the first n rows. Use only with order_by */
+    offset?: (Scalars['Int'] | null), 
+    /** sort the rows by one or more columns */
+    order_by?: (v0_4_amms_order_by[] | null), 
+    /** filter the rows returned */
+    where?: (v0_4_amms_bool_exp | null)} })
+    /** An array relationship */
+    v04AmmsByQuoteMintAddr?: (v0_4_ammsGenqlSelection & { __args?: {
+    /** distinct select on columns */
+    distinct_on?: (v0_4_amms_select_column[] | null), 
+    /** limit the number of rows returned */
+    limit?: (Scalars['Int'] | null), 
+    /** skip the first n rows. Use only with order_by */
+    offset?: (Scalars['Int'] | null), 
+    /** sort the rows by one or more columns */
+    order_by?: (v0_4_amms_order_by[] | null), 
+    /** filter the rows returned */
+    where?: (v0_4_amms_bool_exp | null)} })
+    /** An aggregate relationship */
+    v04AmmsByQuoteMintAddr_aggregate?: (v0_4_amms_aggregateGenqlSelection & { __args?: {
+    /** distinct select on columns */
+    distinct_on?: (v0_4_amms_select_column[] | null), 
+    /** limit the number of rows returned */
+    limit?: (Scalars['Int'] | null), 
+    /** skip the first n rows. Use only with order_by */
+    offset?: (Scalars['Int'] | null), 
+    /** sort the rows by one or more columns */
+    order_by?: (v0_4_amms_order_by[] | null), 
+    /** filter the rows returned */
+    where?: (v0_4_amms_bool_exp | null)} })
+    /** An array relationship */
+    v0_4_amms?: (v0_4_ammsGenqlSelection & { __args?: {
+    /** distinct select on columns */
+    distinct_on?: (v0_4_amms_select_column[] | null), 
+    /** limit the number of rows returned */
+    limit?: (Scalars['Int'] | null), 
+    /** skip the first n rows. Use only with order_by */
+    offset?: (Scalars['Int'] | null), 
+    /** sort the rows by one or more columns */
+    order_by?: (v0_4_amms_order_by[] | null), 
+    /** filter the rows returned */
+    where?: (v0_4_amms_bool_exp | null)} })
+    /** An aggregate relationship */
+    v0_4_amms_aggregate?: (v0_4_amms_aggregateGenqlSelection & { __args?: {
+    /** distinct select on columns */
+    distinct_on?: (v0_4_amms_select_column[] | null), 
+    /** limit the number of rows returned */
+    limit?: (Scalars['Int'] | null), 
+    /** skip the first n rows. Use only with order_by */
+    offset?: (Scalars['Int'] | null), 
+    /** sort the rows by one or more columns */
+    order_by?: (v0_4_amms_order_by[] | null), 
+    /** filter the rows returned */
+    where?: (v0_4_amms_bool_exp | null)} })
+    /** An array relationship */
+    v0_4_conditional_vaults?: (v0_4_conditional_vaultsGenqlSelection & { __args?: {
+    /** distinct select on columns */
+    distinct_on?: (v0_4_conditional_vaults_select_column[] | null), 
+    /** limit the number of rows returned */
+    limit?: (Scalars['Int'] | null), 
+    /** skip the first n rows. Use only with order_by */
+    offset?: (Scalars['Int'] | null), 
+    /** sort the rows by one or more columns */
+    order_by?: (v0_4_conditional_vaults_order_by[] | null), 
+    /** filter the rows returned */
+    where?: (v0_4_conditional_vaults_bool_exp | null)} })
+    /** An aggregate relationship */
+    v0_4_conditional_vaults_aggregate?: (v0_4_conditional_vaults_aggregateGenqlSelection & { __args?: {
+    /** distinct select on columns */
+    distinct_on?: (v0_4_conditional_vaults_select_column[] | null), 
+    /** limit the number of rows returned */
+    limit?: (Scalars['Int'] | null), 
+    /** skip the first n rows. Use only with order_by */
+    offset?: (Scalars['Int'] | null), 
+    /** sort the rows by one or more columns */
+    order_by?: (v0_4_conditional_vaults_order_by[] | null), 
+    /** filter the rows returned */
+    where?: (v0_4_conditional_vaults_bool_exp | null)} })
     /** An object relationship */
     vault_by_finalize?: conditional_vaultsGenqlSelection
     /** An object relationship */
@@ -15079,7 +19404,7 @@ export interface tokens_avg_fieldsGenqlSelection{
 
 
 /** Boolean expression to filter rows from the table "tokens". All fields are combined with a logical 'AND'. */
-export interface tokens_bool_exp {_and?: (tokens_bool_exp[] | null),_not?: (tokens_bool_exp | null),_or?: (tokens_bool_exp[] | null),conditional_vaults?: (conditional_vaults_bool_exp | null),conditional_vaults_aggregate?: (conditional_vaults_aggregate_bool_exp | null),daos?: (daos_bool_exp | null),daosByQuoteAcct?: (daos_bool_exp | null),daosByQuoteAcct_aggregate?: (daos_aggregate_bool_exp | null),daos_aggregate?: (daos_aggregate_bool_exp | null),decimals?: (smallint_comparison_exp | null),image_url?: (String_comparison_exp | null),markets?: (markets_bool_exp | null),marketsByQuoteMintAcct?: (markets_bool_exp | null),marketsByQuoteMintAcct_aggregate?: (markets_aggregate_bool_exp | null),markets_aggregate?: (markets_aggregate_bool_exp | null),mint_acct?: (String_comparison_exp | null),name?: (String_comparison_exp | null),supply?: (bigint_comparison_exp | null),symbol?: (String_comparison_exp | null),token_acct_balances?: (token_acct_balances_bool_exp | null),token_acct_balances_aggregate?: (token_acct_balances_aggregate_bool_exp | null),token_accts?: (token_accts_bool_exp | null),token_accts_aggregate?: (token_accts_aggregate_bool_exp | null),updated_at?: (timestamptz_comparison_exp | null),vault_by_finalize?: (conditional_vaults_bool_exp | null),vault_by_revert?: (conditional_vaults_bool_exp | null)}
+export interface tokens_bool_exp {_and?: (tokens_bool_exp[] | null),_not?: (tokens_bool_exp | null),_or?: (tokens_bool_exp[] | null),conditional_vaults?: (conditional_vaults_bool_exp | null),conditional_vaults_aggregate?: (conditional_vaults_aggregate_bool_exp | null),daos?: (daos_bool_exp | null),daosByQuoteAcct?: (daos_bool_exp | null),daosByQuoteAcct_aggregate?: (daos_aggregate_bool_exp | null),daos_aggregate?: (daos_aggregate_bool_exp | null),decimals?: (smallint_comparison_exp | null),image_url?: (String_comparison_exp | null),markets?: (markets_bool_exp | null),marketsByQuoteMintAcct?: (markets_bool_exp | null),marketsByQuoteMintAcct_aggregate?: (markets_aggregate_bool_exp | null),markets_aggregate?: (markets_aggregate_bool_exp | null),mint_acct?: (String_comparison_exp | null),name?: (String_comparison_exp | null),supply?: (bigint_comparison_exp | null),symbol?: (String_comparison_exp | null),token_acct_balances?: (token_acct_balances_bool_exp | null),token_acct_balances_aggregate?: (token_acct_balances_aggregate_bool_exp | null),token_accts?: (token_accts_bool_exp | null),token_accts_aggregate?: (token_accts_aggregate_bool_exp | null),updated_at?: (timestamptz_comparison_exp | null),user_deposits?: (user_deposits_bool_exp | null),user_deposits_aggregate?: (user_deposits_aggregate_bool_exp | null),v04AmmsByLpMintAddr?: (v0_4_amms_bool_exp | null),v04AmmsByLpMintAddr_aggregate?: (v0_4_amms_aggregate_bool_exp | null),v04AmmsByQuoteMintAddr?: (v0_4_amms_bool_exp | null),v04AmmsByQuoteMintAddr_aggregate?: (v0_4_amms_aggregate_bool_exp | null),v0_4_amms?: (v0_4_amms_bool_exp | null),v0_4_amms_aggregate?: (v0_4_amms_aggregate_bool_exp | null),v0_4_conditional_vaults?: (v0_4_conditional_vaults_bool_exp | null),v0_4_conditional_vaults_aggregate?: (v0_4_conditional_vaults_aggregate_bool_exp | null),vault_by_finalize?: (conditional_vaults_bool_exp | null),vault_by_revert?: (conditional_vaults_bool_exp | null)}
 
 
 /** input type for incrementing numeric columns in table "tokens" */
@@ -15087,7 +19412,7 @@ export interface tokens_inc_input {decimals?: (Scalars['smallint'] | null),suppl
 
 
 /** input type for inserting data into table "tokens" */
-export interface tokens_insert_input {conditional_vaults?: (conditional_vaults_arr_rel_insert_input | null),daos?: (daos_arr_rel_insert_input | null),daosByQuoteAcct?: (daos_arr_rel_insert_input | null),decimals?: (Scalars['smallint'] | null),image_url?: (Scalars['String'] | null),markets?: (markets_arr_rel_insert_input | null),marketsByQuoteMintAcct?: (markets_arr_rel_insert_input | null),mint_acct?: (Scalars['String'] | null),name?: (Scalars['String'] | null),supply?: (Scalars['bigint'] | null),symbol?: (Scalars['String'] | null),token_acct_balances?: (token_acct_balances_arr_rel_insert_input | null),token_accts?: (token_accts_arr_rel_insert_input | null),updated_at?: (Scalars['timestamptz'] | null),vault_by_finalize?: (conditional_vaults_obj_rel_insert_input | null),vault_by_revert?: (conditional_vaults_obj_rel_insert_input | null)}
+export interface tokens_insert_input {conditional_vaults?: (conditional_vaults_arr_rel_insert_input | null),daos?: (daos_arr_rel_insert_input | null),daosByQuoteAcct?: (daos_arr_rel_insert_input | null),decimals?: (Scalars['smallint'] | null),image_url?: (Scalars['String'] | null),markets?: (markets_arr_rel_insert_input | null),marketsByQuoteMintAcct?: (markets_arr_rel_insert_input | null),mint_acct?: (Scalars['String'] | null),name?: (Scalars['String'] | null),supply?: (Scalars['bigint'] | null),symbol?: (Scalars['String'] | null),token_acct_balances?: (token_acct_balances_arr_rel_insert_input | null),token_accts?: (token_accts_arr_rel_insert_input | null),updated_at?: (Scalars['timestamptz'] | null),user_deposits?: (user_deposits_arr_rel_insert_input | null),v04AmmsByLpMintAddr?: (v0_4_amms_arr_rel_insert_input | null),v04AmmsByQuoteMintAddr?: (v0_4_amms_arr_rel_insert_input | null),v0_4_amms?: (v0_4_amms_arr_rel_insert_input | null),v0_4_conditional_vaults?: (v0_4_conditional_vaults_arr_rel_insert_input | null),vault_by_finalize?: (conditional_vaults_obj_rel_insert_input | null),vault_by_revert?: (conditional_vaults_obj_rel_insert_input | null)}
 
 
 /** aggregate max on columns */
@@ -15140,7 +19465,7 @@ export interface tokens_on_conflict {constraint: tokens_constraint,update_column
 
 
 /** Ordering options when selecting data from "tokens". */
-export interface tokens_order_by {conditional_vaults_aggregate?: (conditional_vaults_aggregate_order_by | null),daosByQuoteAcct_aggregate?: (daos_aggregate_order_by | null),daos_aggregate?: (daos_aggregate_order_by | null),decimals?: (order_by | null),image_url?: (order_by | null),marketsByQuoteMintAcct_aggregate?: (markets_aggregate_order_by | null),markets_aggregate?: (markets_aggregate_order_by | null),mint_acct?: (order_by | null),name?: (order_by | null),supply?: (order_by | null),symbol?: (order_by | null),token_acct_balances_aggregate?: (token_acct_balances_aggregate_order_by | null),token_accts_aggregate?: (token_accts_aggregate_order_by | null),updated_at?: (order_by | null),vault_by_finalize?: (conditional_vaults_order_by | null),vault_by_revert?: (conditional_vaults_order_by | null)}
+export interface tokens_order_by {conditional_vaults_aggregate?: (conditional_vaults_aggregate_order_by | null),daosByQuoteAcct_aggregate?: (daos_aggregate_order_by | null),daos_aggregate?: (daos_aggregate_order_by | null),decimals?: (order_by | null),image_url?: (order_by | null),marketsByQuoteMintAcct_aggregate?: (markets_aggregate_order_by | null),markets_aggregate?: (markets_aggregate_order_by | null),mint_acct?: (order_by | null),name?: (order_by | null),supply?: (order_by | null),symbol?: (order_by | null),token_acct_balances_aggregate?: (token_acct_balances_aggregate_order_by | null),token_accts_aggregate?: (token_accts_aggregate_order_by | null),updated_at?: (order_by | null),user_deposits_aggregate?: (user_deposits_aggregate_order_by | null),v04AmmsByLpMintAddr_aggregate?: (v0_4_amms_aggregate_order_by | null),v04AmmsByQuoteMintAddr_aggregate?: (v0_4_amms_aggregate_order_by | null),v0_4_amms_aggregate?: (v0_4_amms_aggregate_order_by | null),v0_4_conditional_vaults_aggregate?: (v0_4_conditional_vaults_aggregate_order_by | null),vault_by_finalize?: (conditional_vaults_order_by | null),vault_by_revert?: (conditional_vaults_order_by | null)}
 
 
 /** primary key columns input for table: tokens */
@@ -15232,6 +19557,12 @@ export interface tokens_variance_fieldsGenqlSelection{
     __typename?: boolean | number
     __scalar?: boolean | number
 }
+
+
+/** top_dao_tradersNative Query Arguments */
+export interface top_dao_traders_arguments {
+/** Slug of the DAO */
+dao_slug: Scalars['String']}
 
 
 /** columns and relationships of "transaction_watcher_transactions" */
@@ -15801,6 +20132,30 @@ export interface transactionsGenqlSelection{
     serializer_logic_version?: boolean | number
     slot?: boolean | number
     /** An array relationship */
+    token_acct_balances?: (token_acct_balancesGenqlSelection & { __args?: {
+    /** distinct select on columns */
+    distinct_on?: (token_acct_balances_select_column[] | null), 
+    /** limit the number of rows returned */
+    limit?: (Scalars['Int'] | null), 
+    /** skip the first n rows. Use only with order_by */
+    offset?: (Scalars['Int'] | null), 
+    /** sort the rows by one or more columns */
+    order_by?: (token_acct_balances_order_by[] | null), 
+    /** filter the rows returned */
+    where?: (token_acct_balances_bool_exp | null)} })
+    /** An aggregate relationship */
+    token_acct_balances_aggregate?: (token_acct_balances_aggregateGenqlSelection & { __args?: {
+    /** distinct select on columns */
+    distinct_on?: (token_acct_balances_select_column[] | null), 
+    /** limit the number of rows returned */
+    limit?: (Scalars['Int'] | null), 
+    /** skip the first n rows. Use only with order_by */
+    offset?: (Scalars['Int'] | null), 
+    /** sort the rows by one or more columns */
+    order_by?: (token_acct_balances_order_by[] | null), 
+    /** filter the rows returned */
+    where?: (token_acct_balances_bool_exp | null)} })
+    /** An array relationship */
     transactionWatchersByLatestTxSig?: (transaction_watchersGenqlSelection & { __args?: {
     /** distinct select on columns */
     distinct_on?: (transaction_watchers_select_column[] | null), 
@@ -15873,6 +20228,30 @@ export interface transactionsGenqlSelection{
     /** filter the rows returned */
     where?: (transaction_watchers_bool_exp | null)} })
     tx_sig?: boolean | number
+    /** An array relationship */
+    user_deposits?: (user_depositsGenqlSelection & { __args?: {
+    /** distinct select on columns */
+    distinct_on?: (user_deposits_select_column[] | null), 
+    /** limit the number of rows returned */
+    limit?: (Scalars['Int'] | null), 
+    /** skip the first n rows. Use only with order_by */
+    offset?: (Scalars['Int'] | null), 
+    /** sort the rows by one or more columns */
+    order_by?: (user_deposits_order_by[] | null), 
+    /** filter the rows returned */
+    where?: (user_deposits_bool_exp | null)} })
+    /** An aggregate relationship */
+    user_deposits_aggregate?: (user_deposits_aggregateGenqlSelection & { __args?: {
+    /** distinct select on columns */
+    distinct_on?: (user_deposits_select_column[] | null), 
+    /** limit the number of rows returned */
+    limit?: (Scalars['Int'] | null), 
+    /** skip the first n rows. Use only with order_by */
+    offset?: (Scalars['Int'] | null), 
+    /** sort the rows by one or more columns */
+    order_by?: (user_deposits_order_by[] | null), 
+    /** filter the rows returned */
+    where?: (user_deposits_bool_exp | null)} })
     __typename?: boolean | number
     __scalar?: boolean | number
 }
@@ -15915,7 +20294,7 @@ export interface transactions_avg_fieldsGenqlSelection{
 
 
 /** Boolean expression to filter rows from the table "transactions". All fields are combined with a logical 'AND'. */
-export interface transactions_bool_exp {_and?: (transactions_bool_exp[] | null),_not?: (transactions_bool_exp | null),_or?: (transactions_bool_exp[] | null),block_time?: (timestamptz_comparison_exp | null),failed?: (Boolean_comparison_exp | null),indexer_account_dependencies?: (indexer_account_dependencies_bool_exp | null),indexer_account_dependencies_aggregate?: (indexer_account_dependencies_aggregate_bool_exp | null),main_ix_type?: (String_comparison_exp | null),order?: (orders_bool_exp | null),payload?: (String_comparison_exp | null),serializer_logic_version?: (smallint_comparison_exp | null),slot?: (bigint_comparison_exp | null),transactionWatchersByLatestTxSig?: (transaction_watchers_bool_exp | null),transactionWatchersByLatestTxSig_aggregate?: (transaction_watchers_aggregate_bool_exp | null),transaction_watcher_transactions?: (transaction_watcher_transactions_bool_exp | null),transaction_watcher_transactions_aggregate?: (transaction_watcher_transactions_aggregate_bool_exp | null),transaction_watchers?: (transaction_watchers_bool_exp | null),transaction_watchers_aggregate?: (transaction_watchers_aggregate_bool_exp | null),tx_sig?: (String_comparison_exp | null)}
+export interface transactions_bool_exp {_and?: (transactions_bool_exp[] | null),_not?: (transactions_bool_exp | null),_or?: (transactions_bool_exp[] | null),block_time?: (timestamptz_comparison_exp | null),failed?: (Boolean_comparison_exp | null),indexer_account_dependencies?: (indexer_account_dependencies_bool_exp | null),indexer_account_dependencies_aggregate?: (indexer_account_dependencies_aggregate_bool_exp | null),main_ix_type?: (String_comparison_exp | null),order?: (orders_bool_exp | null),payload?: (String_comparison_exp | null),serializer_logic_version?: (smallint_comparison_exp | null),slot?: (bigint_comparison_exp | null),token_acct_balances?: (token_acct_balances_bool_exp | null),token_acct_balances_aggregate?: (token_acct_balances_aggregate_bool_exp | null),transactionWatchersByLatestTxSig?: (transaction_watchers_bool_exp | null),transactionWatchersByLatestTxSig_aggregate?: (transaction_watchers_aggregate_bool_exp | null),transaction_watcher_transactions?: (transaction_watcher_transactions_bool_exp | null),transaction_watcher_transactions_aggregate?: (transaction_watcher_transactions_aggregate_bool_exp | null),transaction_watchers?: (transaction_watchers_bool_exp | null),transaction_watchers_aggregate?: (transaction_watchers_aggregate_bool_exp | null),tx_sig?: (String_comparison_exp | null),user_deposits?: (user_deposits_bool_exp | null),user_deposits_aggregate?: (user_deposits_aggregate_bool_exp | null)}
 
 
 /** input type for incrementing numeric columns in table "transactions" */
@@ -15923,7 +20302,7 @@ export interface transactions_inc_input {serializer_logic_version?: (Scalars['sm
 
 
 /** input type for inserting data into table "transactions" */
-export interface transactions_insert_input {block_time?: (Scalars['timestamptz'] | null),failed?: (Scalars['Boolean'] | null),indexer_account_dependencies?: (indexer_account_dependencies_arr_rel_insert_input | null),main_ix_type?: (Scalars['String'] | null),order?: (orders_obj_rel_insert_input | null),payload?: (Scalars['String'] | null),serializer_logic_version?: (Scalars['smallint'] | null),slot?: (Scalars['bigint'] | null),transactionWatchersByLatestTxSig?: (transaction_watchers_arr_rel_insert_input | null),transaction_watcher_transactions?: (transaction_watcher_transactions_arr_rel_insert_input | null),transaction_watchers?: (transaction_watchers_arr_rel_insert_input | null),tx_sig?: (Scalars['String'] | null)}
+export interface transactions_insert_input {block_time?: (Scalars['timestamptz'] | null),failed?: (Scalars['Boolean'] | null),indexer_account_dependencies?: (indexer_account_dependencies_arr_rel_insert_input | null),main_ix_type?: (Scalars['String'] | null),order?: (orders_obj_rel_insert_input | null),payload?: (Scalars['String'] | null),serializer_logic_version?: (Scalars['smallint'] | null),slot?: (Scalars['bigint'] | null),token_acct_balances?: (token_acct_balances_arr_rel_insert_input | null),transactionWatchersByLatestTxSig?: (transaction_watchers_arr_rel_insert_input | null),transaction_watcher_transactions?: (transaction_watcher_transactions_arr_rel_insert_input | null),transaction_watchers?: (transaction_watchers_arr_rel_insert_input | null),tx_sig?: (Scalars['String'] | null),user_deposits?: (user_deposits_arr_rel_insert_input | null)}
 
 
 /** aggregate max on columns */
@@ -15974,7 +20353,7 @@ export interface transactions_on_conflict {constraint: transactions_constraint,u
 
 
 /** Ordering options when selecting data from "transactions". */
-export interface transactions_order_by {block_time?: (order_by | null),failed?: (order_by | null),indexer_account_dependencies_aggregate?: (indexer_account_dependencies_aggregate_order_by | null),main_ix_type?: (order_by | null),order?: (orders_order_by | null),payload?: (order_by | null),serializer_logic_version?: (order_by | null),slot?: (order_by | null),transactionWatchersByLatestTxSig_aggregate?: (transaction_watchers_aggregate_order_by | null),transaction_watcher_transactions_aggregate?: (transaction_watcher_transactions_aggregate_order_by | null),transaction_watchers_aggregate?: (transaction_watchers_aggregate_order_by | null),tx_sig?: (order_by | null)}
+export interface transactions_order_by {block_time?: (order_by | null),failed?: (order_by | null),indexer_account_dependencies_aggregate?: (indexer_account_dependencies_aggregate_order_by | null),main_ix_type?: (order_by | null),order?: (orders_order_by | null),payload?: (order_by | null),serializer_logic_version?: (order_by | null),slot?: (order_by | null),token_acct_balances_aggregate?: (token_acct_balances_aggregate_order_by | null),transactionWatchersByLatestTxSig_aggregate?: (transaction_watchers_aggregate_order_by | null),transaction_watcher_transactions_aggregate?: (transaction_watcher_transactions_aggregate_order_by | null),transaction_watchers_aggregate?: (transaction_watchers_aggregate_order_by | null),tx_sig?: (order_by | null),user_deposits_aggregate?: (user_deposits_aggregate_order_by | null)}
 
 
 /** primary key columns input for table: transactions */
@@ -16119,6 +20498,14 @@ export interface twap_chart_data_avg_fieldsGenqlSelection{
 export interface twap_chart_data_bool_exp {_and?: (twap_chart_data_bool_exp[] | null),_not?: (twap_chart_data_bool_exp | null),_or?: (twap_chart_data_bool_exp[] | null),interv?: (timestamptz_comparison_exp | null),market?: (markets_bool_exp | null),market_acct?: (String_comparison_exp | null),token_amount?: (bigint_comparison_exp | null)}
 
 
+/** input type for incrementing numeric columns in table "twap_chart_data" */
+export interface twap_chart_data_inc_input {token_amount?: (Scalars['bigint'] | null)}
+
+
+/** input type for inserting data into table "twap_chart_data" */
+export interface twap_chart_data_insert_input {interv?: (Scalars['timestamptz'] | null),market?: (markets_obj_rel_insert_input | null),market_acct?: (Scalars['String'] | null),token_amount?: (Scalars['bigint'] | null)}
+
+
 /** aggregate max on columns */
 export interface twap_chart_data_max_fieldsGenqlSelection{
     interv?: boolean | number
@@ -16139,8 +20526,27 @@ export interface twap_chart_data_min_fieldsGenqlSelection{
 }
 
 
+/** response of any mutation on the table "twap_chart_data" */
+export interface twap_chart_data_mutation_responseGenqlSelection{
+    /** number of rows affected by the mutation */
+    affected_rows?: boolean | number
+    /** data from the rows affected by the mutation */
+    returning?: twap_chart_dataGenqlSelection
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+
+/** on_conflict condition type for table "twap_chart_data" */
+export interface twap_chart_data_on_conflict {constraint: twap_chart_data_constraint,update_columns?: twap_chart_data_update_column[],where?: (twap_chart_data_bool_exp | null)}
+
+
 /** Ordering options when selecting data from "twap_chart_data". */
 export interface twap_chart_data_order_by {interv?: (order_by | null),market?: (markets_order_by | null),market_acct?: (order_by | null),token_amount?: (order_by | null)}
+
+
+/** input type for updating data in table "twap_chart_data" */
+export interface twap_chart_data_set_input {interv?: (Scalars['timestamptz'] | null),market_acct?: (Scalars['String'] | null),token_amount?: (Scalars['bigint'] | null)}
 
 
 /** aggregate stddev on columns */
@@ -16185,6 +20591,14 @@ export interface twap_chart_data_sum_fieldsGenqlSelection{
     __typename?: boolean | number
     __scalar?: boolean | number
 }
+
+export interface twap_chart_data_updates {
+/** increments the numeric columns with given value of the filtered values */
+_inc?: (twap_chart_data_inc_input | null),
+/** sets the columns of the filtered rows to the given values */
+_set?: (twap_chart_data_set_input | null),
+/** filter the rows which have to be updated */
+where: twap_chart_data_bool_exp}
 
 
 /** aggregate var_pop on columns */
@@ -16496,9 +20910,673 @@ export interface twaps_variance_fieldsGenqlSelection{
 export interface twaps_variance_order_by {last_observation?: (order_by | null),last_price?: (order_by | null),observation_agg?: (order_by | null),token_amount?: (order_by | null),updated_slot?: (order_by | null)}
 
 
+/** user_count_and_trade_count_per_proposalNative Query Arguments */
+export interface user_count_and_trade_count_per_proposal_arguments {
+/** the proposal account */
+proposal_acct?: (Scalars['String'] | null)}
+
+
+/** columns and relationships of "user_deposits" */
+export interface user_depositsGenqlSelection{
+    created_at?: boolean | number
+    mint_acct?: boolean | number
+    /** An object relationship */
+    token?: tokensGenqlSelection
+    token_amount?: boolean | number
+    /** An object relationship */
+    transaction?: transactionsGenqlSelection
+    tx_sig?: boolean | number
+    /** An object relationship */
+    user?: usersGenqlSelection
+    user_acct?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+
+/** aggregated selection of "user_deposits" */
+export interface user_deposits_aggregateGenqlSelection{
+    aggregate?: user_deposits_aggregate_fieldsGenqlSelection
+    nodes?: user_depositsGenqlSelection
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+export interface user_deposits_aggregate_bool_exp {count?: (user_deposits_aggregate_bool_exp_count | null)}
+
+export interface user_deposits_aggregate_bool_exp_count {arguments?: (user_deposits_select_column[] | null),distinct?: (Scalars['Boolean'] | null),filter?: (user_deposits_bool_exp | null),predicate: Int_comparison_exp}
+
+
+/** aggregate fields of "user_deposits" */
+export interface user_deposits_aggregate_fieldsGenqlSelection{
+    avg?: user_deposits_avg_fieldsGenqlSelection
+    count?: { __args: {columns?: (user_deposits_select_column[] | null), distinct?: (Scalars['Boolean'] | null)} } | boolean | number
+    max?: user_deposits_max_fieldsGenqlSelection
+    min?: user_deposits_min_fieldsGenqlSelection
+    stddev?: user_deposits_stddev_fieldsGenqlSelection
+    stddev_pop?: user_deposits_stddev_pop_fieldsGenqlSelection
+    stddev_samp?: user_deposits_stddev_samp_fieldsGenqlSelection
+    sum?: user_deposits_sum_fieldsGenqlSelection
+    var_pop?: user_deposits_var_pop_fieldsGenqlSelection
+    var_samp?: user_deposits_var_samp_fieldsGenqlSelection
+    variance?: user_deposits_variance_fieldsGenqlSelection
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+
+/** order by aggregate values of table "user_deposits" */
+export interface user_deposits_aggregate_order_by {avg?: (user_deposits_avg_order_by | null),count?: (order_by | null),max?: (user_deposits_max_order_by | null),min?: (user_deposits_min_order_by | null),stddev?: (user_deposits_stddev_order_by | null),stddev_pop?: (user_deposits_stddev_pop_order_by | null),stddev_samp?: (user_deposits_stddev_samp_order_by | null),sum?: (user_deposits_sum_order_by | null),var_pop?: (user_deposits_var_pop_order_by | null),var_samp?: (user_deposits_var_samp_order_by | null),variance?: (user_deposits_variance_order_by | null)}
+
+
+/** input type for inserting array relation for remote table "user_deposits" */
+export interface user_deposits_arr_rel_insert_input {data: user_deposits_insert_input[]}
+
+
+/** aggregate avg on columns */
+export interface user_deposits_avg_fieldsGenqlSelection{
+    token_amount?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+
+/** order by avg() on columns of table "user_deposits" */
+export interface user_deposits_avg_order_by {token_amount?: (order_by | null)}
+
+
+/** Boolean expression to filter rows from the table "user_deposits". All fields are combined with a logical 'AND'. */
+export interface user_deposits_bool_exp {_and?: (user_deposits_bool_exp[] | null),_not?: (user_deposits_bool_exp | null),_or?: (user_deposits_bool_exp[] | null),created_at?: (timestamptz_comparison_exp | null),mint_acct?: (String_comparison_exp | null),token?: (tokens_bool_exp | null),token_amount?: (bigint_comparison_exp | null),transaction?: (transactions_bool_exp | null),tx_sig?: (String_comparison_exp | null),user?: (users_bool_exp | null),user_acct?: (String_comparison_exp | null)}
+
+
+/** input type for incrementing numeric columns in table "user_deposits" */
+export interface user_deposits_inc_input {token_amount?: (Scalars['bigint'] | null)}
+
+
+/** input type for inserting data into table "user_deposits" */
+export interface user_deposits_insert_input {created_at?: (Scalars['timestamptz'] | null),mint_acct?: (Scalars['String'] | null),token?: (tokens_obj_rel_insert_input | null),token_amount?: (Scalars['bigint'] | null),transaction?: (transactions_obj_rel_insert_input | null),tx_sig?: (Scalars['String'] | null),user?: (users_obj_rel_insert_input | null),user_acct?: (Scalars['String'] | null)}
+
+
+/** aggregate max on columns */
+export interface user_deposits_max_fieldsGenqlSelection{
+    created_at?: boolean | number
+    mint_acct?: boolean | number
+    token_amount?: boolean | number
+    tx_sig?: boolean | number
+    user_acct?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+
+/** order by max() on columns of table "user_deposits" */
+export interface user_deposits_max_order_by {created_at?: (order_by | null),mint_acct?: (order_by | null),token_amount?: (order_by | null),tx_sig?: (order_by | null),user_acct?: (order_by | null)}
+
+
+/** aggregate min on columns */
+export interface user_deposits_min_fieldsGenqlSelection{
+    created_at?: boolean | number
+    mint_acct?: boolean | number
+    token_amount?: boolean | number
+    tx_sig?: boolean | number
+    user_acct?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+
+/** order by min() on columns of table "user_deposits" */
+export interface user_deposits_min_order_by {created_at?: (order_by | null),mint_acct?: (order_by | null),token_amount?: (order_by | null),tx_sig?: (order_by | null),user_acct?: (order_by | null)}
+
+
+/** response of any mutation on the table "user_deposits" */
+export interface user_deposits_mutation_responseGenqlSelection{
+    /** number of rows affected by the mutation */
+    affected_rows?: boolean | number
+    /** data from the rows affected by the mutation */
+    returning?: user_depositsGenqlSelection
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+
+/** Ordering options when selecting data from "user_deposits". */
+export interface user_deposits_order_by {created_at?: (order_by | null),mint_acct?: (order_by | null),token?: (tokens_order_by | null),token_amount?: (order_by | null),transaction?: (transactions_order_by | null),tx_sig?: (order_by | null),user?: (users_order_by | null),user_acct?: (order_by | null)}
+
+
+/** input type for updating data in table "user_deposits" */
+export interface user_deposits_set_input {created_at?: (Scalars['timestamptz'] | null),mint_acct?: (Scalars['String'] | null),token_amount?: (Scalars['bigint'] | null),tx_sig?: (Scalars['String'] | null),user_acct?: (Scalars['String'] | null)}
+
+
+/** aggregate stddev on columns */
+export interface user_deposits_stddev_fieldsGenqlSelection{
+    token_amount?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+
+/** order by stddev() on columns of table "user_deposits" */
+export interface user_deposits_stddev_order_by {token_amount?: (order_by | null)}
+
+
+/** aggregate stddev_pop on columns */
+export interface user_deposits_stddev_pop_fieldsGenqlSelection{
+    token_amount?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+
+/** order by stddev_pop() on columns of table "user_deposits" */
+export interface user_deposits_stddev_pop_order_by {token_amount?: (order_by | null)}
+
+
+/** aggregate stddev_samp on columns */
+export interface user_deposits_stddev_samp_fieldsGenqlSelection{
+    token_amount?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+
+/** order by stddev_samp() on columns of table "user_deposits" */
+export interface user_deposits_stddev_samp_order_by {token_amount?: (order_by | null)}
+
+
+/** Streaming cursor of the table "user_deposits" */
+export interface user_deposits_stream_cursor_input {
+/** Stream column input with initial value */
+initial_value: user_deposits_stream_cursor_value_input,
+/** cursor ordering */
+ordering?: (cursor_ordering | null)}
+
+
+/** Initial value of the column from where the streaming should start */
+export interface user_deposits_stream_cursor_value_input {created_at?: (Scalars['timestamptz'] | null),mint_acct?: (Scalars['String'] | null),token_amount?: (Scalars['bigint'] | null),tx_sig?: (Scalars['String'] | null),user_acct?: (Scalars['String'] | null)}
+
+
+/** aggregate sum on columns */
+export interface user_deposits_sum_fieldsGenqlSelection{
+    token_amount?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+
+/** order by sum() on columns of table "user_deposits" */
+export interface user_deposits_sum_order_by {token_amount?: (order_by | null)}
+
+export interface user_deposits_updates {
+/** increments the numeric columns with given value of the filtered values */
+_inc?: (user_deposits_inc_input | null),
+/** sets the columns of the filtered rows to the given values */
+_set?: (user_deposits_set_input | null),
+/** filter the rows which have to be updated */
+where: user_deposits_bool_exp}
+
+
+/** aggregate var_pop on columns */
+export interface user_deposits_var_pop_fieldsGenqlSelection{
+    token_amount?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+
+/** order by var_pop() on columns of table "user_deposits" */
+export interface user_deposits_var_pop_order_by {token_amount?: (order_by | null)}
+
+
+/** aggregate var_samp on columns */
+export interface user_deposits_var_samp_fieldsGenqlSelection{
+    token_amount?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+
+/** order by var_samp() on columns of table "user_deposits" */
+export interface user_deposits_var_samp_order_by {token_amount?: (order_by | null)}
+
+
+/** aggregate variance on columns */
+export interface user_deposits_variance_fieldsGenqlSelection{
+    token_amount?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+
+/** order by variance() on columns of table "user_deposits" */
+export interface user_deposits_variance_order_by {token_amount?: (order_by | null)}
+
+
+/** columns and relationships of "user_performance" */
+export interface user_performanceGenqlSelection{
+    buy_orders_count?: boolean | number
+    created_at?: boolean | number
+    /** An object relationship */
+    dao?: daosGenqlSelection
+    dao_acct?: boolean | number
+    /** An object relationship */
+    proposal?: proposalsGenqlSelection
+    proposal_acct?: boolean | number
+    sell_orders_count?: boolean | number
+    tokens_bought?: boolean | number
+    tokens_bought_resolving_market?: boolean | number
+    /** amount of tokens sold */
+    tokens_sold?: boolean | number
+    tokens_sold_resolving_market?: boolean | number
+    total_volume?: boolean | number
+    updated_at?: boolean | number
+    /** An object relationship */
+    user?: usersGenqlSelection
+    user_acct?: boolean | number
+    volume_bought?: boolean | number
+    volume_bought_resolving_market?: boolean | number
+    volume_sold?: boolean | number
+    volume_sold_resolving_market?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+
+/** aggregated selection of "user_performance" */
+export interface user_performance_aggregateGenqlSelection{
+    aggregate?: user_performance_aggregate_fieldsGenqlSelection
+    nodes?: user_performanceGenqlSelection
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+export interface user_performance_aggregate_bool_exp {count?: (user_performance_aggregate_bool_exp_count | null)}
+
+export interface user_performance_aggregate_bool_exp_count {arguments?: (user_performance_select_column[] | null),distinct?: (Scalars['Boolean'] | null),filter?: (user_performance_bool_exp | null),predicate: Int_comparison_exp}
+
+
+/** aggregate fields of "user_performance" */
+export interface user_performance_aggregate_fieldsGenqlSelection{
+    avg?: user_performance_avg_fieldsGenqlSelection
+    count?: { __args: {columns?: (user_performance_select_column[] | null), distinct?: (Scalars['Boolean'] | null)} } | boolean | number
+    max?: user_performance_max_fieldsGenqlSelection
+    min?: user_performance_min_fieldsGenqlSelection
+    stddev?: user_performance_stddev_fieldsGenqlSelection
+    stddev_pop?: user_performance_stddev_pop_fieldsGenqlSelection
+    stddev_samp?: user_performance_stddev_samp_fieldsGenqlSelection
+    sum?: user_performance_sum_fieldsGenqlSelection
+    var_pop?: user_performance_var_pop_fieldsGenqlSelection
+    var_samp?: user_performance_var_samp_fieldsGenqlSelection
+    variance?: user_performance_variance_fieldsGenqlSelection
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+
+/** order by aggregate values of table "user_performance" */
+export interface user_performance_aggregate_order_by {avg?: (user_performance_avg_order_by | null),count?: (order_by | null),max?: (user_performance_max_order_by | null),min?: (user_performance_min_order_by | null),stddev?: (user_performance_stddev_order_by | null),stddev_pop?: (user_performance_stddev_pop_order_by | null),stddev_samp?: (user_performance_stddev_samp_order_by | null),sum?: (user_performance_sum_order_by | null),var_pop?: (user_performance_var_pop_order_by | null),var_samp?: (user_performance_var_samp_order_by | null),variance?: (user_performance_variance_order_by | null)}
+
+
+/** input type for inserting array relation for remote table "user_performance" */
+export interface user_performance_arr_rel_insert_input {data: user_performance_insert_input[],
+/** upsert condition */
+on_conflict?: (user_performance_on_conflict | null)}
+
+
+/** aggregate avg on columns */
+export interface user_performance_avg_fieldsGenqlSelection{
+    buy_orders_count?: boolean | number
+    sell_orders_count?: boolean | number
+    tokens_bought?: boolean | number
+    tokens_bought_resolving_market?: boolean | number
+    /** amount of tokens sold */
+    tokens_sold?: boolean | number
+    tokens_sold_resolving_market?: boolean | number
+    total_volume?: boolean | number
+    volume_bought?: boolean | number
+    volume_bought_resolving_market?: boolean | number
+    volume_sold?: boolean | number
+    volume_sold_resolving_market?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+
+/** order by avg() on columns of table "user_performance" */
+export interface user_performance_avg_order_by {buy_orders_count?: (order_by | null),sell_orders_count?: (order_by | null),tokens_bought?: (order_by | null),tokens_bought_resolving_market?: (order_by | null),
+/** amount of tokens sold */
+tokens_sold?: (order_by | null),tokens_sold_resolving_market?: (order_by | null),total_volume?: (order_by | null),volume_bought?: (order_by | null),volume_bought_resolving_market?: (order_by | null),volume_sold?: (order_by | null),volume_sold_resolving_market?: (order_by | null)}
+
+
+/** Boolean expression to filter rows from the table "user_performance". All fields are combined with a logical 'AND'. */
+export interface user_performance_bool_exp {_and?: (user_performance_bool_exp[] | null),_not?: (user_performance_bool_exp | null),_or?: (user_performance_bool_exp[] | null),buy_orders_count?: (bigint_comparison_exp | null),created_at?: (timestamptz_comparison_exp | null),dao?: (daos_bool_exp | null),dao_acct?: (String_comparison_exp | null),proposal?: (proposals_bool_exp | null),proposal_acct?: (String_comparison_exp | null),sell_orders_count?: (bigint_comparison_exp | null),tokens_bought?: (numeric_comparison_exp | null),tokens_bought_resolving_market?: (numeric_comparison_exp | null),tokens_sold?: (numeric_comparison_exp | null),tokens_sold_resolving_market?: (numeric_comparison_exp | null),total_volume?: (numeric_comparison_exp | null),updated_at?: (timestamptz_comparison_exp | null),user?: (users_bool_exp | null),user_acct?: (String_comparison_exp | null),volume_bought?: (numeric_comparison_exp | null),volume_bought_resolving_market?: (numeric_comparison_exp | null),volume_sold?: (numeric_comparison_exp | null),volume_sold_resolving_market?: (numeric_comparison_exp | null)}
+
+
+/** input type for incrementing numeric columns in table "user_performance" */
+export interface user_performance_inc_input {buy_orders_count?: (Scalars['bigint'] | null),sell_orders_count?: (Scalars['bigint'] | null),tokens_bought?: (Scalars['numeric'] | null),tokens_bought_resolving_market?: (Scalars['numeric'] | null),
+/** amount of tokens sold */
+tokens_sold?: (Scalars['numeric'] | null),tokens_sold_resolving_market?: (Scalars['numeric'] | null),volume_bought?: (Scalars['numeric'] | null),volume_bought_resolving_market?: (Scalars['numeric'] | null),volume_sold?: (Scalars['numeric'] | null),volume_sold_resolving_market?: (Scalars['numeric'] | null)}
+
+
+/** input type for inserting data into table "user_performance" */
+export interface user_performance_insert_input {buy_orders_count?: (Scalars['bigint'] | null),created_at?: (Scalars['timestamptz'] | null),dao?: (daos_obj_rel_insert_input | null),dao_acct?: (Scalars['String'] | null),proposal?: (proposals_obj_rel_insert_input | null),proposal_acct?: (Scalars['String'] | null),sell_orders_count?: (Scalars['bigint'] | null),tokens_bought?: (Scalars['numeric'] | null),tokens_bought_resolving_market?: (Scalars['numeric'] | null),
+/** amount of tokens sold */
+tokens_sold?: (Scalars['numeric'] | null),tokens_sold_resolving_market?: (Scalars['numeric'] | null),updated_at?: (Scalars['timestamptz'] | null),user?: (users_obj_rel_insert_input | null),user_acct?: (Scalars['String'] | null),volume_bought?: (Scalars['numeric'] | null),volume_bought_resolving_market?: (Scalars['numeric'] | null),volume_sold?: (Scalars['numeric'] | null),volume_sold_resolving_market?: (Scalars['numeric'] | null)}
+
+
+/** aggregate max on columns */
+export interface user_performance_max_fieldsGenqlSelection{
+    buy_orders_count?: boolean | number
+    created_at?: boolean | number
+    dao_acct?: boolean | number
+    proposal_acct?: boolean | number
+    sell_orders_count?: boolean | number
+    tokens_bought?: boolean | number
+    tokens_bought_resolving_market?: boolean | number
+    /** amount of tokens sold */
+    tokens_sold?: boolean | number
+    tokens_sold_resolving_market?: boolean | number
+    total_volume?: boolean | number
+    updated_at?: boolean | number
+    user_acct?: boolean | number
+    volume_bought?: boolean | number
+    volume_bought_resolving_market?: boolean | number
+    volume_sold?: boolean | number
+    volume_sold_resolving_market?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+
+/** order by max() on columns of table "user_performance" */
+export interface user_performance_max_order_by {buy_orders_count?: (order_by | null),created_at?: (order_by | null),dao_acct?: (order_by | null),proposal_acct?: (order_by | null),sell_orders_count?: (order_by | null),tokens_bought?: (order_by | null),tokens_bought_resolving_market?: (order_by | null),
+/** amount of tokens sold */
+tokens_sold?: (order_by | null),tokens_sold_resolving_market?: (order_by | null),total_volume?: (order_by | null),updated_at?: (order_by | null),user_acct?: (order_by | null),volume_bought?: (order_by | null),volume_bought_resolving_market?: (order_by | null),volume_sold?: (order_by | null),volume_sold_resolving_market?: (order_by | null)}
+
+
+/** aggregate min on columns */
+export interface user_performance_min_fieldsGenqlSelection{
+    buy_orders_count?: boolean | number
+    created_at?: boolean | number
+    dao_acct?: boolean | number
+    proposal_acct?: boolean | number
+    sell_orders_count?: boolean | number
+    tokens_bought?: boolean | number
+    tokens_bought_resolving_market?: boolean | number
+    /** amount of tokens sold */
+    tokens_sold?: boolean | number
+    tokens_sold_resolving_market?: boolean | number
+    total_volume?: boolean | number
+    updated_at?: boolean | number
+    user_acct?: boolean | number
+    volume_bought?: boolean | number
+    volume_bought_resolving_market?: boolean | number
+    volume_sold?: boolean | number
+    volume_sold_resolving_market?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+
+/** order by min() on columns of table "user_performance" */
+export interface user_performance_min_order_by {buy_orders_count?: (order_by | null),created_at?: (order_by | null),dao_acct?: (order_by | null),proposal_acct?: (order_by | null),sell_orders_count?: (order_by | null),tokens_bought?: (order_by | null),tokens_bought_resolving_market?: (order_by | null),
+/** amount of tokens sold */
+tokens_sold?: (order_by | null),tokens_sold_resolving_market?: (order_by | null),total_volume?: (order_by | null),updated_at?: (order_by | null),user_acct?: (order_by | null),volume_bought?: (order_by | null),volume_bought_resolving_market?: (order_by | null),volume_sold?: (order_by | null),volume_sold_resolving_market?: (order_by | null)}
+
+
+/** response of any mutation on the table "user_performance" */
+export interface user_performance_mutation_responseGenqlSelection{
+    /** number of rows affected by the mutation */
+    affected_rows?: boolean | number
+    /** data from the rows affected by the mutation */
+    returning?: user_performanceGenqlSelection
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+
+/** on_conflict condition type for table "user_performance" */
+export interface user_performance_on_conflict {constraint: user_performance_constraint,update_columns?: user_performance_update_column[],where?: (user_performance_bool_exp | null)}
+
+
+/** Ordering options when selecting data from "user_performance". */
+export interface user_performance_order_by {buy_orders_count?: (order_by | null),created_at?: (order_by | null),dao?: (daos_order_by | null),dao_acct?: (order_by | null),proposal?: (proposals_order_by | null),proposal_acct?: (order_by | null),sell_orders_count?: (order_by | null),tokens_bought?: (order_by | null),tokens_bought_resolving_market?: (order_by | null),tokens_sold?: (order_by | null),tokens_sold_resolving_market?: (order_by | null),total_volume?: (order_by | null),updated_at?: (order_by | null),user?: (users_order_by | null),user_acct?: (order_by | null),volume_bought?: (order_by | null),volume_bought_resolving_market?: (order_by | null),volume_sold?: (order_by | null),volume_sold_resolving_market?: (order_by | null)}
+
+
+/** primary key columns input for table: user_performance */
+export interface user_performance_pk_columns_input {proposal_acct: Scalars['String'],user_acct: Scalars['String']}
+
+
+/** input type for updating data in table "user_performance" */
+export interface user_performance_set_input {buy_orders_count?: (Scalars['bigint'] | null),created_at?: (Scalars['timestamptz'] | null),dao_acct?: (Scalars['String'] | null),proposal_acct?: (Scalars['String'] | null),sell_orders_count?: (Scalars['bigint'] | null),tokens_bought?: (Scalars['numeric'] | null),tokens_bought_resolving_market?: (Scalars['numeric'] | null),
+/** amount of tokens sold */
+tokens_sold?: (Scalars['numeric'] | null),tokens_sold_resolving_market?: (Scalars['numeric'] | null),updated_at?: (Scalars['timestamptz'] | null),user_acct?: (Scalars['String'] | null),volume_bought?: (Scalars['numeric'] | null),volume_bought_resolving_market?: (Scalars['numeric'] | null),volume_sold?: (Scalars['numeric'] | null),volume_sold_resolving_market?: (Scalars['numeric'] | null)}
+
+
+/** aggregate stddev on columns */
+export interface user_performance_stddev_fieldsGenqlSelection{
+    buy_orders_count?: boolean | number
+    sell_orders_count?: boolean | number
+    tokens_bought?: boolean | number
+    tokens_bought_resolving_market?: boolean | number
+    /** amount of tokens sold */
+    tokens_sold?: boolean | number
+    tokens_sold_resolving_market?: boolean | number
+    total_volume?: boolean | number
+    volume_bought?: boolean | number
+    volume_bought_resolving_market?: boolean | number
+    volume_sold?: boolean | number
+    volume_sold_resolving_market?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+
+/** order by stddev() on columns of table "user_performance" */
+export interface user_performance_stddev_order_by {buy_orders_count?: (order_by | null),sell_orders_count?: (order_by | null),tokens_bought?: (order_by | null),tokens_bought_resolving_market?: (order_by | null),
+/** amount of tokens sold */
+tokens_sold?: (order_by | null),tokens_sold_resolving_market?: (order_by | null),total_volume?: (order_by | null),volume_bought?: (order_by | null),volume_bought_resolving_market?: (order_by | null),volume_sold?: (order_by | null),volume_sold_resolving_market?: (order_by | null)}
+
+
+/** aggregate stddev_pop on columns */
+export interface user_performance_stddev_pop_fieldsGenqlSelection{
+    buy_orders_count?: boolean | number
+    sell_orders_count?: boolean | number
+    tokens_bought?: boolean | number
+    tokens_bought_resolving_market?: boolean | number
+    /** amount of tokens sold */
+    tokens_sold?: boolean | number
+    tokens_sold_resolving_market?: boolean | number
+    total_volume?: boolean | number
+    volume_bought?: boolean | number
+    volume_bought_resolving_market?: boolean | number
+    volume_sold?: boolean | number
+    volume_sold_resolving_market?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+
+/** order by stddev_pop() on columns of table "user_performance" */
+export interface user_performance_stddev_pop_order_by {buy_orders_count?: (order_by | null),sell_orders_count?: (order_by | null),tokens_bought?: (order_by | null),tokens_bought_resolving_market?: (order_by | null),
+/** amount of tokens sold */
+tokens_sold?: (order_by | null),tokens_sold_resolving_market?: (order_by | null),total_volume?: (order_by | null),volume_bought?: (order_by | null),volume_bought_resolving_market?: (order_by | null),volume_sold?: (order_by | null),volume_sold_resolving_market?: (order_by | null)}
+
+
+/** aggregate stddev_samp on columns */
+export interface user_performance_stddev_samp_fieldsGenqlSelection{
+    buy_orders_count?: boolean | number
+    sell_orders_count?: boolean | number
+    tokens_bought?: boolean | number
+    tokens_bought_resolving_market?: boolean | number
+    /** amount of tokens sold */
+    tokens_sold?: boolean | number
+    tokens_sold_resolving_market?: boolean | number
+    total_volume?: boolean | number
+    volume_bought?: boolean | number
+    volume_bought_resolving_market?: boolean | number
+    volume_sold?: boolean | number
+    volume_sold_resolving_market?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+
+/** order by stddev_samp() on columns of table "user_performance" */
+export interface user_performance_stddev_samp_order_by {buy_orders_count?: (order_by | null),sell_orders_count?: (order_by | null),tokens_bought?: (order_by | null),tokens_bought_resolving_market?: (order_by | null),
+/** amount of tokens sold */
+tokens_sold?: (order_by | null),tokens_sold_resolving_market?: (order_by | null),total_volume?: (order_by | null),volume_bought?: (order_by | null),volume_bought_resolving_market?: (order_by | null),volume_sold?: (order_by | null),volume_sold_resolving_market?: (order_by | null)}
+
+
+/** Streaming cursor of the table "user_performance" */
+export interface user_performance_stream_cursor_input {
+/** Stream column input with initial value */
+initial_value: user_performance_stream_cursor_value_input,
+/** cursor ordering */
+ordering?: (cursor_ordering | null)}
+
+
+/** Initial value of the column from where the streaming should start */
+export interface user_performance_stream_cursor_value_input {buy_orders_count?: (Scalars['bigint'] | null),created_at?: (Scalars['timestamptz'] | null),dao_acct?: (Scalars['String'] | null),proposal_acct?: (Scalars['String'] | null),sell_orders_count?: (Scalars['bigint'] | null),tokens_bought?: (Scalars['numeric'] | null),tokens_bought_resolving_market?: (Scalars['numeric'] | null),
+/** amount of tokens sold */
+tokens_sold?: (Scalars['numeric'] | null),tokens_sold_resolving_market?: (Scalars['numeric'] | null),total_volume?: (Scalars['numeric'] | null),updated_at?: (Scalars['timestamptz'] | null),user_acct?: (Scalars['String'] | null),volume_bought?: (Scalars['numeric'] | null),volume_bought_resolving_market?: (Scalars['numeric'] | null),volume_sold?: (Scalars['numeric'] | null),volume_sold_resolving_market?: (Scalars['numeric'] | null)}
+
+
+/** aggregate sum on columns */
+export interface user_performance_sum_fieldsGenqlSelection{
+    buy_orders_count?: boolean | number
+    sell_orders_count?: boolean | number
+    tokens_bought?: boolean | number
+    tokens_bought_resolving_market?: boolean | number
+    /** amount of tokens sold */
+    tokens_sold?: boolean | number
+    tokens_sold_resolving_market?: boolean | number
+    total_volume?: boolean | number
+    volume_bought?: boolean | number
+    volume_bought_resolving_market?: boolean | number
+    volume_sold?: boolean | number
+    volume_sold_resolving_market?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+
+/** order by sum() on columns of table "user_performance" */
+export interface user_performance_sum_order_by {buy_orders_count?: (order_by | null),sell_orders_count?: (order_by | null),tokens_bought?: (order_by | null),tokens_bought_resolving_market?: (order_by | null),
+/** amount of tokens sold */
+tokens_sold?: (order_by | null),tokens_sold_resolving_market?: (order_by | null),total_volume?: (order_by | null),volume_bought?: (order_by | null),volume_bought_resolving_market?: (order_by | null),volume_sold?: (order_by | null),volume_sold_resolving_market?: (order_by | null)}
+
+export interface user_performance_updates {
+/** increments the numeric columns with given value of the filtered values */
+_inc?: (user_performance_inc_input | null),
+/** sets the columns of the filtered rows to the given values */
+_set?: (user_performance_set_input | null),
+/** filter the rows which have to be updated */
+where: user_performance_bool_exp}
+
+
+/** aggregate var_pop on columns */
+export interface user_performance_var_pop_fieldsGenqlSelection{
+    buy_orders_count?: boolean | number
+    sell_orders_count?: boolean | number
+    tokens_bought?: boolean | number
+    tokens_bought_resolving_market?: boolean | number
+    /** amount of tokens sold */
+    tokens_sold?: boolean | number
+    tokens_sold_resolving_market?: boolean | number
+    total_volume?: boolean | number
+    volume_bought?: boolean | number
+    volume_bought_resolving_market?: boolean | number
+    volume_sold?: boolean | number
+    volume_sold_resolving_market?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+
+/** order by var_pop() on columns of table "user_performance" */
+export interface user_performance_var_pop_order_by {buy_orders_count?: (order_by | null),sell_orders_count?: (order_by | null),tokens_bought?: (order_by | null),tokens_bought_resolving_market?: (order_by | null),
+/** amount of tokens sold */
+tokens_sold?: (order_by | null),tokens_sold_resolving_market?: (order_by | null),total_volume?: (order_by | null),volume_bought?: (order_by | null),volume_bought_resolving_market?: (order_by | null),volume_sold?: (order_by | null),volume_sold_resolving_market?: (order_by | null)}
+
+
+/** aggregate var_samp on columns */
+export interface user_performance_var_samp_fieldsGenqlSelection{
+    buy_orders_count?: boolean | number
+    sell_orders_count?: boolean | number
+    tokens_bought?: boolean | number
+    tokens_bought_resolving_market?: boolean | number
+    /** amount of tokens sold */
+    tokens_sold?: boolean | number
+    tokens_sold_resolving_market?: boolean | number
+    total_volume?: boolean | number
+    volume_bought?: boolean | number
+    volume_bought_resolving_market?: boolean | number
+    volume_sold?: boolean | number
+    volume_sold_resolving_market?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+
+/** order by var_samp() on columns of table "user_performance" */
+export interface user_performance_var_samp_order_by {buy_orders_count?: (order_by | null),sell_orders_count?: (order_by | null),tokens_bought?: (order_by | null),tokens_bought_resolving_market?: (order_by | null),
+/** amount of tokens sold */
+tokens_sold?: (order_by | null),tokens_sold_resolving_market?: (order_by | null),total_volume?: (order_by | null),volume_bought?: (order_by | null),volume_bought_resolving_market?: (order_by | null),volume_sold?: (order_by | null),volume_sold_resolving_market?: (order_by | null)}
+
+
+/** aggregate variance on columns */
+export interface user_performance_variance_fieldsGenqlSelection{
+    buy_orders_count?: boolean | number
+    sell_orders_count?: boolean | number
+    tokens_bought?: boolean | number
+    tokens_bought_resolving_market?: boolean | number
+    /** amount of tokens sold */
+    tokens_sold?: boolean | number
+    tokens_sold_resolving_market?: boolean | number
+    total_volume?: boolean | number
+    volume_bought?: boolean | number
+    volume_bought_resolving_market?: boolean | number
+    volume_sold?: boolean | number
+    volume_sold_resolving_market?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+
+/** order by variance() on columns of table "user_performance" */
+export interface user_performance_variance_order_by {buy_orders_count?: (order_by | null),sell_orders_count?: (order_by | null),tokens_bought?: (order_by | null),tokens_bought_resolving_market?: (order_by | null),
+/** amount of tokens sold */
+tokens_sold?: (order_by | null),tokens_sold_resolving_market?: (order_by | null),total_volume?: (order_by | null),volume_bought?: (order_by | null),volume_bought_resolving_market?: (order_by | null),volume_sold?: (order_by | null),volume_sold_resolving_market?: (order_by | null)}
+
+
 /** columns and relationships of "users" */
 export interface usersGenqlSelection{
     created_at?: boolean | number
+    /** An array relationship */
+    orders?: (ordersGenqlSelection & { __args?: {
+    /** distinct select on columns */
+    distinct_on?: (orders_select_column[] | null), 
+    /** limit the number of rows returned */
+    limit?: (Scalars['Int'] | null), 
+    /** skip the first n rows. Use only with order_by */
+    offset?: (Scalars['Int'] | null), 
+    /** sort the rows by one or more columns */
+    order_by?: (orders_order_by[] | null), 
+    /** filter the rows returned */
+    where?: (orders_bool_exp | null)} })
+    /** An aggregate relationship */
+    orders_aggregate?: (orders_aggregateGenqlSelection & { __args?: {
+    /** distinct select on columns */
+    distinct_on?: (orders_select_column[] | null), 
+    /** limit the number of rows returned */
+    limit?: (Scalars['Int'] | null), 
+    /** skip the first n rows. Use only with order_by */
+    offset?: (Scalars['Int'] | null), 
+    /** sort the rows by one or more columns */
+    order_by?: (orders_order_by[] | null), 
+    /** filter the rows returned */
+    where?: (orders_bool_exp | null)} })
     /** An array relationship */
     sessions?: (sessionsGenqlSelection & { __args?: {
     /** distinct select on columns */
@@ -16524,6 +21602,54 @@ export interface usersGenqlSelection{
     /** filter the rows returned */
     where?: (sessions_bool_exp | null)} })
     user_acct?: boolean | number
+    /** An array relationship */
+    user_deposits?: (user_depositsGenqlSelection & { __args?: {
+    /** distinct select on columns */
+    distinct_on?: (user_deposits_select_column[] | null), 
+    /** limit the number of rows returned */
+    limit?: (Scalars['Int'] | null), 
+    /** skip the first n rows. Use only with order_by */
+    offset?: (Scalars['Int'] | null), 
+    /** sort the rows by one or more columns */
+    order_by?: (user_deposits_order_by[] | null), 
+    /** filter the rows returned */
+    where?: (user_deposits_bool_exp | null)} })
+    /** An aggregate relationship */
+    user_deposits_aggregate?: (user_deposits_aggregateGenqlSelection & { __args?: {
+    /** distinct select on columns */
+    distinct_on?: (user_deposits_select_column[] | null), 
+    /** limit the number of rows returned */
+    limit?: (Scalars['Int'] | null), 
+    /** skip the first n rows. Use only with order_by */
+    offset?: (Scalars['Int'] | null), 
+    /** sort the rows by one or more columns */
+    order_by?: (user_deposits_order_by[] | null), 
+    /** filter the rows returned */
+    where?: (user_deposits_bool_exp | null)} })
+    /** An array relationship */
+    user_performances?: (user_performanceGenqlSelection & { __args?: {
+    /** distinct select on columns */
+    distinct_on?: (user_performance_select_column[] | null), 
+    /** limit the number of rows returned */
+    limit?: (Scalars['Int'] | null), 
+    /** skip the first n rows. Use only with order_by */
+    offset?: (Scalars['Int'] | null), 
+    /** sort the rows by one or more columns */
+    order_by?: (user_performance_order_by[] | null), 
+    /** filter the rows returned */
+    where?: (user_performance_bool_exp | null)} })
+    /** An aggregate relationship */
+    user_performances_aggregate?: (user_performance_aggregateGenqlSelection & { __args?: {
+    /** distinct select on columns */
+    distinct_on?: (user_performance_select_column[] | null), 
+    /** limit the number of rows returned */
+    limit?: (Scalars['Int'] | null), 
+    /** skip the first n rows. Use only with order_by */
+    offset?: (Scalars['Int'] | null), 
+    /** sort the rows by one or more columns */
+    order_by?: (user_performance_order_by[] | null), 
+    /** filter the rows returned */
+    where?: (user_performance_bool_exp | null)} })
     __typename?: boolean | number
     __scalar?: boolean | number
 }
@@ -16549,11 +21675,11 @@ export interface users_aggregate_fieldsGenqlSelection{
 
 
 /** Boolean expression to filter rows from the table "users". All fields are combined with a logical 'AND'. */
-export interface users_bool_exp {_and?: (users_bool_exp[] | null),_not?: (users_bool_exp | null),_or?: (users_bool_exp[] | null),created_at?: (timestamptz_comparison_exp | null),sessions?: (sessions_bool_exp | null),sessions_aggregate?: (sessions_aggregate_bool_exp | null),user_acct?: (String_comparison_exp | null)}
+export interface users_bool_exp {_and?: (users_bool_exp[] | null),_not?: (users_bool_exp | null),_or?: (users_bool_exp[] | null),created_at?: (timestamptz_comparison_exp | null),orders?: (orders_bool_exp | null),orders_aggregate?: (orders_aggregate_bool_exp | null),sessions?: (sessions_bool_exp | null),sessions_aggregate?: (sessions_aggregate_bool_exp | null),user_acct?: (String_comparison_exp | null),user_deposits?: (user_deposits_bool_exp | null),user_deposits_aggregate?: (user_deposits_aggregate_bool_exp | null),user_performances?: (user_performance_bool_exp | null),user_performances_aggregate?: (user_performance_aggregate_bool_exp | null)}
 
 
 /** input type for inserting data into table "users" */
-export interface users_insert_input {created_at?: (Scalars['timestamptz'] | null),sessions?: (sessions_arr_rel_insert_input | null),user_acct?: (Scalars['String'] | null)}
+export interface users_insert_input {created_at?: (Scalars['timestamptz'] | null),orders?: (orders_arr_rel_insert_input | null),sessions?: (sessions_arr_rel_insert_input | null),user_acct?: (Scalars['String'] | null),user_deposits?: (user_deposits_arr_rel_insert_input | null),user_performances?: (user_performance_arr_rel_insert_input | null)}
 
 
 /** aggregate max on columns */
@@ -16596,7 +21722,7 @@ export interface users_on_conflict {constraint: users_constraint,update_columns?
 
 
 /** Ordering options when selecting data from "users". */
-export interface users_order_by {created_at?: (order_by | null),sessions_aggregate?: (sessions_aggregate_order_by | null),user_acct?: (order_by | null)}
+export interface users_order_by {created_at?: (order_by | null),orders_aggregate?: (orders_aggregate_order_by | null),sessions_aggregate?: (sessions_aggregate_order_by | null),user_acct?: (order_by | null),user_deposits_aggregate?: (user_deposits_aggregate_order_by | null),user_performances_aggregate?: (user_performance_aggregate_order_by | null)}
 
 
 /** primary key columns input for table: users */
@@ -16627,6 +21753,2082 @@ where: users_bool_exp}
 
 /** Boolean expression to compare columns of type "uuid". All fields are combined with logical 'AND'. */
 export interface uuid_comparison_exp {_eq?: (Scalars['uuid'] | null),_gt?: (Scalars['uuid'] | null),_gte?: (Scalars['uuid'] | null),_in?: (Scalars['uuid'][] | null),_is_null?: (Scalars['Boolean'] | null),_lt?: (Scalars['uuid'] | null),_lte?: (Scalars['uuid'] | null),_neq?: (Scalars['uuid'] | null),_nin?: (Scalars['uuid'][] | null)}
+
+
+/** columns and relationships of "v0_4_amms" */
+export interface v0_4_ammsGenqlSelection{
+    amm_addr?: boolean | number
+    base_mint_addr?: boolean | number
+    base_reserves?: boolean | number
+    /** An object relationship */
+    base_token?: tokensGenqlSelection
+    created_at_slot?: boolean | number
+    /** An array relationship */
+    decisions?: (v0_4_metric_decisionsGenqlSelection & { __args?: {
+    /** distinct select on columns */
+    distinct_on?: (v0_4_metric_decisions_select_column[] | null), 
+    /** limit the number of rows returned */
+    limit?: (Scalars['Int'] | null), 
+    /** skip the first n rows. Use only with order_by */
+    offset?: (Scalars['Int'] | null), 
+    /** sort the rows by one or more columns */
+    order_by?: (v0_4_metric_decisions_order_by[] | null), 
+    /** filter the rows returned */
+    where?: (v0_4_metric_decisions_bool_exp | null)} })
+    /** An aggregate relationship */
+    decisions_aggregate?: (v0_4_metric_decisions_aggregateGenqlSelection & { __args?: {
+    /** distinct select on columns */
+    distinct_on?: (v0_4_metric_decisions_select_column[] | null), 
+    /** limit the number of rows returned */
+    limit?: (Scalars['Int'] | null), 
+    /** skip the first n rows. Use only with order_by */
+    offset?: (Scalars['Int'] | null), 
+    /** sort the rows by one or more columns */
+    order_by?: (v0_4_metric_decisions_order_by[] | null), 
+    /** filter the rows returned */
+    where?: (v0_4_metric_decisions_bool_exp | null)} })
+    inserted_at?: boolean | number
+    latest_amm_seq_num_applied?: boolean | number
+    lp_mint_addr?: boolean | number
+    /** An object relationship */
+    lp_token?: tokensGenqlSelection
+    quote_mint_addr?: boolean | number
+    quote_reserves?: boolean | number
+    /** An object relationship */
+    quote_token?: tokensGenqlSelection
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+
+/** aggregated selection of "v0_4_amms" */
+export interface v0_4_amms_aggregateGenqlSelection{
+    aggregate?: v0_4_amms_aggregate_fieldsGenqlSelection
+    nodes?: v0_4_ammsGenqlSelection
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+export interface v0_4_amms_aggregate_bool_exp {count?: (v0_4_amms_aggregate_bool_exp_count | null)}
+
+export interface v0_4_amms_aggregate_bool_exp_count {arguments?: (v0_4_amms_select_column[] | null),distinct?: (Scalars['Boolean'] | null),filter?: (v0_4_amms_bool_exp | null),predicate: Int_comparison_exp}
+
+
+/** aggregate fields of "v0_4_amms" */
+export interface v0_4_amms_aggregate_fieldsGenqlSelection{
+    avg?: v0_4_amms_avg_fieldsGenqlSelection
+    count?: { __args: {columns?: (v0_4_amms_select_column[] | null), distinct?: (Scalars['Boolean'] | null)} } | boolean | number
+    max?: v0_4_amms_max_fieldsGenqlSelection
+    min?: v0_4_amms_min_fieldsGenqlSelection
+    stddev?: v0_4_amms_stddev_fieldsGenqlSelection
+    stddev_pop?: v0_4_amms_stddev_pop_fieldsGenqlSelection
+    stddev_samp?: v0_4_amms_stddev_samp_fieldsGenqlSelection
+    sum?: v0_4_amms_sum_fieldsGenqlSelection
+    var_pop?: v0_4_amms_var_pop_fieldsGenqlSelection
+    var_samp?: v0_4_amms_var_samp_fieldsGenqlSelection
+    variance?: v0_4_amms_variance_fieldsGenqlSelection
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+
+/** order by aggregate values of table "v0_4_amms" */
+export interface v0_4_amms_aggregate_order_by {avg?: (v0_4_amms_avg_order_by | null),count?: (order_by | null),max?: (v0_4_amms_max_order_by | null),min?: (v0_4_amms_min_order_by | null),stddev?: (v0_4_amms_stddev_order_by | null),stddev_pop?: (v0_4_amms_stddev_pop_order_by | null),stddev_samp?: (v0_4_amms_stddev_samp_order_by | null),sum?: (v0_4_amms_sum_order_by | null),var_pop?: (v0_4_amms_var_pop_order_by | null),var_samp?: (v0_4_amms_var_samp_order_by | null),variance?: (v0_4_amms_variance_order_by | null)}
+
+
+/** input type for inserting array relation for remote table "v0_4_amms" */
+export interface v0_4_amms_arr_rel_insert_input {data: v0_4_amms_insert_input[],
+/** upsert condition */
+on_conflict?: (v0_4_amms_on_conflict | null)}
+
+
+/** aggregate avg on columns */
+export interface v0_4_amms_avg_fieldsGenqlSelection{
+    base_reserves?: boolean | number
+    created_at_slot?: boolean | number
+    latest_amm_seq_num_applied?: boolean | number
+    quote_reserves?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+
+/** order by avg() on columns of table "v0_4_amms" */
+export interface v0_4_amms_avg_order_by {base_reserves?: (order_by | null),created_at_slot?: (order_by | null),latest_amm_seq_num_applied?: (order_by | null),quote_reserves?: (order_by | null)}
+
+
+/** Boolean expression to filter rows from the table "v0_4_amms". All fields are combined with a logical 'AND'. */
+export interface v0_4_amms_bool_exp {_and?: (v0_4_amms_bool_exp[] | null),_not?: (v0_4_amms_bool_exp | null),_or?: (v0_4_amms_bool_exp[] | null),amm_addr?: (String_comparison_exp | null),base_mint_addr?: (String_comparison_exp | null),base_reserves?: (bigint_comparison_exp | null),base_token?: (tokens_bool_exp | null),created_at_slot?: (bigint_comparison_exp | null),decisions?: (v0_4_metric_decisions_bool_exp | null),decisions_aggregate?: (v0_4_metric_decisions_aggregate_bool_exp | null),inserted_at?: (timestamptz_comparison_exp | null),latest_amm_seq_num_applied?: (bigint_comparison_exp | null),lp_mint_addr?: (String_comparison_exp | null),lp_token?: (tokens_bool_exp | null),quote_mint_addr?: (String_comparison_exp | null),quote_reserves?: (bigint_comparison_exp | null),quote_token?: (tokens_bool_exp | null)}
+
+
+/** input type for incrementing numeric columns in table "v0_4_amms" */
+export interface v0_4_amms_inc_input {base_reserves?: (Scalars['bigint'] | null),created_at_slot?: (Scalars['bigint'] | null),latest_amm_seq_num_applied?: (Scalars['bigint'] | null),quote_reserves?: (Scalars['bigint'] | null)}
+
+
+/** input type for inserting data into table "v0_4_amms" */
+export interface v0_4_amms_insert_input {amm_addr?: (Scalars['String'] | null),base_mint_addr?: (Scalars['String'] | null),base_reserves?: (Scalars['bigint'] | null),base_token?: (tokens_obj_rel_insert_input | null),created_at_slot?: (Scalars['bigint'] | null),decisions?: (v0_4_metric_decisions_arr_rel_insert_input | null),inserted_at?: (Scalars['timestamptz'] | null),latest_amm_seq_num_applied?: (Scalars['bigint'] | null),lp_mint_addr?: (Scalars['String'] | null),lp_token?: (tokens_obj_rel_insert_input | null),quote_mint_addr?: (Scalars['String'] | null),quote_reserves?: (Scalars['bigint'] | null),quote_token?: (tokens_obj_rel_insert_input | null)}
+
+
+/** aggregate max on columns */
+export interface v0_4_amms_max_fieldsGenqlSelection{
+    amm_addr?: boolean | number
+    base_mint_addr?: boolean | number
+    base_reserves?: boolean | number
+    created_at_slot?: boolean | number
+    inserted_at?: boolean | number
+    latest_amm_seq_num_applied?: boolean | number
+    lp_mint_addr?: boolean | number
+    quote_mint_addr?: boolean | number
+    quote_reserves?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+
+/** order by max() on columns of table "v0_4_amms" */
+export interface v0_4_amms_max_order_by {amm_addr?: (order_by | null),base_mint_addr?: (order_by | null),base_reserves?: (order_by | null),created_at_slot?: (order_by | null),inserted_at?: (order_by | null),latest_amm_seq_num_applied?: (order_by | null),lp_mint_addr?: (order_by | null),quote_mint_addr?: (order_by | null),quote_reserves?: (order_by | null)}
+
+
+/** aggregate min on columns */
+export interface v0_4_amms_min_fieldsGenqlSelection{
+    amm_addr?: boolean | number
+    base_mint_addr?: boolean | number
+    base_reserves?: boolean | number
+    created_at_slot?: boolean | number
+    inserted_at?: boolean | number
+    latest_amm_seq_num_applied?: boolean | number
+    lp_mint_addr?: boolean | number
+    quote_mint_addr?: boolean | number
+    quote_reserves?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+
+/** order by min() on columns of table "v0_4_amms" */
+export interface v0_4_amms_min_order_by {amm_addr?: (order_by | null),base_mint_addr?: (order_by | null),base_reserves?: (order_by | null),created_at_slot?: (order_by | null),inserted_at?: (order_by | null),latest_amm_seq_num_applied?: (order_by | null),lp_mint_addr?: (order_by | null),quote_mint_addr?: (order_by | null),quote_reserves?: (order_by | null)}
+
+
+/** response of any mutation on the table "v0_4_amms" */
+export interface v0_4_amms_mutation_responseGenqlSelection{
+    /** number of rows affected by the mutation */
+    affected_rows?: boolean | number
+    /** data from the rows affected by the mutation */
+    returning?: v0_4_ammsGenqlSelection
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+
+/** input type for inserting object relation for remote table "v0_4_amms" */
+export interface v0_4_amms_obj_rel_insert_input {data: v0_4_amms_insert_input,
+/** upsert condition */
+on_conflict?: (v0_4_amms_on_conflict | null)}
+
+
+/** on_conflict condition type for table "v0_4_amms" */
+export interface v0_4_amms_on_conflict {constraint: v0_4_amms_constraint,update_columns?: v0_4_amms_update_column[],where?: (v0_4_amms_bool_exp | null)}
+
+
+/** Ordering options when selecting data from "v0_4_amms". */
+export interface v0_4_amms_order_by {amm_addr?: (order_by | null),base_mint_addr?: (order_by | null),base_reserves?: (order_by | null),base_token?: (tokens_order_by | null),created_at_slot?: (order_by | null),decisions_aggregate?: (v0_4_metric_decisions_aggregate_order_by | null),inserted_at?: (order_by | null),latest_amm_seq_num_applied?: (order_by | null),lp_mint_addr?: (order_by | null),lp_token?: (tokens_order_by | null),quote_mint_addr?: (order_by | null),quote_reserves?: (order_by | null),quote_token?: (tokens_order_by | null)}
+
+
+/** primary key columns input for table: v0_4_amms */
+export interface v0_4_amms_pk_columns_input {amm_addr: Scalars['String']}
+
+
+/** input type for updating data in table "v0_4_amms" */
+export interface v0_4_amms_set_input {amm_addr?: (Scalars['String'] | null),base_mint_addr?: (Scalars['String'] | null),base_reserves?: (Scalars['bigint'] | null),created_at_slot?: (Scalars['bigint'] | null),inserted_at?: (Scalars['timestamptz'] | null),latest_amm_seq_num_applied?: (Scalars['bigint'] | null),lp_mint_addr?: (Scalars['String'] | null),quote_mint_addr?: (Scalars['String'] | null),quote_reserves?: (Scalars['bigint'] | null)}
+
+
+/** aggregate stddev on columns */
+export interface v0_4_amms_stddev_fieldsGenqlSelection{
+    base_reserves?: boolean | number
+    created_at_slot?: boolean | number
+    latest_amm_seq_num_applied?: boolean | number
+    quote_reserves?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+
+/** order by stddev() on columns of table "v0_4_amms" */
+export interface v0_4_amms_stddev_order_by {base_reserves?: (order_by | null),created_at_slot?: (order_by | null),latest_amm_seq_num_applied?: (order_by | null),quote_reserves?: (order_by | null)}
+
+
+/** aggregate stddev_pop on columns */
+export interface v0_4_amms_stddev_pop_fieldsGenqlSelection{
+    base_reserves?: boolean | number
+    created_at_slot?: boolean | number
+    latest_amm_seq_num_applied?: boolean | number
+    quote_reserves?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+
+/** order by stddev_pop() on columns of table "v0_4_amms" */
+export interface v0_4_amms_stddev_pop_order_by {base_reserves?: (order_by | null),created_at_slot?: (order_by | null),latest_amm_seq_num_applied?: (order_by | null),quote_reserves?: (order_by | null)}
+
+
+/** aggregate stddev_samp on columns */
+export interface v0_4_amms_stddev_samp_fieldsGenqlSelection{
+    base_reserves?: boolean | number
+    created_at_slot?: boolean | number
+    latest_amm_seq_num_applied?: boolean | number
+    quote_reserves?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+
+/** order by stddev_samp() on columns of table "v0_4_amms" */
+export interface v0_4_amms_stddev_samp_order_by {base_reserves?: (order_by | null),created_at_slot?: (order_by | null),latest_amm_seq_num_applied?: (order_by | null),quote_reserves?: (order_by | null)}
+
+
+/** Streaming cursor of the table "v0_4_amms" */
+export interface v0_4_amms_stream_cursor_input {
+/** Stream column input with initial value */
+initial_value: v0_4_amms_stream_cursor_value_input,
+/** cursor ordering */
+ordering?: (cursor_ordering | null)}
+
+
+/** Initial value of the column from where the streaming should start */
+export interface v0_4_amms_stream_cursor_value_input {amm_addr?: (Scalars['String'] | null),base_mint_addr?: (Scalars['String'] | null),base_reserves?: (Scalars['bigint'] | null),created_at_slot?: (Scalars['bigint'] | null),inserted_at?: (Scalars['timestamptz'] | null),latest_amm_seq_num_applied?: (Scalars['bigint'] | null),lp_mint_addr?: (Scalars['String'] | null),quote_mint_addr?: (Scalars['String'] | null),quote_reserves?: (Scalars['bigint'] | null)}
+
+
+/** aggregate sum on columns */
+export interface v0_4_amms_sum_fieldsGenqlSelection{
+    base_reserves?: boolean | number
+    created_at_slot?: boolean | number
+    latest_amm_seq_num_applied?: boolean | number
+    quote_reserves?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+
+/** order by sum() on columns of table "v0_4_amms" */
+export interface v0_4_amms_sum_order_by {base_reserves?: (order_by | null),created_at_slot?: (order_by | null),latest_amm_seq_num_applied?: (order_by | null),quote_reserves?: (order_by | null)}
+
+export interface v0_4_amms_updates {
+/** increments the numeric columns with given value of the filtered values */
+_inc?: (v0_4_amms_inc_input | null),
+/** sets the columns of the filtered rows to the given values */
+_set?: (v0_4_amms_set_input | null),
+/** filter the rows which have to be updated */
+where: v0_4_amms_bool_exp}
+
+
+/** aggregate var_pop on columns */
+export interface v0_4_amms_var_pop_fieldsGenqlSelection{
+    base_reserves?: boolean | number
+    created_at_slot?: boolean | number
+    latest_amm_seq_num_applied?: boolean | number
+    quote_reserves?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+
+/** order by var_pop() on columns of table "v0_4_amms" */
+export interface v0_4_amms_var_pop_order_by {base_reserves?: (order_by | null),created_at_slot?: (order_by | null),latest_amm_seq_num_applied?: (order_by | null),quote_reserves?: (order_by | null)}
+
+
+/** aggregate var_samp on columns */
+export interface v0_4_amms_var_samp_fieldsGenqlSelection{
+    base_reserves?: boolean | number
+    created_at_slot?: boolean | number
+    latest_amm_seq_num_applied?: boolean | number
+    quote_reserves?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+
+/** order by var_samp() on columns of table "v0_4_amms" */
+export interface v0_4_amms_var_samp_order_by {base_reserves?: (order_by | null),created_at_slot?: (order_by | null),latest_amm_seq_num_applied?: (order_by | null),quote_reserves?: (order_by | null)}
+
+
+/** aggregate variance on columns */
+export interface v0_4_amms_variance_fieldsGenqlSelection{
+    base_reserves?: boolean | number
+    created_at_slot?: boolean | number
+    latest_amm_seq_num_applied?: boolean | number
+    quote_reserves?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+
+/** order by variance() on columns of table "v0_4_amms" */
+export interface v0_4_amms_variance_order_by {base_reserves?: (order_by | null),created_at_slot?: (order_by | null),latest_amm_seq_num_applied?: (order_by | null),quote_reserves?: (order_by | null)}
+
+
+/** columns and relationships of "v0_4_conditional_vaults" */
+export interface v0_4_conditional_vaultsGenqlSelection{
+    conditional_vault_addr?: boolean | number
+    created_at?: boolean | number
+    latest_vault_seq_num_applied?: boolean | number
+    /** An array relationship */
+    metric_decisions?: (v0_4_metric_decisionsGenqlSelection & { __args?: {
+    /** distinct select on columns */
+    distinct_on?: (v0_4_metric_decisions_select_column[] | null), 
+    /** limit the number of rows returned */
+    limit?: (Scalars['Int'] | null), 
+    /** skip the first n rows. Use only with order_by */
+    offset?: (Scalars['Int'] | null), 
+    /** sort the rows by one or more columns */
+    order_by?: (v0_4_metric_decisions_order_by[] | null), 
+    /** filter the rows returned */
+    where?: (v0_4_metric_decisions_bool_exp | null)} })
+    /** An aggregate relationship */
+    metric_decisions_aggregate?: (v0_4_metric_decisions_aggregateGenqlSelection & { __args?: {
+    /** distinct select on columns */
+    distinct_on?: (v0_4_metric_decisions_select_column[] | null), 
+    /** limit the number of rows returned */
+    limit?: (Scalars['Int'] | null), 
+    /** skip the first n rows. Use only with order_by */
+    offset?: (Scalars['Int'] | null), 
+    /** sort the rows by one or more columns */
+    order_by?: (v0_4_metric_decisions_order_by[] | null), 
+    /** filter the rows returned */
+    where?: (v0_4_metric_decisions_bool_exp | null)} })
+    /** An array relationship */
+    outcome_decisions?: (v0_4_metric_decisionsGenqlSelection & { __args?: {
+    /** distinct select on columns */
+    distinct_on?: (v0_4_metric_decisions_select_column[] | null), 
+    /** limit the number of rows returned */
+    limit?: (Scalars['Int'] | null), 
+    /** skip the first n rows. Use only with order_by */
+    offset?: (Scalars['Int'] | null), 
+    /** sort the rows by one or more columns */
+    order_by?: (v0_4_metric_decisions_order_by[] | null), 
+    /** filter the rows returned */
+    where?: (v0_4_metric_decisions_bool_exp | null)} })
+    /** An aggregate relationship */
+    outcome_decisions_aggregate?: (v0_4_metric_decisions_aggregateGenqlSelection & { __args?: {
+    /** distinct select on columns */
+    distinct_on?: (v0_4_metric_decisions_select_column[] | null), 
+    /** limit the number of rows returned */
+    limit?: (Scalars['Int'] | null), 
+    /** skip the first n rows. Use only with order_by */
+    offset?: (Scalars['Int'] | null), 
+    /** sort the rows by one or more columns */
+    order_by?: (v0_4_metric_decisions_order_by[] | null), 
+    /** filter the rows returned */
+    where?: (v0_4_metric_decisions_bool_exp | null)} })
+    pda_bump?: boolean | number
+    /** An object relationship */
+    question?: v0_4_questionsGenqlSelection
+    question_addr?: boolean | number
+    /** An object relationship */
+    token_acct?: token_acctsGenqlSelection
+    /** An object relationship */
+    underlying_mint?: tokensGenqlSelection
+    underlying_mint_acct?: boolean | number
+    underlying_token_acct?: boolean | number
+    /** An array relationship */
+    v0_4_merges?: (v0_4_mergesGenqlSelection & { __args?: {
+    /** distinct select on columns */
+    distinct_on?: (v0_4_merges_select_column[] | null), 
+    /** limit the number of rows returned */
+    limit?: (Scalars['Int'] | null), 
+    /** skip the first n rows. Use only with order_by */
+    offset?: (Scalars['Int'] | null), 
+    /** sort the rows by one or more columns */
+    order_by?: (v0_4_merges_order_by[] | null), 
+    /** filter the rows returned */
+    where?: (v0_4_merges_bool_exp | null)} })
+    /** An aggregate relationship */
+    v0_4_merges_aggregate?: (v0_4_merges_aggregateGenqlSelection & { __args?: {
+    /** distinct select on columns */
+    distinct_on?: (v0_4_merges_select_column[] | null), 
+    /** limit the number of rows returned */
+    limit?: (Scalars['Int'] | null), 
+    /** skip the first n rows. Use only with order_by */
+    offset?: (Scalars['Int'] | null), 
+    /** sort the rows by one or more columns */
+    order_by?: (v0_4_merges_order_by[] | null), 
+    /** filter the rows returned */
+    where?: (v0_4_merges_bool_exp | null)} })
+    /** An array relationship */
+    v0_4_splits?: (v0_4_splitsGenqlSelection & { __args?: {
+    /** distinct select on columns */
+    distinct_on?: (v0_4_splits_select_column[] | null), 
+    /** limit the number of rows returned */
+    limit?: (Scalars['Int'] | null), 
+    /** skip the first n rows. Use only with order_by */
+    offset?: (Scalars['Int'] | null), 
+    /** sort the rows by one or more columns */
+    order_by?: (v0_4_splits_order_by[] | null), 
+    /** filter the rows returned */
+    where?: (v0_4_splits_bool_exp | null)} })
+    /** An aggregate relationship */
+    v0_4_splits_aggregate?: (v0_4_splits_aggregateGenqlSelection & { __args?: {
+    /** distinct select on columns */
+    distinct_on?: (v0_4_splits_select_column[] | null), 
+    /** limit the number of rows returned */
+    limit?: (Scalars['Int'] | null), 
+    /** skip the first n rows. Use only with order_by */
+    offset?: (Scalars['Int'] | null), 
+    /** sort the rows by one or more columns */
+    order_by?: (v0_4_splits_order_by[] | null), 
+    /** filter the rows returned */
+    where?: (v0_4_splits_bool_exp | null)} })
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+
+/** aggregated selection of "v0_4_conditional_vaults" */
+export interface v0_4_conditional_vaults_aggregateGenqlSelection{
+    aggregate?: v0_4_conditional_vaults_aggregate_fieldsGenqlSelection
+    nodes?: v0_4_conditional_vaultsGenqlSelection
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+export interface v0_4_conditional_vaults_aggregate_bool_exp {count?: (v0_4_conditional_vaults_aggregate_bool_exp_count | null)}
+
+export interface v0_4_conditional_vaults_aggregate_bool_exp_count {arguments?: (v0_4_conditional_vaults_select_column[] | null),distinct?: (Scalars['Boolean'] | null),filter?: (v0_4_conditional_vaults_bool_exp | null),predicate: Int_comparison_exp}
+
+
+/** aggregate fields of "v0_4_conditional_vaults" */
+export interface v0_4_conditional_vaults_aggregate_fieldsGenqlSelection{
+    avg?: v0_4_conditional_vaults_avg_fieldsGenqlSelection
+    count?: { __args: {columns?: (v0_4_conditional_vaults_select_column[] | null), distinct?: (Scalars['Boolean'] | null)} } | boolean | number
+    max?: v0_4_conditional_vaults_max_fieldsGenqlSelection
+    min?: v0_4_conditional_vaults_min_fieldsGenqlSelection
+    stddev?: v0_4_conditional_vaults_stddev_fieldsGenqlSelection
+    stddev_pop?: v0_4_conditional_vaults_stddev_pop_fieldsGenqlSelection
+    stddev_samp?: v0_4_conditional_vaults_stddev_samp_fieldsGenqlSelection
+    sum?: v0_4_conditional_vaults_sum_fieldsGenqlSelection
+    var_pop?: v0_4_conditional_vaults_var_pop_fieldsGenqlSelection
+    var_samp?: v0_4_conditional_vaults_var_samp_fieldsGenqlSelection
+    variance?: v0_4_conditional_vaults_variance_fieldsGenqlSelection
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+
+/** order by aggregate values of table "v0_4_conditional_vaults" */
+export interface v0_4_conditional_vaults_aggregate_order_by {avg?: (v0_4_conditional_vaults_avg_order_by | null),count?: (order_by | null),max?: (v0_4_conditional_vaults_max_order_by | null),min?: (v0_4_conditional_vaults_min_order_by | null),stddev?: (v0_4_conditional_vaults_stddev_order_by | null),stddev_pop?: (v0_4_conditional_vaults_stddev_pop_order_by | null),stddev_samp?: (v0_4_conditional_vaults_stddev_samp_order_by | null),sum?: (v0_4_conditional_vaults_sum_order_by | null),var_pop?: (v0_4_conditional_vaults_var_pop_order_by | null),var_samp?: (v0_4_conditional_vaults_var_samp_order_by | null),variance?: (v0_4_conditional_vaults_variance_order_by | null)}
+
+
+/** input type for inserting array relation for remote table "v0_4_conditional_vaults" */
+export interface v0_4_conditional_vaults_arr_rel_insert_input {data: v0_4_conditional_vaults_insert_input[],
+/** upsert condition */
+on_conflict?: (v0_4_conditional_vaults_on_conflict | null)}
+
+
+/** aggregate avg on columns */
+export interface v0_4_conditional_vaults_avg_fieldsGenqlSelection{
+    latest_vault_seq_num_applied?: boolean | number
+    pda_bump?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+
+/** order by avg() on columns of table "v0_4_conditional_vaults" */
+export interface v0_4_conditional_vaults_avg_order_by {latest_vault_seq_num_applied?: (order_by | null),pda_bump?: (order_by | null)}
+
+
+/** Boolean expression to filter rows from the table "v0_4_conditional_vaults". All fields are combined with a logical 'AND'. */
+export interface v0_4_conditional_vaults_bool_exp {_and?: (v0_4_conditional_vaults_bool_exp[] | null),_not?: (v0_4_conditional_vaults_bool_exp | null),_or?: (v0_4_conditional_vaults_bool_exp[] | null),conditional_vault_addr?: (String_comparison_exp | null),created_at?: (timestamptz_comparison_exp | null),latest_vault_seq_num_applied?: (bigint_comparison_exp | null),metric_decisions?: (v0_4_metric_decisions_bool_exp | null),metric_decisions_aggregate?: (v0_4_metric_decisions_aggregate_bool_exp | null),outcome_decisions?: (v0_4_metric_decisions_bool_exp | null),outcome_decisions_aggregate?: (v0_4_metric_decisions_aggregate_bool_exp | null),pda_bump?: (smallint_comparison_exp | null),question?: (v0_4_questions_bool_exp | null),question_addr?: (String_comparison_exp | null),token_acct?: (token_accts_bool_exp | null),underlying_mint?: (tokens_bool_exp | null),underlying_mint_acct?: (String_comparison_exp | null),underlying_token_acct?: (String_comparison_exp | null),v0_4_merges?: (v0_4_merges_bool_exp | null),v0_4_merges_aggregate?: (v0_4_merges_aggregate_bool_exp | null),v0_4_splits?: (v0_4_splits_bool_exp | null),v0_4_splits_aggregate?: (v0_4_splits_aggregate_bool_exp | null)}
+
+
+/** input type for incrementing numeric columns in table "v0_4_conditional_vaults" */
+export interface v0_4_conditional_vaults_inc_input {latest_vault_seq_num_applied?: (Scalars['bigint'] | null),pda_bump?: (Scalars['smallint'] | null)}
+
+
+/** input type for inserting data into table "v0_4_conditional_vaults" */
+export interface v0_4_conditional_vaults_insert_input {conditional_vault_addr?: (Scalars['String'] | null),created_at?: (Scalars['timestamptz'] | null),latest_vault_seq_num_applied?: (Scalars['bigint'] | null),metric_decisions?: (v0_4_metric_decisions_arr_rel_insert_input | null),outcome_decisions?: (v0_4_metric_decisions_arr_rel_insert_input | null),pda_bump?: (Scalars['smallint'] | null),question?: (v0_4_questions_obj_rel_insert_input | null),question_addr?: (Scalars['String'] | null),token_acct?: (token_accts_obj_rel_insert_input | null),underlying_mint?: (tokens_obj_rel_insert_input | null),underlying_mint_acct?: (Scalars['String'] | null),underlying_token_acct?: (Scalars['String'] | null),v0_4_merges?: (v0_4_merges_arr_rel_insert_input | null),v0_4_splits?: (v0_4_splits_arr_rel_insert_input | null)}
+
+
+/** aggregate max on columns */
+export interface v0_4_conditional_vaults_max_fieldsGenqlSelection{
+    conditional_vault_addr?: boolean | number
+    created_at?: boolean | number
+    latest_vault_seq_num_applied?: boolean | number
+    pda_bump?: boolean | number
+    question_addr?: boolean | number
+    underlying_mint_acct?: boolean | number
+    underlying_token_acct?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+
+/** order by max() on columns of table "v0_4_conditional_vaults" */
+export interface v0_4_conditional_vaults_max_order_by {conditional_vault_addr?: (order_by | null),created_at?: (order_by | null),latest_vault_seq_num_applied?: (order_by | null),pda_bump?: (order_by | null),question_addr?: (order_by | null),underlying_mint_acct?: (order_by | null),underlying_token_acct?: (order_by | null)}
+
+
+/** aggregate min on columns */
+export interface v0_4_conditional_vaults_min_fieldsGenqlSelection{
+    conditional_vault_addr?: boolean | number
+    created_at?: boolean | number
+    latest_vault_seq_num_applied?: boolean | number
+    pda_bump?: boolean | number
+    question_addr?: boolean | number
+    underlying_mint_acct?: boolean | number
+    underlying_token_acct?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+
+/** order by min() on columns of table "v0_4_conditional_vaults" */
+export interface v0_4_conditional_vaults_min_order_by {conditional_vault_addr?: (order_by | null),created_at?: (order_by | null),latest_vault_seq_num_applied?: (order_by | null),pda_bump?: (order_by | null),question_addr?: (order_by | null),underlying_mint_acct?: (order_by | null),underlying_token_acct?: (order_by | null)}
+
+
+/** response of any mutation on the table "v0_4_conditional_vaults" */
+export interface v0_4_conditional_vaults_mutation_responseGenqlSelection{
+    /** number of rows affected by the mutation */
+    affected_rows?: boolean | number
+    /** data from the rows affected by the mutation */
+    returning?: v0_4_conditional_vaultsGenqlSelection
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+
+/** input type for inserting object relation for remote table "v0_4_conditional_vaults" */
+export interface v0_4_conditional_vaults_obj_rel_insert_input {data: v0_4_conditional_vaults_insert_input,
+/** upsert condition */
+on_conflict?: (v0_4_conditional_vaults_on_conflict | null)}
+
+
+/** on_conflict condition type for table "v0_4_conditional_vaults" */
+export interface v0_4_conditional_vaults_on_conflict {constraint: v0_4_conditional_vaults_constraint,update_columns?: v0_4_conditional_vaults_update_column[],where?: (v0_4_conditional_vaults_bool_exp | null)}
+
+
+/** Ordering options when selecting data from "v0_4_conditional_vaults". */
+export interface v0_4_conditional_vaults_order_by {conditional_vault_addr?: (order_by | null),created_at?: (order_by | null),latest_vault_seq_num_applied?: (order_by | null),metric_decisions_aggregate?: (v0_4_metric_decisions_aggregate_order_by | null),outcome_decisions_aggregate?: (v0_4_metric_decisions_aggregate_order_by | null),pda_bump?: (order_by | null),question?: (v0_4_questions_order_by | null),question_addr?: (order_by | null),token_acct?: (token_accts_order_by | null),underlying_mint?: (tokens_order_by | null),underlying_mint_acct?: (order_by | null),underlying_token_acct?: (order_by | null),v0_4_merges_aggregate?: (v0_4_merges_aggregate_order_by | null),v0_4_splits_aggregate?: (v0_4_splits_aggregate_order_by | null)}
+
+
+/** primary key columns input for table: v0_4_conditional_vaults */
+export interface v0_4_conditional_vaults_pk_columns_input {conditional_vault_addr: Scalars['String']}
+
+
+/** input type for updating data in table "v0_4_conditional_vaults" */
+export interface v0_4_conditional_vaults_set_input {conditional_vault_addr?: (Scalars['String'] | null),created_at?: (Scalars['timestamptz'] | null),latest_vault_seq_num_applied?: (Scalars['bigint'] | null),pda_bump?: (Scalars['smallint'] | null),question_addr?: (Scalars['String'] | null),underlying_mint_acct?: (Scalars['String'] | null),underlying_token_acct?: (Scalars['String'] | null)}
+
+
+/** aggregate stddev on columns */
+export interface v0_4_conditional_vaults_stddev_fieldsGenqlSelection{
+    latest_vault_seq_num_applied?: boolean | number
+    pda_bump?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+
+/** order by stddev() on columns of table "v0_4_conditional_vaults" */
+export interface v0_4_conditional_vaults_stddev_order_by {latest_vault_seq_num_applied?: (order_by | null),pda_bump?: (order_by | null)}
+
+
+/** aggregate stddev_pop on columns */
+export interface v0_4_conditional_vaults_stddev_pop_fieldsGenqlSelection{
+    latest_vault_seq_num_applied?: boolean | number
+    pda_bump?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+
+/** order by stddev_pop() on columns of table "v0_4_conditional_vaults" */
+export interface v0_4_conditional_vaults_stddev_pop_order_by {latest_vault_seq_num_applied?: (order_by | null),pda_bump?: (order_by | null)}
+
+
+/** aggregate stddev_samp on columns */
+export interface v0_4_conditional_vaults_stddev_samp_fieldsGenqlSelection{
+    latest_vault_seq_num_applied?: boolean | number
+    pda_bump?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+
+/** order by stddev_samp() on columns of table "v0_4_conditional_vaults" */
+export interface v0_4_conditional_vaults_stddev_samp_order_by {latest_vault_seq_num_applied?: (order_by | null),pda_bump?: (order_by | null)}
+
+
+/** Streaming cursor of the table "v0_4_conditional_vaults" */
+export interface v0_4_conditional_vaults_stream_cursor_input {
+/** Stream column input with initial value */
+initial_value: v0_4_conditional_vaults_stream_cursor_value_input,
+/** cursor ordering */
+ordering?: (cursor_ordering | null)}
+
+
+/** Initial value of the column from where the streaming should start */
+export interface v0_4_conditional_vaults_stream_cursor_value_input {conditional_vault_addr?: (Scalars['String'] | null),created_at?: (Scalars['timestamptz'] | null),latest_vault_seq_num_applied?: (Scalars['bigint'] | null),pda_bump?: (Scalars['smallint'] | null),question_addr?: (Scalars['String'] | null),underlying_mint_acct?: (Scalars['String'] | null),underlying_token_acct?: (Scalars['String'] | null)}
+
+
+/** aggregate sum on columns */
+export interface v0_4_conditional_vaults_sum_fieldsGenqlSelection{
+    latest_vault_seq_num_applied?: boolean | number
+    pda_bump?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+
+/** order by sum() on columns of table "v0_4_conditional_vaults" */
+export interface v0_4_conditional_vaults_sum_order_by {latest_vault_seq_num_applied?: (order_by | null),pda_bump?: (order_by | null)}
+
+export interface v0_4_conditional_vaults_updates {
+/** increments the numeric columns with given value of the filtered values */
+_inc?: (v0_4_conditional_vaults_inc_input | null),
+/** sets the columns of the filtered rows to the given values */
+_set?: (v0_4_conditional_vaults_set_input | null),
+/** filter the rows which have to be updated */
+where: v0_4_conditional_vaults_bool_exp}
+
+
+/** aggregate var_pop on columns */
+export interface v0_4_conditional_vaults_var_pop_fieldsGenqlSelection{
+    latest_vault_seq_num_applied?: boolean | number
+    pda_bump?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+
+/** order by var_pop() on columns of table "v0_4_conditional_vaults" */
+export interface v0_4_conditional_vaults_var_pop_order_by {latest_vault_seq_num_applied?: (order_by | null),pda_bump?: (order_by | null)}
+
+
+/** aggregate var_samp on columns */
+export interface v0_4_conditional_vaults_var_samp_fieldsGenqlSelection{
+    latest_vault_seq_num_applied?: boolean | number
+    pda_bump?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+
+/** order by var_samp() on columns of table "v0_4_conditional_vaults" */
+export interface v0_4_conditional_vaults_var_samp_order_by {latest_vault_seq_num_applied?: (order_by | null),pda_bump?: (order_by | null)}
+
+
+/** aggregate variance on columns */
+export interface v0_4_conditional_vaults_variance_fieldsGenqlSelection{
+    latest_vault_seq_num_applied?: boolean | number
+    pda_bump?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+
+/** order by variance() on columns of table "v0_4_conditional_vaults" */
+export interface v0_4_conditional_vaults_variance_order_by {latest_vault_seq_num_applied?: (order_by | null),pda_bump?: (order_by | null)}
+
+
+/** columns and relationships of "v0_4_merges" */
+export interface v0_4_mergesGenqlSelection{
+    amount?: boolean | number
+    created_at?: boolean | number
+    signature?: boolean | number
+    /** An object relationship */
+    signatureBySignature?: signaturesGenqlSelection
+    slot?: boolean | number
+    /** An object relationship */
+    v0_4_conditional_vault?: v0_4_conditional_vaultsGenqlSelection
+    vault_addr?: boolean | number
+    vault_seq_num?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+
+/** aggregated selection of "v0_4_merges" */
+export interface v0_4_merges_aggregateGenqlSelection{
+    aggregate?: v0_4_merges_aggregate_fieldsGenqlSelection
+    nodes?: v0_4_mergesGenqlSelection
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+export interface v0_4_merges_aggregate_bool_exp {count?: (v0_4_merges_aggregate_bool_exp_count | null)}
+
+export interface v0_4_merges_aggregate_bool_exp_count {arguments?: (v0_4_merges_select_column[] | null),distinct?: (Scalars['Boolean'] | null),filter?: (v0_4_merges_bool_exp | null),predicate: Int_comparison_exp}
+
+
+/** aggregate fields of "v0_4_merges" */
+export interface v0_4_merges_aggregate_fieldsGenqlSelection{
+    avg?: v0_4_merges_avg_fieldsGenqlSelection
+    count?: { __args: {columns?: (v0_4_merges_select_column[] | null), distinct?: (Scalars['Boolean'] | null)} } | boolean | number
+    max?: v0_4_merges_max_fieldsGenqlSelection
+    min?: v0_4_merges_min_fieldsGenqlSelection
+    stddev?: v0_4_merges_stddev_fieldsGenqlSelection
+    stddev_pop?: v0_4_merges_stddev_pop_fieldsGenqlSelection
+    stddev_samp?: v0_4_merges_stddev_samp_fieldsGenqlSelection
+    sum?: v0_4_merges_sum_fieldsGenqlSelection
+    var_pop?: v0_4_merges_var_pop_fieldsGenqlSelection
+    var_samp?: v0_4_merges_var_samp_fieldsGenqlSelection
+    variance?: v0_4_merges_variance_fieldsGenqlSelection
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+
+/** order by aggregate values of table "v0_4_merges" */
+export interface v0_4_merges_aggregate_order_by {avg?: (v0_4_merges_avg_order_by | null),count?: (order_by | null),max?: (v0_4_merges_max_order_by | null),min?: (v0_4_merges_min_order_by | null),stddev?: (v0_4_merges_stddev_order_by | null),stddev_pop?: (v0_4_merges_stddev_pop_order_by | null),stddev_samp?: (v0_4_merges_stddev_samp_order_by | null),sum?: (v0_4_merges_sum_order_by | null),var_pop?: (v0_4_merges_var_pop_order_by | null),var_samp?: (v0_4_merges_var_samp_order_by | null),variance?: (v0_4_merges_variance_order_by | null)}
+
+
+/** input type for inserting array relation for remote table "v0_4_merges" */
+export interface v0_4_merges_arr_rel_insert_input {data: v0_4_merges_insert_input[],
+/** upsert condition */
+on_conflict?: (v0_4_merges_on_conflict | null)}
+
+
+/** aggregate avg on columns */
+export interface v0_4_merges_avg_fieldsGenqlSelection{
+    amount?: boolean | number
+    slot?: boolean | number
+    vault_seq_num?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+
+/** order by avg() on columns of table "v0_4_merges" */
+export interface v0_4_merges_avg_order_by {amount?: (order_by | null),slot?: (order_by | null),vault_seq_num?: (order_by | null)}
+
+
+/** Boolean expression to filter rows from the table "v0_4_merges". All fields are combined with a logical 'AND'. */
+export interface v0_4_merges_bool_exp {_and?: (v0_4_merges_bool_exp[] | null),_not?: (v0_4_merges_bool_exp | null),_or?: (v0_4_merges_bool_exp[] | null),amount?: (bigint_comparison_exp | null),created_at?: (timestamptz_comparison_exp | null),signature?: (String_comparison_exp | null),signatureBySignature?: (signatures_bool_exp | null),slot?: (bigint_comparison_exp | null),v0_4_conditional_vault?: (v0_4_conditional_vaults_bool_exp | null),vault_addr?: (String_comparison_exp | null),vault_seq_num?: (bigint_comparison_exp | null)}
+
+
+/** input type for incrementing numeric columns in table "v0_4_merges" */
+export interface v0_4_merges_inc_input {amount?: (Scalars['bigint'] | null),slot?: (Scalars['bigint'] | null),vault_seq_num?: (Scalars['bigint'] | null)}
+
+
+/** input type for inserting data into table "v0_4_merges" */
+export interface v0_4_merges_insert_input {amount?: (Scalars['bigint'] | null),created_at?: (Scalars['timestamptz'] | null),signature?: (Scalars['String'] | null),signatureBySignature?: (signatures_obj_rel_insert_input | null),slot?: (Scalars['bigint'] | null),v0_4_conditional_vault?: (v0_4_conditional_vaults_obj_rel_insert_input | null),vault_addr?: (Scalars['String'] | null),vault_seq_num?: (Scalars['bigint'] | null)}
+
+
+/** aggregate max on columns */
+export interface v0_4_merges_max_fieldsGenqlSelection{
+    amount?: boolean | number
+    created_at?: boolean | number
+    signature?: boolean | number
+    slot?: boolean | number
+    vault_addr?: boolean | number
+    vault_seq_num?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+
+/** order by max() on columns of table "v0_4_merges" */
+export interface v0_4_merges_max_order_by {amount?: (order_by | null),created_at?: (order_by | null),signature?: (order_by | null),slot?: (order_by | null),vault_addr?: (order_by | null),vault_seq_num?: (order_by | null)}
+
+
+/** aggregate min on columns */
+export interface v0_4_merges_min_fieldsGenqlSelection{
+    amount?: boolean | number
+    created_at?: boolean | number
+    signature?: boolean | number
+    slot?: boolean | number
+    vault_addr?: boolean | number
+    vault_seq_num?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+
+/** order by min() on columns of table "v0_4_merges" */
+export interface v0_4_merges_min_order_by {amount?: (order_by | null),created_at?: (order_by | null),signature?: (order_by | null),slot?: (order_by | null),vault_addr?: (order_by | null),vault_seq_num?: (order_by | null)}
+
+
+/** response of any mutation on the table "v0_4_merges" */
+export interface v0_4_merges_mutation_responseGenqlSelection{
+    /** number of rows affected by the mutation */
+    affected_rows?: boolean | number
+    /** data from the rows affected by the mutation */
+    returning?: v0_4_mergesGenqlSelection
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+
+/** input type for inserting object relation for remote table "v0_4_merges" */
+export interface v0_4_merges_obj_rel_insert_input {data: v0_4_merges_insert_input,
+/** upsert condition */
+on_conflict?: (v0_4_merges_on_conflict | null)}
+
+
+/** on_conflict condition type for table "v0_4_merges" */
+export interface v0_4_merges_on_conflict {constraint: v0_4_merges_constraint,update_columns?: v0_4_merges_update_column[],where?: (v0_4_merges_bool_exp | null)}
+
+
+/** Ordering options when selecting data from "v0_4_merges". */
+export interface v0_4_merges_order_by {amount?: (order_by | null),created_at?: (order_by | null),signature?: (order_by | null),signatureBySignature?: (signatures_order_by | null),slot?: (order_by | null),v0_4_conditional_vault?: (v0_4_conditional_vaults_order_by | null),vault_addr?: (order_by | null),vault_seq_num?: (order_by | null)}
+
+
+/** primary key columns input for table: v0_4_merges */
+export interface v0_4_merges_pk_columns_input {vault_addr: Scalars['String'],vault_seq_num: Scalars['bigint']}
+
+
+/** input type for updating data in table "v0_4_merges" */
+export interface v0_4_merges_set_input {amount?: (Scalars['bigint'] | null),created_at?: (Scalars['timestamptz'] | null),signature?: (Scalars['String'] | null),slot?: (Scalars['bigint'] | null),vault_addr?: (Scalars['String'] | null),vault_seq_num?: (Scalars['bigint'] | null)}
+
+
+/** aggregate stddev on columns */
+export interface v0_4_merges_stddev_fieldsGenqlSelection{
+    amount?: boolean | number
+    slot?: boolean | number
+    vault_seq_num?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+
+/** order by stddev() on columns of table "v0_4_merges" */
+export interface v0_4_merges_stddev_order_by {amount?: (order_by | null),slot?: (order_by | null),vault_seq_num?: (order_by | null)}
+
+
+/** aggregate stddev_pop on columns */
+export interface v0_4_merges_stddev_pop_fieldsGenqlSelection{
+    amount?: boolean | number
+    slot?: boolean | number
+    vault_seq_num?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+
+/** order by stddev_pop() on columns of table "v0_4_merges" */
+export interface v0_4_merges_stddev_pop_order_by {amount?: (order_by | null),slot?: (order_by | null),vault_seq_num?: (order_by | null)}
+
+
+/** aggregate stddev_samp on columns */
+export interface v0_4_merges_stddev_samp_fieldsGenqlSelection{
+    amount?: boolean | number
+    slot?: boolean | number
+    vault_seq_num?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+
+/** order by stddev_samp() on columns of table "v0_4_merges" */
+export interface v0_4_merges_stddev_samp_order_by {amount?: (order_by | null),slot?: (order_by | null),vault_seq_num?: (order_by | null)}
+
+
+/** Streaming cursor of the table "v0_4_merges" */
+export interface v0_4_merges_stream_cursor_input {
+/** Stream column input with initial value */
+initial_value: v0_4_merges_stream_cursor_value_input,
+/** cursor ordering */
+ordering?: (cursor_ordering | null)}
+
+
+/** Initial value of the column from where the streaming should start */
+export interface v0_4_merges_stream_cursor_value_input {amount?: (Scalars['bigint'] | null),created_at?: (Scalars['timestamptz'] | null),signature?: (Scalars['String'] | null),slot?: (Scalars['bigint'] | null),vault_addr?: (Scalars['String'] | null),vault_seq_num?: (Scalars['bigint'] | null)}
+
+
+/** aggregate sum on columns */
+export interface v0_4_merges_sum_fieldsGenqlSelection{
+    amount?: boolean | number
+    slot?: boolean | number
+    vault_seq_num?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+
+/** order by sum() on columns of table "v0_4_merges" */
+export interface v0_4_merges_sum_order_by {amount?: (order_by | null),slot?: (order_by | null),vault_seq_num?: (order_by | null)}
+
+export interface v0_4_merges_updates {
+/** increments the numeric columns with given value of the filtered values */
+_inc?: (v0_4_merges_inc_input | null),
+/** sets the columns of the filtered rows to the given values */
+_set?: (v0_4_merges_set_input | null),
+/** filter the rows which have to be updated */
+where: v0_4_merges_bool_exp}
+
+
+/** aggregate var_pop on columns */
+export interface v0_4_merges_var_pop_fieldsGenqlSelection{
+    amount?: boolean | number
+    slot?: boolean | number
+    vault_seq_num?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+
+/** order by var_pop() on columns of table "v0_4_merges" */
+export interface v0_4_merges_var_pop_order_by {amount?: (order_by | null),slot?: (order_by | null),vault_seq_num?: (order_by | null)}
+
+
+/** aggregate var_samp on columns */
+export interface v0_4_merges_var_samp_fieldsGenqlSelection{
+    amount?: boolean | number
+    slot?: boolean | number
+    vault_seq_num?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+
+/** order by var_samp() on columns of table "v0_4_merges" */
+export interface v0_4_merges_var_samp_order_by {amount?: (order_by | null),slot?: (order_by | null),vault_seq_num?: (order_by | null)}
+
+
+/** aggregate variance on columns */
+export interface v0_4_merges_variance_fieldsGenqlSelection{
+    amount?: boolean | number
+    slot?: boolean | number
+    vault_seq_num?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+
+/** order by variance() on columns of table "v0_4_merges" */
+export interface v0_4_merges_variance_order_by {amount?: (order_by | null),slot?: (order_by | null),vault_seq_num?: (order_by | null)}
+
+
+/** columns and relationships of "v0_4_metric_decisions" */
+export interface v0_4_metric_decisionsGenqlSelection{
+    /** An object relationship */
+    amm?: v0_4_ammsGenqlSelection
+    amm_addr?: boolean | number
+    committee_evaluation?: boolean | number
+    created_at?: boolean | number
+    /** An object relationship */
+    dao_detail?: dao_detailsGenqlSelection
+    dao_id?: boolean | number
+    description?: boolean | number
+    grant_awarded?: boolean | number
+    id?: boolean | number
+    market_opened?: boolean | number
+    /** An object relationship */
+    metric_question?: v0_4_questionsGenqlSelection
+    metric_question_addr?: boolean | number
+    /** An object relationship */
+    metric_vault?: v0_4_conditional_vaultsGenqlSelection
+    metric_vault_addr?: boolean | number
+    /** An object relationship */
+    outcome_question?: v0_4_questionsGenqlSelection
+    outcome_question_addr?: boolean | number
+    /** An object relationship */
+    outcome_vault?: v0_4_conditional_vaultsGenqlSelection
+    outcome_vault_addr?: boolean | number
+    recipient?: boolean | number
+    score_max_value?: boolean | number
+    score_min_value?: boolean | number
+    score_term?: boolean | number
+    score_unit?: boolean | number
+    title?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+
+/** aggregated selection of "v0_4_metric_decisions" */
+export interface v0_4_metric_decisions_aggregateGenqlSelection{
+    aggregate?: v0_4_metric_decisions_aggregate_fieldsGenqlSelection
+    nodes?: v0_4_metric_decisionsGenqlSelection
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+export interface v0_4_metric_decisions_aggregate_bool_exp {count?: (v0_4_metric_decisions_aggregate_bool_exp_count | null)}
+
+export interface v0_4_metric_decisions_aggregate_bool_exp_count {arguments?: (v0_4_metric_decisions_select_column[] | null),distinct?: (Scalars['Boolean'] | null),filter?: (v0_4_metric_decisions_bool_exp | null),predicate: Int_comparison_exp}
+
+
+/** aggregate fields of "v0_4_metric_decisions" */
+export interface v0_4_metric_decisions_aggregate_fieldsGenqlSelection{
+    avg?: v0_4_metric_decisions_avg_fieldsGenqlSelection
+    count?: { __args: {columns?: (v0_4_metric_decisions_select_column[] | null), distinct?: (Scalars['Boolean'] | null)} } | boolean | number
+    max?: v0_4_metric_decisions_max_fieldsGenqlSelection
+    min?: v0_4_metric_decisions_min_fieldsGenqlSelection
+    stddev?: v0_4_metric_decisions_stddev_fieldsGenqlSelection
+    stddev_pop?: v0_4_metric_decisions_stddev_pop_fieldsGenqlSelection
+    stddev_samp?: v0_4_metric_decisions_stddev_samp_fieldsGenqlSelection
+    sum?: v0_4_metric_decisions_sum_fieldsGenqlSelection
+    var_pop?: v0_4_metric_decisions_var_pop_fieldsGenqlSelection
+    var_samp?: v0_4_metric_decisions_var_samp_fieldsGenqlSelection
+    variance?: v0_4_metric_decisions_variance_fieldsGenqlSelection
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+
+/** order by aggregate values of table "v0_4_metric_decisions" */
+export interface v0_4_metric_decisions_aggregate_order_by {avg?: (v0_4_metric_decisions_avg_order_by | null),count?: (order_by | null),max?: (v0_4_metric_decisions_max_order_by | null),min?: (v0_4_metric_decisions_min_order_by | null),stddev?: (v0_4_metric_decisions_stddev_order_by | null),stddev_pop?: (v0_4_metric_decisions_stddev_pop_order_by | null),stddev_samp?: (v0_4_metric_decisions_stddev_samp_order_by | null),sum?: (v0_4_metric_decisions_sum_order_by | null),var_pop?: (v0_4_metric_decisions_var_pop_order_by | null),var_samp?: (v0_4_metric_decisions_var_samp_order_by | null),variance?: (v0_4_metric_decisions_variance_order_by | null)}
+
+
+/** input type for inserting array relation for remote table "v0_4_metric_decisions" */
+export interface v0_4_metric_decisions_arr_rel_insert_input {data: v0_4_metric_decisions_insert_input[],
+/** upsert condition */
+on_conflict?: (v0_4_metric_decisions_on_conflict | null)}
+
+
+/** aggregate avg on columns */
+export interface v0_4_metric_decisions_avg_fieldsGenqlSelection{
+    dao_id?: boolean | number
+    id?: boolean | number
+    score_max_value?: boolean | number
+    score_min_value?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+
+/** order by avg() on columns of table "v0_4_metric_decisions" */
+export interface v0_4_metric_decisions_avg_order_by {dao_id?: (order_by | null),id?: (order_by | null),score_max_value?: (order_by | null),score_min_value?: (order_by | null)}
+
+
+/** Boolean expression to filter rows from the table "v0_4_metric_decisions". All fields are combined with a logical 'AND'. */
+export interface v0_4_metric_decisions_bool_exp {_and?: (v0_4_metric_decisions_bool_exp[] | null),_not?: (v0_4_metric_decisions_bool_exp | null),_or?: (v0_4_metric_decisions_bool_exp[] | null),amm?: (v0_4_amms_bool_exp | null),amm_addr?: (String_comparison_exp | null),committee_evaluation?: (timestamptz_comparison_exp | null),created_at?: (timestamptz_comparison_exp | null),dao_detail?: (dao_details_bool_exp | null),dao_id?: (bigint_comparison_exp | null),description?: (String_comparison_exp | null),grant_awarded?: (timestamptz_comparison_exp | null),id?: (bigint_comparison_exp | null),market_opened?: (timestamptz_comparison_exp | null),metric_question?: (v0_4_questions_bool_exp | null),metric_question_addr?: (String_comparison_exp | null),metric_vault?: (v0_4_conditional_vaults_bool_exp | null),metric_vault_addr?: (String_comparison_exp | null),outcome_question?: (v0_4_questions_bool_exp | null),outcome_question_addr?: (String_comparison_exp | null),outcome_vault?: (v0_4_conditional_vaults_bool_exp | null),outcome_vault_addr?: (String_comparison_exp | null),recipient?: (String_comparison_exp | null),score_max_value?: (numeric_comparison_exp | null),score_min_value?: (numeric_comparison_exp | null),score_term?: (String_comparison_exp | null),score_unit?: (String_comparison_exp | null),title?: (String_comparison_exp | null)}
+
+
+/** input type for incrementing numeric columns in table "v0_4_metric_decisions" */
+export interface v0_4_metric_decisions_inc_input {dao_id?: (Scalars['bigint'] | null),id?: (Scalars['bigint'] | null),score_max_value?: (Scalars['numeric'] | null),score_min_value?: (Scalars['numeric'] | null)}
+
+
+/** input type for inserting data into table "v0_4_metric_decisions" */
+export interface v0_4_metric_decisions_insert_input {amm?: (v0_4_amms_obj_rel_insert_input | null),amm_addr?: (Scalars['String'] | null),committee_evaluation?: (Scalars['timestamptz'] | null),created_at?: (Scalars['timestamptz'] | null),dao_detail?: (dao_details_obj_rel_insert_input | null),dao_id?: (Scalars['bigint'] | null),description?: (Scalars['String'] | null),grant_awarded?: (Scalars['timestamptz'] | null),id?: (Scalars['bigint'] | null),market_opened?: (Scalars['timestamptz'] | null),metric_question?: (v0_4_questions_obj_rel_insert_input | null),metric_question_addr?: (Scalars['String'] | null),metric_vault?: (v0_4_conditional_vaults_obj_rel_insert_input | null),metric_vault_addr?: (Scalars['String'] | null),outcome_question?: (v0_4_questions_obj_rel_insert_input | null),outcome_question_addr?: (Scalars['String'] | null),outcome_vault?: (v0_4_conditional_vaults_obj_rel_insert_input | null),outcome_vault_addr?: (Scalars['String'] | null),recipient?: (Scalars['String'] | null),score_max_value?: (Scalars['numeric'] | null),score_min_value?: (Scalars['numeric'] | null),score_term?: (Scalars['String'] | null),score_unit?: (Scalars['String'] | null),title?: (Scalars['String'] | null)}
+
+
+/** aggregate max on columns */
+export interface v0_4_metric_decisions_max_fieldsGenqlSelection{
+    amm_addr?: boolean | number
+    committee_evaluation?: boolean | number
+    created_at?: boolean | number
+    dao_id?: boolean | number
+    description?: boolean | number
+    grant_awarded?: boolean | number
+    id?: boolean | number
+    market_opened?: boolean | number
+    metric_question_addr?: boolean | number
+    metric_vault_addr?: boolean | number
+    outcome_question_addr?: boolean | number
+    outcome_vault_addr?: boolean | number
+    recipient?: boolean | number
+    score_max_value?: boolean | number
+    score_min_value?: boolean | number
+    score_term?: boolean | number
+    score_unit?: boolean | number
+    title?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+
+/** order by max() on columns of table "v0_4_metric_decisions" */
+export interface v0_4_metric_decisions_max_order_by {amm_addr?: (order_by | null),committee_evaluation?: (order_by | null),created_at?: (order_by | null),dao_id?: (order_by | null),description?: (order_by | null),grant_awarded?: (order_by | null),id?: (order_by | null),market_opened?: (order_by | null),metric_question_addr?: (order_by | null),metric_vault_addr?: (order_by | null),outcome_question_addr?: (order_by | null),outcome_vault_addr?: (order_by | null),recipient?: (order_by | null),score_max_value?: (order_by | null),score_min_value?: (order_by | null),score_term?: (order_by | null),score_unit?: (order_by | null),title?: (order_by | null)}
+
+
+/** aggregate min on columns */
+export interface v0_4_metric_decisions_min_fieldsGenqlSelection{
+    amm_addr?: boolean | number
+    committee_evaluation?: boolean | number
+    created_at?: boolean | number
+    dao_id?: boolean | number
+    description?: boolean | number
+    grant_awarded?: boolean | number
+    id?: boolean | number
+    market_opened?: boolean | number
+    metric_question_addr?: boolean | number
+    metric_vault_addr?: boolean | number
+    outcome_question_addr?: boolean | number
+    outcome_vault_addr?: boolean | number
+    recipient?: boolean | number
+    score_max_value?: boolean | number
+    score_min_value?: boolean | number
+    score_term?: boolean | number
+    score_unit?: boolean | number
+    title?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+
+/** order by min() on columns of table "v0_4_metric_decisions" */
+export interface v0_4_metric_decisions_min_order_by {amm_addr?: (order_by | null),committee_evaluation?: (order_by | null),created_at?: (order_by | null),dao_id?: (order_by | null),description?: (order_by | null),grant_awarded?: (order_by | null),id?: (order_by | null),market_opened?: (order_by | null),metric_question_addr?: (order_by | null),metric_vault_addr?: (order_by | null),outcome_question_addr?: (order_by | null),outcome_vault_addr?: (order_by | null),recipient?: (order_by | null),score_max_value?: (order_by | null),score_min_value?: (order_by | null),score_term?: (order_by | null),score_unit?: (order_by | null),title?: (order_by | null)}
+
+
+/** response of any mutation on the table "v0_4_metric_decisions" */
+export interface v0_4_metric_decisions_mutation_responseGenqlSelection{
+    /** number of rows affected by the mutation */
+    affected_rows?: boolean | number
+    /** data from the rows affected by the mutation */
+    returning?: v0_4_metric_decisionsGenqlSelection
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+
+/** on_conflict condition type for table "v0_4_metric_decisions" */
+export interface v0_4_metric_decisions_on_conflict {constraint: v0_4_metric_decisions_constraint,update_columns?: v0_4_metric_decisions_update_column[],where?: (v0_4_metric_decisions_bool_exp | null)}
+
+
+/** Ordering options when selecting data from "v0_4_metric_decisions". */
+export interface v0_4_metric_decisions_order_by {amm?: (v0_4_amms_order_by | null),amm_addr?: (order_by | null),committee_evaluation?: (order_by | null),created_at?: (order_by | null),dao_detail?: (dao_details_order_by | null),dao_id?: (order_by | null),description?: (order_by | null),grant_awarded?: (order_by | null),id?: (order_by | null),market_opened?: (order_by | null),metric_question?: (v0_4_questions_order_by | null),metric_question_addr?: (order_by | null),metric_vault?: (v0_4_conditional_vaults_order_by | null),metric_vault_addr?: (order_by | null),outcome_question?: (v0_4_questions_order_by | null),outcome_question_addr?: (order_by | null),outcome_vault?: (v0_4_conditional_vaults_order_by | null),outcome_vault_addr?: (order_by | null),recipient?: (order_by | null),score_max_value?: (order_by | null),score_min_value?: (order_by | null),score_term?: (order_by | null),score_unit?: (order_by | null),title?: (order_by | null)}
+
+
+/** primary key columns input for table: v0_4_metric_decisions */
+export interface v0_4_metric_decisions_pk_columns_input {id: Scalars['bigint']}
+
+
+/** input type for updating data in table "v0_4_metric_decisions" */
+export interface v0_4_metric_decisions_set_input {amm_addr?: (Scalars['String'] | null),committee_evaluation?: (Scalars['timestamptz'] | null),created_at?: (Scalars['timestamptz'] | null),dao_id?: (Scalars['bigint'] | null),description?: (Scalars['String'] | null),grant_awarded?: (Scalars['timestamptz'] | null),id?: (Scalars['bigint'] | null),market_opened?: (Scalars['timestamptz'] | null),metric_question_addr?: (Scalars['String'] | null),metric_vault_addr?: (Scalars['String'] | null),outcome_question_addr?: (Scalars['String'] | null),outcome_vault_addr?: (Scalars['String'] | null),recipient?: (Scalars['String'] | null),score_max_value?: (Scalars['numeric'] | null),score_min_value?: (Scalars['numeric'] | null),score_term?: (Scalars['String'] | null),score_unit?: (Scalars['String'] | null),title?: (Scalars['String'] | null)}
+
+
+/** aggregate stddev on columns */
+export interface v0_4_metric_decisions_stddev_fieldsGenqlSelection{
+    dao_id?: boolean | number
+    id?: boolean | number
+    score_max_value?: boolean | number
+    score_min_value?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+
+/** order by stddev() on columns of table "v0_4_metric_decisions" */
+export interface v0_4_metric_decisions_stddev_order_by {dao_id?: (order_by | null),id?: (order_by | null),score_max_value?: (order_by | null),score_min_value?: (order_by | null)}
+
+
+/** aggregate stddev_pop on columns */
+export interface v0_4_metric_decisions_stddev_pop_fieldsGenqlSelection{
+    dao_id?: boolean | number
+    id?: boolean | number
+    score_max_value?: boolean | number
+    score_min_value?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+
+/** order by stddev_pop() on columns of table "v0_4_metric_decisions" */
+export interface v0_4_metric_decisions_stddev_pop_order_by {dao_id?: (order_by | null),id?: (order_by | null),score_max_value?: (order_by | null),score_min_value?: (order_by | null)}
+
+
+/** aggregate stddev_samp on columns */
+export interface v0_4_metric_decisions_stddev_samp_fieldsGenqlSelection{
+    dao_id?: boolean | number
+    id?: boolean | number
+    score_max_value?: boolean | number
+    score_min_value?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+
+/** order by stddev_samp() on columns of table "v0_4_metric_decisions" */
+export interface v0_4_metric_decisions_stddev_samp_order_by {dao_id?: (order_by | null),id?: (order_by | null),score_max_value?: (order_by | null),score_min_value?: (order_by | null)}
+
+
+/** Streaming cursor of the table "v0_4_metric_decisions" */
+export interface v0_4_metric_decisions_stream_cursor_input {
+/** Stream column input with initial value */
+initial_value: v0_4_metric_decisions_stream_cursor_value_input,
+/** cursor ordering */
+ordering?: (cursor_ordering | null)}
+
+
+/** Initial value of the column from where the streaming should start */
+export interface v0_4_metric_decisions_stream_cursor_value_input {amm_addr?: (Scalars['String'] | null),committee_evaluation?: (Scalars['timestamptz'] | null),created_at?: (Scalars['timestamptz'] | null),dao_id?: (Scalars['bigint'] | null),description?: (Scalars['String'] | null),grant_awarded?: (Scalars['timestamptz'] | null),id?: (Scalars['bigint'] | null),market_opened?: (Scalars['timestamptz'] | null),metric_question_addr?: (Scalars['String'] | null),metric_vault_addr?: (Scalars['String'] | null),outcome_question_addr?: (Scalars['String'] | null),outcome_vault_addr?: (Scalars['String'] | null),recipient?: (Scalars['String'] | null),score_max_value?: (Scalars['numeric'] | null),score_min_value?: (Scalars['numeric'] | null),score_term?: (Scalars['String'] | null),score_unit?: (Scalars['String'] | null),title?: (Scalars['String'] | null)}
+
+
+/** aggregate sum on columns */
+export interface v0_4_metric_decisions_sum_fieldsGenqlSelection{
+    dao_id?: boolean | number
+    id?: boolean | number
+    score_max_value?: boolean | number
+    score_min_value?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+
+/** order by sum() on columns of table "v0_4_metric_decisions" */
+export interface v0_4_metric_decisions_sum_order_by {dao_id?: (order_by | null),id?: (order_by | null),score_max_value?: (order_by | null),score_min_value?: (order_by | null)}
+
+export interface v0_4_metric_decisions_updates {
+/** increments the numeric columns with given value of the filtered values */
+_inc?: (v0_4_metric_decisions_inc_input | null),
+/** sets the columns of the filtered rows to the given values */
+_set?: (v0_4_metric_decisions_set_input | null),
+/** filter the rows which have to be updated */
+where: v0_4_metric_decisions_bool_exp}
+
+
+/** aggregate var_pop on columns */
+export interface v0_4_metric_decisions_var_pop_fieldsGenqlSelection{
+    dao_id?: boolean | number
+    id?: boolean | number
+    score_max_value?: boolean | number
+    score_min_value?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+
+/** order by var_pop() on columns of table "v0_4_metric_decisions" */
+export interface v0_4_metric_decisions_var_pop_order_by {dao_id?: (order_by | null),id?: (order_by | null),score_max_value?: (order_by | null),score_min_value?: (order_by | null)}
+
+
+/** aggregate var_samp on columns */
+export interface v0_4_metric_decisions_var_samp_fieldsGenqlSelection{
+    dao_id?: boolean | number
+    id?: boolean | number
+    score_max_value?: boolean | number
+    score_min_value?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+
+/** order by var_samp() on columns of table "v0_4_metric_decisions" */
+export interface v0_4_metric_decisions_var_samp_order_by {dao_id?: (order_by | null),id?: (order_by | null),score_max_value?: (order_by | null),score_min_value?: (order_by | null)}
+
+
+/** aggregate variance on columns */
+export interface v0_4_metric_decisions_variance_fieldsGenqlSelection{
+    dao_id?: boolean | number
+    id?: boolean | number
+    score_max_value?: boolean | number
+    score_min_value?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+
+/** order by variance() on columns of table "v0_4_metric_decisions" */
+export interface v0_4_metric_decisions_variance_order_by {dao_id?: (order_by | null),id?: (order_by | null),score_max_value?: (order_by | null),score_min_value?: (order_by | null)}
+
+
+/** columns and relationships of "v0_4_questions" */
+export interface v0_4_questionsGenqlSelection{
+    created_at?: boolean | number
+    /** An array relationship */
+    decisions?: (v0_4_metric_decisionsGenqlSelection & { __args?: {
+    /** distinct select on columns */
+    distinct_on?: (v0_4_metric_decisions_select_column[] | null), 
+    /** limit the number of rows returned */
+    limit?: (Scalars['Int'] | null), 
+    /** skip the first n rows. Use only with order_by */
+    offset?: (Scalars['Int'] | null), 
+    /** sort the rows by one or more columns */
+    order_by?: (v0_4_metric_decisions_order_by[] | null), 
+    /** filter the rows returned */
+    where?: (v0_4_metric_decisions_bool_exp | null)} })
+    /** An aggregate relationship */
+    decisions_aggregate?: (v0_4_metric_decisions_aggregateGenqlSelection & { __args?: {
+    /** distinct select on columns */
+    distinct_on?: (v0_4_metric_decisions_select_column[] | null), 
+    /** limit the number of rows returned */
+    limit?: (Scalars['Int'] | null), 
+    /** skip the first n rows. Use only with order_by */
+    offset?: (Scalars['Int'] | null), 
+    /** sort the rows by one or more columns */
+    order_by?: (v0_4_metric_decisions_order_by[] | null), 
+    /** filter the rows returned */
+    where?: (v0_4_metric_decisions_bool_exp | null)} })
+    is_resolved?: boolean | number
+    /** An array relationship */
+    metric_decisions?: (v0_4_metric_decisionsGenqlSelection & { __args?: {
+    /** distinct select on columns */
+    distinct_on?: (v0_4_metric_decisions_select_column[] | null), 
+    /** limit the number of rows returned */
+    limit?: (Scalars['Int'] | null), 
+    /** skip the first n rows. Use only with order_by */
+    offset?: (Scalars['Int'] | null), 
+    /** sort the rows by one or more columns */
+    order_by?: (v0_4_metric_decisions_order_by[] | null), 
+    /** filter the rows returned */
+    where?: (v0_4_metric_decisions_bool_exp | null)} })
+    /** An aggregate relationship */
+    metric_decisions_aggregate?: (v0_4_metric_decisions_aggregateGenqlSelection & { __args?: {
+    /** distinct select on columns */
+    distinct_on?: (v0_4_metric_decisions_select_column[] | null), 
+    /** limit the number of rows returned */
+    limit?: (Scalars['Int'] | null), 
+    /** skip the first n rows. Use only with order_by */
+    offset?: (Scalars['Int'] | null), 
+    /** sort the rows by one or more columns */
+    order_by?: (v0_4_metric_decisions_order_by[] | null), 
+    /** filter the rows returned */
+    where?: (v0_4_metric_decisions_bool_exp | null)} })
+    num_outcomes?: boolean | number
+    oracle_addr?: boolean | number
+    payout_denominator?: boolean | number
+    payout_numerators?: { __args: {
+    /** JSON select path */
+    path?: (Scalars['String'] | null)} } | boolean | number
+    question_addr?: boolean | number
+    question_id?: { __args: {
+    /** JSON select path */
+    path?: (Scalars['String'] | null)} } | boolean | number
+    /** An array relationship */
+    question_vaults?: (v0_4_conditional_vaultsGenqlSelection & { __args?: {
+    /** distinct select on columns */
+    distinct_on?: (v0_4_conditional_vaults_select_column[] | null), 
+    /** limit the number of rows returned */
+    limit?: (Scalars['Int'] | null), 
+    /** skip the first n rows. Use only with order_by */
+    offset?: (Scalars['Int'] | null), 
+    /** sort the rows by one or more columns */
+    order_by?: (v0_4_conditional_vaults_order_by[] | null), 
+    /** filter the rows returned */
+    where?: (v0_4_conditional_vaults_bool_exp | null)} })
+    /** An aggregate relationship */
+    question_vaults_aggregate?: (v0_4_conditional_vaults_aggregateGenqlSelection & { __args?: {
+    /** distinct select on columns */
+    distinct_on?: (v0_4_conditional_vaults_select_column[] | null), 
+    /** limit the number of rows returned */
+    limit?: (Scalars['Int'] | null), 
+    /** skip the first n rows. Use only with order_by */
+    offset?: (Scalars['Int'] | null), 
+    /** sort the rows by one or more columns */
+    order_by?: (v0_4_conditional_vaults_order_by[] | null), 
+    /** filter the rows returned */
+    where?: (v0_4_conditional_vaults_bool_exp | null)} })
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+
+/** aggregated selection of "v0_4_questions" */
+export interface v0_4_questions_aggregateGenqlSelection{
+    aggregate?: v0_4_questions_aggregate_fieldsGenqlSelection
+    nodes?: v0_4_questionsGenqlSelection
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+
+/** aggregate fields of "v0_4_questions" */
+export interface v0_4_questions_aggregate_fieldsGenqlSelection{
+    avg?: v0_4_questions_avg_fieldsGenqlSelection
+    count?: { __args: {columns?: (v0_4_questions_select_column[] | null), distinct?: (Scalars['Boolean'] | null)} } | boolean | number
+    max?: v0_4_questions_max_fieldsGenqlSelection
+    min?: v0_4_questions_min_fieldsGenqlSelection
+    stddev?: v0_4_questions_stddev_fieldsGenqlSelection
+    stddev_pop?: v0_4_questions_stddev_pop_fieldsGenqlSelection
+    stddev_samp?: v0_4_questions_stddev_samp_fieldsGenqlSelection
+    sum?: v0_4_questions_sum_fieldsGenqlSelection
+    var_pop?: v0_4_questions_var_pop_fieldsGenqlSelection
+    var_samp?: v0_4_questions_var_samp_fieldsGenqlSelection
+    variance?: v0_4_questions_variance_fieldsGenqlSelection
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+
+/** append existing jsonb value of filtered columns with new jsonb value */
+export interface v0_4_questions_append_input {payout_numerators?: (Scalars['jsonb'] | null),question_id?: (Scalars['jsonb'] | null)}
+
+
+/** aggregate avg on columns */
+export interface v0_4_questions_avg_fieldsGenqlSelection{
+    num_outcomes?: boolean | number
+    payout_denominator?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+
+/** Boolean expression to filter rows from the table "v0_4_questions". All fields are combined with a logical 'AND'. */
+export interface v0_4_questions_bool_exp {_and?: (v0_4_questions_bool_exp[] | null),_not?: (v0_4_questions_bool_exp | null),_or?: (v0_4_questions_bool_exp[] | null),created_at?: (timestamptz_comparison_exp | null),decisions?: (v0_4_metric_decisions_bool_exp | null),decisions_aggregate?: (v0_4_metric_decisions_aggregate_bool_exp | null),is_resolved?: (Boolean_comparison_exp | null),metric_decisions?: (v0_4_metric_decisions_bool_exp | null),metric_decisions_aggregate?: (v0_4_metric_decisions_aggregate_bool_exp | null),num_outcomes?: (smallint_comparison_exp | null),oracle_addr?: (String_comparison_exp | null),payout_denominator?: (bigint_comparison_exp | null),payout_numerators?: (jsonb_comparison_exp | null),question_addr?: (String_comparison_exp | null),question_id?: (jsonb_comparison_exp | null),question_vaults?: (v0_4_conditional_vaults_bool_exp | null),question_vaults_aggregate?: (v0_4_conditional_vaults_aggregate_bool_exp | null)}
+
+
+/** delete the field or element with specified path (for JSON arrays, negative integers count from the end) */
+export interface v0_4_questions_delete_at_path_input {payout_numerators?: (Scalars['String'][] | null),question_id?: (Scalars['String'][] | null)}
+
+
+/** delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array */
+export interface v0_4_questions_delete_elem_input {payout_numerators?: (Scalars['Int'] | null),question_id?: (Scalars['Int'] | null)}
+
+
+/** delete key/value pair or string element. key/value pairs are matched based on their key value */
+export interface v0_4_questions_delete_key_input {payout_numerators?: (Scalars['String'] | null),question_id?: (Scalars['String'] | null)}
+
+
+/** input type for incrementing numeric columns in table "v0_4_questions" */
+export interface v0_4_questions_inc_input {num_outcomes?: (Scalars['smallint'] | null),payout_denominator?: (Scalars['bigint'] | null)}
+
+
+/** input type for inserting data into table "v0_4_questions" */
+export interface v0_4_questions_insert_input {created_at?: (Scalars['timestamptz'] | null),decisions?: (v0_4_metric_decisions_arr_rel_insert_input | null),is_resolved?: (Scalars['Boolean'] | null),metric_decisions?: (v0_4_metric_decisions_arr_rel_insert_input | null),num_outcomes?: (Scalars['smallint'] | null),oracle_addr?: (Scalars['String'] | null),payout_denominator?: (Scalars['bigint'] | null),payout_numerators?: (Scalars['jsonb'] | null),question_addr?: (Scalars['String'] | null),question_id?: (Scalars['jsonb'] | null),question_vaults?: (v0_4_conditional_vaults_arr_rel_insert_input | null)}
+
+
+/** aggregate max on columns */
+export interface v0_4_questions_max_fieldsGenqlSelection{
+    created_at?: boolean | number
+    num_outcomes?: boolean | number
+    oracle_addr?: boolean | number
+    payout_denominator?: boolean | number
+    question_addr?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+
+/** aggregate min on columns */
+export interface v0_4_questions_min_fieldsGenqlSelection{
+    created_at?: boolean | number
+    num_outcomes?: boolean | number
+    oracle_addr?: boolean | number
+    payout_denominator?: boolean | number
+    question_addr?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+
+/** response of any mutation on the table "v0_4_questions" */
+export interface v0_4_questions_mutation_responseGenqlSelection{
+    /** number of rows affected by the mutation */
+    affected_rows?: boolean | number
+    /** data from the rows affected by the mutation */
+    returning?: v0_4_questionsGenqlSelection
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+
+/** input type for inserting object relation for remote table "v0_4_questions" */
+export interface v0_4_questions_obj_rel_insert_input {data: v0_4_questions_insert_input,
+/** upsert condition */
+on_conflict?: (v0_4_questions_on_conflict | null)}
+
+
+/** on_conflict condition type for table "v0_4_questions" */
+export interface v0_4_questions_on_conflict {constraint: v0_4_questions_constraint,update_columns?: v0_4_questions_update_column[],where?: (v0_4_questions_bool_exp | null)}
+
+
+/** Ordering options when selecting data from "v0_4_questions". */
+export interface v0_4_questions_order_by {created_at?: (order_by | null),decisions_aggregate?: (v0_4_metric_decisions_aggregate_order_by | null),is_resolved?: (order_by | null),metric_decisions_aggregate?: (v0_4_metric_decisions_aggregate_order_by | null),num_outcomes?: (order_by | null),oracle_addr?: (order_by | null),payout_denominator?: (order_by | null),payout_numerators?: (order_by | null),question_addr?: (order_by | null),question_id?: (order_by | null),question_vaults_aggregate?: (v0_4_conditional_vaults_aggregate_order_by | null)}
+
+
+/** primary key columns input for table: v0_4_questions */
+export interface v0_4_questions_pk_columns_input {question_addr: Scalars['String']}
+
+
+/** prepend existing jsonb value of filtered columns with new jsonb value */
+export interface v0_4_questions_prepend_input {payout_numerators?: (Scalars['jsonb'] | null),question_id?: (Scalars['jsonb'] | null)}
+
+
+/** input type for updating data in table "v0_4_questions" */
+export interface v0_4_questions_set_input {created_at?: (Scalars['timestamptz'] | null),is_resolved?: (Scalars['Boolean'] | null),num_outcomes?: (Scalars['smallint'] | null),oracle_addr?: (Scalars['String'] | null),payout_denominator?: (Scalars['bigint'] | null),payout_numerators?: (Scalars['jsonb'] | null),question_addr?: (Scalars['String'] | null),question_id?: (Scalars['jsonb'] | null)}
+
+
+/** aggregate stddev on columns */
+export interface v0_4_questions_stddev_fieldsGenqlSelection{
+    num_outcomes?: boolean | number
+    payout_denominator?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+
+/** aggregate stddev_pop on columns */
+export interface v0_4_questions_stddev_pop_fieldsGenqlSelection{
+    num_outcomes?: boolean | number
+    payout_denominator?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+
+/** aggregate stddev_samp on columns */
+export interface v0_4_questions_stddev_samp_fieldsGenqlSelection{
+    num_outcomes?: boolean | number
+    payout_denominator?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+
+/** Streaming cursor of the table "v0_4_questions" */
+export interface v0_4_questions_stream_cursor_input {
+/** Stream column input with initial value */
+initial_value: v0_4_questions_stream_cursor_value_input,
+/** cursor ordering */
+ordering?: (cursor_ordering | null)}
+
+
+/** Initial value of the column from where the streaming should start */
+export interface v0_4_questions_stream_cursor_value_input {created_at?: (Scalars['timestamptz'] | null),is_resolved?: (Scalars['Boolean'] | null),num_outcomes?: (Scalars['smallint'] | null),oracle_addr?: (Scalars['String'] | null),payout_denominator?: (Scalars['bigint'] | null),payout_numerators?: (Scalars['jsonb'] | null),question_addr?: (Scalars['String'] | null),question_id?: (Scalars['jsonb'] | null)}
+
+
+/** aggregate sum on columns */
+export interface v0_4_questions_sum_fieldsGenqlSelection{
+    num_outcomes?: boolean | number
+    payout_denominator?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+export interface v0_4_questions_updates {
+/** append existing jsonb value of filtered columns with new jsonb value */
+_append?: (v0_4_questions_append_input | null),
+/** delete the field or element with specified path (for JSON arrays, negative integers count from the end) */
+_delete_at_path?: (v0_4_questions_delete_at_path_input | null),
+/** delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array */
+_delete_elem?: (v0_4_questions_delete_elem_input | null),
+/** delete key/value pair or string element. key/value pairs are matched based on their key value */
+_delete_key?: (v0_4_questions_delete_key_input | null),
+/** increments the numeric columns with given value of the filtered values */
+_inc?: (v0_4_questions_inc_input | null),
+/** prepend existing jsonb value of filtered columns with new jsonb value */
+_prepend?: (v0_4_questions_prepend_input | null),
+/** sets the columns of the filtered rows to the given values */
+_set?: (v0_4_questions_set_input | null),
+/** filter the rows which have to be updated */
+where: v0_4_questions_bool_exp}
+
+
+/** aggregate var_pop on columns */
+export interface v0_4_questions_var_pop_fieldsGenqlSelection{
+    num_outcomes?: boolean | number
+    payout_denominator?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+
+/** aggregate var_samp on columns */
+export interface v0_4_questions_var_samp_fieldsGenqlSelection{
+    num_outcomes?: boolean | number
+    payout_denominator?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+
+/** aggregate variance on columns */
+export interface v0_4_questions_variance_fieldsGenqlSelection{
+    num_outcomes?: boolean | number
+    payout_denominator?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+
+/** columns and relationships of "v0_4_splits" */
+export interface v0_4_splitsGenqlSelection{
+    amount?: boolean | number
+    created_at?: boolean | number
+    signature?: boolean | number
+    /** An object relationship */
+    signatureBySignature?: signaturesGenqlSelection
+    slot?: boolean | number
+    /** An object relationship */
+    v0_4_conditional_vault?: v0_4_conditional_vaultsGenqlSelection
+    vault_addr?: boolean | number
+    vault_seq_num?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+
+/** aggregated selection of "v0_4_splits" */
+export interface v0_4_splits_aggregateGenqlSelection{
+    aggregate?: v0_4_splits_aggregate_fieldsGenqlSelection
+    nodes?: v0_4_splitsGenqlSelection
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+export interface v0_4_splits_aggregate_bool_exp {count?: (v0_4_splits_aggregate_bool_exp_count | null)}
+
+export interface v0_4_splits_aggregate_bool_exp_count {arguments?: (v0_4_splits_select_column[] | null),distinct?: (Scalars['Boolean'] | null),filter?: (v0_4_splits_bool_exp | null),predicate: Int_comparison_exp}
+
+
+/** aggregate fields of "v0_4_splits" */
+export interface v0_4_splits_aggregate_fieldsGenqlSelection{
+    avg?: v0_4_splits_avg_fieldsGenqlSelection
+    count?: { __args: {columns?: (v0_4_splits_select_column[] | null), distinct?: (Scalars['Boolean'] | null)} } | boolean | number
+    max?: v0_4_splits_max_fieldsGenqlSelection
+    min?: v0_4_splits_min_fieldsGenqlSelection
+    stddev?: v0_4_splits_stddev_fieldsGenqlSelection
+    stddev_pop?: v0_4_splits_stddev_pop_fieldsGenqlSelection
+    stddev_samp?: v0_4_splits_stddev_samp_fieldsGenqlSelection
+    sum?: v0_4_splits_sum_fieldsGenqlSelection
+    var_pop?: v0_4_splits_var_pop_fieldsGenqlSelection
+    var_samp?: v0_4_splits_var_samp_fieldsGenqlSelection
+    variance?: v0_4_splits_variance_fieldsGenqlSelection
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+
+/** order by aggregate values of table "v0_4_splits" */
+export interface v0_4_splits_aggregate_order_by {avg?: (v0_4_splits_avg_order_by | null),count?: (order_by | null),max?: (v0_4_splits_max_order_by | null),min?: (v0_4_splits_min_order_by | null),stddev?: (v0_4_splits_stddev_order_by | null),stddev_pop?: (v0_4_splits_stddev_pop_order_by | null),stddev_samp?: (v0_4_splits_stddev_samp_order_by | null),sum?: (v0_4_splits_sum_order_by | null),var_pop?: (v0_4_splits_var_pop_order_by | null),var_samp?: (v0_4_splits_var_samp_order_by | null),variance?: (v0_4_splits_variance_order_by | null)}
+
+
+/** input type for inserting array relation for remote table "v0_4_splits" */
+export interface v0_4_splits_arr_rel_insert_input {data: v0_4_splits_insert_input[],
+/** upsert condition */
+on_conflict?: (v0_4_splits_on_conflict | null)}
+
+
+/** aggregate avg on columns */
+export interface v0_4_splits_avg_fieldsGenqlSelection{
+    amount?: boolean | number
+    slot?: boolean | number
+    vault_seq_num?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+
+/** order by avg() on columns of table "v0_4_splits" */
+export interface v0_4_splits_avg_order_by {amount?: (order_by | null),slot?: (order_by | null),vault_seq_num?: (order_by | null)}
+
+
+/** Boolean expression to filter rows from the table "v0_4_splits". All fields are combined with a logical 'AND'. */
+export interface v0_4_splits_bool_exp {_and?: (v0_4_splits_bool_exp[] | null),_not?: (v0_4_splits_bool_exp | null),_or?: (v0_4_splits_bool_exp[] | null),amount?: (bigint_comparison_exp | null),created_at?: (timestamptz_comparison_exp | null),signature?: (String_comparison_exp | null),signatureBySignature?: (signatures_bool_exp | null),slot?: (bigint_comparison_exp | null),v0_4_conditional_vault?: (v0_4_conditional_vaults_bool_exp | null),vault_addr?: (String_comparison_exp | null),vault_seq_num?: (bigint_comparison_exp | null)}
+
+
+/** input type for incrementing numeric columns in table "v0_4_splits" */
+export interface v0_4_splits_inc_input {amount?: (Scalars['bigint'] | null),slot?: (Scalars['bigint'] | null),vault_seq_num?: (Scalars['bigint'] | null)}
+
+
+/** input type for inserting data into table "v0_4_splits" */
+export interface v0_4_splits_insert_input {amount?: (Scalars['bigint'] | null),created_at?: (Scalars['timestamptz'] | null),signature?: (Scalars['String'] | null),signatureBySignature?: (signatures_obj_rel_insert_input | null),slot?: (Scalars['bigint'] | null),v0_4_conditional_vault?: (v0_4_conditional_vaults_obj_rel_insert_input | null),vault_addr?: (Scalars['String'] | null),vault_seq_num?: (Scalars['bigint'] | null)}
+
+
+/** aggregate max on columns */
+export interface v0_4_splits_max_fieldsGenqlSelection{
+    amount?: boolean | number
+    created_at?: boolean | number
+    signature?: boolean | number
+    slot?: boolean | number
+    vault_addr?: boolean | number
+    vault_seq_num?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+
+/** order by max() on columns of table "v0_4_splits" */
+export interface v0_4_splits_max_order_by {amount?: (order_by | null),created_at?: (order_by | null),signature?: (order_by | null),slot?: (order_by | null),vault_addr?: (order_by | null),vault_seq_num?: (order_by | null)}
+
+
+/** aggregate min on columns */
+export interface v0_4_splits_min_fieldsGenqlSelection{
+    amount?: boolean | number
+    created_at?: boolean | number
+    signature?: boolean | number
+    slot?: boolean | number
+    vault_addr?: boolean | number
+    vault_seq_num?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+
+/** order by min() on columns of table "v0_4_splits" */
+export interface v0_4_splits_min_order_by {amount?: (order_by | null),created_at?: (order_by | null),signature?: (order_by | null),slot?: (order_by | null),vault_addr?: (order_by | null),vault_seq_num?: (order_by | null)}
+
+
+/** response of any mutation on the table "v0_4_splits" */
+export interface v0_4_splits_mutation_responseGenqlSelection{
+    /** number of rows affected by the mutation */
+    affected_rows?: boolean | number
+    /** data from the rows affected by the mutation */
+    returning?: v0_4_splitsGenqlSelection
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+
+/** input type for inserting object relation for remote table "v0_4_splits" */
+export interface v0_4_splits_obj_rel_insert_input {data: v0_4_splits_insert_input,
+/** upsert condition */
+on_conflict?: (v0_4_splits_on_conflict | null)}
+
+
+/** on_conflict condition type for table "v0_4_splits" */
+export interface v0_4_splits_on_conflict {constraint: v0_4_splits_constraint,update_columns?: v0_4_splits_update_column[],where?: (v0_4_splits_bool_exp | null)}
+
+
+/** Ordering options when selecting data from "v0_4_splits". */
+export interface v0_4_splits_order_by {amount?: (order_by | null),created_at?: (order_by | null),signature?: (order_by | null),signatureBySignature?: (signatures_order_by | null),slot?: (order_by | null),v0_4_conditional_vault?: (v0_4_conditional_vaults_order_by | null),vault_addr?: (order_by | null),vault_seq_num?: (order_by | null)}
+
+
+/** primary key columns input for table: v0_4_splits */
+export interface v0_4_splits_pk_columns_input {vault_addr: Scalars['String'],vault_seq_num: Scalars['bigint']}
+
+
+/** input type for updating data in table "v0_4_splits" */
+export interface v0_4_splits_set_input {amount?: (Scalars['bigint'] | null),created_at?: (Scalars['timestamptz'] | null),signature?: (Scalars['String'] | null),slot?: (Scalars['bigint'] | null),vault_addr?: (Scalars['String'] | null),vault_seq_num?: (Scalars['bigint'] | null)}
+
+
+/** aggregate stddev on columns */
+export interface v0_4_splits_stddev_fieldsGenqlSelection{
+    amount?: boolean | number
+    slot?: boolean | number
+    vault_seq_num?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+
+/** order by stddev() on columns of table "v0_4_splits" */
+export interface v0_4_splits_stddev_order_by {amount?: (order_by | null),slot?: (order_by | null),vault_seq_num?: (order_by | null)}
+
+
+/** aggregate stddev_pop on columns */
+export interface v0_4_splits_stddev_pop_fieldsGenqlSelection{
+    amount?: boolean | number
+    slot?: boolean | number
+    vault_seq_num?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+
+/** order by stddev_pop() on columns of table "v0_4_splits" */
+export interface v0_4_splits_stddev_pop_order_by {amount?: (order_by | null),slot?: (order_by | null),vault_seq_num?: (order_by | null)}
+
+
+/** aggregate stddev_samp on columns */
+export interface v0_4_splits_stddev_samp_fieldsGenqlSelection{
+    amount?: boolean | number
+    slot?: boolean | number
+    vault_seq_num?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+
+/** order by stddev_samp() on columns of table "v0_4_splits" */
+export interface v0_4_splits_stddev_samp_order_by {amount?: (order_by | null),slot?: (order_by | null),vault_seq_num?: (order_by | null)}
+
+
+/** Streaming cursor of the table "v0_4_splits" */
+export interface v0_4_splits_stream_cursor_input {
+/** Stream column input with initial value */
+initial_value: v0_4_splits_stream_cursor_value_input,
+/** cursor ordering */
+ordering?: (cursor_ordering | null)}
+
+
+/** Initial value of the column from where the streaming should start */
+export interface v0_4_splits_stream_cursor_value_input {amount?: (Scalars['bigint'] | null),created_at?: (Scalars['timestamptz'] | null),signature?: (Scalars['String'] | null),slot?: (Scalars['bigint'] | null),vault_addr?: (Scalars['String'] | null),vault_seq_num?: (Scalars['bigint'] | null)}
+
+
+/** aggregate sum on columns */
+export interface v0_4_splits_sum_fieldsGenqlSelection{
+    amount?: boolean | number
+    slot?: boolean | number
+    vault_seq_num?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+
+/** order by sum() on columns of table "v0_4_splits" */
+export interface v0_4_splits_sum_order_by {amount?: (order_by | null),slot?: (order_by | null),vault_seq_num?: (order_by | null)}
+
+export interface v0_4_splits_updates {
+/** increments the numeric columns with given value of the filtered values */
+_inc?: (v0_4_splits_inc_input | null),
+/** sets the columns of the filtered rows to the given values */
+_set?: (v0_4_splits_set_input | null),
+/** filter the rows which have to be updated */
+where: v0_4_splits_bool_exp}
+
+
+/** aggregate var_pop on columns */
+export interface v0_4_splits_var_pop_fieldsGenqlSelection{
+    amount?: boolean | number
+    slot?: boolean | number
+    vault_seq_num?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+
+/** order by var_pop() on columns of table "v0_4_splits" */
+export interface v0_4_splits_var_pop_order_by {amount?: (order_by | null),slot?: (order_by | null),vault_seq_num?: (order_by | null)}
+
+
+/** aggregate var_samp on columns */
+export interface v0_4_splits_var_samp_fieldsGenqlSelection{
+    amount?: boolean | number
+    slot?: boolean | number
+    vault_seq_num?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+
+/** order by var_samp() on columns of table "v0_4_splits" */
+export interface v0_4_splits_var_samp_order_by {amount?: (order_by | null),slot?: (order_by | null),vault_seq_num?: (order_by | null)}
+
+
+/** aggregate variance on columns */
+export interface v0_4_splits_variance_fieldsGenqlSelection{
+    amount?: boolean | number
+    slot?: boolean | number
+    vault_seq_num?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+
+/** order by variance() on columns of table "v0_4_splits" */
+export interface v0_4_splits_variance_order_by {amount?: (order_by | null),slot?: (order_by | null),vault_seq_num?: (order_by | null)}
+
+
+/** columns and relationships of "v0_4_swaps" */
+export interface v0_4_swapsGenqlSelection{
+    amm_addr?: boolean | number
+    amm_seq_num?: boolean | number
+    block_time?: boolean | number
+    created_at?: boolean | number
+    id?: boolean | number
+    input_amount?: boolean | number
+    output_amount?: boolean | number
+    signature?: boolean | number
+    slot?: boolean | number
+    swap_type?: boolean | number
+    user_addr?: boolean | number
+    /** An object relationship */
+    v0_4_merges?: v0_4_mergesGenqlSelection
+    /** An object relationship */
+    v0_4_splits?: v0_4_splitsGenqlSelection
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+
+/** aggregated selection of "v0_4_swaps" */
+export interface v0_4_swaps_aggregateGenqlSelection{
+    aggregate?: v0_4_swaps_aggregate_fieldsGenqlSelection
+    nodes?: v0_4_swapsGenqlSelection
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+
+/** aggregate fields of "v0_4_swaps" */
+export interface v0_4_swaps_aggregate_fieldsGenqlSelection{
+    avg?: v0_4_swaps_avg_fieldsGenqlSelection
+    count?: { __args: {columns?: (v0_4_swaps_select_column[] | null), distinct?: (Scalars['Boolean'] | null)} } | boolean | number
+    max?: v0_4_swaps_max_fieldsGenqlSelection
+    min?: v0_4_swaps_min_fieldsGenqlSelection
+    stddev?: v0_4_swaps_stddev_fieldsGenqlSelection
+    stddev_pop?: v0_4_swaps_stddev_pop_fieldsGenqlSelection
+    stddev_samp?: v0_4_swaps_stddev_samp_fieldsGenqlSelection
+    sum?: v0_4_swaps_sum_fieldsGenqlSelection
+    var_pop?: v0_4_swaps_var_pop_fieldsGenqlSelection
+    var_samp?: v0_4_swaps_var_samp_fieldsGenqlSelection
+    variance?: v0_4_swaps_variance_fieldsGenqlSelection
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+
+/** aggregate avg on columns */
+export interface v0_4_swaps_avg_fieldsGenqlSelection{
+    amm_seq_num?: boolean | number
+    id?: boolean | number
+    input_amount?: boolean | number
+    output_amount?: boolean | number
+    slot?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+
+/** Boolean expression to filter rows from the table "v0_4_swaps". All fields are combined with a logical 'AND'. */
+export interface v0_4_swaps_bool_exp {_and?: (v0_4_swaps_bool_exp[] | null),_not?: (v0_4_swaps_bool_exp | null),_or?: (v0_4_swaps_bool_exp[] | null),amm_addr?: (String_comparison_exp | null),amm_seq_num?: (bigint_comparison_exp | null),block_time?: (timestamptz_comparison_exp | null),created_at?: (timestamptz_comparison_exp | null),id?: (bigint_comparison_exp | null),input_amount?: (bigint_comparison_exp | null),output_amount?: (bigint_comparison_exp | null),signature?: (String_comparison_exp | null),slot?: (bigint_comparison_exp | null),swap_type?: (String_comparison_exp | null),user_addr?: (String_comparison_exp | null),v0_4_merges?: (v0_4_merges_bool_exp | null),v0_4_splits?: (v0_4_splits_bool_exp | null)}
+
+
+/** input type for incrementing numeric columns in table "v0_4_swaps" */
+export interface v0_4_swaps_inc_input {amm_seq_num?: (Scalars['bigint'] | null),id?: (Scalars['bigint'] | null),input_amount?: (Scalars['bigint'] | null),output_amount?: (Scalars['bigint'] | null),slot?: (Scalars['bigint'] | null)}
+
+
+/** input type for inserting data into table "v0_4_swaps" */
+export interface v0_4_swaps_insert_input {amm_addr?: (Scalars['String'] | null),amm_seq_num?: (Scalars['bigint'] | null),block_time?: (Scalars['timestamptz'] | null),created_at?: (Scalars['timestamptz'] | null),id?: (Scalars['bigint'] | null),input_amount?: (Scalars['bigint'] | null),output_amount?: (Scalars['bigint'] | null),signature?: (Scalars['String'] | null),slot?: (Scalars['bigint'] | null),swap_type?: (Scalars['String'] | null),user_addr?: (Scalars['String'] | null),v0_4_merges?: (v0_4_merges_obj_rel_insert_input | null),v0_4_splits?: (v0_4_splits_obj_rel_insert_input | null)}
+
+
+/** aggregate max on columns */
+export interface v0_4_swaps_max_fieldsGenqlSelection{
+    amm_addr?: boolean | number
+    amm_seq_num?: boolean | number
+    block_time?: boolean | number
+    created_at?: boolean | number
+    id?: boolean | number
+    input_amount?: boolean | number
+    output_amount?: boolean | number
+    signature?: boolean | number
+    slot?: boolean | number
+    swap_type?: boolean | number
+    user_addr?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+
+/** aggregate min on columns */
+export interface v0_4_swaps_min_fieldsGenqlSelection{
+    amm_addr?: boolean | number
+    amm_seq_num?: boolean | number
+    block_time?: boolean | number
+    created_at?: boolean | number
+    id?: boolean | number
+    input_amount?: boolean | number
+    output_amount?: boolean | number
+    signature?: boolean | number
+    slot?: boolean | number
+    swap_type?: boolean | number
+    user_addr?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+
+/** response of any mutation on the table "v0_4_swaps" */
+export interface v0_4_swaps_mutation_responseGenqlSelection{
+    /** number of rows affected by the mutation */
+    affected_rows?: boolean | number
+    /** data from the rows affected by the mutation */
+    returning?: v0_4_swapsGenqlSelection
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+
+/** on_conflict condition type for table "v0_4_swaps" */
+export interface v0_4_swaps_on_conflict {constraint: v0_4_swaps_constraint,update_columns?: v0_4_swaps_update_column[],where?: (v0_4_swaps_bool_exp | null)}
+
+
+/** Ordering options when selecting data from "v0_4_swaps". */
+export interface v0_4_swaps_order_by {amm_addr?: (order_by | null),amm_seq_num?: (order_by | null),block_time?: (order_by | null),created_at?: (order_by | null),id?: (order_by | null),input_amount?: (order_by | null),output_amount?: (order_by | null),signature?: (order_by | null),slot?: (order_by | null),swap_type?: (order_by | null),user_addr?: (order_by | null),v0_4_merges?: (v0_4_merges_order_by | null),v0_4_splits?: (v0_4_splits_order_by | null)}
+
+
+/** primary key columns input for table: v0_4_swaps */
+export interface v0_4_swaps_pk_columns_input {signature: Scalars['String']}
+
+
+/** input type for updating data in table "v0_4_swaps" */
+export interface v0_4_swaps_set_input {amm_addr?: (Scalars['String'] | null),amm_seq_num?: (Scalars['bigint'] | null),block_time?: (Scalars['timestamptz'] | null),created_at?: (Scalars['timestamptz'] | null),id?: (Scalars['bigint'] | null),input_amount?: (Scalars['bigint'] | null),output_amount?: (Scalars['bigint'] | null),signature?: (Scalars['String'] | null),slot?: (Scalars['bigint'] | null),swap_type?: (Scalars['String'] | null),user_addr?: (Scalars['String'] | null)}
+
+
+/** aggregate stddev on columns */
+export interface v0_4_swaps_stddev_fieldsGenqlSelection{
+    amm_seq_num?: boolean | number
+    id?: boolean | number
+    input_amount?: boolean | number
+    output_amount?: boolean | number
+    slot?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+
+/** aggregate stddev_pop on columns */
+export interface v0_4_swaps_stddev_pop_fieldsGenqlSelection{
+    amm_seq_num?: boolean | number
+    id?: boolean | number
+    input_amount?: boolean | number
+    output_amount?: boolean | number
+    slot?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+
+/** aggregate stddev_samp on columns */
+export interface v0_4_swaps_stddev_samp_fieldsGenqlSelection{
+    amm_seq_num?: boolean | number
+    id?: boolean | number
+    input_amount?: boolean | number
+    output_amount?: boolean | number
+    slot?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+
+/** Streaming cursor of the table "v0_4_swaps" */
+export interface v0_4_swaps_stream_cursor_input {
+/** Stream column input with initial value */
+initial_value: v0_4_swaps_stream_cursor_value_input,
+/** cursor ordering */
+ordering?: (cursor_ordering | null)}
+
+
+/** Initial value of the column from where the streaming should start */
+export interface v0_4_swaps_stream_cursor_value_input {amm_addr?: (Scalars['String'] | null),amm_seq_num?: (Scalars['bigint'] | null),block_time?: (Scalars['timestamptz'] | null),created_at?: (Scalars['timestamptz'] | null),id?: (Scalars['bigint'] | null),input_amount?: (Scalars['bigint'] | null),output_amount?: (Scalars['bigint'] | null),signature?: (Scalars['String'] | null),slot?: (Scalars['bigint'] | null),swap_type?: (Scalars['String'] | null),user_addr?: (Scalars['String'] | null)}
+
+
+/** aggregate sum on columns */
+export interface v0_4_swaps_sum_fieldsGenqlSelection{
+    amm_seq_num?: boolean | number
+    id?: boolean | number
+    input_amount?: boolean | number
+    output_amount?: boolean | number
+    slot?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+export interface v0_4_swaps_updates {
+/** increments the numeric columns with given value of the filtered values */
+_inc?: (v0_4_swaps_inc_input | null),
+/** sets the columns of the filtered rows to the given values */
+_set?: (v0_4_swaps_set_input | null),
+/** filter the rows which have to be updated */
+where: v0_4_swaps_bool_exp}
+
+
+/** aggregate var_pop on columns */
+export interface v0_4_swaps_var_pop_fieldsGenqlSelection{
+    amm_seq_num?: boolean | number
+    id?: boolean | number
+    input_amount?: boolean | number
+    output_amount?: boolean | number
+    slot?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+
+/** aggregate var_samp on columns */
+export interface v0_4_swaps_var_samp_fieldsGenqlSelection{
+    amm_seq_num?: boolean | number
+    id?: boolean | number
+    input_amount?: boolean | number
+    output_amount?: boolean | number
+    slot?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+
+/** aggregate variance on columns */
+export interface v0_4_swaps_variance_fieldsGenqlSelection{
+    amm_seq_num?: boolean | number
+    id?: boolean | number
+    input_amount?: boolean | number
+    output_amount?: boolean | number
+    slot?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
 
 export type QueryGenqlSelection = query_rootGenqlSelection
 export type MutationGenqlSelection = mutation_rootGenqlSelection
@@ -17013,6 +24215,14 @@ export type SubscriptionGenqlSelection = subscription_rootGenqlSelection
     export const isdao_details_variance_fields = (obj?: { __typename?: any } | null): obj is dao_details_variance_fields => {
       if (!obj?.__typename) throw new Error('__typename is missing in "isdao_details_variance_fields"')
       return dao_details_variance_fields_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const dao_trader_possibleTypes: string[] = ['dao_trader']
+    export const isdao_trader = (obj?: { __typename?: any } | null): obj is dao_trader => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isdao_trader"')
+      return dao_trader_possibleTypes.includes(obj.__typename)
     }
     
 
@@ -17713,6 +24923,14 @@ export type SubscriptionGenqlSelection = subscription_rootGenqlSelection
     
 
 
+    const prices_chart_data_mutation_response_possibleTypes: string[] = ['prices_chart_data_mutation_response']
+    export const isprices_chart_data_mutation_response = (obj?: { __typename?: any } | null): obj is prices_chart_data_mutation_response => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isprices_chart_data_mutation_response"')
+      return prices_chart_data_mutation_response_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
     const prices_chart_data_stddev_fields_possibleTypes: string[] = ['prices_chart_data_stddev_fields']
     export const isprices_chart_data_stddev_fields = (obj?: { __typename?: any } | null): obj is prices_chart_data_stddev_fields => {
       if (!obj?.__typename) throw new Error('__typename is missing in "isprices_chart_data_stddev_fields"')
@@ -18297,6 +25515,14 @@ export type SubscriptionGenqlSelection = subscription_rootGenqlSelection
     
 
 
+    const proposal_statistics_possibleTypes: string[] = ['proposal_statistics']
+    export const isproposal_statistics = (obj?: { __typename?: any } | null): obj is proposal_statistics => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isproposal_statistics"')
+      return proposal_statistics_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
     const proposal_total_trade_volume_possibleTypes: string[] = ['proposal_total_trade_volume']
     export const isproposal_total_trade_volume = (obj?: { __typename?: any } | null): obj is proposal_total_trade_volume => {
       if (!obj?.__typename) throw new Error('__typename is missing in "isproposal_total_trade_volume"')
@@ -18677,6 +25903,166 @@ export type SubscriptionGenqlSelection = subscription_rootGenqlSelection
     export const issessions_mutation_response = (obj?: { __typename?: any } | null): obj is sessions_mutation_response => {
       if (!obj?.__typename) throw new Error('__typename is missing in "issessions_mutation_response"')
       return sessions_mutation_response_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const signature_accounts_possibleTypes: string[] = ['signature_accounts']
+    export const issignature_accounts = (obj?: { __typename?: any } | null): obj is signature_accounts => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "issignature_accounts"')
+      return signature_accounts_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const signature_accounts_aggregate_possibleTypes: string[] = ['signature_accounts_aggregate']
+    export const issignature_accounts_aggregate = (obj?: { __typename?: any } | null): obj is signature_accounts_aggregate => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "issignature_accounts_aggregate"')
+      return signature_accounts_aggregate_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const signature_accounts_aggregate_fields_possibleTypes: string[] = ['signature_accounts_aggregate_fields']
+    export const issignature_accounts_aggregate_fields = (obj?: { __typename?: any } | null): obj is signature_accounts_aggregate_fields => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "issignature_accounts_aggregate_fields"')
+      return signature_accounts_aggregate_fields_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const signature_accounts_max_fields_possibleTypes: string[] = ['signature_accounts_max_fields']
+    export const issignature_accounts_max_fields = (obj?: { __typename?: any } | null): obj is signature_accounts_max_fields => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "issignature_accounts_max_fields"')
+      return signature_accounts_max_fields_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const signature_accounts_min_fields_possibleTypes: string[] = ['signature_accounts_min_fields']
+    export const issignature_accounts_min_fields = (obj?: { __typename?: any } | null): obj is signature_accounts_min_fields => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "issignature_accounts_min_fields"')
+      return signature_accounts_min_fields_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const signature_accounts_mutation_response_possibleTypes: string[] = ['signature_accounts_mutation_response']
+    export const issignature_accounts_mutation_response = (obj?: { __typename?: any } | null): obj is signature_accounts_mutation_response => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "issignature_accounts_mutation_response"')
+      return signature_accounts_mutation_response_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const signatures_possibleTypes: string[] = ['signatures']
+    export const issignatures = (obj?: { __typename?: any } | null): obj is signatures => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "issignatures"')
+      return signatures_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const signatures_aggregate_possibleTypes: string[] = ['signatures_aggregate']
+    export const issignatures_aggregate = (obj?: { __typename?: any } | null): obj is signatures_aggregate => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "issignatures_aggregate"')
+      return signatures_aggregate_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const signatures_aggregate_fields_possibleTypes: string[] = ['signatures_aggregate_fields']
+    export const issignatures_aggregate_fields = (obj?: { __typename?: any } | null): obj is signatures_aggregate_fields => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "issignatures_aggregate_fields"')
+      return signatures_aggregate_fields_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const signatures_avg_fields_possibleTypes: string[] = ['signatures_avg_fields']
+    export const issignatures_avg_fields = (obj?: { __typename?: any } | null): obj is signatures_avg_fields => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "issignatures_avg_fields"')
+      return signatures_avg_fields_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const signatures_max_fields_possibleTypes: string[] = ['signatures_max_fields']
+    export const issignatures_max_fields = (obj?: { __typename?: any } | null): obj is signatures_max_fields => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "issignatures_max_fields"')
+      return signatures_max_fields_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const signatures_min_fields_possibleTypes: string[] = ['signatures_min_fields']
+    export const issignatures_min_fields = (obj?: { __typename?: any } | null): obj is signatures_min_fields => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "issignatures_min_fields"')
+      return signatures_min_fields_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const signatures_mutation_response_possibleTypes: string[] = ['signatures_mutation_response']
+    export const issignatures_mutation_response = (obj?: { __typename?: any } | null): obj is signatures_mutation_response => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "issignatures_mutation_response"')
+      return signatures_mutation_response_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const signatures_stddev_fields_possibleTypes: string[] = ['signatures_stddev_fields']
+    export const issignatures_stddev_fields = (obj?: { __typename?: any } | null): obj is signatures_stddev_fields => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "issignatures_stddev_fields"')
+      return signatures_stddev_fields_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const signatures_stddev_pop_fields_possibleTypes: string[] = ['signatures_stddev_pop_fields']
+    export const issignatures_stddev_pop_fields = (obj?: { __typename?: any } | null): obj is signatures_stddev_pop_fields => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "issignatures_stddev_pop_fields"')
+      return signatures_stddev_pop_fields_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const signatures_stddev_samp_fields_possibleTypes: string[] = ['signatures_stddev_samp_fields']
+    export const issignatures_stddev_samp_fields = (obj?: { __typename?: any } | null): obj is signatures_stddev_samp_fields => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "issignatures_stddev_samp_fields"')
+      return signatures_stddev_samp_fields_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const signatures_sum_fields_possibleTypes: string[] = ['signatures_sum_fields']
+    export const issignatures_sum_fields = (obj?: { __typename?: any } | null): obj is signatures_sum_fields => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "issignatures_sum_fields"')
+      return signatures_sum_fields_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const signatures_var_pop_fields_possibleTypes: string[] = ['signatures_var_pop_fields']
+    export const issignatures_var_pop_fields = (obj?: { __typename?: any } | null): obj is signatures_var_pop_fields => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "issignatures_var_pop_fields"')
+      return signatures_var_pop_fields_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const signatures_var_samp_fields_possibleTypes: string[] = ['signatures_var_samp_fields']
+    export const issignatures_var_samp_fields = (obj?: { __typename?: any } | null): obj is signatures_var_samp_fields => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "issignatures_var_samp_fields"')
+      return signatures_var_samp_fields_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const signatures_variance_fields_possibleTypes: string[] = ['signatures_variance_fields']
+    export const issignatures_variance_fields = (obj?: { __typename?: any } | null): obj is signatures_variance_fields => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "issignatures_variance_fields"')
+      return signatures_variance_fields_possibleTypes.includes(obj.__typename)
     }
     
 
@@ -19521,6 +26907,14 @@ export type SubscriptionGenqlSelection = subscription_rootGenqlSelection
     
 
 
+    const twap_chart_data_mutation_response_possibleTypes: string[] = ['twap_chart_data_mutation_response']
+    export const istwap_chart_data_mutation_response = (obj?: { __typename?: any } | null): obj is twap_chart_data_mutation_response => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "istwap_chart_data_mutation_response"')
+      return twap_chart_data_mutation_response_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
     const twap_chart_data_stddev_fields_possibleTypes: string[] = ['twap_chart_data_stddev_fields']
     export const istwap_chart_data_stddev_fields = (obj?: { __typename?: any } | null): obj is twap_chart_data_stddev_fields => {
       if (!obj?.__typename) throw new Error('__typename is missing in "istwap_chart_data_stddev_fields"')
@@ -19689,6 +27083,230 @@ export type SubscriptionGenqlSelection = subscription_rootGenqlSelection
     
 
 
+    const user_deposits_possibleTypes: string[] = ['user_deposits']
+    export const isuser_deposits = (obj?: { __typename?: any } | null): obj is user_deposits => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isuser_deposits"')
+      return user_deposits_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const user_deposits_aggregate_possibleTypes: string[] = ['user_deposits_aggregate']
+    export const isuser_deposits_aggregate = (obj?: { __typename?: any } | null): obj is user_deposits_aggregate => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isuser_deposits_aggregate"')
+      return user_deposits_aggregate_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const user_deposits_aggregate_fields_possibleTypes: string[] = ['user_deposits_aggregate_fields']
+    export const isuser_deposits_aggregate_fields = (obj?: { __typename?: any } | null): obj is user_deposits_aggregate_fields => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isuser_deposits_aggregate_fields"')
+      return user_deposits_aggregate_fields_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const user_deposits_avg_fields_possibleTypes: string[] = ['user_deposits_avg_fields']
+    export const isuser_deposits_avg_fields = (obj?: { __typename?: any } | null): obj is user_deposits_avg_fields => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isuser_deposits_avg_fields"')
+      return user_deposits_avg_fields_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const user_deposits_max_fields_possibleTypes: string[] = ['user_deposits_max_fields']
+    export const isuser_deposits_max_fields = (obj?: { __typename?: any } | null): obj is user_deposits_max_fields => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isuser_deposits_max_fields"')
+      return user_deposits_max_fields_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const user_deposits_min_fields_possibleTypes: string[] = ['user_deposits_min_fields']
+    export const isuser_deposits_min_fields = (obj?: { __typename?: any } | null): obj is user_deposits_min_fields => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isuser_deposits_min_fields"')
+      return user_deposits_min_fields_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const user_deposits_mutation_response_possibleTypes: string[] = ['user_deposits_mutation_response']
+    export const isuser_deposits_mutation_response = (obj?: { __typename?: any } | null): obj is user_deposits_mutation_response => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isuser_deposits_mutation_response"')
+      return user_deposits_mutation_response_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const user_deposits_stddev_fields_possibleTypes: string[] = ['user_deposits_stddev_fields']
+    export const isuser_deposits_stddev_fields = (obj?: { __typename?: any } | null): obj is user_deposits_stddev_fields => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isuser_deposits_stddev_fields"')
+      return user_deposits_stddev_fields_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const user_deposits_stddev_pop_fields_possibleTypes: string[] = ['user_deposits_stddev_pop_fields']
+    export const isuser_deposits_stddev_pop_fields = (obj?: { __typename?: any } | null): obj is user_deposits_stddev_pop_fields => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isuser_deposits_stddev_pop_fields"')
+      return user_deposits_stddev_pop_fields_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const user_deposits_stddev_samp_fields_possibleTypes: string[] = ['user_deposits_stddev_samp_fields']
+    export const isuser_deposits_stddev_samp_fields = (obj?: { __typename?: any } | null): obj is user_deposits_stddev_samp_fields => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isuser_deposits_stddev_samp_fields"')
+      return user_deposits_stddev_samp_fields_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const user_deposits_sum_fields_possibleTypes: string[] = ['user_deposits_sum_fields']
+    export const isuser_deposits_sum_fields = (obj?: { __typename?: any } | null): obj is user_deposits_sum_fields => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isuser_deposits_sum_fields"')
+      return user_deposits_sum_fields_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const user_deposits_var_pop_fields_possibleTypes: string[] = ['user_deposits_var_pop_fields']
+    export const isuser_deposits_var_pop_fields = (obj?: { __typename?: any } | null): obj is user_deposits_var_pop_fields => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isuser_deposits_var_pop_fields"')
+      return user_deposits_var_pop_fields_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const user_deposits_var_samp_fields_possibleTypes: string[] = ['user_deposits_var_samp_fields']
+    export const isuser_deposits_var_samp_fields = (obj?: { __typename?: any } | null): obj is user_deposits_var_samp_fields => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isuser_deposits_var_samp_fields"')
+      return user_deposits_var_samp_fields_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const user_deposits_variance_fields_possibleTypes: string[] = ['user_deposits_variance_fields']
+    export const isuser_deposits_variance_fields = (obj?: { __typename?: any } | null): obj is user_deposits_variance_fields => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isuser_deposits_variance_fields"')
+      return user_deposits_variance_fields_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const user_performance_possibleTypes: string[] = ['user_performance']
+    export const isuser_performance = (obj?: { __typename?: any } | null): obj is user_performance => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isuser_performance"')
+      return user_performance_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const user_performance_aggregate_possibleTypes: string[] = ['user_performance_aggregate']
+    export const isuser_performance_aggregate = (obj?: { __typename?: any } | null): obj is user_performance_aggregate => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isuser_performance_aggregate"')
+      return user_performance_aggregate_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const user_performance_aggregate_fields_possibleTypes: string[] = ['user_performance_aggregate_fields']
+    export const isuser_performance_aggregate_fields = (obj?: { __typename?: any } | null): obj is user_performance_aggregate_fields => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isuser_performance_aggregate_fields"')
+      return user_performance_aggregate_fields_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const user_performance_avg_fields_possibleTypes: string[] = ['user_performance_avg_fields']
+    export const isuser_performance_avg_fields = (obj?: { __typename?: any } | null): obj is user_performance_avg_fields => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isuser_performance_avg_fields"')
+      return user_performance_avg_fields_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const user_performance_max_fields_possibleTypes: string[] = ['user_performance_max_fields']
+    export const isuser_performance_max_fields = (obj?: { __typename?: any } | null): obj is user_performance_max_fields => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isuser_performance_max_fields"')
+      return user_performance_max_fields_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const user_performance_min_fields_possibleTypes: string[] = ['user_performance_min_fields']
+    export const isuser_performance_min_fields = (obj?: { __typename?: any } | null): obj is user_performance_min_fields => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isuser_performance_min_fields"')
+      return user_performance_min_fields_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const user_performance_mutation_response_possibleTypes: string[] = ['user_performance_mutation_response']
+    export const isuser_performance_mutation_response = (obj?: { __typename?: any } | null): obj is user_performance_mutation_response => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isuser_performance_mutation_response"')
+      return user_performance_mutation_response_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const user_performance_stddev_fields_possibleTypes: string[] = ['user_performance_stddev_fields']
+    export const isuser_performance_stddev_fields = (obj?: { __typename?: any } | null): obj is user_performance_stddev_fields => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isuser_performance_stddev_fields"')
+      return user_performance_stddev_fields_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const user_performance_stddev_pop_fields_possibleTypes: string[] = ['user_performance_stddev_pop_fields']
+    export const isuser_performance_stddev_pop_fields = (obj?: { __typename?: any } | null): obj is user_performance_stddev_pop_fields => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isuser_performance_stddev_pop_fields"')
+      return user_performance_stddev_pop_fields_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const user_performance_stddev_samp_fields_possibleTypes: string[] = ['user_performance_stddev_samp_fields']
+    export const isuser_performance_stddev_samp_fields = (obj?: { __typename?: any } | null): obj is user_performance_stddev_samp_fields => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isuser_performance_stddev_samp_fields"')
+      return user_performance_stddev_samp_fields_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const user_performance_sum_fields_possibleTypes: string[] = ['user_performance_sum_fields']
+    export const isuser_performance_sum_fields = (obj?: { __typename?: any } | null): obj is user_performance_sum_fields => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isuser_performance_sum_fields"')
+      return user_performance_sum_fields_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const user_performance_var_pop_fields_possibleTypes: string[] = ['user_performance_var_pop_fields']
+    export const isuser_performance_var_pop_fields = (obj?: { __typename?: any } | null): obj is user_performance_var_pop_fields => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isuser_performance_var_pop_fields"')
+      return user_performance_var_pop_fields_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const user_performance_var_samp_fields_possibleTypes: string[] = ['user_performance_var_samp_fields']
+    export const isuser_performance_var_samp_fields = (obj?: { __typename?: any } | null): obj is user_performance_var_samp_fields => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isuser_performance_var_samp_fields"')
+      return user_performance_var_samp_fields_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const user_performance_variance_fields_possibleTypes: string[] = ['user_performance_variance_fields']
+    export const isuser_performance_variance_fields = (obj?: { __typename?: any } | null): obj is user_performance_variance_fields => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isuser_performance_variance_fields"')
+      return user_performance_variance_fields_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
     const users_possibleTypes: string[] = ['users']
     export const isusers = (obj?: { __typename?: any } | null): obj is users => {
       if (!obj?.__typename) throw new Error('__typename is missing in "isusers"')
@@ -19733,6 +27351,790 @@ export type SubscriptionGenqlSelection = subscription_rootGenqlSelection
     export const isusers_mutation_response = (obj?: { __typename?: any } | null): obj is users_mutation_response => {
       if (!obj?.__typename) throw new Error('__typename is missing in "isusers_mutation_response"')
       return users_mutation_response_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const v0_4_amms_possibleTypes: string[] = ['v0_4_amms']
+    export const isv0_4_amms = (obj?: { __typename?: any } | null): obj is v0_4_amms => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isv0_4_amms"')
+      return v0_4_amms_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const v0_4_amms_aggregate_possibleTypes: string[] = ['v0_4_amms_aggregate']
+    export const isv0_4_amms_aggregate = (obj?: { __typename?: any } | null): obj is v0_4_amms_aggregate => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isv0_4_amms_aggregate"')
+      return v0_4_amms_aggregate_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const v0_4_amms_aggregate_fields_possibleTypes: string[] = ['v0_4_amms_aggregate_fields']
+    export const isv0_4_amms_aggregate_fields = (obj?: { __typename?: any } | null): obj is v0_4_amms_aggregate_fields => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isv0_4_amms_aggregate_fields"')
+      return v0_4_amms_aggregate_fields_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const v0_4_amms_avg_fields_possibleTypes: string[] = ['v0_4_amms_avg_fields']
+    export const isv0_4_amms_avg_fields = (obj?: { __typename?: any } | null): obj is v0_4_amms_avg_fields => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isv0_4_amms_avg_fields"')
+      return v0_4_amms_avg_fields_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const v0_4_amms_max_fields_possibleTypes: string[] = ['v0_4_amms_max_fields']
+    export const isv0_4_amms_max_fields = (obj?: { __typename?: any } | null): obj is v0_4_amms_max_fields => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isv0_4_amms_max_fields"')
+      return v0_4_amms_max_fields_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const v0_4_amms_min_fields_possibleTypes: string[] = ['v0_4_amms_min_fields']
+    export const isv0_4_amms_min_fields = (obj?: { __typename?: any } | null): obj is v0_4_amms_min_fields => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isv0_4_amms_min_fields"')
+      return v0_4_amms_min_fields_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const v0_4_amms_mutation_response_possibleTypes: string[] = ['v0_4_amms_mutation_response']
+    export const isv0_4_amms_mutation_response = (obj?: { __typename?: any } | null): obj is v0_4_amms_mutation_response => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isv0_4_amms_mutation_response"')
+      return v0_4_amms_mutation_response_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const v0_4_amms_stddev_fields_possibleTypes: string[] = ['v0_4_amms_stddev_fields']
+    export const isv0_4_amms_stddev_fields = (obj?: { __typename?: any } | null): obj is v0_4_amms_stddev_fields => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isv0_4_amms_stddev_fields"')
+      return v0_4_amms_stddev_fields_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const v0_4_amms_stddev_pop_fields_possibleTypes: string[] = ['v0_4_amms_stddev_pop_fields']
+    export const isv0_4_amms_stddev_pop_fields = (obj?: { __typename?: any } | null): obj is v0_4_amms_stddev_pop_fields => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isv0_4_amms_stddev_pop_fields"')
+      return v0_4_amms_stddev_pop_fields_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const v0_4_amms_stddev_samp_fields_possibleTypes: string[] = ['v0_4_amms_stddev_samp_fields']
+    export const isv0_4_amms_stddev_samp_fields = (obj?: { __typename?: any } | null): obj is v0_4_amms_stddev_samp_fields => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isv0_4_amms_stddev_samp_fields"')
+      return v0_4_amms_stddev_samp_fields_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const v0_4_amms_sum_fields_possibleTypes: string[] = ['v0_4_amms_sum_fields']
+    export const isv0_4_amms_sum_fields = (obj?: { __typename?: any } | null): obj is v0_4_amms_sum_fields => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isv0_4_amms_sum_fields"')
+      return v0_4_amms_sum_fields_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const v0_4_amms_var_pop_fields_possibleTypes: string[] = ['v0_4_amms_var_pop_fields']
+    export const isv0_4_amms_var_pop_fields = (obj?: { __typename?: any } | null): obj is v0_4_amms_var_pop_fields => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isv0_4_amms_var_pop_fields"')
+      return v0_4_amms_var_pop_fields_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const v0_4_amms_var_samp_fields_possibleTypes: string[] = ['v0_4_amms_var_samp_fields']
+    export const isv0_4_amms_var_samp_fields = (obj?: { __typename?: any } | null): obj is v0_4_amms_var_samp_fields => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isv0_4_amms_var_samp_fields"')
+      return v0_4_amms_var_samp_fields_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const v0_4_amms_variance_fields_possibleTypes: string[] = ['v0_4_amms_variance_fields']
+    export const isv0_4_amms_variance_fields = (obj?: { __typename?: any } | null): obj is v0_4_amms_variance_fields => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isv0_4_amms_variance_fields"')
+      return v0_4_amms_variance_fields_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const v0_4_conditional_vaults_possibleTypes: string[] = ['v0_4_conditional_vaults']
+    export const isv0_4_conditional_vaults = (obj?: { __typename?: any } | null): obj is v0_4_conditional_vaults => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isv0_4_conditional_vaults"')
+      return v0_4_conditional_vaults_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const v0_4_conditional_vaults_aggregate_possibleTypes: string[] = ['v0_4_conditional_vaults_aggregate']
+    export const isv0_4_conditional_vaults_aggregate = (obj?: { __typename?: any } | null): obj is v0_4_conditional_vaults_aggregate => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isv0_4_conditional_vaults_aggregate"')
+      return v0_4_conditional_vaults_aggregate_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const v0_4_conditional_vaults_aggregate_fields_possibleTypes: string[] = ['v0_4_conditional_vaults_aggregate_fields']
+    export const isv0_4_conditional_vaults_aggregate_fields = (obj?: { __typename?: any } | null): obj is v0_4_conditional_vaults_aggregate_fields => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isv0_4_conditional_vaults_aggregate_fields"')
+      return v0_4_conditional_vaults_aggregate_fields_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const v0_4_conditional_vaults_avg_fields_possibleTypes: string[] = ['v0_4_conditional_vaults_avg_fields']
+    export const isv0_4_conditional_vaults_avg_fields = (obj?: { __typename?: any } | null): obj is v0_4_conditional_vaults_avg_fields => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isv0_4_conditional_vaults_avg_fields"')
+      return v0_4_conditional_vaults_avg_fields_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const v0_4_conditional_vaults_max_fields_possibleTypes: string[] = ['v0_4_conditional_vaults_max_fields']
+    export const isv0_4_conditional_vaults_max_fields = (obj?: { __typename?: any } | null): obj is v0_4_conditional_vaults_max_fields => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isv0_4_conditional_vaults_max_fields"')
+      return v0_4_conditional_vaults_max_fields_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const v0_4_conditional_vaults_min_fields_possibleTypes: string[] = ['v0_4_conditional_vaults_min_fields']
+    export const isv0_4_conditional_vaults_min_fields = (obj?: { __typename?: any } | null): obj is v0_4_conditional_vaults_min_fields => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isv0_4_conditional_vaults_min_fields"')
+      return v0_4_conditional_vaults_min_fields_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const v0_4_conditional_vaults_mutation_response_possibleTypes: string[] = ['v0_4_conditional_vaults_mutation_response']
+    export const isv0_4_conditional_vaults_mutation_response = (obj?: { __typename?: any } | null): obj is v0_4_conditional_vaults_mutation_response => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isv0_4_conditional_vaults_mutation_response"')
+      return v0_4_conditional_vaults_mutation_response_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const v0_4_conditional_vaults_stddev_fields_possibleTypes: string[] = ['v0_4_conditional_vaults_stddev_fields']
+    export const isv0_4_conditional_vaults_stddev_fields = (obj?: { __typename?: any } | null): obj is v0_4_conditional_vaults_stddev_fields => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isv0_4_conditional_vaults_stddev_fields"')
+      return v0_4_conditional_vaults_stddev_fields_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const v0_4_conditional_vaults_stddev_pop_fields_possibleTypes: string[] = ['v0_4_conditional_vaults_stddev_pop_fields']
+    export const isv0_4_conditional_vaults_stddev_pop_fields = (obj?: { __typename?: any } | null): obj is v0_4_conditional_vaults_stddev_pop_fields => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isv0_4_conditional_vaults_stddev_pop_fields"')
+      return v0_4_conditional_vaults_stddev_pop_fields_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const v0_4_conditional_vaults_stddev_samp_fields_possibleTypes: string[] = ['v0_4_conditional_vaults_stddev_samp_fields']
+    export const isv0_4_conditional_vaults_stddev_samp_fields = (obj?: { __typename?: any } | null): obj is v0_4_conditional_vaults_stddev_samp_fields => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isv0_4_conditional_vaults_stddev_samp_fields"')
+      return v0_4_conditional_vaults_stddev_samp_fields_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const v0_4_conditional_vaults_sum_fields_possibleTypes: string[] = ['v0_4_conditional_vaults_sum_fields']
+    export const isv0_4_conditional_vaults_sum_fields = (obj?: { __typename?: any } | null): obj is v0_4_conditional_vaults_sum_fields => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isv0_4_conditional_vaults_sum_fields"')
+      return v0_4_conditional_vaults_sum_fields_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const v0_4_conditional_vaults_var_pop_fields_possibleTypes: string[] = ['v0_4_conditional_vaults_var_pop_fields']
+    export const isv0_4_conditional_vaults_var_pop_fields = (obj?: { __typename?: any } | null): obj is v0_4_conditional_vaults_var_pop_fields => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isv0_4_conditional_vaults_var_pop_fields"')
+      return v0_4_conditional_vaults_var_pop_fields_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const v0_4_conditional_vaults_var_samp_fields_possibleTypes: string[] = ['v0_4_conditional_vaults_var_samp_fields']
+    export const isv0_4_conditional_vaults_var_samp_fields = (obj?: { __typename?: any } | null): obj is v0_4_conditional_vaults_var_samp_fields => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isv0_4_conditional_vaults_var_samp_fields"')
+      return v0_4_conditional_vaults_var_samp_fields_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const v0_4_conditional_vaults_variance_fields_possibleTypes: string[] = ['v0_4_conditional_vaults_variance_fields']
+    export const isv0_4_conditional_vaults_variance_fields = (obj?: { __typename?: any } | null): obj is v0_4_conditional_vaults_variance_fields => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isv0_4_conditional_vaults_variance_fields"')
+      return v0_4_conditional_vaults_variance_fields_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const v0_4_merges_possibleTypes: string[] = ['v0_4_merges']
+    export const isv0_4_merges = (obj?: { __typename?: any } | null): obj is v0_4_merges => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isv0_4_merges"')
+      return v0_4_merges_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const v0_4_merges_aggregate_possibleTypes: string[] = ['v0_4_merges_aggregate']
+    export const isv0_4_merges_aggregate = (obj?: { __typename?: any } | null): obj is v0_4_merges_aggregate => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isv0_4_merges_aggregate"')
+      return v0_4_merges_aggregate_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const v0_4_merges_aggregate_fields_possibleTypes: string[] = ['v0_4_merges_aggregate_fields']
+    export const isv0_4_merges_aggregate_fields = (obj?: { __typename?: any } | null): obj is v0_4_merges_aggregate_fields => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isv0_4_merges_aggregate_fields"')
+      return v0_4_merges_aggregate_fields_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const v0_4_merges_avg_fields_possibleTypes: string[] = ['v0_4_merges_avg_fields']
+    export const isv0_4_merges_avg_fields = (obj?: { __typename?: any } | null): obj is v0_4_merges_avg_fields => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isv0_4_merges_avg_fields"')
+      return v0_4_merges_avg_fields_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const v0_4_merges_max_fields_possibleTypes: string[] = ['v0_4_merges_max_fields']
+    export const isv0_4_merges_max_fields = (obj?: { __typename?: any } | null): obj is v0_4_merges_max_fields => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isv0_4_merges_max_fields"')
+      return v0_4_merges_max_fields_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const v0_4_merges_min_fields_possibleTypes: string[] = ['v0_4_merges_min_fields']
+    export const isv0_4_merges_min_fields = (obj?: { __typename?: any } | null): obj is v0_4_merges_min_fields => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isv0_4_merges_min_fields"')
+      return v0_4_merges_min_fields_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const v0_4_merges_mutation_response_possibleTypes: string[] = ['v0_4_merges_mutation_response']
+    export const isv0_4_merges_mutation_response = (obj?: { __typename?: any } | null): obj is v0_4_merges_mutation_response => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isv0_4_merges_mutation_response"')
+      return v0_4_merges_mutation_response_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const v0_4_merges_stddev_fields_possibleTypes: string[] = ['v0_4_merges_stddev_fields']
+    export const isv0_4_merges_stddev_fields = (obj?: { __typename?: any } | null): obj is v0_4_merges_stddev_fields => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isv0_4_merges_stddev_fields"')
+      return v0_4_merges_stddev_fields_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const v0_4_merges_stddev_pop_fields_possibleTypes: string[] = ['v0_4_merges_stddev_pop_fields']
+    export const isv0_4_merges_stddev_pop_fields = (obj?: { __typename?: any } | null): obj is v0_4_merges_stddev_pop_fields => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isv0_4_merges_stddev_pop_fields"')
+      return v0_4_merges_stddev_pop_fields_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const v0_4_merges_stddev_samp_fields_possibleTypes: string[] = ['v0_4_merges_stddev_samp_fields']
+    export const isv0_4_merges_stddev_samp_fields = (obj?: { __typename?: any } | null): obj is v0_4_merges_stddev_samp_fields => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isv0_4_merges_stddev_samp_fields"')
+      return v0_4_merges_stddev_samp_fields_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const v0_4_merges_sum_fields_possibleTypes: string[] = ['v0_4_merges_sum_fields']
+    export const isv0_4_merges_sum_fields = (obj?: { __typename?: any } | null): obj is v0_4_merges_sum_fields => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isv0_4_merges_sum_fields"')
+      return v0_4_merges_sum_fields_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const v0_4_merges_var_pop_fields_possibleTypes: string[] = ['v0_4_merges_var_pop_fields']
+    export const isv0_4_merges_var_pop_fields = (obj?: { __typename?: any } | null): obj is v0_4_merges_var_pop_fields => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isv0_4_merges_var_pop_fields"')
+      return v0_4_merges_var_pop_fields_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const v0_4_merges_var_samp_fields_possibleTypes: string[] = ['v0_4_merges_var_samp_fields']
+    export const isv0_4_merges_var_samp_fields = (obj?: { __typename?: any } | null): obj is v0_4_merges_var_samp_fields => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isv0_4_merges_var_samp_fields"')
+      return v0_4_merges_var_samp_fields_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const v0_4_merges_variance_fields_possibleTypes: string[] = ['v0_4_merges_variance_fields']
+    export const isv0_4_merges_variance_fields = (obj?: { __typename?: any } | null): obj is v0_4_merges_variance_fields => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isv0_4_merges_variance_fields"')
+      return v0_4_merges_variance_fields_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const v0_4_metric_decisions_possibleTypes: string[] = ['v0_4_metric_decisions']
+    export const isv0_4_metric_decisions = (obj?: { __typename?: any } | null): obj is v0_4_metric_decisions => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isv0_4_metric_decisions"')
+      return v0_4_metric_decisions_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const v0_4_metric_decisions_aggregate_possibleTypes: string[] = ['v0_4_metric_decisions_aggregate']
+    export const isv0_4_metric_decisions_aggregate = (obj?: { __typename?: any } | null): obj is v0_4_metric_decisions_aggregate => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isv0_4_metric_decisions_aggregate"')
+      return v0_4_metric_decisions_aggregate_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const v0_4_metric_decisions_aggregate_fields_possibleTypes: string[] = ['v0_4_metric_decisions_aggregate_fields']
+    export const isv0_4_metric_decisions_aggregate_fields = (obj?: { __typename?: any } | null): obj is v0_4_metric_decisions_aggregate_fields => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isv0_4_metric_decisions_aggregate_fields"')
+      return v0_4_metric_decisions_aggregate_fields_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const v0_4_metric_decisions_avg_fields_possibleTypes: string[] = ['v0_4_metric_decisions_avg_fields']
+    export const isv0_4_metric_decisions_avg_fields = (obj?: { __typename?: any } | null): obj is v0_4_metric_decisions_avg_fields => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isv0_4_metric_decisions_avg_fields"')
+      return v0_4_metric_decisions_avg_fields_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const v0_4_metric_decisions_max_fields_possibleTypes: string[] = ['v0_4_metric_decisions_max_fields']
+    export const isv0_4_metric_decisions_max_fields = (obj?: { __typename?: any } | null): obj is v0_4_metric_decisions_max_fields => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isv0_4_metric_decisions_max_fields"')
+      return v0_4_metric_decisions_max_fields_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const v0_4_metric_decisions_min_fields_possibleTypes: string[] = ['v0_4_metric_decisions_min_fields']
+    export const isv0_4_metric_decisions_min_fields = (obj?: { __typename?: any } | null): obj is v0_4_metric_decisions_min_fields => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isv0_4_metric_decisions_min_fields"')
+      return v0_4_metric_decisions_min_fields_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const v0_4_metric_decisions_mutation_response_possibleTypes: string[] = ['v0_4_metric_decisions_mutation_response']
+    export const isv0_4_metric_decisions_mutation_response = (obj?: { __typename?: any } | null): obj is v0_4_metric_decisions_mutation_response => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isv0_4_metric_decisions_mutation_response"')
+      return v0_4_metric_decisions_mutation_response_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const v0_4_metric_decisions_stddev_fields_possibleTypes: string[] = ['v0_4_metric_decisions_stddev_fields']
+    export const isv0_4_metric_decisions_stddev_fields = (obj?: { __typename?: any } | null): obj is v0_4_metric_decisions_stddev_fields => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isv0_4_metric_decisions_stddev_fields"')
+      return v0_4_metric_decisions_stddev_fields_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const v0_4_metric_decisions_stddev_pop_fields_possibleTypes: string[] = ['v0_4_metric_decisions_stddev_pop_fields']
+    export const isv0_4_metric_decisions_stddev_pop_fields = (obj?: { __typename?: any } | null): obj is v0_4_metric_decisions_stddev_pop_fields => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isv0_4_metric_decisions_stddev_pop_fields"')
+      return v0_4_metric_decisions_stddev_pop_fields_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const v0_4_metric_decisions_stddev_samp_fields_possibleTypes: string[] = ['v0_4_metric_decisions_stddev_samp_fields']
+    export const isv0_4_metric_decisions_stddev_samp_fields = (obj?: { __typename?: any } | null): obj is v0_4_metric_decisions_stddev_samp_fields => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isv0_4_metric_decisions_stddev_samp_fields"')
+      return v0_4_metric_decisions_stddev_samp_fields_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const v0_4_metric_decisions_sum_fields_possibleTypes: string[] = ['v0_4_metric_decisions_sum_fields']
+    export const isv0_4_metric_decisions_sum_fields = (obj?: { __typename?: any } | null): obj is v0_4_metric_decisions_sum_fields => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isv0_4_metric_decisions_sum_fields"')
+      return v0_4_metric_decisions_sum_fields_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const v0_4_metric_decisions_var_pop_fields_possibleTypes: string[] = ['v0_4_metric_decisions_var_pop_fields']
+    export const isv0_4_metric_decisions_var_pop_fields = (obj?: { __typename?: any } | null): obj is v0_4_metric_decisions_var_pop_fields => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isv0_4_metric_decisions_var_pop_fields"')
+      return v0_4_metric_decisions_var_pop_fields_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const v0_4_metric_decisions_var_samp_fields_possibleTypes: string[] = ['v0_4_metric_decisions_var_samp_fields']
+    export const isv0_4_metric_decisions_var_samp_fields = (obj?: { __typename?: any } | null): obj is v0_4_metric_decisions_var_samp_fields => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isv0_4_metric_decisions_var_samp_fields"')
+      return v0_4_metric_decisions_var_samp_fields_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const v0_4_metric_decisions_variance_fields_possibleTypes: string[] = ['v0_4_metric_decisions_variance_fields']
+    export const isv0_4_metric_decisions_variance_fields = (obj?: { __typename?: any } | null): obj is v0_4_metric_decisions_variance_fields => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isv0_4_metric_decisions_variance_fields"')
+      return v0_4_metric_decisions_variance_fields_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const v0_4_questions_possibleTypes: string[] = ['v0_4_questions']
+    export const isv0_4_questions = (obj?: { __typename?: any } | null): obj is v0_4_questions => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isv0_4_questions"')
+      return v0_4_questions_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const v0_4_questions_aggregate_possibleTypes: string[] = ['v0_4_questions_aggregate']
+    export const isv0_4_questions_aggregate = (obj?: { __typename?: any } | null): obj is v0_4_questions_aggregate => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isv0_4_questions_aggregate"')
+      return v0_4_questions_aggregate_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const v0_4_questions_aggregate_fields_possibleTypes: string[] = ['v0_4_questions_aggregate_fields']
+    export const isv0_4_questions_aggregate_fields = (obj?: { __typename?: any } | null): obj is v0_4_questions_aggregate_fields => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isv0_4_questions_aggregate_fields"')
+      return v0_4_questions_aggregate_fields_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const v0_4_questions_avg_fields_possibleTypes: string[] = ['v0_4_questions_avg_fields']
+    export const isv0_4_questions_avg_fields = (obj?: { __typename?: any } | null): obj is v0_4_questions_avg_fields => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isv0_4_questions_avg_fields"')
+      return v0_4_questions_avg_fields_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const v0_4_questions_max_fields_possibleTypes: string[] = ['v0_4_questions_max_fields']
+    export const isv0_4_questions_max_fields = (obj?: { __typename?: any } | null): obj is v0_4_questions_max_fields => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isv0_4_questions_max_fields"')
+      return v0_4_questions_max_fields_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const v0_4_questions_min_fields_possibleTypes: string[] = ['v0_4_questions_min_fields']
+    export const isv0_4_questions_min_fields = (obj?: { __typename?: any } | null): obj is v0_4_questions_min_fields => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isv0_4_questions_min_fields"')
+      return v0_4_questions_min_fields_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const v0_4_questions_mutation_response_possibleTypes: string[] = ['v0_4_questions_mutation_response']
+    export const isv0_4_questions_mutation_response = (obj?: { __typename?: any } | null): obj is v0_4_questions_mutation_response => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isv0_4_questions_mutation_response"')
+      return v0_4_questions_mutation_response_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const v0_4_questions_stddev_fields_possibleTypes: string[] = ['v0_4_questions_stddev_fields']
+    export const isv0_4_questions_stddev_fields = (obj?: { __typename?: any } | null): obj is v0_4_questions_stddev_fields => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isv0_4_questions_stddev_fields"')
+      return v0_4_questions_stddev_fields_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const v0_4_questions_stddev_pop_fields_possibleTypes: string[] = ['v0_4_questions_stddev_pop_fields']
+    export const isv0_4_questions_stddev_pop_fields = (obj?: { __typename?: any } | null): obj is v0_4_questions_stddev_pop_fields => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isv0_4_questions_stddev_pop_fields"')
+      return v0_4_questions_stddev_pop_fields_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const v0_4_questions_stddev_samp_fields_possibleTypes: string[] = ['v0_4_questions_stddev_samp_fields']
+    export const isv0_4_questions_stddev_samp_fields = (obj?: { __typename?: any } | null): obj is v0_4_questions_stddev_samp_fields => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isv0_4_questions_stddev_samp_fields"')
+      return v0_4_questions_stddev_samp_fields_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const v0_4_questions_sum_fields_possibleTypes: string[] = ['v0_4_questions_sum_fields']
+    export const isv0_4_questions_sum_fields = (obj?: { __typename?: any } | null): obj is v0_4_questions_sum_fields => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isv0_4_questions_sum_fields"')
+      return v0_4_questions_sum_fields_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const v0_4_questions_var_pop_fields_possibleTypes: string[] = ['v0_4_questions_var_pop_fields']
+    export const isv0_4_questions_var_pop_fields = (obj?: { __typename?: any } | null): obj is v0_4_questions_var_pop_fields => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isv0_4_questions_var_pop_fields"')
+      return v0_4_questions_var_pop_fields_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const v0_4_questions_var_samp_fields_possibleTypes: string[] = ['v0_4_questions_var_samp_fields']
+    export const isv0_4_questions_var_samp_fields = (obj?: { __typename?: any } | null): obj is v0_4_questions_var_samp_fields => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isv0_4_questions_var_samp_fields"')
+      return v0_4_questions_var_samp_fields_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const v0_4_questions_variance_fields_possibleTypes: string[] = ['v0_4_questions_variance_fields']
+    export const isv0_4_questions_variance_fields = (obj?: { __typename?: any } | null): obj is v0_4_questions_variance_fields => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isv0_4_questions_variance_fields"')
+      return v0_4_questions_variance_fields_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const v0_4_splits_possibleTypes: string[] = ['v0_4_splits']
+    export const isv0_4_splits = (obj?: { __typename?: any } | null): obj is v0_4_splits => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isv0_4_splits"')
+      return v0_4_splits_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const v0_4_splits_aggregate_possibleTypes: string[] = ['v0_4_splits_aggregate']
+    export const isv0_4_splits_aggregate = (obj?: { __typename?: any } | null): obj is v0_4_splits_aggregate => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isv0_4_splits_aggregate"')
+      return v0_4_splits_aggregate_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const v0_4_splits_aggregate_fields_possibleTypes: string[] = ['v0_4_splits_aggregate_fields']
+    export const isv0_4_splits_aggregate_fields = (obj?: { __typename?: any } | null): obj is v0_4_splits_aggregate_fields => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isv0_4_splits_aggregate_fields"')
+      return v0_4_splits_aggregate_fields_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const v0_4_splits_avg_fields_possibleTypes: string[] = ['v0_4_splits_avg_fields']
+    export const isv0_4_splits_avg_fields = (obj?: { __typename?: any } | null): obj is v0_4_splits_avg_fields => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isv0_4_splits_avg_fields"')
+      return v0_4_splits_avg_fields_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const v0_4_splits_max_fields_possibleTypes: string[] = ['v0_4_splits_max_fields']
+    export const isv0_4_splits_max_fields = (obj?: { __typename?: any } | null): obj is v0_4_splits_max_fields => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isv0_4_splits_max_fields"')
+      return v0_4_splits_max_fields_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const v0_4_splits_min_fields_possibleTypes: string[] = ['v0_4_splits_min_fields']
+    export const isv0_4_splits_min_fields = (obj?: { __typename?: any } | null): obj is v0_4_splits_min_fields => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isv0_4_splits_min_fields"')
+      return v0_4_splits_min_fields_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const v0_4_splits_mutation_response_possibleTypes: string[] = ['v0_4_splits_mutation_response']
+    export const isv0_4_splits_mutation_response = (obj?: { __typename?: any } | null): obj is v0_4_splits_mutation_response => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isv0_4_splits_mutation_response"')
+      return v0_4_splits_mutation_response_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const v0_4_splits_stddev_fields_possibleTypes: string[] = ['v0_4_splits_stddev_fields']
+    export const isv0_4_splits_stddev_fields = (obj?: { __typename?: any } | null): obj is v0_4_splits_stddev_fields => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isv0_4_splits_stddev_fields"')
+      return v0_4_splits_stddev_fields_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const v0_4_splits_stddev_pop_fields_possibleTypes: string[] = ['v0_4_splits_stddev_pop_fields']
+    export const isv0_4_splits_stddev_pop_fields = (obj?: { __typename?: any } | null): obj is v0_4_splits_stddev_pop_fields => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isv0_4_splits_stddev_pop_fields"')
+      return v0_4_splits_stddev_pop_fields_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const v0_4_splits_stddev_samp_fields_possibleTypes: string[] = ['v0_4_splits_stddev_samp_fields']
+    export const isv0_4_splits_stddev_samp_fields = (obj?: { __typename?: any } | null): obj is v0_4_splits_stddev_samp_fields => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isv0_4_splits_stddev_samp_fields"')
+      return v0_4_splits_stddev_samp_fields_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const v0_4_splits_sum_fields_possibleTypes: string[] = ['v0_4_splits_sum_fields']
+    export const isv0_4_splits_sum_fields = (obj?: { __typename?: any } | null): obj is v0_4_splits_sum_fields => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isv0_4_splits_sum_fields"')
+      return v0_4_splits_sum_fields_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const v0_4_splits_var_pop_fields_possibleTypes: string[] = ['v0_4_splits_var_pop_fields']
+    export const isv0_4_splits_var_pop_fields = (obj?: { __typename?: any } | null): obj is v0_4_splits_var_pop_fields => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isv0_4_splits_var_pop_fields"')
+      return v0_4_splits_var_pop_fields_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const v0_4_splits_var_samp_fields_possibleTypes: string[] = ['v0_4_splits_var_samp_fields']
+    export const isv0_4_splits_var_samp_fields = (obj?: { __typename?: any } | null): obj is v0_4_splits_var_samp_fields => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isv0_4_splits_var_samp_fields"')
+      return v0_4_splits_var_samp_fields_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const v0_4_splits_variance_fields_possibleTypes: string[] = ['v0_4_splits_variance_fields']
+    export const isv0_4_splits_variance_fields = (obj?: { __typename?: any } | null): obj is v0_4_splits_variance_fields => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isv0_4_splits_variance_fields"')
+      return v0_4_splits_variance_fields_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const v0_4_swaps_possibleTypes: string[] = ['v0_4_swaps']
+    export const isv0_4_swaps = (obj?: { __typename?: any } | null): obj is v0_4_swaps => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isv0_4_swaps"')
+      return v0_4_swaps_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const v0_4_swaps_aggregate_possibleTypes: string[] = ['v0_4_swaps_aggregate']
+    export const isv0_4_swaps_aggregate = (obj?: { __typename?: any } | null): obj is v0_4_swaps_aggregate => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isv0_4_swaps_aggregate"')
+      return v0_4_swaps_aggregate_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const v0_4_swaps_aggregate_fields_possibleTypes: string[] = ['v0_4_swaps_aggregate_fields']
+    export const isv0_4_swaps_aggregate_fields = (obj?: { __typename?: any } | null): obj is v0_4_swaps_aggregate_fields => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isv0_4_swaps_aggregate_fields"')
+      return v0_4_swaps_aggregate_fields_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const v0_4_swaps_avg_fields_possibleTypes: string[] = ['v0_4_swaps_avg_fields']
+    export const isv0_4_swaps_avg_fields = (obj?: { __typename?: any } | null): obj is v0_4_swaps_avg_fields => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isv0_4_swaps_avg_fields"')
+      return v0_4_swaps_avg_fields_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const v0_4_swaps_max_fields_possibleTypes: string[] = ['v0_4_swaps_max_fields']
+    export const isv0_4_swaps_max_fields = (obj?: { __typename?: any } | null): obj is v0_4_swaps_max_fields => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isv0_4_swaps_max_fields"')
+      return v0_4_swaps_max_fields_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const v0_4_swaps_min_fields_possibleTypes: string[] = ['v0_4_swaps_min_fields']
+    export const isv0_4_swaps_min_fields = (obj?: { __typename?: any } | null): obj is v0_4_swaps_min_fields => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isv0_4_swaps_min_fields"')
+      return v0_4_swaps_min_fields_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const v0_4_swaps_mutation_response_possibleTypes: string[] = ['v0_4_swaps_mutation_response']
+    export const isv0_4_swaps_mutation_response = (obj?: { __typename?: any } | null): obj is v0_4_swaps_mutation_response => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isv0_4_swaps_mutation_response"')
+      return v0_4_swaps_mutation_response_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const v0_4_swaps_stddev_fields_possibleTypes: string[] = ['v0_4_swaps_stddev_fields']
+    export const isv0_4_swaps_stddev_fields = (obj?: { __typename?: any } | null): obj is v0_4_swaps_stddev_fields => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isv0_4_swaps_stddev_fields"')
+      return v0_4_swaps_stddev_fields_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const v0_4_swaps_stddev_pop_fields_possibleTypes: string[] = ['v0_4_swaps_stddev_pop_fields']
+    export const isv0_4_swaps_stddev_pop_fields = (obj?: { __typename?: any } | null): obj is v0_4_swaps_stddev_pop_fields => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isv0_4_swaps_stddev_pop_fields"')
+      return v0_4_swaps_stddev_pop_fields_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const v0_4_swaps_stddev_samp_fields_possibleTypes: string[] = ['v0_4_swaps_stddev_samp_fields']
+    export const isv0_4_swaps_stddev_samp_fields = (obj?: { __typename?: any } | null): obj is v0_4_swaps_stddev_samp_fields => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isv0_4_swaps_stddev_samp_fields"')
+      return v0_4_swaps_stddev_samp_fields_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const v0_4_swaps_sum_fields_possibleTypes: string[] = ['v0_4_swaps_sum_fields']
+    export const isv0_4_swaps_sum_fields = (obj?: { __typename?: any } | null): obj is v0_4_swaps_sum_fields => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isv0_4_swaps_sum_fields"')
+      return v0_4_swaps_sum_fields_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const v0_4_swaps_var_pop_fields_possibleTypes: string[] = ['v0_4_swaps_var_pop_fields']
+    export const isv0_4_swaps_var_pop_fields = (obj?: { __typename?: any } | null): obj is v0_4_swaps_var_pop_fields => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isv0_4_swaps_var_pop_fields"')
+      return v0_4_swaps_var_pop_fields_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const v0_4_swaps_var_samp_fields_possibleTypes: string[] = ['v0_4_swaps_var_samp_fields']
+    export const isv0_4_swaps_var_samp_fields = (obj?: { __typename?: any } | null): obj is v0_4_swaps_var_samp_fields => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isv0_4_swaps_var_samp_fields"')
+      return v0_4_swaps_var_samp_fields_possibleTypes.includes(obj.__typename)
+    }
+    
+
+
+    const v0_4_swaps_variance_fields_possibleTypes: string[] = ['v0_4_swaps_variance_fields']
+    export const isv0_4_swaps_variance_fields = (obj?: { __typename?: any } | null): obj is v0_4_swaps_variance_fields => {
+      if (!obj?.__typename) throw new Error('__typename is missing in "isv0_4_swaps_variance_fields"')
+      return v0_4_swaps_variance_fields_possibleTypes.includes(obj.__typename)
     }
     
 
@@ -19842,6 +28244,7 @@ export const enumDaoDetailsSelectColumn = {
    name: 'name' as const,
    pass_token_image_url: 'pass_token_image_url' as const,
    slug: 'slug' as const,
+   socials: 'socials' as const,
    token_image_url: 'token_image_url' as const,
    url: 'url' as const,
    x_account: 'x_account' as const
@@ -19860,9 +28263,15 @@ export const enumDaoDetailsUpdateColumn = {
    name: 'name' as const,
    pass_token_image_url: 'pass_token_image_url' as const,
    slug: 'slug' as const,
+   socials: 'socials' as const,
    token_image_url: 'token_image_url' as const,
    url: 'url' as const,
    x_account: 'x_account' as const
+}
+
+export const enumDaoTraderEnumName = {
+   total_volume: 'total_volume' as const,
+   user_acct: 'user_acct' as const
 }
 
 export const enumDaosConstraint = {
@@ -19876,11 +28285,15 @@ export const enumDaosSelectColumn = {
    created_at: 'created_at' as const,
    dao_acct: 'dao_acct' as const,
    dao_id: 'dao_id' as const,
+   min_base_futarchic_liquidity: 'min_base_futarchic_liquidity' as const,
+   min_quote_futarchic_liquidity: 'min_quote_futarchic_liquidity' as const,
    pass_threshold_bps: 'pass_threshold_bps' as const,
    program_acct: 'program_acct' as const,
    quote_acct: 'quote_acct' as const,
    slots_per_proposal: 'slots_per_proposal' as const,
    treasury_acct: 'treasury_acct' as const,
+   twap_initial_observation: 'twap_initial_observation' as const,
+   twap_max_observation_change_per_update: 'twap_max_observation_change_per_update' as const,
    updated_at: 'updated_at' as const
 }
 
@@ -19889,11 +28302,15 @@ export const enumDaosUpdateColumn = {
    created_at: 'created_at' as const,
    dao_acct: 'dao_acct' as const,
    dao_id: 'dao_id' as const,
+   min_base_futarchic_liquidity: 'min_base_futarchic_liquidity' as const,
+   min_quote_futarchic_liquidity: 'min_quote_futarchic_liquidity' as const,
    pass_threshold_bps: 'pass_threshold_bps' as const,
    program_acct: 'program_acct' as const,
    quote_acct: 'quote_acct' as const,
    slots_per_proposal: 'slots_per_proposal' as const,
    treasury_acct: 'treasury_acct' as const,
+   twap_initial_observation: 'twap_initial_observation' as const,
+   twap_max_observation_change_per_update: 'twap_max_observation_change_per_update' as const,
    updated_at: 'updated_at' as const
 }
 
@@ -20068,6 +28485,10 @@ export const enumOrdersUpdateColumn = {
    updated_at: 'updated_at' as const
 }
 
+export const enumPricesChartDataConstraint = {
+   idx_price_acct_interv: 'idx_price_acct_interv' as const
+}
+
 export const enumPricesChartDataSelectColumn = {
    base_amount: 'base_amount' as const,
    interv: 'interv' as const,
@@ -20077,8 +28498,17 @@ export const enumPricesChartDataSelectColumn = {
    quote_amount: 'quote_amount' as const
 }
 
+export const enumPricesChartDataUpdateColumn = {
+   base_amount: 'base_amount' as const,
+   interv: 'interv' as const,
+   market_acct: 'market_acct' as const,
+   price: 'price' as const,
+   prices_type: 'prices_type' as const,
+   quote_amount: 'quote_amount' as const
+}
+
 export const enumPricesConstraint = {
-   prices_created_at_market_acct_pk: 'prices_created_at_market_acct_pk' as const
+   prices2_pkey: 'prices2_pkey' as const
 }
 
 export const enumPricesSelectColumn = {
@@ -20177,7 +28607,7 @@ export const enumProgramsUpdateColumn = {
 }
 
 export const enumProposalBarsConstraint = {
-   proposal_bars_pkey: 'proposal_bars_pkey' as const
+   pg_table_pkey: 'pg_table_pkey' as const
 }
 
 export const enumProposalBarsSelectColumn = {
@@ -20243,6 +28673,12 @@ export const enumProposalDetailsUpdateColumn = {
    title: 'title' as const
 }
 
+export const enumProposalStatisticsEnumName = {
+   proposal_acct: 'proposal_acct' as const,
+   trade_count: 'trade_count' as const,
+   user_count: 'user_count' as const
+}
+
 export const enumProposalTotalTradeVolumeSelectColumn = {
    fail_market_acct: 'fail_market_acct' as const,
    fail_volume: 'fail_volume' as const,
@@ -20262,11 +28698,15 @@ export const enumProposalsSelectColumn = {
    created_at: 'created_at' as const,
    dao_acct: 'dao_acct' as const,
    description_url: 'description_url' as const,
+   duration_in_slots: 'duration_in_slots' as const,
    end_slot: 'end_slot' as const,
    ended_at: 'ended_at' as const,
    fail_market_acct: 'fail_market_acct' as const,
    initial_slot: 'initial_slot' as const,
+   min_base_futarchic_liquidity: 'min_base_futarchic_liquidity' as const,
+   min_quote_futarchic_liquidity: 'min_quote_futarchic_liquidity' as const,
    pass_market_acct: 'pass_market_acct' as const,
+   pass_threshold_bps: 'pass_threshold_bps' as const,
    pricing_model_fail_acct: 'pricing_model_fail_acct' as const,
    pricing_model_pass_acct: 'pricing_model_pass_acct' as const,
    proposal_acct: 'proposal_acct' as const,
@@ -20274,6 +28714,8 @@ export const enumProposalsSelectColumn = {
    proposer_acct: 'proposer_acct' as const,
    quote_vault: 'quote_vault' as const,
    status: 'status' as const,
+   twap_initial_observation: 'twap_initial_observation' as const,
+   twap_max_observation_change_per_update: 'twap_max_observation_change_per_update' as const,
    updated_at: 'updated_at' as const
 }
 
@@ -20316,11 +28758,15 @@ export const enumProposalsUpdateColumn = {
    created_at: 'created_at' as const,
    dao_acct: 'dao_acct' as const,
    description_url: 'description_url' as const,
+   duration_in_slots: 'duration_in_slots' as const,
    end_slot: 'end_slot' as const,
    ended_at: 'ended_at' as const,
    fail_market_acct: 'fail_market_acct' as const,
    initial_slot: 'initial_slot' as const,
+   min_base_futarchic_liquidity: 'min_base_futarchic_liquidity' as const,
+   min_quote_futarchic_liquidity: 'min_quote_futarchic_liquidity' as const,
    pass_market_acct: 'pass_market_acct' as const,
+   pass_threshold_bps: 'pass_threshold_bps' as const,
    pricing_model_fail_acct: 'pricing_model_fail_acct' as const,
    pricing_model_pass_acct: 'pricing_model_pass_acct' as const,
    proposal_acct: 'proposal_acct' as const,
@@ -20328,17 +28774,20 @@ export const enumProposalsUpdateColumn = {
    proposer_acct: 'proposer_acct' as const,
    quote_vault: 'quote_vault' as const,
    status: 'status' as const,
+   twap_initial_observation: 'twap_initial_observation' as const,
+   twap_max_observation_change_per_update: 'twap_max_observation_change_per_update' as const,
    updated_at: 'updated_at' as const
 }
 
 export const enumReactionsConstraint = {
-   reactions_proposal_acct_reaction_reactor_acct_pk: 'reactions_proposal_acct_reaction_reactor_acct_pk' as const
+   reactions_pkey: 'reactions_pkey' as const
 }
 
 export const enumReactionsSelectColumn = {
    comment_id: 'comment_id' as const,
    proposal_acct: 'proposal_acct' as const,
    reaction: 'reaction' as const,
+   reaction_id: 'reaction_id' as const,
    reactor_acct: 'reactor_acct' as const,
    updated_at: 'updated_at' as const
 }
@@ -20347,6 +28796,7 @@ export const enumReactionsUpdateColumn = {
    comment_id: 'comment_id' as const,
    proposal_acct: 'proposal_acct' as const,
    reaction: 'reaction' as const,
+   reaction_id: 'reaction_id' as const,
    reactor_acct: 'reactor_acct' as const,
    updated_at: 'updated_at' as const
 }
@@ -20367,6 +28817,47 @@ export const enumSessionsUpdateColumn = {
    expires_at: 'expires_at' as const,
    id: 'id' as const,
    user_acct: 'user_acct' as const
+}
+
+export const enumSignatureAccountsConstraint = {
+   signature_accounts_signature_account_pk: 'signature_accounts_signature_account_pk' as const
+}
+
+export const enumSignatureAccountsSelectColumn = {
+   account: 'account' as const,
+   inserted_at: 'inserted_at' as const,
+   signature: 'signature' as const
+}
+
+export const enumSignatureAccountsUpdateColumn = {
+   account: 'account' as const,
+   inserted_at: 'inserted_at' as const,
+   signature: 'signature' as const
+}
+
+export const enumSignaturesConstraint = {
+   signatures_pkey: 'signatures_pkey' as const,
+   signatures_seq_num_unique: 'signatures_seq_num_unique' as const
+}
+
+export const enumSignaturesSelectColumn = {
+   block_time: 'block_time' as const,
+   did_err: 'did_err' as const,
+   err: 'err' as const,
+   inserted_at: 'inserted_at' as const,
+   seq_num: 'seq_num' as const,
+   signature: 'signature' as const,
+   slot: 'slot' as const
+}
+
+export const enumSignaturesUpdateColumn = {
+   block_time: 'block_time' as const,
+   did_err: 'did_err' as const,
+   err: 'err' as const,
+   inserted_at: 'inserted_at' as const,
+   seq_num: 'seq_num' as const,
+   signature: 'signature' as const,
+   slot: 'slot' as const
 }
 
 export const enumTakesConstraint = {
@@ -20402,7 +28893,7 @@ export const enumTakesUpdateColumn = {
 }
 
 export const enumTokenAcctBalancesConstraint = {
-   token_acct_balances_token_acct_mint_acct_amount_created_at_pk: 'token_acct_balances_token_acct_mint_acct_amount_created_at_pk' as const
+   new_token_acct_balances_pkey: 'new_token_acct_balances_pkey' as const
 }
 
 export const enumTokenAcctBalancesSelectColumn = {
@@ -20541,7 +29032,17 @@ export const enumTransactionsUpdateColumn = {
    tx_sig: 'tx_sig' as const
 }
 
+export const enumTwapChartDataConstraint = {
+   idx_acct_interv: 'idx_acct_interv' as const
+}
+
 export const enumTwapChartDataSelectColumn = {
+   interv: 'interv' as const,
+   market_acct: 'market_acct' as const,
+   token_amount: 'token_amount' as const
+}
+
+export const enumTwapChartDataUpdateColumn = {
    interv: 'interv' as const,
    market_acct: 'market_acct' as const,
    token_amount: 'token_amount' as const
@@ -20573,6 +29074,55 @@ export const enumTwapsUpdateColumn = {
    updated_slot: 'updated_slot' as const
 }
 
+export const enumUserDepositsSelectColumn = {
+   created_at: 'created_at' as const,
+   mint_acct: 'mint_acct' as const,
+   token_amount: 'token_amount' as const,
+   tx_sig: 'tx_sig' as const,
+   user_acct: 'user_acct' as const
+}
+
+export const enumUserPerformanceConstraint = {
+   user_performance_proposal_acct_user_acct_pk: 'user_performance_proposal_acct_user_acct_pk' as const
+}
+
+export const enumUserPerformanceSelectColumn = {
+   buy_orders_count: 'buy_orders_count' as const,
+   created_at: 'created_at' as const,
+   dao_acct: 'dao_acct' as const,
+   proposal_acct: 'proposal_acct' as const,
+   sell_orders_count: 'sell_orders_count' as const,
+   tokens_bought: 'tokens_bought' as const,
+   tokens_bought_resolving_market: 'tokens_bought_resolving_market' as const,
+   tokens_sold: 'tokens_sold' as const,
+   tokens_sold_resolving_market: 'tokens_sold_resolving_market' as const,
+   total_volume: 'total_volume' as const,
+   updated_at: 'updated_at' as const,
+   user_acct: 'user_acct' as const,
+   volume_bought: 'volume_bought' as const,
+   volume_bought_resolving_market: 'volume_bought_resolving_market' as const,
+   volume_sold: 'volume_sold' as const,
+   volume_sold_resolving_market: 'volume_sold_resolving_market' as const
+}
+
+export const enumUserPerformanceUpdateColumn = {
+   buy_orders_count: 'buy_orders_count' as const,
+   created_at: 'created_at' as const,
+   dao_acct: 'dao_acct' as const,
+   proposal_acct: 'proposal_acct' as const,
+   sell_orders_count: 'sell_orders_count' as const,
+   tokens_bought: 'tokens_bought' as const,
+   tokens_bought_resolving_market: 'tokens_bought_resolving_market' as const,
+   tokens_sold: 'tokens_sold' as const,
+   tokens_sold_resolving_market: 'tokens_sold_resolving_market' as const,
+   updated_at: 'updated_at' as const,
+   user_acct: 'user_acct' as const,
+   volume_bought: 'volume_bought' as const,
+   volume_bought_resolving_market: 'volume_bought_resolving_market' as const,
+   volume_sold: 'volume_sold' as const,
+   volume_sold_resolving_market: 'volume_sold_resolving_market' as const
+}
+
 export const enumUsersConstraint = {
    users_pkey: 'users_pkey' as const
 }
@@ -20585,4 +29135,204 @@ export const enumUsersSelectColumn = {
 export const enumUsersUpdateColumn = {
    created_at: 'created_at' as const,
    user_acct: 'user_acct' as const
+}
+
+export const enumV04AmmsConstraint = {
+   v0_4_amms_pkey: 'v0_4_amms_pkey' as const
+}
+
+export const enumV04AmmsSelectColumn = {
+   amm_addr: 'amm_addr' as const,
+   base_mint_addr: 'base_mint_addr' as const,
+   base_reserves: 'base_reserves' as const,
+   created_at_slot: 'created_at_slot' as const,
+   inserted_at: 'inserted_at' as const,
+   latest_amm_seq_num_applied: 'latest_amm_seq_num_applied' as const,
+   lp_mint_addr: 'lp_mint_addr' as const,
+   quote_mint_addr: 'quote_mint_addr' as const,
+   quote_reserves: 'quote_reserves' as const
+}
+
+export const enumV04AmmsUpdateColumn = {
+   amm_addr: 'amm_addr' as const,
+   base_mint_addr: 'base_mint_addr' as const,
+   base_reserves: 'base_reserves' as const,
+   created_at_slot: 'created_at_slot' as const,
+   inserted_at: 'inserted_at' as const,
+   latest_amm_seq_num_applied: 'latest_amm_seq_num_applied' as const,
+   lp_mint_addr: 'lp_mint_addr' as const,
+   quote_mint_addr: 'quote_mint_addr' as const,
+   quote_reserves: 'quote_reserves' as const
+}
+
+export const enumV04ConditionalVaultsConstraint = {
+   v0_4_conditional_vaults_pkey: 'v0_4_conditional_vaults_pkey' as const
+}
+
+export const enumV04ConditionalVaultsSelectColumn = {
+   conditional_vault_addr: 'conditional_vault_addr' as const,
+   created_at: 'created_at' as const,
+   latest_vault_seq_num_applied: 'latest_vault_seq_num_applied' as const,
+   pda_bump: 'pda_bump' as const,
+   question_addr: 'question_addr' as const,
+   underlying_mint_acct: 'underlying_mint_acct' as const,
+   underlying_token_acct: 'underlying_token_acct' as const
+}
+
+export const enumV04ConditionalVaultsUpdateColumn = {
+   conditional_vault_addr: 'conditional_vault_addr' as const,
+   created_at: 'created_at' as const,
+   latest_vault_seq_num_applied: 'latest_vault_seq_num_applied' as const,
+   pda_bump: 'pda_bump' as const,
+   question_addr: 'question_addr' as const,
+   underlying_mint_acct: 'underlying_mint_acct' as const,
+   underlying_token_acct: 'underlying_token_acct' as const
+}
+
+export const enumV04MergesConstraint = {
+   v0_4_merges_vault_addr_vault_seq_num_pk: 'v0_4_merges_vault_addr_vault_seq_num_pk' as const
+}
+
+export const enumV04MergesSelectColumn = {
+   amount: 'amount' as const,
+   created_at: 'created_at' as const,
+   signature: 'signature' as const,
+   slot: 'slot' as const,
+   vault_addr: 'vault_addr' as const,
+   vault_seq_num: 'vault_seq_num' as const
+}
+
+export const enumV04MergesUpdateColumn = {
+   amount: 'amount' as const,
+   created_at: 'created_at' as const,
+   signature: 'signature' as const,
+   slot: 'slot' as const,
+   vault_addr: 'vault_addr' as const,
+   vault_seq_num: 'vault_seq_num' as const
+}
+
+export const enumV04MetricDecisionsConstraint = {
+   v0_4_metric_decisions_pkey: 'v0_4_metric_decisions_pkey' as const
+}
+
+export const enumV04MetricDecisionsSelectColumn = {
+   amm_addr: 'amm_addr' as const,
+   committee_evaluation: 'committee_evaluation' as const,
+   created_at: 'created_at' as const,
+   dao_id: 'dao_id' as const,
+   description: 'description' as const,
+   grant_awarded: 'grant_awarded' as const,
+   id: 'id' as const,
+   market_opened: 'market_opened' as const,
+   metric_question_addr: 'metric_question_addr' as const,
+   metric_vault_addr: 'metric_vault_addr' as const,
+   outcome_question_addr: 'outcome_question_addr' as const,
+   outcome_vault_addr: 'outcome_vault_addr' as const,
+   recipient: 'recipient' as const,
+   score_max_value: 'score_max_value' as const,
+   score_min_value: 'score_min_value' as const,
+   score_term: 'score_term' as const,
+   score_unit: 'score_unit' as const,
+   title: 'title' as const
+}
+
+export const enumV04MetricDecisionsUpdateColumn = {
+   amm_addr: 'amm_addr' as const,
+   committee_evaluation: 'committee_evaluation' as const,
+   created_at: 'created_at' as const,
+   dao_id: 'dao_id' as const,
+   description: 'description' as const,
+   grant_awarded: 'grant_awarded' as const,
+   id: 'id' as const,
+   market_opened: 'market_opened' as const,
+   metric_question_addr: 'metric_question_addr' as const,
+   metric_vault_addr: 'metric_vault_addr' as const,
+   outcome_question_addr: 'outcome_question_addr' as const,
+   outcome_vault_addr: 'outcome_vault_addr' as const,
+   recipient: 'recipient' as const,
+   score_max_value: 'score_max_value' as const,
+   score_min_value: 'score_min_value' as const,
+   score_term: 'score_term' as const,
+   score_unit: 'score_unit' as const,
+   title: 'title' as const
+}
+
+export const enumV04QuestionsConstraint = {
+   v0_4_questions_pkey: 'v0_4_questions_pkey' as const
+}
+
+export const enumV04QuestionsSelectColumn = {
+   created_at: 'created_at' as const,
+   is_resolved: 'is_resolved' as const,
+   num_outcomes: 'num_outcomes' as const,
+   oracle_addr: 'oracle_addr' as const,
+   payout_denominator: 'payout_denominator' as const,
+   payout_numerators: 'payout_numerators' as const,
+   question_addr: 'question_addr' as const,
+   question_id: 'question_id' as const
+}
+
+export const enumV04QuestionsUpdateColumn = {
+   created_at: 'created_at' as const,
+   is_resolved: 'is_resolved' as const,
+   num_outcomes: 'num_outcomes' as const,
+   oracle_addr: 'oracle_addr' as const,
+   payout_denominator: 'payout_denominator' as const,
+   payout_numerators: 'payout_numerators' as const,
+   question_addr: 'question_addr' as const,
+   question_id: 'question_id' as const
+}
+
+export const enumV04SplitsConstraint = {
+   v0_4_splits_vault_addr_vault_seq_num_pk: 'v0_4_splits_vault_addr_vault_seq_num_pk' as const
+}
+
+export const enumV04SplitsSelectColumn = {
+   amount: 'amount' as const,
+   created_at: 'created_at' as const,
+   signature: 'signature' as const,
+   slot: 'slot' as const,
+   vault_addr: 'vault_addr' as const,
+   vault_seq_num: 'vault_seq_num' as const
+}
+
+export const enumV04SplitsUpdateColumn = {
+   amount: 'amount' as const,
+   created_at: 'created_at' as const,
+   signature: 'signature' as const,
+   slot: 'slot' as const,
+   vault_addr: 'vault_addr' as const,
+   vault_seq_num: 'vault_seq_num' as const
+}
+
+export const enumV04SwapsConstraint = {
+   v0_4_swaps_pkey: 'v0_4_swaps_pkey' as const
+}
+
+export const enumV04SwapsSelectColumn = {
+   amm_addr: 'amm_addr' as const,
+   amm_seq_num: 'amm_seq_num' as const,
+   block_time: 'block_time' as const,
+   created_at: 'created_at' as const,
+   id: 'id' as const,
+   input_amount: 'input_amount' as const,
+   output_amount: 'output_amount' as const,
+   signature: 'signature' as const,
+   slot: 'slot' as const,
+   swap_type: 'swap_type' as const,
+   user_addr: 'user_addr' as const
+}
+
+export const enumV04SwapsUpdateColumn = {
+   amm_addr: 'amm_addr' as const,
+   amm_seq_num: 'amm_seq_num' as const,
+   block_time: 'block_time' as const,
+   created_at: 'created_at' as const,
+   id: 'id' as const,
+   input_amount: 'input_amount' as const,
+   output_amount: 'output_amount' as const,
+   signature: 'signature' as const,
+   slot: 'slot' as const,
+   swap_type: 'swap_type' as const,
+   user_addr: 'user_addr' as const
 }

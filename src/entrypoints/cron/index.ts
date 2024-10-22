@@ -2,7 +2,7 @@ import Cron from "croner";
 import { ProposalCrankAndFinalize } from "./crank-and-finalize";
 import { MonitorProposals } from "./monitor-proposals";
 import { MonitorBalances } from "./monitor-balances";
-import { MonitorTransactions } from "./monitor-transactions";
+// import { MonitorTransactions } from "./monitor-transactions";
 
 export function runJobs() {
   new Cron(
@@ -17,8 +17,8 @@ export function runJobs() {
     MonitorBalances.cronExpression,
     MonitorBalances.jobFunction
   );
-  new Cron(
-    MonitorTransactions.cronExpression,
-    MonitorTransactions.jobFunction
-  );
+  // new Cron(
+  //   MonitorTransactions.cronExpression,
+  //   MonitorTransactions.jobFunction
+  // );
 }

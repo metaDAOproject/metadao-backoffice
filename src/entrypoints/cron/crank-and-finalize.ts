@@ -21,6 +21,8 @@ export const provider = new anchor.AnchorProvider(connection, wallet, {
 });
 anchor.setProvider(provider);
 
+const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
+
 const indexerURL = process.env.INDEXER_URL;
 
 const BACKOFFICE_ENVIRONMENT = process.env.BACKOFFICE_ENVIRONMENT;
@@ -80,7 +82,7 @@ const run = async () => {
   );
 
   try {
-    logger.log("Querying proposals");
+    logger.log("Querying DB proposals");
 
     const proposals = await fetchActiveProposalsByVersion(VERSION);
 
@@ -92,7 +94,7 @@ const run = async () => {
       );
 
     // Fetches from our database based on date...
-    const shouldFinalizeProposalPublicKeys = proposals
+    let shouldFinalizeProposalPublicKeys = proposals
       .filter(
         (p) => p.proposal_acct !== "" && new Date(p.ended_at) < new Date()
       )
@@ -134,30 +136,44 @@ const run = async () => {
       })
     );
     tx.add(...ixs);
-    logger.log("sending crank txs");
-    const res = await autocratClient.provider.sendAndConfirm(tx);
-    logger.log("Cranking done:", res);
+    try {
+      logger.log("sending crank txs");
+      const res = await autocratClient.provider.sendAndConfirm(tx);
+      logger.log("Cranking done:", res);
+    } catch (e) {
+      if (e && e.hasOwnProperty('signature')) {
+        await sleep(10000);
+        const txResult = await provider.connection.getSignatureStatuses([e.signature])
+        logger.log("txResult", txResult);
+      }
+    }
 
-    // Spot check for finalization..
+    // Setup for blockheight check..
+    let currentBlockHeight: number | null = null;
+    try {
+      currentBlockHeight = await provider.connection.getBlockHeight()
+      logger.log(`Current block height: ${currentBlockHeight}`);
+    } catch (e) {
+      logger.error("failed to get current block height:", e);
+      logger.log("still proceeding with finalization, not good, but worth it...");
+    }
+
+    let couldFinalizeProposalPubKeys: PublicKey[] = [];
+    
+    if (currentBlockHeight) {
+      couldFinalizeProposalPubKeys = proposals
+        .filter(
+        (p) => p.proposal_acct !== "" && p.end_slot <= currentBlockHeight
+      )
+      .map(
+        (proposal: { proposal_acct: string }) => new PublicKey(proposal.proposal_acct)
+      );
+    }
+
+    // We have a proposal we think we should finalize based on date...
     if (shouldFinalizeProposalPublicKeys.length > 0) {
       logger.log("We may have proposals to finalize");
-      let currentBlockHeight: number | null = null;
-      try {
-        currentBlockHeight = await provider.connection.getBlockHeight()
-        logger.log(`Current block height: ${currentBlockHeight}`);
-      } catch (e) {
-        logger.error("failed to get current block height:", e);
-        logger.log("still proceeding with finalization, not good, but worth it...");
-      }
-      if (currentBlockHeight) {
-        const couldFinalizeProposalPubKeys = proposals
-          .filter(
-          (p) => p.proposal_acct !== "" && p.end_slot <= currentBlockHeight
-        )
-        .map(
-          (proposal: { proposal_acct: string }) => new PublicKey(proposal.proposal_acct)
-        );
-  
+      if (currentBlockHeight) {  
         if (couldFinalizeProposalPubKeys.length <= 0) {
           logger.errorWithChatBotAlert(`${BACKOFFICE_ENVIRONMENT}: Our dates in the database are wrong, check logic and update this ASAP!`);
           logger.log("Proposals we thought we could finalize based on date");
@@ -168,6 +184,20 @@ const run = async () => {
         }
       }
     }
+
+    // We have proposals we think we should finalize based on blockheight...
+    if (couldFinalizeProposalPubKeys.length > 0) {
+      logger.log("We may have proposals to finalize based on blockheight");
+      if (shouldFinalizeProposalPublicKeys.length <= 0) {
+        logger.error('We have blockheight proposals but no date proposals, override')
+        // We have blockheight proposals but don't think we should based on date..
+        // Override shouldFinalizeProposalPublicKeys with couldFinalizeProposalPubKeys
+        shouldFinalizeProposalPublicKeys = couldFinalizeProposalPubKeys;
+      }
+    }
+
+    // TODO: We should also really check the chain and parse through... Who cares about the DB?!
+
 
     // Finalize the proposal...
     for (const proposal of shouldFinalizeProposalPublicKeys) {
