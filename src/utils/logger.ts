@@ -1,5 +1,6 @@
 import { AlertChatBotInterface, TelegramBotAPI, ParseMode } from "../adapters/telegram";
 
+const TELEGRAM_DEPLOY_CHAT_ID = process.env.TELEGRAM_DEPLOY_CHAT_ID ?? "";
 const TELEGRAM_ALERT_CHAT_ID = process.env.TELEGRAM_ALERT_CHAT_ID ?? "";
 
 export class Logger {
@@ -42,8 +43,8 @@ export class Logger {
   infoWithChatBotAlert(...data: any[]): void {
     const formattedData = this.formatData(data);
     console.info(formattedData);
-    if (TELEGRAM_ALERT_CHAT_ID) {
-      this.chatBotApi.sendMessage(TELEGRAM_ALERT_CHAT_ID, formattedData);
+    if (TELEGRAM_DEPLOY_CHAT_ID) {
+      this.chatBotApi.sendMessage(TELEGRAM_DEPLOY_CHAT_ID, formattedData);
     }
   }
 

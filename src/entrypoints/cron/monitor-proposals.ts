@@ -90,7 +90,8 @@ const run = async () => {
     // Alert to a mismatch
     const sizeMismatchOfDBAndChainProposals = allDBProposalsPublicKeys.length !== allChainProposals.length;
     if (sizeMismatchOfDBAndChainProposals) {
-      logger.errorWithChatBotAlert(`We're missing proposals in our database DB: ${allDBProposalsPublicKeys.length} Chain: ${allChainProposals.length}`)
+      logger.errorWithChatBotAlert(`New Proposal Added!`)
+      // logger.errorWithChatBotAlert(`We're missing proposals  DB: ${allDBProposalsPublicKeys.length} Chain: ${allChainProposals.length}`)
       for(const proposal of allChainProposals) {
         if (!allDBProposalsPublicKeys.includes(proposal.publicKey.toBase58())) {
           logger.errorWithChatBotAlertRich(`We're missing proposal [${proposal.publicKey.toBase58()}](https://explorer\\.solana\\.com/address/${proposal.publicKey.toBase58()}) in our database`)
@@ -98,7 +99,7 @@ const run = async () => {
       }
     }
   } catch (e) {
-    logger.errorWithChatBotAlert("failed to monitor proposals, check chain", e);
+    logger.errorWithChatBotAlert("failed to monitor proposals, check system", e);
   }
 };
 

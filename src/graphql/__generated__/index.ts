@@ -33,16 +33,18 @@ export interface Client {
   ): Promise<FieldsSelection<mutation_root, R>>
 }
 
+const GQL_URL = process.env.INDEXER_URL;
+
 export const createClient = function (options?: ClientOptions): Client {
   return createClientOriginal({
-    url: 'https://hasura-staging-d83b.up.railway.app/v1/graphql',
+    url: GQL_URL,
 
     ...options,
     queryRoot: typeMap.Query!,
     mutationRoot: typeMap.Mutation!,
     subscriptionRoot: typeMap.Subscription!,
-  }) as any
-}
+  }) as any;
+};
 
 export const everything = {
   __scalar: true,
