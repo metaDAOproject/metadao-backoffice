@@ -158,22 +158,67 @@ const run = async () => {
       logger.log("still proceeding with finalization, not good, but worth it...");
     }
 
+    let currentSlotHeight: number | null = null;
+    try {
+      currentSlotHeight = await provider.connection.getSlot()
+      logger.log(`Current slot height: ${currentSlotHeight}`);
+    } catch (e) {
+      logger.error("failed to get current slot height:", e);
+    }
+
     let couldFinalizeProposalPubKeys: PublicKey[] = [];
     
-    if (currentBlockHeight) {
+    if (currentBlockHeight && currentSlotHeight) {
       couldFinalizeProposalPubKeys = proposals
         .filter(
-        (p) => p.proposal_acct !== "" && p.end_slot <= currentBlockHeight
+        (p) => p.proposal_acct !== "" && (Number(p.end_slot) <= currentBlockHeight || Number(p.end_slot) <= currentSlotHeight)
       )
       .map(
         (proposal: { proposal_acct: string }) => new PublicKey(proposal.proposal_acct)
       );
     }
 
+    // NOTE: This is expensive on the RPC...
+    // We fall back to checking the chain just to be sure..
+    // TODO: We should probably do this for cranking as well... DO NOT TRUST THE DB!
+    if(currentBlockHeight && currentSlotHeight) {
+      try {
+        const allChainProposals = await autocratClient.autocrat.account.proposal.all();
+        
+        // Find any new pending proposals that aren't already in our list
+        const hasNewProposalsToProcess = allChainProposals.some(proposal => 
+          proposal.account.state === "Pending" && 
+          !couldFinalizeProposalPubKeys.some(pubKey => pubKey.equals(proposal.publicKey))
+        );
+
+        // Only fetch DAOs if we have new proposals to process
+        if (hasNewProposalsToProcess) {
+          const allChainDaos = await autocratClient.autocrat.account.dao.all();
+          for (const proposal of allChainProposals) {
+            const dao = allChainDaos.find((dao) => dao.publicKey.equals(proposal.account.dao));
+            const slotsPerProposal = dao?.account.slotsPerProposal.toNumber();
+            const endSlot = proposal.account.slotEnqueued + slotsPerProposal;
+            if (endSlot <= currentBlockHeight || endSlot <= currentSlotHeight) {
+              if (proposal.account.state === "Pending") {
+                const alreadyIncluded = couldFinalizeProposalPubKeys.some(
+                  (pubKey) => pubKey.equals(proposal.publicKey)
+                );
+                if (!alreadyIncluded) {
+                  couldFinalizeProposalPubKeys.push(proposal.publicKey);
+                }
+              }
+            }
+          }
+        }
+      } catch (e) {
+        logger.error("failed to fetch all chain proposals and daos:", e);
+      }
+    }
+
     // We have a proposal we think we should finalize based on date...
     if (shouldFinalizeProposalPublicKeys.length > 0) {
       logger.log("We may have proposals to finalize");
-      if (currentBlockHeight) {  
+      if (currentBlockHeight && currentSlotHeight) {  
         if (couldFinalizeProposalPubKeys.length <= 0) {
           logger.errorWithChatBotAlert(`${BACKOFFICE_ENVIRONMENT}: Our dates in the database are wrong, check logic and update this ASAP!`);
           logger.log("Proposals we thought we could finalize based on date");
@@ -187,9 +232,9 @@ const run = async () => {
 
     // We have proposals we think we should finalize based on blockheight...
     if (couldFinalizeProposalPubKeys.length > 0) {
-      logger.log("We may have proposals to finalize based on blockheight");
+      logger.log("We may have proposals to finalize based on blockheight or slot height");
       if (shouldFinalizeProposalPublicKeys.length <= 0) {
-        logger.error('We have blockheight proposals but no date proposals, override')
+        logger.error('We have blockheight / slotheight proposals but no date proposals, override')
         // We have blockheight proposals but don't think we should based on date..
         // Override shouldFinalizeProposalPublicKeys with couldFinalizeProposalPubKeys
         shouldFinalizeProposalPublicKeys = couldFinalizeProposalPubKeys;
