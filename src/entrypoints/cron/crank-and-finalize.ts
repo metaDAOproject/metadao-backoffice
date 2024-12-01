@@ -61,6 +61,32 @@ const fetchActiveProposalsByVersion = async (version: number) => {
   return proposals;
 }
 
+const buildAndSendTranxation = async (ixs: any, autocratClient: AutocratClient) => {
+  let tx = new Transaction();
+  tx.add(
+    ComputeBudgetProgram.setComputeUnitLimit({
+      units: 4_000 * ixs.length,
+    })
+  );
+  tx.add(
+    ComputeBudgetProgram.setComputeUnitPrice({
+      microLamports: 1,
+    })
+  );
+  tx.add(...ixs);
+  try {
+    logger.log("sending crank txs");
+    const res = await autocratClient.provider.sendAndConfirm(tx);
+    logger.log("Cranking done:", res);
+  } catch (e) {
+    if (e && e.hasOwnProperty('signature')) {
+      await sleep(10000);
+      const txResult = await provider.connection.getSignatureStatuses([e.signature])
+      logger.log("txResult", txResult);
+    }
+  }
+}
+
 const run = async () => {
 
   const AUTOCRAT_PROGRAM_ID = new PublicKey(
@@ -119,34 +145,41 @@ const run = async () => {
       amms.push(storedProposal.failAmm);
     }
     let ixs = [];
-    for (const amm of amms) {
-      ixs.push(
-        await autocratClient.ammClient.crankThatTwapIx(amm).instruction()
-      );
-    }
-    let tx = new Transaction();
-    tx.add(
-      ComputeBudgetProgram.setComputeUnitLimit({
-        units: 4_000 * ixs.length,
-      })
-    );
-    tx.add(
-      ComputeBudgetProgram.setComputeUnitPrice({
-        microLamports: 1,
-      })
-    );
-    tx.add(...ixs);
-    try {
-      logger.log("sending crank txs");
-      const res = await autocratClient.provider.sendAndConfirm(tx);
-      logger.log("Cranking done:", res);
-    } catch (e) {
-      if (e && e.hasOwnProperty('signature')) {
-        await sleep(10000);
-        const txResult = await provider.connection.getSignatureStatuses([e.signature])
-        logger.log("txResult", txResult);
+    // TODO: In here we need to take a mod of however many qe can fit in txn
+    const loopTimes = Math.ceil(amms.length / 12);
+    console.log("loopTimes", loopTimes);
+    try{
+      for (let i = 0; i < amms.length; i++) {
+        ixs.push(
+          await autocratClient.ammClient.crankThatTwapIx(amms[i]).instruction()
+        );
+        if(i > 0 && (i % 12) === 0) {
+          logger.log("cranking 12 amms");
+          if(ixs.length > 0) {
+            console.log("sending crank txs", ixs);
+            await buildAndSendTranxation(ixs, autocratClient);
+            ixs = [];
+          }
+        }
+        if((i + 1) === amms.length) {
+          logger.log("sending last crank txs", ixs);
+          await buildAndSendTranxation(ixs, autocratClient);
+          ixs = [];
+        }
       }
+    } catch (e) {
+      console.log("error", e)
     }
+    // if (amms.length > 12) {
+    //   logger.log("cranking more than 12 amms, skipping");
+    //   return;
+    // }
+    // for (const amm of amms) {
+    //   ixs.push(
+    //     await autocratClient.ammClient.crankThatTwapIx(amm).instruction()
+    //   );
+    // }
+    
 
     // Setup for blockheight check..
     let currentBlockHeight: number | null = null;
@@ -273,7 +306,7 @@ const run = async () => {
       }
     }
   } catch (e) {
-    logger.errorWithChatBotAlert("failed to crank proposal markets:", e);
+    logger.errorWithChatBotAlert(`${BACKOFFICE_ENVIRONMENT}: failed to crank proposal markets:`, e);
   }
 };
 
