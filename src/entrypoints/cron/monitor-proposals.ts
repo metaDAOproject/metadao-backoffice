@@ -104,6 +104,6 @@ const run = async () => {
 };
 
 export const MonitorProposals: CronJob = {
-  cronExpression: "10 * * * * *",
+  cronExpression: "/12 * * * * *",
   jobFunction: run,
 };
