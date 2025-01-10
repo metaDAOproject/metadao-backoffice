@@ -10,8 +10,7 @@ import { logger } from "../../utils/logger";
 import { CronJob } from "./cron";
 
 const ANCHOR_PROVIDER_URL = process.env.ANCHOR_PROVIDER_URL ?? "";
-const SIGNER_SECRET = process.env.SIGNER_SECRET ?? "";
-const kp = Keypair.fromSecretKey(Uint8Array.from(JSON.parse(SIGNER_SECRET)));
+const kp = Keypair.generate();
 const wallet = new anchor.Wallet(kp);
 const connection = new Connection(ANCHOR_PROVIDER_URL);
 export const provider = new anchor.AnchorProvider(connection, wallet, {
