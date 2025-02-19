@@ -104,7 +104,7 @@ const run = async () => {
     }
 
   } catch (e) {
-    logger.errorWithChatBotAlert("failed to monitor balances, check chain", e);
+    logger.errorWithChatBotAlert(`failed to monitor balances, check chain ${e}`);
   }
 };
 
