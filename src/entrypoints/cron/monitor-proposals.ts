@@ -99,11 +99,11 @@ const run = async () => {
       }
     }
   } catch (e) {
-    logger.errorWithChatBotAlert("failed to monitor proposals, check system", e);
+    logger.errorWithChatBotAlert(`failed to monitor proposals, check system ${e}`);
   }
 };
 
 export const MonitorProposals: CronJob = {
-  cronExpression: "10 * * * * *",
+  cronExpression: "/12 * * * *",
   jobFunction: run,
 };

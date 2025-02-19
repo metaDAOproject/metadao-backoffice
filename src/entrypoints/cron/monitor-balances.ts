@@ -10,8 +10,7 @@ import { logger } from "../../utils/logger";
 import { CronJob } from "./cron";
 
 const ANCHOR_PROVIDER_URL = process.env.ANCHOR_PROVIDER_URL ?? "";
-const SIGNER_SECRET = process.env.SIGNER_SECRET ?? "";
-const kp = Keypair.fromSecretKey(Uint8Array.from(JSON.parse(SIGNER_SECRET)));
+const kp = Keypair.generate();
 const wallet = new anchor.Wallet(kp);
 const connection = new Connection(ANCHOR_PROVIDER_URL);
 export const provider = new anchor.AnchorProvider(connection, wallet, {
@@ -21,7 +20,8 @@ anchor.setProvider(provider);
 
 const USDC_MINT = new PublicKey("EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v");
 const token = 'USDC'; // TODO: For future use..
-const expectedBalance = 100_000; // TODO: For future use..
+const mapTreasuryToBalance = new Map<string, number>();
+
 
 const run = async () => {
   const AUTOCRAT_PROGRAM_ID = new PublicKey(
@@ -71,14 +71,28 @@ const run = async () => {
               // TODO: Fix this check, it should know something..
               const balance = tokenAccountBalance?.value?.uiAmount ?? 0;
               if (balance) {
-              logger.log(`treasury ${token} balance: ${balance}`);
-              if (balance < expectedBalance) {
-                  // NOTE: Need to escape the .
-                  // TODO: Write parser for this
-                  logger.errorWithChatBotAlertRich(
-                  `DAO [${proposal.account.dao.toBase58()}](https://explorer\\.solana\\.com/address/${proposal.account.dao.toBase58()}) treasury ${token} balance of [${balance}](https://explorer\\.solana\\.com/address/${treasuryAccount}) is less than expected ${expectedBalance}`
-                  )
-              }
+                logger.log(`treasury ${token} balance: ${balance}`);
+                
+                let expectedBalance = mapTreasuryToBalance.get(treasuryAccount.toString());
+                if (!expectedBalance) {
+                  expectedBalance = balance;
+                  mapTreasuryToBalance.set(treasuryAccount.toString(), balance);
+                } else {
+                  //calculate a moving average of the balance
+                  const amntToAverageOver = 100;
+                  const newAverageBalance = expectedBalance * (amntToAverageOver-1)/amntToAverageOver + balance/amntToAverageOver;
+                  mapTreasuryToBalance.set(treasuryAccount.toString(), newAverageBalance);
+                }
+
+                if (balance < expectedBalance) {
+                    // NOTE: Need to escape the .
+                    // TODO: Write parser for this
+                    logger.errorWithChatBotAlertRich(
+                    `DAO [${proposal.account.dao.toBase58()}](https://explorer\\.solana\\.com/address/${proposal.account.dao.toBase58()}) treasury ${token} balance of [${balance}](https://explorer\\.solana\\.com/address/${treasuryAccount}) is less than expected ${expectedBalance}`
+                    )
+                    //reset the expected balance to the current balance so that we don't alert again unless it steps down again
+                    mapTreasuryToBalance.set(treasuryAccount.toString(), balance);
+                }
               }
           } catch (e) {
               logger.log('Probably has no balance....');
@@ -90,7 +104,7 @@ const run = async () => {
     }
 
   } catch (e) {
-    logger.errorWithChatBotAlert("failed to monitor balances, check chain", e);
+    logger.errorWithChatBotAlert(`failed to monitor balances, check chain ${e}`);
   }
 };
 
