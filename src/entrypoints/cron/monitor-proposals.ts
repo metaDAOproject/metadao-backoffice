@@ -99,7 +99,7 @@ const run = async () => {
       }
     }
   } catch (e) {
-    logger.errorWithChatBotAlert("failed to monitor proposals, check system", e);
+    logger.errorWithChatBotAlert(`failed to monitor proposals, check system ${e}`);
   }
 };
 
